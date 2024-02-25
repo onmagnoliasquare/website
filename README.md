@@ -6,6 +6,16 @@ Monorepo for the On Magnolia Square website.
 
 Our current website exists at a Wordpress host on GoDaddy. We are in the process of moving to Sanity.io for the Content Management System (CMS), and SvelteKit for the frontend.
 
+## Setup
+
+Please first have __yarn__ installed on your computer first before starting development.
+
+Clone the repo. In the root directory run ```yarn```. This will install all necessary files.
+
+To start development for either backend or frontend, run ```yarn dev``` in their respective directories.
+
+Keep in mind that for backend work, one must be signed into the OMS Sanity account to interact with Sanity Studio.
+
 ## Good Habits
 
 Commits in this repository follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). Here's a [ChatGPT chat about what they are](https://chat.openai.com/share/475c34ae-1ce2-47cd-85a9-16045a550011).
