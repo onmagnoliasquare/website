@@ -18,7 +18,13 @@ Keep in mind that for backend work, one must be signed into the OMS Sanity accou
 
 ## Good Habits
 
+### Commits
+
 Commits in this repository follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). Here's a [ChatGPT chat about what they are](https://chat.openai.com/share/475c34ae-1ce2-47cd-85a9-16045a550011).
+
+### Code Attribution
+
+Proper code attribution is to be followed.
 
 ## Technical Specifications
 
@@ -32,4 +38,10 @@ With that being said, Vite does not yet support Yarn pnp, and therefore in the `
 
 ### VS Code
 
-For VS Code, we recommend using the [Svelte Extension](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode)
+Below are VS Code extensions used in this project.
+
+- [Svelte for VS Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode)
+- Sanity.io GROQ extension
+- Code Spell Checker (by Street Side Software)
+- Codeium
+- Prettier
