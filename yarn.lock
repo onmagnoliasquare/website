@@ -2575,7 +2575,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sanity/icons@npm:^2.10.2, @sanity/icons@npm:^2.8.0":
+"@sanity/icons@npm:^2.10.2, @sanity/icons@npm:^2.10.3, @sanity/icons@npm:^2.8.0":
   version: 2.10.3
   resolution: "@sanity/icons@npm:2.10.3"
   peerDependencies:
@@ -9405,6 +9405,8 @@ __metadata:
 "root-workspace-0b6124@workspace:.":
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
+  dependencies:
+    "@sanity/icons": "npm:^2.10.3"
   languageName: unknown
   linkType: soft
 
