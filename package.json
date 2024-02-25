@@ -3,5 +3,8 @@
   "workspaces": [
     "frontend",
     "backend"
-  ]
+  ],
+  "dependencies": {
+    "@sanity/icons": "^2.10.3"
+  }
 }
