@@ -3,6 +3,7 @@ import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
 import {BookIcon, RobotIcon} from '@sanity/icons'
+import {media} from 'sanity-plugin-media'
 
 export default defineConfig([
   {
@@ -16,7 +17,7 @@ export default defineConfig([
     projectId: '1ah7xxlt',
     dataset: 'production',
 
-    plugins: [structureTool()],
+    plugins: [structureTool(), media()],
 
     schema: {
       types: schemaTypes,
@@ -33,7 +34,7 @@ export default defineConfig([
     projectId: '1ah7xxlt',
     dataset: 'development',
 
-    plugins: [structureTool(), visionTool()],
+    plugins: [structureTool(), visionTool(), media()],
 
     schema: {
       types: schemaTypes,
