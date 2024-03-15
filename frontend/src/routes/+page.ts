@@ -1,9 +1,9 @@
-import { getArticles, type Article } from '$lib/sanity';
+import { getArticle, type Article } from '$lib/sanity';
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 
 export const load = (async () => {
-	const article: Article[] = await getArticles();
+	const article: Article = await getArticle('test');
 
 	if (article) {
 		return {

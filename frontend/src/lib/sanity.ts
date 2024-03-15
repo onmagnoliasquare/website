@@ -6,7 +6,7 @@ import groq from 'groq';
 import {
 	PUBLIC_SANITY_DATASET,
 	PUBLIC_SANITY_PROJECT_ID,
-	PUBLIC_DEVELOPER_TOKEN
+	PUBLIC_DEVELOPER_TOKEN // "PUBLIC" is a misnomer. See .env.example for clarification.
 } from '$env/static/public';
 
 if (!PUBLIC_SANITY_PROJECT_ID || !PUBLIC_SANITY_DATASET) {
@@ -37,17 +37,41 @@ if (PUBLIC_SANITY_DATASET == 'production') {
 
 export { client };
 
+/**
+ * getArticles, that is "Article" with an "s" for plural, returns all articles.
+ * This is probably only for testing purposes. This is effectively equivalent
+ * to detonating a nuke on the API.
+ * @returns array of articles.
+ */
 export async function getArticles(): Promise<Article[]> {
 	return await client.fetch(groq`*[_type == "article"] | order(_createdAt desc)`);
 }
 
+/**
+ * getArticle retrieves a single article from a custom query.
+ * @param slug URL slug for an article.
+ * @async uses a Sanity Client to fetch data.
+ */
 export async function getArticle(slug: string): Promise<Article> {
-	return await client.fetch(groq`*[_type == "article" && slug.current == $slug][0]`, {
-		slug
-	});
+	return await client.fetch(
+		groq`*[_type == "article" && slug.current == $slug][0]{
+			title,
+			subtitle,
+			date,
+			content,
+			// The arrow is a dereferencing operator. It is used to follow references. In this case,
+			// we are following the author reference and only retrieving the name field from it.
+			// See https://medium.com/@imvinojanv/understanding-groq-how-queries-work-9ea37dee749a.
+			authors[]->{name},
+			category->{name}
+	}`,
+		{
+			slug
+		}
+	);
 }
 
-export interface Author {
+export interface Member {
 	_type: 'member';
 	name: string;
 	year: number;
@@ -65,6 +89,6 @@ export interface Article {
 	date: string;
 	slug: Slug;
 	mainImage?: ImageAsset;
-	authors: Author[];
+	authors: Member[];
 	content: PortableTextBlock[];
 }
