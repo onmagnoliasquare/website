@@ -2294,6 +2294,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@portabletext/svelte@npm:^2.1.5":
+  version: 2.1.5
+  resolution: "@portabletext/svelte@npm:2.1.5"
+  dependencies:
+    "@portabletext/toolkit": "npm:^2.0.10"
+  peerDependencies:
+    svelte: ">=3.47.0 <5.0.0"
+  checksum: 10c0/9634657960e6c82cdd7c1f5141842d40ec4c61340147f67ee99c7dac61d6ee71bb2b0093875de53cc9a2cbfd88b3f2f2e09bd68657304c86ceecc79395b741d4
+  languageName: node
+  linkType: hard
+
 "@portabletext/toolkit@npm:^2.0.10":
   version: 2.0.10
   resolution: "@portabletext/toolkit@npm:2.0.10"
@@ -5991,6 +6002,7 @@ __metadata:
   resolution: "frontend@workspace:frontend"
   dependencies:
     "@playwright/test": "npm:^1.28.1"
+    "@portabletext/svelte": "npm:^2.1.5"
     "@sanity/client": "npm:^6.15.3"
     "@sveltejs/adapter-auto": "npm:^3.0.0"
     "@sveltejs/kit": "npm:^2.5.4"
