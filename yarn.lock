@@ -2850,9 +2850,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sveltejs/kit@npm:^2.0.0":
-  version: 2.5.1
-  resolution: "@sveltejs/kit@npm:2.5.1"
+"@sveltejs/kit@npm:^2.5.4":
+  version: 2.5.4
+  resolution: "@sveltejs/kit@npm:2.5.4"
   dependencies:
     "@types/cookie": "npm:^0.6.0"
     cookie: "npm:^0.6.0"
@@ -2872,7 +2872,7 @@ __metadata:
     vite: ^5.0.3
   bin:
     svelte-kit: svelte-kit.js
-  checksum: 10c0/9f7c7ff60f349a35900b9b056bd67f90a5a1348322b775c4880d2e6a0d0a358d0a7e4b79735f7b6cbcf71cb58ac30cb21e201c6ff49c00542f4b715a5f274615
+  checksum: 10c0/b694d341d773cfad884562ba3f3e92468560fd6110039942f54bfe1888a72e2e182506d0554a757d76e2d58e7159448c67c04765a7309d021670e5bbf474f96a
   languageName: node
   linkType: hard
 
@@ -5993,7 +5993,7 @@ __metadata:
     "@playwright/test": "npm:^1.28.1"
     "@sanity/client": "npm:^6.15.3"
     "@sveltejs/adapter-auto": "npm:^3.0.0"
-    "@sveltejs/kit": "npm:^2.0.0"
+    "@sveltejs/kit": "npm:^2.5.4"
     "@sveltejs/vite-plugin-svelte": "npm:^3.0.2"
     "@types/eslint": "npm:^8.56.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.0.0"
@@ -6001,6 +6001,7 @@ __metadata:
     eslint: "npm:^8.56.0"
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-svelte: "npm:^2.35.1"
+    groq: "npm:^3.34.0"
     prettier: "npm:^3.1.1"
     prettier-plugin-svelte: "npm:^3.1.2"
     svelte: "npm:^4.2.7"
@@ -6430,6 +6431,13 @@ __metadata:
   version: 1.4.3
   resolution: "groq-js@npm:1.4.3"
   checksum: 10c0/63b4d050f49ad5f246a9cd749160505241c230129a6dcd17f7c29c69b88544603783c089fbc378dd8fa2943413a158868e60f0cc0fe91ab4241f40d5c2cfd836
+  languageName: node
+  linkType: hard
+
+"groq@npm:^3.34.0":
+  version: 3.34.0
+  resolution: "groq@npm:3.34.0"
+  checksum: 10c0/c16b4657e75154ae18557b62f053e07500c5ba49a7e2b476aac3bd5f616bcaed7990deffbd46b536680782b892fcdbbfdedf48e9a08cb30f10c25a1d35f0a055
   languageName: node
   linkType: hard
 
