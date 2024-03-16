@@ -17,4 +17,5 @@ frontend/package
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
+# JetBrains IDE
 .idea
