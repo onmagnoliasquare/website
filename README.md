@@ -10,7 +10,25 @@ Our current website exists at a Wordpress host on GoDaddy. We are in the process
 
 Please first have __yarn__ installed on your computer first before starting development.
 
-Clone the repo. In the root directory run ```yarn```. This will install all necessary files.
+### MacOS
+
+If you're using MacOS the brew package ```corepack``` is needed. Corepack ships with Node, but zsh does not find this linkage in the shell. Therefore, since we are using brew, corepack can be installed with:
+
+```brew install corepack```
+
+Brew may error and say that you must remove the symlink for ```yarn``` if you used brew to install yarn. Do not fret, run this command:
+
+```brew unlink yarn```
+
+Then, rerun ```brew install corepack```.
+
+Now, run ```corepack enable```. This will enable corepack globally. Optionally, one can run ```corepack install --global yarn@stable``` to install the latest yarn version globally using corepack.
+
+To set the yarn version in the frontend directory, first ```cd frontend``` then ```corepack use yarn@v```, where ```v``` is the version you want to set. In this project, we are using stable, so the command would be ```corepack use yarn@stable```.
+
+## Development
+
+In the root directory on this repository, run ```yarn```. This will install all necessary files.
 
 To start development for either backend or frontend, run ```yarn dev``` in their respective directories.
 
