@@ -3,13 +3,9 @@ import { SanityClient, createClient } from '@sanity/client';
 import type { ImageAsset, Slug } from '@sanity/types';
 import groq from 'groq';
 
-import {
-	PUBLIC_SANITY_DATASET,
-	PUBLIC_SANITY_PROJECT_ID,
-	PUBLIC_DEVELOPER_TOKEN // "PUBLIC" is a misnomer. See .env.example for clarification.
-} from '$env/static/public';
+import { SANITY_DATASET, SANITY_PROJECT_ID, DEVELOPER_TOKEN } from '$env/static/private';
 
-if (!PUBLIC_SANITY_PROJECT_ID || !PUBLIC_SANITY_DATASET) {
+if (!SANITY_PROJECT_ID || !SANITY_DATASET) {
 	throw new Error('Did you forget to run yarn sanity init --env?');
 }
 
@@ -18,20 +14,20 @@ let client: SanityClient;
 /**
  * Depending on the environment, either use or don't use the DEVELOPER token.
  */
-if (PUBLIC_SANITY_DATASET == 'production') {
+if (SANITY_DATASET == 'production') {
 	client = createClient({
-		projectId: PUBLIC_SANITY_PROJECT_ID,
-		dataset: PUBLIC_SANITY_DATASET,
+		projectId: SANITY_PROJECT_ID,
+		dataset: SANITY_DATASET,
 		useCdn: true,
 		apiVersion: '2024-03-15'
 	});
 } else {
 	client = createClient({
-		projectId: PUBLIC_SANITY_PROJECT_ID,
-		dataset: PUBLIC_SANITY_DATASET,
+		projectId: SANITY_PROJECT_ID,
+		dataset: SANITY_DATASET,
 		useCdn: true,
 		apiVersion: '2024-03-15',
-		token: PUBLIC_DEVELOPER_TOKEN // A token field is required to access private datasets.
+		token: DEVELOPER_TOKEN // A token field is required to access private datasets.
 	});
 }
 
