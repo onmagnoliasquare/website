@@ -6,7 +6,7 @@ import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load = (async () => {
-	const article: Article = await getArticle('test');
+	const article: Article = await getArticle('first-post-on-the-new-website');
 
 	if (article) {
 		return {
