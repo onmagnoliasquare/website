@@ -4,6 +4,9 @@
     "frontend",
     "backend"
   ],
+  "scripts": {
+    "build": "cd frontend && yarn build"
+  },
   "dependencies": {
     "@sanity/client": "^6.15.3",
     "@sanity/icons": "^2.10.3"
