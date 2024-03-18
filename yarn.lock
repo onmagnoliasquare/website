@@ -2680,6 +2680,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sanity/color@npm:^2.2.5":
+  version: 2.2.5
+  resolution: "@sanity/color@npm:2.2.5"
+  checksum: 10c0/acc62ec3b51a114495ab693da2dbab649e143ed7425c5045e8c5ce19988140a67e8d9b4b416ecfd755e957c120bb265d03543f7db9a4aea4653c1f7339d760aa
+  languageName: node
+  linkType: hard
+
 "@sanity/color@npm:^3.0.0":
   version: 3.0.0
   resolution: "@sanity/color@npm:3.0.0"
@@ -6810,7 +6817,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"groq@npm:^3.34.0":
+"groq@npm:^3.0.0, groq@npm:^3.34.0":
   version: 3.34.0
   resolution: "groq@npm:3.34.0"
   checksum: 10c0/c16b4657e75154ae18557b62f053e07500c5ba49a7e2b476aac3bd5f616bcaed7990deffbd46b536680782b892fcdbbfdedf48e9a08cb30f10c25a1d35f0a055
