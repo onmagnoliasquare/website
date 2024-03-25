@@ -43,6 +43,20 @@ export async function getArticles(): Promise<Article[]> {
 	return await client.fetch(groq`*[_type == "article"] | order(_createdAt desc)`);
 }
 
+export async function getArticlesFrom(category: string): Promise<Article[]> {
+	return await client.fetch(
+		groq`*[_type == "article" && category->slug.current == $category]{
+			title,
+			subtitle,
+			date,
+			authors[]->{name},
+			slug
+		}`,
+		{
+			category
+		})
+}
+
 /**
  * getArticle retrieves a single article from a custom query.
  * @param slug URL slug for an article.
@@ -60,7 +74,7 @@ export async function getArticle(slug: string): Promise<Article> {
 			// See https://medium.com/@imvinojanv/understanding-groq-how-queries-work-9ea37dee749a.
 			authors[]->{name},
 			category->{name}
-	}`,
+		}`,
 		{
 			slug
 		}
