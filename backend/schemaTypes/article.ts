@@ -40,6 +40,7 @@ export default defineType({
       type: 'date',
       options: {
         dateFormat: 'YYYY-MM-DD',
+        //@ts-ignore - ignore TS(2353)
         calendarTodayLabel: 'Today',
       },
       validation: (rule) => rule.required(),
@@ -61,7 +62,7 @@ export default defineType({
       name: 'category',
       title: 'Category',
       type: 'reference',
-      //@ts-ignore
+      //@ts-ignore - TS(2353)
       to: [{type: 'category'}],
       options: {disableNew: true},
     }),
