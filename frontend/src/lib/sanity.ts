@@ -66,6 +66,7 @@ export async function getOneArticleFrom(category: string, slug: string): Promise
 			date,
 			content,
 			authors[]->{name},
+			tags[]->{name}
 		}`,
 		{
 			slug,
@@ -107,6 +108,12 @@ export interface Member {
 	portrait: ImageAsset;
 }
 
+export interface Tag {
+	_type: 'tag';
+	_createdAt: string;
+	name: string;
+}
+
 export interface Article {
 	_type: 'post';
 	_createdAt: string;
@@ -115,6 +122,7 @@ export interface Article {
 	abstract?: string;
 	date: string;
 	slug: Slug;
+	tags: Tag[];
 	mainImage?: ImageAsset;
 	authors: Member[];
 	content: PortableTextBlock[];
