@@ -6,7 +6,7 @@
 <ul>
    {#each data.articles as article}
     <li>
-        <a href={`/category/people/${article.slug.current}`} target="_self">
+        <a href={`/category/${data.category}/${article.slug.current}`} target="_self">
             <h2>{article.title}</h2>
             <h3>{article.subtitle}</h3>
             <h4>{article.date} {article.authors}</h4>

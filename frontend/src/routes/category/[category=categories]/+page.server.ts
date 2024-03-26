@@ -8,7 +8,8 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 
 	if (articles) {
 		return {
-			articles
+			articles,
+			category
 		};
 	}
 
