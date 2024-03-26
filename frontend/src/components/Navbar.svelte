@@ -5,12 +5,12 @@
 <nav>
     <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/news">News</a></li>
-        <li><a href="/opinion">Opinion</a></li>
-        <li><a href="/people">People</a></li>
-        <li><a href="/culture">Culture</a></li>
-        <li><a href="/professors">Professors</a></li>
-        <li><a href="/multimedia">Multimedia</a></li>
+        <li><a href="/category/news">News</a></li>
+        <li><a href="/category/opinion">Opinion</a></li>
+        <li><a href="/category/people">People</a></li>
+        <li><a href="/category/culture">Culture</a></li>
+        <li><a href="/category/professors">Professors</a></li>
+        <li><a href="/category/multimedia">Multimedia</a></li>
         <li><a href="/series">Series</a></li>
         <li><a href="/about">About</a></li>
     </ul>

@@ -54,7 +54,24 @@ export async function getArticlesFrom(category: string): Promise<Article[]> {
 		}`,
 		{
 			category
-		})
+		}
+	);
+}
+
+export async function getOneArticleFrom(category: string, slug: string): Promise<Article> {
+	return await client.fetch(
+		groq`*[_type == "article" && category->slug.current == $category && slug.current == $slug][0]{
+			title,
+			subtitle,
+			date,
+			content,
+			authors[]->{name},
+		}`,
+		{
+			slug,
+			category
+		}
+	);
 }
 
 /**
