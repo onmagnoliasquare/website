@@ -43,9 +43,9 @@ export async function getArticles(): Promise<Article[]> {
 	return await client.fetch(groq`*[_type == "article"] | order(_createdAt desc)`);
 }
 
-export async function getArticlesFrom(category: string): Promise<Article[]> {
+export async function getArticlesFrom(where: string, what: string): Promise<Article[]> {
 	return await client.fetch(
-		groq`*[_type == "article" && category->slug.current == $category]{
+		groq`*[_type == "article" && $where->slug.current == $what]{
 			title,
 			subtitle,
 			date,
@@ -53,14 +53,15 @@ export async function getArticlesFrom(category: string): Promise<Article[]> {
 			slug
 		}`,
 		{
-			category
+			where,
+			what
 		}
 	);
 }
 
-export async function getOneArticleFrom(category: string, slug: string): Promise<Article> {
+export async function getOneArticleFrom(where: string, what: string): Promise<Article> {
 	return await client.fetch(
-		groq`*[_type == "article" && category->slug.current == $category && slug.current == $slug][0]{
+		groq`*[_type == "article" && $where->slug.current == $where && slug.current == $what][0]{
 			title,
 			subtitle,
 			date,
@@ -69,8 +70,8 @@ export async function getOneArticleFrom(category: string, slug: string): Promise
 			tags[]->{name}
 		}`,
 		{
-			slug,
-			category
+			where,
+			what
 		}
 	);
 }
@@ -99,6 +100,24 @@ export async function getArticle(slug: string): Promise<Article> {
 	);
 }
 
+/**
+ * getTags gets multiple tags from the database.
+ * TODO sort alphabetically on retrieval.
+ * @param n integer for the amount of tags to retrieve.
+ * @asnyc uses a Sanity Client to fetch data.
+ */
+export async function getTags(n: number): Promise<Tag[]> {
+	return await client.fetch(
+		groq`*[_type == "tag" 0..$n]{
+		  name,
+			slug
+		}`,
+		{
+			n
+		}
+	);
+}
+
 export interface Member {
 	_type: 'member';
 	name: string;
@@ -112,6 +131,7 @@ export interface Tag {
 	_type: 'tag';
 	_createdAt: string;
 	name: string;
+	slug: string;
 }
 
 export interface Article {
