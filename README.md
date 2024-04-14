@@ -44,6 +44,16 @@ Commits in this repository follow [Conventional Commits](https://www.conventiona
 
 Proper code attribution is to be followed.
 
+### Branching
+
+The main branch is `dev`. The production branch is `main`. The deployment pipeline is as follows:
+
+`dev` to `staging` then finally to `main`.
+
+Staging is a pre-release branch. This is where we test the dataset against any new releasable changes from dev.
+
+This pipeline is enforced by the GitHub actions labeled `enforcer-`.
+
 ## Technical Specifications
 
 ### Yarn
