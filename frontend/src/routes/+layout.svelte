@@ -1,6 +1,7 @@
-<script>
-	import '../normalize.css'
-	import Navbar from "../components/Navbar.svelte";
+<script lang="ts">
+	import '../styles/onmagnoliasquare.css';
+	import '../styles/fonts.css';
+	import { Navbar } from '$lib';
 </script>
 
 <!-- This is the main layout for the entire website. -->
