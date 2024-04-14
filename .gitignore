@@ -19,3 +19,6 @@ vite.config.ts.timestamp-*
 
 # JetBrains IDE
 .idea
+
+# frontend
+frontend/src/styles/onmagnoliasquare.css
