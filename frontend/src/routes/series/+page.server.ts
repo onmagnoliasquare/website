@@ -1,13 +1,13 @@
 import { error } from '@sveltejs/kit';
-import { getTags, type Tag } from '$lib/sanity';
+import { getSeriesList, type Series } from '$lib/sanity';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = (async () => {
-	const tags: Tag[] = await getTags();
+	const series: Series[] = await getSeriesList();
 
-	if (tags) {
+	if (series) {
 		return {
-			tags
+			series
 		};
 	}
 

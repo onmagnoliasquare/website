@@ -1,25 +1,38 @@
 <script lang="ts">
 	import { PortableText } from '@portabletext/svelte';
 	import type { PageData } from './$types';
-	import { customComponents } from '$lib/components';
-	import SingleArticleBlock from '../../../../components/portabletext/SingleArticleBlock.svelte';
+	import { ArticleHardBreak, SingleArticleBlock } from '$lib';
+	import { dateFormatter } from '$lib/helpers.js';
 
 	export let data: PageData;
 </script>
 
-<h1>{data.article.title}</h1>
-{#if data.article.subtitle}
-	<h2>{data.article.subtitle}</h2>
-{/if}
-<ul>
-	<li>{data.article.date}</li>
-	<li>{data.article.authors[0].name}</li>
-</ul>
+<div class="titling">
+	<h1>{data.article.title}</h1>
+	{#if data.article.subtitle}
+		<h2>{data.article.subtitle}</h2>
+	{/if}
+
+	<ul style="display: inline;">
+		<li style="display: inline;"><h4>by {data.article.authors[0].name}</h4></li>
+		<li style="display: inline;"><date><h3>{dateFormatter(data.article.date)}</h3></date></li>
+	</ul>
+</div>
 
 <article>
 	<PortableText
 		components={{
-			block: SingleArticleBlock
+			block: {
+				blockquote: SingleArticleBlock,
+				h1: SingleArticleBlock,
+				h2: SingleArticleBlock,
+				h3: SingleArticleBlock,
+				h4: SingleArticleBlock,
+				h5: SingleArticleBlock,
+				h6: SingleArticleBlock,
+				normal: SingleArticleBlock
+			},
+			hardBreak: ArticleHardBreak
 		}}
 		value={data.article.content}
 	/>
@@ -48,6 +61,12 @@
 		/* text-align: justify; */
 	}
 
+	.titling {
+		max-width: 900px;
+		margin: 0 auto;
+		width: 100%;
+	}
+
 	h1 {
 		margin: 0 auto;
 		width: 100%;
@@ -60,22 +79,34 @@
 
 	h2 {
 		margin: 0 auto;
+		max-width: 720px;
 		width: 100%;
-		font-size: 3.8125rem;
+		font-size: 41px;
 		letter-spacing: -0.1525rem;
-		font-weight: 300;
+		font-weight: 400;
 		font-variation-settings: 'wdth' 100;
-		font-family: 'Noto Serif Regular';
+		font-family: 'Noto Serif Italic';
 	}
 
 	h3 {
 		margin: 0 auto;
 		width: 100%;
-		font-size: 8.5625rem;
+		font-size: 41px;
 		letter-spacing: -0.1525rem;
-		font-weight: 300;
+		font-weight: 100;
 		line-height: 96%;
 		font-variation-settings: 'wdth' 88;
 		font-family: 'Noto Serif Regular';
+	}
+
+	h4 {
+		margin: 0 auto;
+		width: 100%;
+		font-size: 27px;
+		/*letter-spacing: -0.1525rem;*/
+		font-weight: 500;
+		line-height: 96%;
+		/*font-variation-settings: 'wdth' ;*/
+		font-family: 'Regular';
 	}
 </style>

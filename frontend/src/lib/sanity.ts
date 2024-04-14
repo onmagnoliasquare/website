@@ -37,12 +37,22 @@ export { client };
  * getArticles, that is "Article" with an "s" for plural, returns all articles.
  * This is probably only for testing purposes. This is effectively equivalent
  * to detonating a nuke on the API.
- * @returns array of articles.
+ * @returns `Promise<Article[]>`
+ * @async
  */
 export async function getArticles(): Promise<Article[]> {
 	return await client.fetch(groq`*[_type == "article"] | order(_createdAt desc)`);
 }
 
+/**
+ * getArticlesFrom retrieves articles from a certain top-level route, such as a
+ * category, series, or tag, and by "what" distinction, whether it be the category
+ * name, series name, or tag name.
+ * @param where - top-level route.
+ * @param what - what to retrieve from the top-level route route.
+ * @returns `Promise<Article[]>`
+ * @async
+ */
 export async function getArticlesFrom(where: string, what: string): Promise<Article[]> {
 	return await client.fetch(
 		groq`*[_type == "article" && $where->slug.current == $what]{
@@ -59,6 +69,124 @@ export async function getArticlesFrom(where: string, what: string): Promise<Arti
 	);
 }
 
+/**
+ * getArticlesFromCategory from a certain category.
+ * @param name - category name.
+ * @param n - number of articles to query for.
+ * @returns `Promise<Article[]>`
+ * @async
+ */
+export async function getArticlesFromCategory(name: string, n?: number): Promise<Article[]> {
+	if (!n) {
+		return await client.fetch(
+			groq`*[_type == "article" && category->slug.current == $name]{
+				title,
+				subtitle,
+				date,
+				authors[]->{name},
+				slug
+			}`,
+			{
+				name
+			}
+		);
+	} else {
+		// run n-based, paginated query here.
+		return await client.fetch(
+			groq`*[_type == "article" && category->slug.current == $name]{
+				title,
+				subtitle,
+				date,
+				authors[]->{name},
+				slug
+			}`,
+			{
+				name
+			}
+		);
+	}
+}
+
+/**
+ * getSeriesList retrieves a list of series.
+ * @param n - number of series to retrieve.
+ * @returns `Promise<Series[]>`
+ * @async
+ */
+export async function getSeriesList(n?: number): Promise<Series[]> {
+	if (!n) {
+		return await client.fetch(
+			groq`*[_type == "series"]{
+				title,
+				subtitle,
+				date,
+				authors[]->{name},
+				slug
+			}`
+		);
+	} else {
+		// run n-based, paginated query here.
+		return await client.fetch(
+			groq`*[_type == "article"]{
+				title,
+				subtitle,
+				date,
+				authors[]->{name},
+				slug
+			}`,
+			{
+				n
+			}
+		);
+	}
+}
+
+/**
+ * getArticlesFromSeries from a certain series.
+ * @param name - series name.
+ * @param n - number of articles to query for.
+ * @returns `Promise<Article[]>`
+ * @async
+ */
+export async function getArticlesFromSeries(name: string, n?: number): Promise<Article[]> {
+	if (!n) {
+		return await client.fetch(
+			groq`*[_type == "article" && series->slug.current == $name]{
+				title,
+				subtitle,
+				date,
+				authors[]->{name},
+				slug
+			}`,
+			{
+				name
+			}
+		);
+	} else {
+		// run n-based, paginated query here.
+		return await client.fetch(
+			groq`*[_type == "article" && series->slug.current == $name]{
+				title,
+				subtitle,
+				date,
+				authors[]->{name},
+				slug
+			}`,
+			{
+				name,
+				n
+			}
+		);
+	}
+}
+
+/**
+ * getOneArticleFrom uses a top-level route and a unique slug to retrieve a single article.
+ * @param where - top-level route.
+ * @param what - what to retrieve from the top-level route.
+ * @returns `Promise<Article>`
+ * @async
+ */
 export async function getOneArticleFrom(where: string, what: string): Promise<Article> {
 	return await client.fetch(
 		groq`*[_type == "article" && $where->slug.current == $where && slug.current == $what][0]{
@@ -76,8 +204,42 @@ export async function getOneArticleFrom(where: string, what: string): Promise<Ar
 	);
 }
 
+export async function getOneArticleFromCategory(where: string, what: string): Promise<Article> {
+	return await client.fetch(
+		groq`*[_type == "article" && category->slug.current == $where && slug.current == $what][0]{
+			title,
+			subtitle,
+			date,
+			content,
+			authors[]->{name},
+			tags[]->{name}
+		}`,
+		{
+			where,
+			what
+		}
+	);
+}
+
+export async function getOneArticleFromSeries(where: string, what: string): Promise<Article> {
+	return await client.fetch(
+		groq`*[_type == "article" && series->slug.current == $where && slug.current == $what][0]{
+			title,
+			subtitle,
+			date,
+			content,
+			authors[]->{name},
+			tags[]->{name}
+		}`,
+		{
+			where,
+			what
+		}
+	);
+}
+
 /**
- * getArticle retrieves a single article from a custom query.
+ * getArticle retrieves a single article from a single slug query.
  * @param slug URL slug for an article.
  * @async uses a Sanity Client to fetch data.
  */
@@ -104,18 +266,28 @@ export async function getArticle(slug: string): Promise<Article> {
  * getTags gets multiple tags from the database.
  * TODO sort alphabetically on retrieval.
  * @param n integer for the amount of tags to retrieve.
- * @asnyc uses a Sanity Client to fetch data.
+ * @async uses a Sanity Client to fetch data.
  */
-export async function getTags(n: number): Promise<Tag[]> {
-	return await client.fetch(
-		groq`*[_type == "tag" 0..$n]{
-		  name,
-			slug
-		}`,
-		{
-			n
-		}
-	);
+export async function getTags(n?: number): Promise<Tag[]> {
+	if (!n) {
+		return await client.fetch(
+			groq`*[_type == "tag"]{
+			  name,
+				slug
+			}`
+		);
+	} else {
+		// run n-based, paginated query here.
+		return await client.fetch(
+			groq`*[_type == "tag"]{
+			  name,
+				slug
+			}`,
+			{
+				n
+			}
+		);
+	}
 }
 
 export interface Member {
@@ -132,6 +304,14 @@ export interface Tag {
 	_createdAt: string;
 	name: string;
 	slug: string;
+}
+
+export interface Series {
+	_type: 'series';
+	_createdAd: string;
+	name: string;
+	slug: string;
+	// TODO Add more fields to series
 }
 
 export interface Article {
