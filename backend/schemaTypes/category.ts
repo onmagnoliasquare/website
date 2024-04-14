@@ -1,5 +1,6 @@
 import {FolderIcon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
+import slugValidator from '../lib/slugValidator'
 
 /**
  * A category defines the navbar headings on the website. It also defines their
@@ -26,7 +27,7 @@ export default defineType({
       options: {
         source: 'title',
         maxLength: 200,
-        slugify: (input: string) => input.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
+        slugify: (input: string) => slugValidator(input),
       },
       validation: (rule) => rule.required(),
     }),
