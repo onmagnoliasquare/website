@@ -4,4 +4,7 @@
  * https://www.sanity.io/docs/portable-text-to-react#customizing-components
  */
 
-export const customComponents = {};
+import ArticleHardBreak from '../components/portabletext/ArticleHardBreak.svelte';
+import SingleArticleBlock from '../components/portabletext/SingleArticleBlock.svelte';
+
+export const customComponents = { ArticleHardBreak, SingleArticleBlock };
