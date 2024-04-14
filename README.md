@@ -63,3 +63,15 @@ Below are VS Code extensions used in this project.
 - Code Spell Checker (by Street Side Software)
 - Codeium
 - Prettier
+
+---
+
+## Development
+
+### Route Enforcement
+
+To enforce categories and routes, we are using ```src/params``` to enforce only certain route categories. This is an example of the [Route Matching](https://kit.svelte.dev/docs/advanced-routing#matching) and [Route Rest Parameters](https://kit.svelte.dev/docs/advanced-routing#rest-parameters) of SvelteKit.
+
+### Page Server Loading
+
+[Load Server Page for Sanity](https://kit.svelte.dev/docs/load#page-data)

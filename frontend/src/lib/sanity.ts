@@ -43,6 +43,39 @@ export async function getArticles(): Promise<Article[]> {
 	return await client.fetch(groq`*[_type == "article"] | order(_createdAt desc)`);
 }
 
+export async function getArticlesFrom(where: string, what: string): Promise<Article[]> {
+	return await client.fetch(
+		groq`*[_type == "article" && $where->slug.current == $what]{
+			title,
+			subtitle,
+			date,
+			authors[]->{name},
+			slug
+		}`,
+		{
+			where,
+			what
+		}
+	);
+}
+
+export async function getOneArticleFrom(where: string, what: string): Promise<Article> {
+	return await client.fetch(
+		groq`*[_type == "article" && $where->slug.current == $where && slug.current == $what][0]{
+			title,
+			subtitle,
+			date,
+			content,
+			authors[]->{name},
+			tags[]->{name}
+		}`,
+		{
+			where,
+			what
+		}
+	);
+}
+
 /**
  * getArticle retrieves a single article from a custom query.
  * @param slug URL slug for an article.
@@ -60,9 +93,27 @@ export async function getArticle(slug: string): Promise<Article> {
 			// See https://medium.com/@imvinojanv/understanding-groq-how-queries-work-9ea37dee749a.
 			authors[]->{name},
 			category->{name}
-	}`,
+		}`,
 		{
 			slug
+		}
+	);
+}
+
+/**
+ * getTags gets multiple tags from the database.
+ * TODO sort alphabetically on retrieval.
+ * @param n integer for the amount of tags to retrieve.
+ * @asnyc uses a Sanity Client to fetch data.
+ */
+export async function getTags(n: number): Promise<Tag[]> {
+	return await client.fetch(
+		groq`*[_type == "tag" 0..$n]{
+		  name,
+			slug
+		}`,
+		{
+			n
 		}
 	);
 }
@@ -76,6 +127,13 @@ export interface Member {
 	portrait: ImageAsset;
 }
 
+export interface Tag {
+	_type: 'tag';
+	_createdAt: string;
+	name: string;
+	slug: string;
+}
+
 export interface Article {
 	_type: 'post';
 	_createdAt: string;
@@ -84,6 +142,7 @@ export interface Article {
 	abstract?: string;
 	date: string;
 	slug: Slug;
+	tags: Tag[];
 	mainImage?: ImageAsset;
 	authors: Member[];
 	content: PortableTextBlock[];

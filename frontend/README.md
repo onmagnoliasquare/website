@@ -1,38 +1,35 @@
-# create-svelte
-
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+# Frontend
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+Run `yarn dev` in this directory to start a development server.
 
 ## Building
 
 To create a production version of your app:
 
-```bash
-npm run build
-```
-
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+## Common Issues
+
+Sometimes during development or build, there may be an error where './$types' is an import that cannot be found. Do not fret. In the directory of this project, type:
+
+`yarn check`
+
+This will run a check and take note of all files in the directory to import to. The error should go away now.
+
+## Architecture
+
+Every post must have a tag and a category.
+
+A series takes precedence over a category, a category takes precedence over a tag.
+
+A post can be labeled under a category and have a series, but it will always redirect to the `series` slug.
+
+A post can be labeled under a category and have a tag, but it will always redirect to the `category` slug.
+
+A post can be labeled under a category, have a tag, and have a series, but it will always redirect to the `series` slug.
+
+A post that has a category or a series accessed from a URL using the `tag/[name]` format will redirect to the category or series slug. *this will need to be added soon!*
