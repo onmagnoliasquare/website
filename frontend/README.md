@@ -22,7 +22,7 @@ This will run a check and take note of all files in the directory to import to. 
 
 ## Architecture
 
-Every post must have a tag.
+Every post must have a tag and a category.
 
 A series takes precedence over a category, a category takes precedence over a tag.
 
@@ -32,4 +32,4 @@ A post can be labeled under a category and have a tag, but it will always redire
 
 A post can be labeled under a category, have a tag, and have a series, but it will always redirect to the `series` slug.
 
-A post that has a category or a series accessed from a URL using the `tag/[name]` format will redirect to the category or series slug.
+A post that has a category or a series accessed from a URL using the `tag/[name]` format will redirect to the category or series slug. *this will need to be added soon!*
