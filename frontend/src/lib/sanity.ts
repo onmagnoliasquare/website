@@ -266,10 +266,9 @@ export async function getArticle(slug: string): Promise<Article> {
 export async function getArticleToValidate(slug: string): Promise<Article> {
 	return await client.fetch(
 		groq`*[_type == "article" && slug.current == $slug][0]{
-			authors[]->{name},
-			category->{name},
-			series->{name},
-			tags->{name}
+			category->{slug},
+			series->{slug},
+			tags[]->{slug}
 		}`,
 		{
 			slug
@@ -288,7 +287,7 @@ export async function getTags(n?: number): Promise<Tag[]> {
 		return await client.fetch(
 			groq`*[_type == "tag"]{
 			  name,
-				slug
+			slug
 			}`
 		);
 	} else {
@@ -341,14 +340,14 @@ export interface Tag {
 	_type: 'tag';
 	_createdAt: string;
 	name: string;
-	slug: string;
+	slug: Slug;
 }
 
 export interface Series {
 	_type: 'series';
 	_createdAt: string;
 	name: string;
-	slug: string;
+	slug: Slug;
 	description: string;
 	// TODO Add more fields to series
 }
@@ -357,7 +356,7 @@ export interface Category {
 	_type: 'category';
 	_createdAt: string;
 	name: string;
-	slug: string;
+	slug: Slug;
 	description: string;
 }
 
