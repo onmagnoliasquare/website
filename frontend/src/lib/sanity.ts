@@ -254,7 +254,22 @@ export async function getArticle(slug: string): Promise<Article> {
 			// we are following the author reference and only retrieving the name field from it.
 			// See https://medium.com/@imvinojanv/understanding-groq-how-queries-work-9ea37dee749a.
 			authors[]->{name},
-			category->{name}
+			category->{name},
+			tags->{name}
+		}`,
+		{
+			slug
+		}
+	);
+}
+
+export async function getArticleToValidate(slug: string): Promise<Article> {
+	return await client.fetch(
+		groq`*[_type == "article" && slug.current == $slug][0]{
+			authors[]->{name},
+			category->{name},
+			series->{name},
+			tags->{name}
 		}`,
 		{
 			slug
@@ -290,6 +305,29 @@ export async function getTags(n?: number): Promise<Tag[]> {
 	}
 }
 
+export async function getOneTag(what: string): Promise<Tag> {
+	return await client.fetch(
+		groq`*[_type == "tag" && tag->slug.current == $what][0]{
+			name,
+			slug
+		}`,
+		{
+			what
+		}
+	);
+}
+
+export async function getArticleTags(slug: string): Promise<Article> {
+	return await client.fetch(
+		groq`*[_type == "article" && slug.current == $slug][0]{
+			tags->{slug}
+		}`,
+		{
+			slug
+		}
+	);
+}
+
 export interface Member {
 	_type: 'member';
 	name: string;
@@ -308,10 +346,19 @@ export interface Tag {
 
 export interface Series {
 	_type: 'series';
-	_createdAd: string;
+	_createdAt: string;
 	name: string;
 	slug: string;
+	description: string;
 	// TODO Add more fields to series
+}
+
+export interface Category {
+	_type: 'category';
+	_createdAt: string;
+	name: string;
+	slug: string;
+	description: string;
 }
 
 export interface Article {
@@ -322,6 +369,8 @@ export interface Article {
 	abstract?: string;
 	date: string;
 	slug: Slug;
+	series: Series;
+	category: Category;
 	tags: Tag[];
 	mainImage?: ImageAsset;
 	authors: Member[];
