@@ -65,6 +65,17 @@ export default defineType({
       //@ts-ignore - TS(2353)
       to: [{type: 'category'}],
       options: {disableNew: true},
+      validation: (rule) => rule.required(),
+    }),
+
+    defineField({
+      name: 'series',
+      title: 'Series',
+      description: 'Series of this article',
+      type: 'reference',
+      //@ts-ignore - TS(2353)
+      to: [{type: 'series'}],
+      options: {disableNew: true},
     }),
 
     defineField({
