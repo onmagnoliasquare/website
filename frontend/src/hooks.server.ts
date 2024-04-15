@@ -21,6 +21,7 @@ const redirectHome: Handle = async ({ event, resolve }) => {
 	const isHome = event.url.pathname.startsWith('/home');
 	if (isHome) {
 		if (SANITY_DATASET !== 'production') {
+			console.log('redirecting /home to /');
 		}
 		throw redirect(301, '/');
 	}
@@ -70,6 +71,14 @@ const redirectTag: Handle = async ({ event, resolve }) => {
 		}
 
 		// Respond with a category redirect.
+		const categoryPath = `/category/${article.category.slug.current}/${pathArticleSlug}`;
+		if (SANITY_DATASET !== 'production') {
+			const out = `tag URL redirecting...
+	from: ${event.url.pathname}
+	to:   ${categoryPath}
+			`;
+			console.log(out);
+		}
 
 		throw redirect(302, categoryPath);
 	}
