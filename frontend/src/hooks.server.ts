@@ -10,7 +10,7 @@
 
 import { SANITY_DATASET } from '$env/static/private';
 import { getArticleToValidate, type Article } from '$lib/sanity';
-import type { Handle } from '@sveltejs/kit';
+import { redirect, type Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 
 /**
@@ -19,15 +19,16 @@ import { sequence } from '@sveltejs/kit/hooks';
  */
 const redirectHome: Handle = async ({ event, resolve }) => {
 	const isHome = event.url.pathname.startsWith('/home');
-	try {
-		if (isHome) {
-			return new Response(null, { status: 301, headers: { location: '/' } });
+	if (isHome) {
+		if (SANITY_DATASET !== 'production') {
+			console.log('redirection from /home to /');
 		}
-	} catch (error) {
-		return new Response(null, { status: 500 });
+		throw redirect(301, '/');
 	}
 
-	return resolve(event);
+	const response = await resolve(event);
+
+	return response;
 };
 
 /**
@@ -79,9 +80,25 @@ const redirectTag: Handle = async ({ event, resolve }) => {
 		}
 	} catch (error) {
 		return new Response(null, { status: 500 });
+/**
+ * redirectCaps checks if there's an uppercase in the path, then
+ * turns all characters to lowercase and resolves it.
+ * This does not actually affect `?q=` tags. Any parameter after the equals
+ * is not matched for case. This is because the pathname does not include
+ * the `?q=`, or the query.
+ * This function was retrieved from:
+ * https://github.com/sveltejs/kit/discussions/10207#discussioncomment-6279714
+ * @returns `Resolve`
+ */
+const redirectCaps: Handle = async ({ event, resolve }) => {
+	// redirect to lowercase URL if there's a capital letter in the pathname
+	if (event.url.pathname.match(/[A-Z]/)) {
+		throw redirect(307, event.url.pathname.toLowerCase());
 	}
 
-	return resolve(event);
+	const response = await resolve(event);
+
+	return response;
 };
 
 /**
@@ -107,13 +124,17 @@ const logSpeed: Handle = async ({ event, resolve }) => {
 		if (responseTime < 1000) {
 			console.log(`🚀 ${route} took ${responseTime.toFixed(2)} ms`);
 		}
+
 		return response;
 	}
 
 	return resolve(event);
+	const response = await resolve(event);
+
+	return response;
 };
 
-export const handle = sequence(redirectTag, redirectHome, logSpeed);
+export const handle = sequence(redirectCaps, redirectTag, redirectHome, logSpeed);
 
 // MAYBE:
 // Maybe also add a HTTP rewriter?
