@@ -157,7 +157,8 @@ export async function getArticlesFromSeries(name: string, n?: number): Promise<A
 				date,
 				authors[]->{name},
 				category->{slug},
-				slug
+				slug,
+				series->
 			}`,
 			{
 				name

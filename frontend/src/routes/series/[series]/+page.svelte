@@ -3,10 +3,9 @@
 	import type { PageData } from './$types';
 	export let data: PageData;
 	export let articles: Article[] = data.articles;
-	export let seriesTitle = data.series;
 </script>
 
-<h1>{seriesTitle}</h1>
+<h1>{articles[0].series.name}</h1>
 
 <ol>
 	{#each articles as article}
