@@ -14,3 +14,7 @@ Description of the feature in mind. Make it concise and simple, if you can.
 ### Ideas
 
 - Add here implementation or miscellaneous ideas formatted as a list  as you see fit.
+
+### Useful Links
+
+- Any useful links in list format, relevant to the issue.
