@@ -1,7 +1,13 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	export let data: PageData;
+
+	// $ syntax needed for dynamic routes
+	// https://stackoverflow.com/questions/75756247/dynamic-routes-dont-refresh-when-navigation-between-them
+	$: category = data.category!;
 </script>
+
+<h1>{category.charAt(0).toUpperCase() + category.slice(1)}</h1>
 
 <ul>
 	{#each data.articles as article}

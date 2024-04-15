@@ -3,7 +3,7 @@ import { type Article, getArticlesFromCategory } from '$lib/sanity';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
-	const { category } = event.params;
+	const { category } = event.params!;
 	const articles: Article[] = await getArticlesFromCategory(category as string);
 
 	if (articles) {
