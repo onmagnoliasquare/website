@@ -34,7 +34,6 @@ const redirect: Handle = async ({ event, resolve }) => {
 			 * /{tag-name}/{post-name}
 			 */
 			if (path.length >= 3) {
-				console.log('greater than 2');
 				return new Response(null, { status: 302, headers: { location: '/tags' } });
 			}
 
@@ -48,6 +47,7 @@ const redirect: Handle = async ({ event, resolve }) => {
 			if (article === null) {
 				return new Response(null, { status: 302, headers: { location: '/tags' } });
 			}
+
 			const articleHasTag: boolean = article.tags.some((t) => t.slug.current == pathTag);
 
 			// Check if article has the appropriate tag on it.
