@@ -6,6 +6,19 @@
  * FUNCTION NAME GUIDELINES:
  * - If the function logs something to console, prefix with "log".
  * - If the function redirects a URL, prefix with "redirect".
+ *
+ *
+ * PATTERNS:
+ * Any return for a function using resolve(event) must use the pattern
+ * ```
+ * const response = await resolve(event);
+ * return response;
+ * ```
+ *
+ * instead of using:
+ * ```return resolve(event)```
+ *
+ * This ensures clarity.
  */
 
 import { SANITY_DATASET } from '$env/static/private';
