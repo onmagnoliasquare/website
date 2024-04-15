@@ -9,7 +9,7 @@
  */
 
 import { SANITY_DATASET } from '$env/static/private';
-import { getArticleTags, getOneTag, type Article, type Tag } from '$lib/sanity';
+import { getArticleToValidate, type Article } from '$lib/sanity';
 import type { Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 
@@ -21,58 +21,49 @@ import { sequence } from '@sveltejs/kit/hooks';
  * @returns `Response`
  */
 const redirect: Handle = async ({ event, resolve }) => {
+	const path: string[] = event.url.pathname.split('/').slice(2);
 	const isHome = event.url.pathname.startsWith('/home');
-	const isTags =
-		event.url.pathname.startsWith('/tags') && event.url.pathname.split('/').slice(1).length >= 3;
+	const isTags = event.url.pathname.startsWith('/tags') && path.length >= 2;
 	try {
 		if (isHome) {
 			return new Response(null, { status: 301, headers: { location: '/' } });
 		} else if (isTags) {
-			// .slice(1) removes a leading '' empty string at the beginning of the array.
-			const path: string[] = event.url.pathname.split('/').slice(1);
-
 			/*
-			 * Valid tag redirect paths require a length of exactly 3. As there
-			 * are three components of a valid path:
-			 * /tags/{tag-name}/{post-name}
+			 * Valid tag redirect paths require a length of exactly 2. As there
+			 * are two components of a valid path:
+			 * /{tag-name}/{post-name}
 			 */
-
-			if (path.length > 4) {
-				console.log(path);
+			if (path.length >= 3) {
+				console.log('greater than 2');
 				return new Response(null, { status: 302, headers: { location: '/tags' } });
 			}
+
+			const pathTag = path[0];
+			const pathArticleSlug = path[1];
 
 			// Get article from its name. This object will contain its tags, category, and series.
+			const article: Article = await getArticleToValidate(pathArticleSlug);
 
-			// Check if the tag in the URL is a real tag.
-			const tag: Tag = await getOneTag(path[0]);
-			if (tag === null) {
-				// If tag isn't found, return user to /tags
+			// Check if article actually exists.
+			if (article === null) {
 				return new Response(null, { status: 302, headers: { location: '/tags' } });
 			}
+			const articleHasTag: boolean = article.tags.some((t) => t.slug.current == pathTag);
 
-			// Check if the article actually exists under that tag.
-			const article: Article = await getArticleTags(path[1]);
-			if (!article!.tags.some((t) => t.slug === path[1])) {
+			// Check if article has the appropriate tag on it.
+			if (articleHasTag === false) {
 				// If the article isn't found, return user to /tags/{tag-name}
-				return new Response(null, { status: 302, headers: { location: `/tags/${path[0]}` } });
+				// perhaps also show modal - no tag found!
+				return new Response(null, { status: 302, headers: { location: `/tags` } });
 			}
 
-			// If everything is alright in the world, reroute the user
-			// based on series or category precedence.
-
-			const location = (article: Article) => {
-				// Check if the article has a series
-				// If there is no series for the article, sanity doesn't return a series field.
-				if (article.series === null) {
-					// Use category to populate response.
-					return `/category/${article.category.slug}/${article.slug}`;
+			// Respond with a category redirect.
+			return new Response(null, {
+				status: 302,
+				headers: {
+					location: `/category/${article.category.slug.current}/${pathArticleSlug}`
 				}
-				// Use series to populate response.
-				return `/series/${article.series.slug}${article.slug}`;
-			};
-
-			return new Response(null, { status: 302, headers: { location: location(article) } });
+			});
 		}
 	} catch (error) {
 		return new Response(null, { status: 500 });
