@@ -21,7 +21,6 @@ const redirectHome: Handle = async ({ event, resolve }) => {
 	const isHome = event.url.pathname.startsWith('/home');
 	if (isHome) {
 		if (SANITY_DATASET !== 'production') {
-			console.log('redirection from /home to /');
 		}
 		throw redirect(301, '/');
 	}
@@ -39,47 +38,47 @@ const redirectHome: Handle = async ({ event, resolve }) => {
 const redirectTag: Handle = async ({ event, resolve }) => {
 	const path: string[] = event.url.pathname.split('/').slice(2);
 	const isTags = event.url.pathname.startsWith('/tags') && path.length >= 2;
-	try {
-		if (isTags) {
-			/*
-			 * Valid tag redirect paths require a length of exactly 2. As there
-			 * are two components of a valid path:
-			 * /{tag-name}/{post-name}
-			 */
-			if (path.length >= 3) {
-				return new Response(null, { status: 302, headers: { location: '/tags' } });
-			}
 
-			const pathTag = path[0];
-			const pathArticleSlug = path[1];
-
-			// Get article from its name. This object will contain its tags, category, and series.
-			const article: Article = await getArticleToValidate(pathArticleSlug);
-
-			// Check if article actually exists.
-			if (article === null) {
-				return new Response(null, { status: 302, headers: { location: '/tags' } });
-			}
-
-			const articleHasTag: boolean = article.tags.some((t) => t.slug.current == pathTag);
-
-			// Check if article has the appropriate tag on it.
-			if (articleHasTag === false) {
-				// If the article isn't found, return user to /tags/{tag-name}
-				// perhaps also show modal - no tag found!
-				return new Response(null, { status: 302, headers: { location: `/tags` } });
-			}
-
-			// Respond with a category redirect.
-			return new Response(null, {
-				status: 302,
-				headers: {
-					location: `/category/${article.category.slug.current}/${pathArticleSlug}`
-				}
-			});
+	if (isTags) {
+		/*
+		 * Valid tag redirect paths require a length of exactly 2. As there
+		 * are two components of a valid path:
+		 * /{tag-name}/{post-name}
+		 */
+		if (path.length >= 3) {
+			throw redirect(302, '/tags');
 		}
-	} catch (error) {
-		return new Response(null, { status: 500 });
+
+		const pathTag = path[0];
+		const pathArticleSlug = path[1];
+
+		// Get article from its name. This object will contain its tags, category, and series.
+		const article: Article = await getArticleToValidate(pathArticleSlug);
+
+		// Check if article actually exists.
+		if (article === null) {
+			throw redirect(302, '/tags');
+		}
+
+		const articleHasTag: boolean = article.tags.some((t) => t.slug.current == pathTag);
+
+		// Check if article has the appropriate tag on it.
+		if (articleHasTag === false) {
+			// If the article isn't found, return user to /tags/{tag-name}
+			// perhaps also show modal - no tag found!
+			throw redirect(302, '/tags');
+		}
+
+		// Respond with a category redirect.
+
+		throw redirect(302, categoryPath);
+	}
+
+	const response = await resolve(event);
+
+	return response;
+};
+
 /**
  * redirectCaps checks if there's an uppercase in the path, then
  * turns all characters to lowercase and resolves it.
@@ -128,7 +127,6 @@ const logSpeed: Handle = async ({ event, resolve }) => {
 		return response;
 	}
 
-	return resolve(event);
 	const response = await resolve(event);
 
 	return response;
