@@ -6,7 +6,7 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	const { series } = event.params;
 	const articles: Article[] = await getArticlesFromSeries(series as string);
 
-	if (articles) {
+	if (articles.length >= 1) {
 		return {
 			articles,
 			series
