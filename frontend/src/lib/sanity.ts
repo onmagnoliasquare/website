@@ -307,7 +307,7 @@ export async function getTags(n?: number): Promise<Tag[]> {
 
 export async function getOneTag(what: string): Promise<Tag> {
 	return await client.fetch(
-		groq`*[_type == "tag" && tag->slug.current == $what][0]{
+		groq`*[_type == "tag" && slug.current == $what][0]{
 			name,
 			slug
 		}`,
