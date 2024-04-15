@@ -156,6 +156,7 @@ export async function getArticlesFromSeries(name: string, n?: number): Promise<A
 				subtitle,
 				date,
 				authors[]->{name},
+				category->{slug},
 				slug
 			}`,
 			{
@@ -349,7 +350,6 @@ export interface Series {
 	name: string;
 	slug: Slug;
 	description: string;
-	// TODO Add more fields to series
 }
 
 export interface Category {
