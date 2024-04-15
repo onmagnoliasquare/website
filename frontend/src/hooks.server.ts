@@ -33,7 +33,7 @@ const redirectHome: Handle = async ({ event, resolve }) => {
 /**
  * redirectTag redirects paths of the form `/tags/(tag-slug)/(article-slug)`
  * to the category page of the article.
- * @returns
+ * @returns `Response`
  */
 const redirectTag: Handle = async ({ event, resolve }) => {
 	const path: string[] = event.url.pathname.split('/').slice(2);
