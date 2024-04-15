@@ -14,20 +14,32 @@ import type { Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 
 /**
- * redirect redirects certain paths. This is not exactly necessary,
- * but it improves user experience.
- * TODO this might need to be refactored for efficiency boost. Simplify
- * the `else if` block.
+ * redirectHome redirects `/home` to `/`.
  * @returns `Response`
  */
-const redirect: Handle = async ({ event, resolve }) => {
-	const path: string[] = event.url.pathname.split('/').slice(2);
+const redirectHome: Handle = async ({ event, resolve }) => {
 	const isHome = event.url.pathname.startsWith('/home');
-	const isTags = event.url.pathname.startsWith('/tags') && path.length >= 2;
 	try {
 		if (isHome) {
 			return new Response(null, { status: 301, headers: { location: '/' } });
-		} else if (isTags) {
+		}
+	} catch (error) {
+		return new Response(null, { status: 500 });
+	}
+
+	return resolve(event);
+};
+
+/**
+ * redirectTag redirects paths of the form `/tags/(tag-slug)/(article-slug)`
+ * to the category page of the article.
+ * @returns
+ */
+const redirectTag: Handle = async ({ event, resolve }) => {
+	const path: string[] = event.url.pathname.split('/').slice(2);
+	const isTags = event.url.pathname.startsWith('/tags') && path.length >= 2;
+	try {
+		if (isTags) {
 			/*
 			 * Valid tag redirect paths require a length of exactly 2. As there
 			 * are two components of a valid path:
@@ -101,7 +113,7 @@ const logSpeed: Handle = async ({ event, resolve }) => {
 	return resolve(event);
 };
 
-export const handle = sequence(redirect, logSpeed);
+export const handle = sequence(redirectTag, redirectHome, logSpeed);
 
 // MAYBE:
 // Maybe also add a HTTP rewriter?
