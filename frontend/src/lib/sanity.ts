@@ -117,8 +117,8 @@ export async function getSeriesList(n?: number): Promise<Series[]> {
 	if (!n) {
 		return await client.fetch(
 			groq`*[_type == "series"]{
-				title,
-				subtitle,
+				name,
+				description,
 				date,
 				authors[]->{name},
 				slug
