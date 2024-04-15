@@ -2,20 +2,15 @@ import {FolderIcon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
 import slugValidator from '../lib/slugValidator'
 
-/**
- * A category defines the navbar headings on the website. It also defines their
- * Slug route.
- */
-
 export default defineType({
-  name: 'category',
-  title: 'Categories',
+  name: 'series',
+  title: 'Series',
   type: 'document',
   icon: FolderIcon,
   fields: [
     defineField({
       name: 'name',
-      title: 'Category Name',
+      title: 'Series Name',
       type: 'string',
       validation: (rule) => rule.required(),
     }),
@@ -36,7 +31,7 @@ export default defineType({
       name: 'description',
       title: 'Description',
       type: 'text',
-      description: 'What is this category about?',
+      description: 'What is this series about?',
       //@ts-ignore TS(2353)
       rows: 4,
       validation: (rule) => rule.required(),

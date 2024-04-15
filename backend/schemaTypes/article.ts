@@ -120,7 +120,7 @@ export default defineType({
       name: 'useCustomCss',
       title: 'Use Custom CSS',
       description:
-        'Enable if Custom CSS has been designed for this specific article and is ready on the frontend for use',
+        'Enable if Custom CSS has been designed for this specific article and is ready on the frontend for use. If no custom CSS is applied, default styling will be used.',
       type: 'boolean',
     }),
   ],
