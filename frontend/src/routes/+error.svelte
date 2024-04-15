@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	export const msg: string = $page.error?.message as string;
-	export const status: number = $page.status;
+	export const msg = $page.error!.message;
+	export const status = $page.status;
 </script>
 
 <!-- TODO center this message! -->
