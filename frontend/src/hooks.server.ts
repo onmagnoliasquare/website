@@ -22,6 +22,7 @@
  */
 
 import { SANITY_DATASET } from '$env/static/private';
+import { hasUppercase } from '$lib/helpers';
 import { getArticleToValidate, type Article } from '$lib/sanity';
 import { redirect, type Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
@@ -112,8 +113,8 @@ const redirectTag: Handle = async ({ event, resolve }) => {
  * @returns `Resolve`
  */
 const redirectCaps: Handle = async ({ event, resolve }) => {
-	// redirect to lowercase URL if there's a capital letter in the pathname
-	if (event.url.pathname.match(/[A-Z]/)) {
+	const uppercase: boolean = hasUppercase(event.url.pathname);
+	if (uppercase) {
 		throw redirect(307, event.url.pathname.toLowerCase());
 	}
 
