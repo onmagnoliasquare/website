@@ -33,3 +33,7 @@ A post can be labeled under a category and have a tag, but it will always redire
 A post can be labeled under a category, have a tag, and have a series, but it will always redirect to the `series` slug.
 
 A post that has a category or a series accessed from a URL using the `tag/[name]` format will redirect to the category or series slug. *this will need to be added soon!*
+
+## Testing
+
+[Svelte Testing Setup](https://testing-library.com/docs/svelte-testing-library/setup/#jest)
