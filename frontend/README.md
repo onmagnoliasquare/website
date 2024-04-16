@@ -36,7 +36,7 @@ A post that has a category or a series accessed from a URL using the `tag/[name]
 
 ## Testing
 
-[Svelte Testing Setup](https://testing-library.com/docs/svelte-testing-library/setup/#jest)
+[Svelte Testing Setup](https://testing-library.com/docs/svelte-testing-library/setup)
 
 ### Frontend
 
