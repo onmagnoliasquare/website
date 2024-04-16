@@ -10877,6 +10877,7 @@ __metadata:
     "@sanity/eslint-config-studio": "npm:^3.0.1"
     "@sanity/vision": "npm:^3.30.0"
     "@types/react": "npm:^18.0.25"
+    "@vitest/ui": "npm:^1.5.0"
     eslint: "npm:^8.6.0"
     prettier: "npm:^3.0.2"
     react: "npm:^18.2.0"
