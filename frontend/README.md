@@ -37,3 +37,11 @@ A post that has a category or a series accessed from a URL using the `tag/[name]
 ## Testing
 
 [Svelte Testing Setup](https://testing-library.com/docs/svelte-testing-library/setup/#jest)
+
+### Frontend
+
+Testing for the frontend consists of two frameworks: Vitest and Playwright. Vitest is used for unit testing, Playwright is used for end to end tests.
+
+Tests for Vitest exist in `frontend/src/index.test.ts`. Playwright tests exist in `frontend/tests`.
+
+A dependency installed is `vitest-ui`, which lets you view tests running in browser. Check frontend `package.json` to view its usage.
