@@ -10,6 +10,7 @@ if (!SANITY_PROJECT_ID || !SANITY_DATASET) {
 }
 
 let client: SanityClient;
+const apiVersion: string = '2024-03-15';
 
 /**
  * Depending on the environment, either use or don't use the DEVELOPER token.
@@ -19,14 +20,14 @@ if (SANITY_DATASET == 'production') {
 		projectId: SANITY_PROJECT_ID,
 		dataset: SANITY_DATASET,
 		useCdn: true,
-		apiVersion: '2024-03-15'
+		apiVersion: apiVersion
 	});
 } else {
 	client = createClient({
 		projectId: SANITY_PROJECT_ID,
 		dataset: SANITY_DATASET,
 		useCdn: true,
-		apiVersion: '2024-03-15',
+		apiVersion: apiVersion,
 		token: DEVELOPER_TOKEN // A token field is required to access private datasets.
 	});
 }
