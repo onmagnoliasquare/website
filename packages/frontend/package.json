@@ -12,6 +12,7 @@
 		"test:integration": "run -T playwright test",
 		"test:unit": "run -T vitest",
 		"test:ci": "run -T vitest run",
+		"test:ci-no-pool": "run -T vitest run --pool forks --poolOptions.forks.singleFork",
 		"test:ui": "run -T vitest --ui",
 		"coverage": "run -T vitest run --coverage"
 	},

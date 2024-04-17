@@ -13,8 +13,8 @@
     "build": "yarn && yarn build:frontend && yarn build:backend",
     "dev:front": "yarn workspace frontend dev",
     "dev:back": "yarn workspace backend dev",
-    "test-ci:front": "yarn workspace frontend vitest run --pool forks --poolOptions.forks.singleFork",
-    "test-ci:back": "yarn workspace backend  vitest run --pool forks --poolOptions.forks.singleFork",
+    "test-ci:front": "yarn workspace frontend test:ci-no-pool",
+    "test-ci:back": "yarn workspace backend test:ci-no-pool",
     "test-coverage": "yarn vitest run --coverage"
   },
   "dependencies": {

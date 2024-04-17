@@ -7,6 +7,7 @@
     "build": "run -T sanity build",
     "test": "run -T vitest",
     "test:ci": "run -T vitest run",
+    "test:ci-no-pool": "run -T vitest run --pool forks --poolOptions.forks.singleFork",
     "deploy": "run -T sanity deploy",
     "deploy-graphql": "run -T sanity graphql deploy"
   },
