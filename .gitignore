@@ -8,9 +8,9 @@
 
 .DS_Store
 node_modules
-frontend/build
-frontend/.svelte-kit
-frontend/package
+packages/frontend/build
+packages/frontend/.svelte-kit
+packages/frontend/package
 .env
 .env.*
 !.env.example
@@ -19,3 +19,6 @@ vite.config.ts.timestamp-*
 
 # JetBrains IDE
 .idea
+
+# Testing
+coverage

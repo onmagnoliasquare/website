@@ -64,6 +64,10 @@ In the ```package.json``` folder, you can find the workspaces field, which defin
 
 With that being said, Vite does not yet support Yarn pnp, and therefore in the ```.yarnrc.yml``` file in the root directory, [```nodeLinker: "node-modules"```](https://yarnpkg.com/configuration/yarnrc#nodeLinker) line is appended. In the future, we may remove this in case of ghost-dependency creep, or if Vite begins support for pnp.
 
+#### What is `run -T (command)`?
+
+It's used to share commands between workspaces. Since a project like `frontend` does not have any depedencies inside (all of the dependencies are in the root dir), we must use `run -T (command)` to access the correct command. In this case, its either `vite` or `sanity` or any other that requires use like `playwright`.
+
 ### VS Code
 
 Below are VS Code extensions used in this project.
@@ -85,3 +89,15 @@ To enforce categories and routes, we are using ```src/params``` to enforce only 
 ### Page Server Loading
 
 [Load Server Page for Sanity](https://kit.svelte.dev/docs/load#page-data)
+
+## Deployment
+
+CI requires unit tests and perhaps integration tests if you could secure a development key. This comes with managing the secret on GitHub, though.
+
+We are either using Cloudflare Pages or Vercel to deploy the frontend. The backend is deployed via the Sanity CLI deploy command. The frontend requires the enviornment variables to be injected at build time in order to build and deploy successfully. These can be accessed in either Cloudflare page's or Vercel's appropriate deploy configuration settings. Make sure all of the .env.example fields are used in the deployment environment.
+
+## Useful Links
+
+### Testing
+
+- [Vite Testing Data Driven Tests Parameterization](https://www.the-koi.com/projects/parameterized-data-driven-tests-in-vitest-example/)

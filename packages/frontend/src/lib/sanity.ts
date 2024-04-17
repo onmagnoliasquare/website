@@ -1,35 +1,40 @@
 import type { PortableTextBlock } from '@portabletext/types';
-import { SanityClient, createClient } from '@sanity/client';
+import { SanityClient, createClient, type ClientConfig } from '@sanity/client';
 import type { ImageAsset, Slug } from '@sanity/types';
 import groq from 'groq';
 
-import { SANITY_DATASET, SANITY_PROJECT_ID, DEVELOPER_TOKEN } from '$env/static/private';
+// Environment variables, found in ".env". Check ".env.example" for explanation.
+import {
+	SANITY_DATASET,
+	SANITY_PROJECT_ID,
+	DEVELOPER_TOKEN,
+	SANITY_API_VERSION
+} from '$env/static/private';
 
 if (!SANITY_PROJECT_ID || !SANITY_DATASET) {
 	throw new Error('Did you forget to run yarn sanity init --env?');
 }
 
-let client: SanityClient;
-
-/**
- * Depending on the environment, either use or don't use the DEVELOPER token.
- */
-if (SANITY_DATASET == 'production') {
-	client = createClient({
-		projectId: SANITY_PROJECT_ID,
-		dataset: SANITY_DATASET,
-		useCdn: true,
-		apiVersion: '2024-03-15'
-	});
-} else {
-	client = createClient({
-		projectId: SANITY_PROJECT_ID,
-		dataset: SANITY_DATASET,
-		useCdn: true,
-		apiVersion: '2024-03-15',
-		token: DEVELOPER_TOKEN // A token field is required to access private datasets.
-	});
+if (!SANITY_API_VERSION) {
+	throw new Error('Did you forget to add an API Version environment variable?');
 }
+
+// Check the current runtime environment based on Sanity's Dataset environment variable.
+const isDevEnv: boolean = SANITY_DATASET !== 'production';
+
+let config: ClientConfig = {
+	projectId: SANITY_PROJECT_ID,
+	dataset: SANITY_DATASET,
+	useCdn: true,
+	apiVersion: SANITY_API_VERSION
+};
+
+if (isDevEnv) {
+	config.token = DEVELOPER_TOKEN;
+	config.useCdn = false;
+}
+
+let client: SanityClient = createClient(config);
 
 export { client };
 
@@ -48,8 +53,8 @@ export async function getArticles(): Promise<Article[]> {
  * getArticlesFrom retrieves articles from a certain top-level route, such as a
  * category, series, or tag, and by "what" distinction, whether it be the category
  * name, series name, or tag name.
- * @param where - top-level route.
- * @param what - what to retrieve from the top-level route route.
+ * @param where top-level route.
+ * @param what what to retrieve from the top-level route route.
  * @returns `Promise<Article[]>`
  * @async
  */
@@ -71,8 +76,8 @@ export async function getArticlesFrom(where: string, what: string): Promise<Arti
 
 /**
  * getArticlesFromCategory from a certain category.
- * @param name - category name.
- * @param n - number of articles to query for.
+ * @param name category name.
+ * @param n number of articles to query for.
  * @returns `Promise<Article[]>`
  * @async
  */
@@ -109,7 +114,7 @@ export async function getArticlesFromCategory(name: string, n?: number): Promise
 
 /**
  * getSeriesList retrieves a list of series.
- * @param n - number of series to retrieve.
+ * @param n number of series to retrieve.
  * @returns `Promise<Series[]>`
  * @async
  */
@@ -143,8 +148,8 @@ export async function getSeriesList(n?: number): Promise<Series[]> {
 
 /**
  * getArticlesFromSeries from a certain series.
- * @param name - series name.
- * @param n - number of articles to query for.
+ * @param name series name.
+ * @param n number of articles to query for.
  * @returns `Promise<Article[]>`
  * @async
  */
@@ -184,8 +189,8 @@ export async function getArticlesFromSeries(name: string, n?: number): Promise<A
 
 /**
  * getOneArticleFrom uses a top-level route and a unique slug to retrieve a single article.
- * @param where - top-level route.
- * @param what - what to retrieve from the top-level route.
+ * @param where top-level route.
+ * @param what what to retrieve from the top-level route.
  * @returns `Promise<Article>`
  * @async
  */

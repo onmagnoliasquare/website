@@ -2,8 +2,7 @@
 	import type { PageData } from './$types';
 	export let data: PageData;
 
-	// $ syntax needed for dynamic routes
-	// https://stackoverflow.com/questions/75756247/dynamic-routes-dont-refresh-when-navigation-between-them
+	// `$` syntax needed for dynamic routes. See:  https://stackoverflow.com/questions/75756247/dynamic-routes-dont-refresh-when-navigation-between-them
 	$: category = data.category!;
 </script>
 

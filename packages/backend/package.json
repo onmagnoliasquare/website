@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "main": "package.json",
+  "scripts": {
+    "dev": "run -T sanity dev",
+    "start": "run -T sanity start",
+    "build": "run -T sanity build",
+    "test": "run -T vitest",
+    "test:ci": "run -T vitest run",
+    "test:ci-no-pool": "run -T vitest run --pool forks --poolOptions.forks.singleFork",
+    "deploy": "run -T sanity deploy",
+    "deploy-graphql": "run -T sanity graphql deploy"
+  },
+  "prettier": {
+    "semi": false,
+    "printWidth": 100,
+    "bracketSpacing": false,
+    "singleQuote": true
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "styled-components": "^6.1"
+  }
+}
