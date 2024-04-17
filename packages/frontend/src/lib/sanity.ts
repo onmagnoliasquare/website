@@ -2,27 +2,33 @@ import type { PortableTextBlock } from '@portabletext/types';
 import { SanityClient, createClient, type ClientConfig } from '@sanity/client';
 import type { ImageAsset, Slug } from '@sanity/types';
 import groq from 'groq';
-import { SANITY_DATASET, SANITY_PROJECT_ID, DEVELOPER_TOKEN } from '$env/static/private';
+
+// Environment variables, found in ".env". Check ".env.example" for explanation.
+import {
+	SANITY_DATASET,
+	SANITY_PROJECT_ID,
+	DEVELOPER_TOKEN,
+	SANITY_API_VERSION
+} from '$env/static/private';
 
 if (!SANITY_PROJECT_ID || !SANITY_DATASET) {
 	throw new Error('Did you forget to run yarn sanity init --env?');
 }
 
+if (!SANITY_API_VERSION) {
+	throw new Error('Did you forget to add an API Version environment variable?');
+}
+
+// Check the current runtime environment based on Sanity's Dataset environment variable.
 const isDevEnv: boolean = SANITY_DATASET !== 'production';
-const apiVersion: string = '2024-04-16';
 
 let config: ClientConfig = {
 	projectId: SANITY_PROJECT_ID,
 	dataset: SANITY_DATASET,
 	useCdn: true,
-	apiVersion: apiVersion
+	apiVersion: SANITY_API_VERSION
 };
 
-/**
- * A token field is used for development mode, as we need
- * access to the development dataset. Furthermore, CDN is
- * disabled to get the freshest updates.
- */
 if (isDevEnv) {
 	config.token = DEVELOPER_TOKEN;
 	config.useCdn = false;
