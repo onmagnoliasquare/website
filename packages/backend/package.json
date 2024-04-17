@@ -5,6 +5,7 @@
     "dev": "run -T sanity dev",
     "start": "run -T sanity start",
     "build": "run -T sanity build",
+    "test": "run -T vitest",
     "deploy": "run -T sanity deploy",
     "deploy-graphql": "run -T sanity graphql deploy"
   },
