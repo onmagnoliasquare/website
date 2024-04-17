@@ -11,6 +11,7 @@
 		"format": "run -T prettier --write .",
 		"test:integration": "run -T playwright test",
 		"test:unit": "run -T vitest",
+		"test:ci": "run -T vitest run",
 		"test:ui": "run -T vitest --ui",
 		"coverage": "run -T vitest run --coverage"
 	},
