@@ -24,10 +24,10 @@ jobs:
         run: corepack use yarn@stable
 
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: yarn --immutable
 
       - name: Run backend tests
-        run: yarn test:back
+        run: yarn test-ci:back
 
       - name: Run frontend tests
-        run: yarn test:front
+        run: yarn test-ci:front
