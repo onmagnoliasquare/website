@@ -1,7 +1,9 @@
 /**
- * dateFormatter takes a string in the format YYYY/MM/DD
- * and transforms it into another specified format.
- * @param s date string
+ * dateFormatter expects a string in the format YYYY/MM/DD,
+ * which is the format that Sanity Content Lake stores dates.
+ * This formatter changes the string into a usable format
+ * that can be displayed on a page.
+ * @param s date string in YYYY/MM/DD format
  * @returns `string` formatted date
  */
 export const dateFormatter = (s: string): string => {
