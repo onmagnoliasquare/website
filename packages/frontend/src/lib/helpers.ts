@@ -1,24 +1,37 @@
+import type { DatetimeOptions } from 'sanity';
+
 /**
  * dateFormatter expects a string in the format YYYY/MM/DD,
  * which is the format that Sanity Content Lake stores dates.
  * This formatter changes the string into a usable format
  * that can be displayed on a page.
- * @param s date string in YYYY/MM/DD format
+ * @param date  string in YYYY/MM/DD format
+ * @param locale locale language code, such as 'en-US', or an array of multiple. Check out documentation on documentation on the [locale argument](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locales_argument). If locale is undefined, the browser's default locale is used.
  * @returns `string` formatted date
  */
-export const dateFormatter = (s: string): string => {
-	const splitted: string[] = s.split('-');
+export const dateFormatter = (date: string, locale?: Intl.LocalesArgument): string => {
+	const splitted: string[] = date.split('-');
 
-	// subtract 1 from monthIndex because monthIndex is indexed 0 through 11.
-	// see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/UTC#monthindex
-	const utcDate = new Date(
-		Date.UTC(parseInt(splitted[0]), parseInt(splitted[1]) - 1, parseInt(splitted[2]))
-	);
+	// Subtract 1 from monthIndex because monthIndex is indexed 0 through 11.
+	// See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/UTC#monthindex
+	const year: number = parseInt(splitted[0]);
+	const month: number = parseInt(splitted[1]) - 1;
+	const day: number = parseInt(splitted[2]);
 
-	// Might need to change this to Intl.Date formatting.
-	// Could also use Shanghai time caveat, for instance, time post was
-	// made in Shanghai time.
-	return utcDate.toDateString();
+	const utcDate = new Date(Date.UTC(year, month, day));
+
+	// Using options.
+	// See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_options
+	const options: Intl.DateTimeFormatOptions = {
+		weekday: 'short',
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric'
+	};
+
+	const localeDate: string = new Intl.DateTimeFormat(locale, options).format(utcDate);
+
+	return localeDate;
 };
 
 /**
