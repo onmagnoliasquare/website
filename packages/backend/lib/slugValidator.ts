@@ -6,7 +6,7 @@ export default function slugValidator(slug: string): string {
 
     // Replace special characters with nothing.
     // Quotation marks retrieved from: https://en.wikipedia.org/wiki/Quotation_mark
-    .replace(/[!(),.\\$%&?#'"“”‘’「」「」《》«»]/g, '')
+    .replace(/[!(),.\\$%&?#'"“”‘’「」「」《》«»/]/g, '')
 
     // Replace spaces with hyphens.
     .replace(/\s+/g, '-')

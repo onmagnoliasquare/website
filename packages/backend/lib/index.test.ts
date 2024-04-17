@@ -10,12 +10,10 @@ describe('slugValidator', () => {
     ['AbCdEfG', 'abcdefg'],
   ]
 
-  // Replaces uppercase to lowercase.
-
   // Replaces special characters.
   const specialChars = [
     ['ab!cDEfg', 'abcdefg'],
-    ['A!??bcd', 'abcd'],
+    ['A!??b/cd', 'abcd'],
     ['.&.aB#?130', 'ab130'],
   ]
 
