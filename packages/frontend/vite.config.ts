@@ -1,9 +1,9 @@
 import { sveltekit } from '@sveltejs/kit/vite';
-import { defineProject } from 'vitest/config';
+import { defineConfig } from 'sanity';
 
 // TODO Change to project
-export default defineProject({
-	//@ts-ignore TS-2769
+export default defineConfig({
+	//@ts-ignore ts(2741)
 	plugins: [sveltekit()],
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}'],
