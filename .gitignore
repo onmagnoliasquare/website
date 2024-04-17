@@ -19,3 +19,6 @@ vite.config.ts.timestamp-*
 
 # JetBrains IDE
 .idea
+
+# Testing
+coverage
