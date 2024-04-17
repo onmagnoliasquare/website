@@ -29,9 +29,15 @@ export const dateFormatter = (date: string, locale?: Intl.LocalesArgument): stri
 		day: 'numeric'
 	};
 
-	const localeDate: string = new Intl.DateTimeFormat(locale, options).format(utcDate);
+	let localeDate: Intl.DateTimeFormat;
 
-	return localeDate;
+	if (!locale) {
+		localeDate = new Intl.DateTimeFormat(undefined, options);
+	} else {
+		localeDate = new Intl.DateTimeFormat(locale, options);
+	}
+
+	return localeDate.format(utcDate);
 };
 
 /**
