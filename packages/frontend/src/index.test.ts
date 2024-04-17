@@ -15,7 +15,8 @@ describe('hasUppercase', () => {
  * The reason for many test cases in dateFormatter is because of,
  * 1) we have readers from many regions, and 2) we have confidence
  * that the JavaScript API isn't returning any funky date formatting
- * from what is retrieved from Sanity CMS.
+ * from what is retrieved from Sanity CMS. Checkout this repository
+ * for [locale codes](https://github.com/TiagoDanin/Locale-Codes).
  */
 describe('dateFormatter', () => {
 	// All dates in YYYY/MM/DD format.
