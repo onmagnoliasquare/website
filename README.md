@@ -64,6 +64,10 @@ In the ```package.json``` folder, you can find the workspaces field, which defin
 
 With that being said, Vite does not yet support Yarn pnp, and therefore in the ```.yarnrc.yml``` file in the root directory, [```nodeLinker: "node-modules"```](https://yarnpkg.com/configuration/yarnrc#nodeLinker) line is appended. In the future, we may remove this in case of ghost-dependency creep, or if Vite begins support for pnp.
 
+#### What is `run -T (command)`?
+
+It's used to share commands between workspaces. Since a project like `frontend` does not have any depedencies inside (all of the dependencies are in the root dir), we must use `run -T (command)` to access the correct command. In this case, its either `vite` or `sanity` or any other that requires use like `playwright`.
+
 ### VS Code
 
 Below are VS Code extensions used in this project.

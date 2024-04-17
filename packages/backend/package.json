@@ -1,0 +1,20 @@
+{
+  "name": "backend",
+  "main": "package.json",
+  "scripts": {
+    "dev": "run -T sanity dev",
+    "start": "run -T sanity start",
+    "build": "run -T sanity build",
+    "deploy": "run -T sanity deploy",
+    "deploy-graphql": "run -T sanity graphql deploy"
+  },
+  "prettier": {
+    "semi": false,
+    "printWidth": 100,
+    "bracketSpacing": false,
+    "singleQuote": true
+  },
+  "dependencies": {
+    "styled-components": "^6.1"
+  }
+}
