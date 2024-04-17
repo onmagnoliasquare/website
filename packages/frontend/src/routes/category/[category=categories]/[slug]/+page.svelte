@@ -15,7 +15,9 @@
 
 	<ul style="display: inline;">
 		<li style="display: inline;"><h4>by {data.article.authors[0].name}</h4></li>
-		<li style="display: inline;"><date><h3>{dateFormatter(data.article.date)}</h3></date></li>
+		<li style="display: inline;">
+			<date><h3>{dateFormatter(data.article.date, navigator.language)} UTC</h3></date>
+		</li>
 	</ul>
 </div>
 
