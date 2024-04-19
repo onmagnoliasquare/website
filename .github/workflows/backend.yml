@@ -67,10 +67,11 @@ on:
       # Ignore build related files.
       - ".env.example"
 
-      # Ignore changes in frontend package.
+      # Ignore changes in frontend .
+      - ".github/workflows/frontend.yml"
       - "packages/frontend/**"
 
-      # Ignore frontend package specific paths.
+      # Ignore backend package specific paths.
       - "packages/backend/static/**"
       - "packages/backend/.eslintrc"
       - "packages/backend/sanity.cli.ts"
@@ -80,7 +81,7 @@ on:
 jobs:
   unit-test:
     runs-on: ubuntu-latest
-
+    environment: development
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js

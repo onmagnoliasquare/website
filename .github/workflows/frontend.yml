@@ -30,7 +30,8 @@ on:
       # Ignore build related files.
       - ".env.example"
 
-      # Ignore changes in backend package.
+      # Ignore changes in backend.
+      - ".github/workflows/backend.yml"
       - "packages/backend/**"
 
       # Ignore frontend package specific paths.
@@ -82,7 +83,7 @@ on:
 jobs:
   unit-test:
     runs-on: ubuntu-latest
-
+    environment: development # GitHub Actions Repo Environment
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
@@ -108,7 +109,6 @@ jobs:
 
       # Check if there are any errors in the SvelteKit code
       - name: Run SvelteKit Check
-        run: yarn check:no-sync
         run: yarn check:front
 
       # Run unit tests
