@@ -108,7 +108,7 @@ jobs:
 
       # Check if there are any errors in the SvelteKit code
       - name: Run SvelteKit Check
-        run: yarn check:front
+        run: yarn check:no-sync
 
       # Run unit tests
       - name: Run frontend tests
