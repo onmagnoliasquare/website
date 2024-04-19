@@ -7,7 +7,7 @@ import groq from 'groq';
 import {
 	SANITY_DATASET,
 	SANITY_PROJECT_ID,
-	DEVELOPER_TOKEN,
+	SANITY_DEVELOPER_TOKEN,
 	SANITY_API_VERSION
 } from '$env/static/private';
 
@@ -22,7 +22,6 @@ if (!SANITY_API_VERSION) {
 // Check the current runtime environment based on Sanity's Dataset environment variable.
 const isDevEnv: boolean = SANITY_DATASET !== 'production';
 
-let config: ClientConfig = {
 	projectId: SANITY_PROJECT_ID,
 	dataset: SANITY_DATASET,
 	useCdn: true,
@@ -30,7 +29,7 @@ let config: ClientConfig = {
 };
 
 if (isDevEnv) {
-	config.token = DEVELOPER_TOKEN;
+	config.token = SANITY_DEVELOPER_TOKEN;
 	config.useCdn = false;
 }
 
