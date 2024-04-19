@@ -1,0 +1,109 @@
+# Build and test the backend package.
+
+name: "Frontend"
+
+on:
+  pull_request:
+    branches: ["main", "staging", "dev"]
+    paths-ignore:
+      # Ignore changes in documentation.
+      - "docs/**"
+      - "README.md"
+
+      # Ignore package.json changes.
+      - "package.json"
+
+      # Ignore changes in root directory.
+      - ".gitattributes"
+      - ".gitignore"
+      - ".markdownlint.json"
+      - ".yarnrc.yml"
+      - "LICENSE"
+      - "yarn.lock"
+      - ".yarn"
+      - ".vscode"
+
+      # Ignore changes in .github directory.
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/pull_request_template.*"
+
+      # Ignore build related files.
+      - ".env.example"
+
+      # Ignore changes in frontend package.
+      - "packages/frontend/**"
+
+      # Ignore frontend package specific paths.
+      - "packages/backend/static/**"
+      - "packages/backend/.eslintrc"
+      - "packages/backend/sanity.cli.ts"
+      - "packages/backend/sanity.config.ts"
+      - "packages/backend/schemaTypes/**"
+
+  push:
+    branches: ["main", "staging", "dev"]
+    paths-ignore:
+      # Ignore changes in documentation.
+      - "docs/**"
+      - "README.md"
+
+      # Ignore package.json changes.
+      - "package.json"
+
+      # Ignore changes in root directory.
+      - ".gitattributes"
+      - ".gitignore"
+      - ".markdownlint.json"
+      - ".yarnrc.yml"
+      - "LICENSE"
+      - "yarn.lock"
+      - ".yarn"
+      - ".vscode"
+
+      # Ignore changes in .github directory.
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/pull_request_template.*"
+
+      # Ignore build related files.
+      - ".env.example"
+
+      # Ignore changes in frontend package.
+      - "packages/frontend/**"
+
+      # Ignore frontend package specific paths.
+      - "packages/backend/static/**"
+      - "packages/backend/.eslintrc"
+      - "packages/backend/sanity.cli.ts"
+      - "packages/backend/sanity.config.ts"
+      - "packages/backend/schemaTypes/**"
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+
+      # Yarn installation
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Install yarn
+        run: corepack install --global yarn@stable
+
+      - name: Set yarn version
+        run: corepack use yarn@stable
+
+      - name: Install dependencies
+        run: yarn --immutable
+
+      # Linting and Formatting
+      # Should happen on package deployment
+
+      # Run unit tests
+      - name: Run backend tests
+        run: yarn test-ci:back

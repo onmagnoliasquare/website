@@ -1,0 +1,28 @@
+# Enforces the branch merge pipeline as described in the documentation.
+# This is an automatic process, and ensures reckless or rogue
+# pushing and merging are forbidden.
+# Code source: https://stackoverflow.com/questions/71120146/allowing-only-certain-branches-to-pr-merge-to-mainmaster-branch
+
+name: "Enforce Branch Merge Pipeline"
+
+on:
+  pull_request:
+
+jobs:
+  enforce-staging-to-main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check branch
+        if: github.base_ref == 'main' && github.head_ref != 'staging'
+        run: |
+          echo "ERROR: You can only merge to main from staging."
+          exit 1
+
+  enforce-dev-to-staging:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check branch
+        if: github.base_ref == 'staging' && github.head_ref != 'dev'
+        run: |
+          echo "ERROR: You can only merge to staging from dev."
+          exit 1

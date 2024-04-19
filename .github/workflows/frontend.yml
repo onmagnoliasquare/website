@@ -1,0 +1,115 @@
+# Build and test the frontend package.
+
+name: "Frontend"
+
+on:
+  pull_request:
+    branches: ["main", "staging", "dev"]
+    paths-ignore:
+      # Ignore changes in documentation.
+      - "docs/**"
+      - "README.md"
+
+      # Ignore package.json changes.
+      - "package.json"
+
+      # Ignore changes in root directory.
+      - ".gitattributes"
+      - ".gitignore"
+      - ".markdownlint.json"
+      - ".yarnrc.yml"
+      - "LICENSE"
+      - "yarn.lock"
+      - ".yarn"
+      - ".vscode"
+
+      # Ignore changes in .github directory.
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/pull_request_template.*"
+
+      # Ignore build related files.
+      - ".env.example"
+
+      # Ignore changes in backend package.
+      - "packages/backend/**"
+
+      # Ignore frontend package specific paths.
+      - "packages/frontend/static/**"
+      - "packages/frontend/.eslintignore"
+      - "packages/frontend/.eslintrc.cjs"
+      - "packages/frontend/.prettierrc"
+      - "packages/frontend/styles/**"
+      - "packages/frontend/svelte.config.js"
+
+  push:
+    branches: ["main", "staging", "dev"]
+    paths-ignore:
+      # Ignore changes in documentation.
+      - "docs/**"
+      - "README.md"
+
+      # Ignore package.json changes.
+      - "package.json"
+
+      # Ignore changes in root directory.
+      - ".gitattributes"
+      - ".gitignore"
+      - ".markdownlint.json"
+      - ".yarnrc.yml"
+      - "LICENSE"
+      - "yarn.lock"
+      - ".yarn"
+      - ".vscode"
+
+      # Ignore changes in .github directory.
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/pull_request_template.*"
+
+      # Ignore build related files.
+      - ".env.example"
+
+      # Ignore changes in backend package.
+      - "packages/backend/**"
+
+      # Ignore frontend package specific paths.
+      - "packages/frontend/static/**"
+      - "packages/frontend/.eslintignore"
+      - "packages/frontend/.eslintrc.cjs"
+      - "packages/frontend/.prettierrc"
+      - "packages/frontend/styles/**"
+      - "packages/frontend/svelte.config.js"
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+
+      # Yarn installation
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Install yarn
+        run: corepack install --global yarn@stable
+
+      - name: Set yarn version
+        run: corepack use yarn@stable
+
+      - name: Install dependencies
+        run: yarn --immutable
+
+      # Linting and Formatting
+      # Should happen on package deployment
+
+      # Check if there are any errors in the SvelteKit code
+      - name: Run SvelteKit Check
+        run: yarn check:front
+
+      # Run unit tests
+      - name: Run frontend tests
+        run: yarn test-ci:front
