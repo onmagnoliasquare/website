@@ -22,6 +22,7 @@ if (!SANITY_API_VERSION) {
 // Check the current runtime environment based on Sanity's Dataset environment variable.
 const isDevEnv: boolean = SANITY_DATASET !== 'production';
 
+const config: ClientConfig = {
 	projectId: SANITY_PROJECT_ID,
 	dataset: SANITY_DATASET,
 	useCdn: true,
