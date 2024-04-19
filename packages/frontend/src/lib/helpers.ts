@@ -1,5 +1,3 @@
-import type { DatetimeOptions } from 'sanity';
-
 /**
  * dateFormatter expects a string in the format YYYY/MM/DD,
  * which is the format that Sanity Content Lake stores dates.
@@ -34,7 +32,7 @@ export const dateFormatter = (date: string, locale?: Intl.LocalesArgument): stri
 	if (!locale) {
 		localeDate = new Intl.DateTimeFormat(undefined, options);
 	} else {
-		localeDate = new Intl.DateTimeFormat(locale, options);
+		localeDate = new Intl.DateTimeFormat(locale as string, options);
 	}
 
 	return localeDate.format(utcDate);
