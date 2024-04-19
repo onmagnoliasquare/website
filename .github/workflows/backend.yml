@@ -1,6 +1,6 @@
 # Build and test the backend package.
 
-name: "Frontend"
+name: "Backend"
 
 on:
   pull_request:
