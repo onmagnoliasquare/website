@@ -11,6 +11,7 @@
     "build:front": "cd frontend && yarn build",
     "build:back": "cd backend && yarn build",
     "build": "yarn && yarn build:frontend && yarn build:backend",
+    "check:front": "yarn workspace frontend check",
     "dev:front": "yarn workspace frontend dev",
     "dev:back": "yarn workspace backend dev",
     "test-ci:front": "yarn workspace frontend test:ci-no-pool",
