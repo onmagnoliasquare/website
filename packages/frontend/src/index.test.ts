@@ -21,7 +21,7 @@ describe('hasUppercase', () => {
 describe('dateFormatter', () => {
 	// All dates in YYYY/MM/DD format.
 	const normalDate = '2014-02-01';
-	const leapDate = '';
+	// const leapDate = '';
 
 	const noLocaleProvided = '';
 	// Locales selected based on Cloudflare metrics, as well as student demographics.
