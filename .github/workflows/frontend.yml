@@ -84,6 +84,10 @@ jobs:
   unit-test:
     runs-on: ubuntu-latest
     environment: development # GitHub Actions Repo Environment
+    env:
+      SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+      SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
+      SANITY_DATASET: ${{ vars.SANITY_DATASET }}
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
