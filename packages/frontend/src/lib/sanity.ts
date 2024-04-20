@@ -34,7 +34,7 @@ if (isDevEnv) {
 	config.useCdn = false;
 }
 
-let client: SanityClient = createClient(config);
+const client: SanityClient = createClient(config);
 
 export { client };
 
