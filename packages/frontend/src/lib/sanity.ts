@@ -133,6 +133,7 @@ export async function getSeriesList(n?: number): Promise<Series[]> {
 		// run n-based, paginated query here.
 		return await client.fetch(
 			groq`*[_type == "article"]{
+			groq`*[_type == "series"]{
 				title,
 				subtitle,
 				date,
