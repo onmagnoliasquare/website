@@ -81,7 +81,12 @@ export async function getArticlesFrom(where: string, what: string): Promise<Arti
  * @returns `Promise<Article[]>`
  * @async
  */
-export async function getArticlesFromCategory(name: string, n?: number): Promise<Article[]> {
+export async function getArticlesFromCategory(
+	name: string,
+	n?: number,
+	lastDate?: string,
+	lastID?: string
+): Promise<Article[]> {
 	if (!n) {
 		return await client.fetch(
 			groq`*[_type == "article" && category->slug.current == $name]{
@@ -96,9 +101,8 @@ export async function getArticlesFromCategory(name: string, n?: number): Promise
 			}
 		);
 	} else {
-		// run n-based, paginated query here.
 		return await client.fetch(
-			groq`*[_type == "article" && category->slug.current == $name]{
+			groq`*[_type == "article" && category->slug.current == $name && (date > $lastDate || (date == $lastDate && _id > $lastID))] | order(date) [0...$n] {
 				title,
 				subtitle,
 				date,
@@ -106,10 +110,26 @@ export async function getArticlesFromCategory(name: string, n?: number): Promise
 				slug
 			}`,
 			{
-				name
+				name,
+				lastDate,
+				lastID,
+				n
 			}
 		);
 	}
+}
+
+/**
+ * Retrieves the number of documents in a certain category. This helps
+ * to determine the number of pages there should be to paginate.
+ * @param category name of the category to retrieve
+ * @returns `Promise<string>`
+ */
+export async function getCountOfCategory(category: string): Promise<string> {
+	return await client.fetch(
+		groq`count(*[_type == "article" && category->slug.current == $category])`,
+		{ category }
+	);
 }
 
 /**
