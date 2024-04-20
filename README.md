@@ -101,3 +101,7 @@ We are either using Cloudflare Pages or Vercel to deploy the frontend. The backe
 ### Testing
 
 - [Vite Testing Data Driven Tests Parameterization](https://www.the-koi.com/projects/parameterized-data-driven-tests-in-vitest-example/)
+
+### GitHub Actions
+
+- [Filter Pattern Cheat Sheet](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#patterns-to-match-branches-and-tags)
