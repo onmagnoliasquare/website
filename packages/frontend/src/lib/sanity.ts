@@ -12,7 +12,7 @@ import {
 } from '$env/static/private';
 
 if (!SANITY_PROJECT_ID || !SANITY_DATASET) {
-	throw new Error('Did you forget to run yarn sanity init --env?');
+	throw new Error('Did you forget to run yarn run -T sanity init --env?');
 }
 
 if (!SANITY_API_VERSION) {
