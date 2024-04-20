@@ -84,11 +84,16 @@ jobs:
   unit-test:
     runs-on: ubuntu-latest
     environment: development # GitHub Actions Repo Environment
+
+    # environment variables are needed for build. Checkout this
+    # link for a discussion issue referencing errors you may
+    # encounter: https://github.com/sveltejs/kit/discussions/7265#discussioncomment-6208508
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
+
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
