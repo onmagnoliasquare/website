@@ -8,17 +8,9 @@ body:
     id: description
     attributes:
       label: Description
-      description: Description of the bug. Make it concise and simple, if you can.
+      description: Description of the feature. Make it clear and concise if you can.
     validations:
       required: true
-
-  - type: textarea
-    id: reproduction
-    attributes:
-      label: To reproduce...
-      description: List of steps in order to reproduce the bug.
-    validations:
-      required: false
 
   - type: textarea
     id: links
