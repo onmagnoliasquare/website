@@ -141,6 +141,16 @@ jobs:
         with:
           node-version: "20.x"
 
+        # Use corepack
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Install yarn
+        run: corepack install --global yarn@stable
+
+      - name: Set yarn version
+        run: corepack use yarn@stable
+
         # Retrieve cached dependencies from previous job.
         # Retrieved from: https://github.com/actions/cache/blob/main/examples.md#node---yarn
 
