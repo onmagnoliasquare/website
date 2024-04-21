@@ -89,7 +89,7 @@ on:
 jobs:
   setup:
     runs-on: ubuntu-latest
-    environment: development
+    # environment: development
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
@@ -127,7 +127,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    environment: development
+    # environment: development
     needs: setup
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
