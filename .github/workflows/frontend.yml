@@ -81,14 +81,9 @@ on:
       - "packages/frontend/svelte.config.js"
 
 jobs:
-  unit-test:
+  setup:
     runs-on: ubuntu-latest
-    environment: development # GitHub Actions Repo Environment
-    env:
-      SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
-      SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
-      SANITY_DATASET: ${{ vars.SANITY_DATASET }}
-      SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
+    environment: development
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
@@ -96,7 +91,7 @@ jobs:
         with:
           node-version: "20.x"
 
-      # Yarn installation
+        # Yarn installation
       - name: Enable corepack
         run: corepack enable
 
@@ -109,8 +104,51 @@ jobs:
       - name: Install dependencies
         run: yarn --immutable
 
-      # Linting and Formatting
-      # Should happen on package deployment
+        # Cache dependencies.
+        # Retrieved from: https://github.com/actions/cache/blob/main/examples.md#node---yarn
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v4
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+  test:
+    runs-on: ubuntu-latest
+    environment: development
+    needs: setup
+    env:
+      SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+      SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
+      SANITY_DATASET: ${{ vars.SANITY_DATASET }}
+      SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+
+        # Retrieve cached dependencies from previous job.
+        # Retrieved from: https://github.com/actions/cache/blob/main/examples.md#node---yarn
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v4
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
       # Check if there are any errors in the SvelteKit code
       - name: Run SvelteKit Check
