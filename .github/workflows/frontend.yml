@@ -43,7 +43,13 @@ on:
       - "packages/frontend/svelte.config.js"
 
   push:
-    branches: ["main", "staging", "dev"]
+    branches:
+      [
+        "main",
+        "staging",
+        "dev",
+        "43-refactor-development-and-deployment-pipeline",
+      ]
     paths-ignore:
       # Ignore changes in documentation.
       - "docs/**"
