@@ -107,9 +107,12 @@ jobs:
         run: |
           echo "ENVIRONMENT_NAME=development" >> $GITHUB_ENV
 
-      - name: Set output
+      # Original: https://magnussundstrom.se/blog/github-action-environment-check
+      # Edited, due to: https://github.blog/changelog/2023-07-24-github-actions-update-on-save-state-and-set-output-commands/
+      # Solution derived from: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#example-of-writing-an-environment-variable-to-github_env
+      - name: Set environment
         id: set_env
-        run: echo "::set-output name=current_env::${{ env.ENVIRONMENT_NAME }}"
+        run: echo "current_env=${{ env.ENVIRONMENT_NAME }}" >> "$GITHUB_ENV"
 
   # Setup and build the yarn cache for the rest of the jobs.
   setup:
