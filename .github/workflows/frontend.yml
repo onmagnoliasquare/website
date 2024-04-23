@@ -87,19 +87,35 @@ on:
       - "packages/frontend/svelte.config.js"
 
 jobs:
+  # Sets the environment.
+  set-environment:
+    runs-on: ubuntu-latest
+    outputs:
+      current_env: ${{ steps.set_env.outputs.current_env }}
+    steps:
+      - name: Check if production
+        if: github.ref_name == 'production'
+        run: |
+          echo "ENVIRONMENT_NAME=production" >> $GITHUB_ENV
+      - name: Check if staging
+        if: github.ref_name == 'staging'
+        run: |
+          echo "ENVIRONMENT_NAME=staging" >> $GITHUB_ENV
+
+      - name: Check if development
+        if: github.ref_name == 'dev'
+        run: |
+          echo "ENVIRONMENT_NAME=development" >> $GITHUB_ENV
+
+      - name: Set output
+        id: set_env
+        run: echo "::set-output name=current_env::${{ env.ENVIRONMENT_NAME }}"
+
+  # Setup and build the yarn cache for the rest of the jobs.
   setup:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - branch: main
-            environment: production
-          - branch: staging
-            environment: staging
-          - branch: dev
-            environment: development
-
-    environment: ${{ matrix.environment }}
+    environment: ${{ needs.set-environment.outputs.current_env }}
+    needs: set-environment
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
@@ -135,19 +151,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+  # Run unit, component, and E2E tests.
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - branch: main
-            environment: production
-          - branch: staging
-            environment: staging
-          - branch: dev
-            environment: development
 
-    environment: ${{ matrix.environment }}
+    # Maybe can also use:
+    # https://github.com/orgs/community/discussions/56123#discussioncomment-5968189
+    environment: ${{ needs.set-environment.outputs.current_env }}
     needs: setup
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
@@ -205,16 +215,9 @@ jobs:
     permissions:
       contents: read
       deployments: write
-    strategy:
-      matrix:
-        include:
-          - branch: main
-            environment: production
-          - branch: staging
-            environment: staging
 
     if: github.ref_name == 'main' || github.ref_name == 'staging'
-    environment: ${{ matrix.environment }}
+    environment: ${{ needs.set-environment.outputs.current_env }}
     needs: test
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
