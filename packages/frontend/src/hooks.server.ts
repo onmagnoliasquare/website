@@ -155,7 +155,7 @@ const logSpeed: Handle = async ({ event, resolve }) => {
 	return response;
 };
 
-export const handle = sequence(redirectCaps, redirectTag, redirectHome, logSpeed);
+//export const handle = sequence(redirectCaps, redirectTag, redirectHome, logSpeed);
 
 // MAYBE:
 // Maybe also add a HTTP rewriter?
@@ -175,3 +175,14 @@ export const handle = sequence(redirectCaps, redirectTag, redirectHome, logSpeed
 
 // 	return fetch(request);
 // }
+
+/** @type {import('@sveltejs/kit').Handle} */
+export const handle = async ({ event, resolve }) => {
+	const theme = event.cookies.get("siteTheme");
+  
+	const response = await resolve(event, {
+	  transformPageChunk: ({ html }) =>
+		html.replace('data-theme=""', `data-theme="${theme}"`),
+	});
+	return response;
+  };

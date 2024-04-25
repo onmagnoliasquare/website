@@ -10390,9 +10390,19 @@ h6 {
   }
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --text-color: var(--white);
     --bg-color: var(--black);
   }
+} */
+
+[data-theme="dark"] {
+  --text-color: var(--white);
+  --bg-color: var(--black);
+}
+
+body {
+  color: var(--text-color);
+  background-color: var(--bg-color);
 }
