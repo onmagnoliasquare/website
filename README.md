@@ -112,6 +112,7 @@ We are either using Cloudflare Pages or Vercel to deploy the frontend. The backe
 - [Vitest Coverage](https://vitest.dev/guide/coverage)
 - [Vitest Workspace](https://vitest.dev/guide/workspace.html#workspace)
 - [Add formatting and styles to JS console log](https://levelup.gitconnected.com/add-styles-and-formatting-to-your-console-log-messages-in-javascript-5f14819b1c5d)
+- [Vitest - Vitest hangs tests, close timed out after 1000ms](https://github.com/vitest-dev/vitest/issues/2008)
 
 ### GitHub
 
@@ -119,10 +120,13 @@ We are either using Cloudflare Pages or Vercel to deploy the frontend. The backe
 
 #### Actions
 
+- [act - Local GitHub action runner](https://nektosact.com/usage/index.html)
 - [Prevent File Change](https://github.com/marketplace/actions/prevent-file-change)
 - [Auto Assign](https://github.com/marketplace/actions/auto-assign-action)
 - [Require Labels](https://github.com/marketplace/actions/require-labels)
 - [Google Sheet](https://github.com/marketplace/actions/gsheet-action)
+- [Building a CI/CD environment with eslint and prettier](https://t-i-show.medium.com/build-a-ci-cd-environment-with-github-actions-eslint-prettier-ee725c5fe2ab)
+- [Integrating and Enforcing ESLint and Prettier with Husky](https://silvenon.com/blog/integrating-and-enforcing-prettier-and-eslint)
 
 ### Sanity
 
@@ -135,3 +139,7 @@ We are either using Cloudflare Pages or Vercel to deploy the frontend. The backe
 
 **--no-threads command not found**
 - [It was converted to --pool forks --poolOptions.forks.singleFork](https://vitest.dev/guide/migration.html#pools-are-standardized-4172)
+
+### Design
+
+- [Magnolia in Shanghai](https://wapbaike.baidu.com/tashuo/browse/content?id=24921b1a0cbe87e07289d90b)
