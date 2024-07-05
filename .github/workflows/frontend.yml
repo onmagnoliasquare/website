@@ -43,13 +43,7 @@ on:
       - "packages/frontend/svelte.config.js"
 
   push:
-    branches:
-      [
-        "main",
-        "staging",
-        "dev",
-        "43-refactor-development-and-deployment-pipeline",
-      ]
+    branches: ["main", "staging", "dev"]
     paths-ignore:
       # Ignore changes in documentation.
       - "docs/**"
@@ -131,7 +125,7 @@ jobs:
         run: corepack enable
 
       - name: Install yarn
-        run: corepack install --global yarn@stable
+        run: corepack install --global yarn@${{ vars.YARN_VERSION }}
 
       - name: Set yarn version
         run: corepack use yarn@stable
@@ -180,7 +174,7 @@ jobs:
         run: corepack enable
 
       - name: Install yarn
-        run: corepack install --global yarn@stable
+        run: corepack install --global yarn@${{ vars.YARN_VERSION }}
 
       - name: Set yarn version
         run: corepack use yarn@stable
@@ -240,7 +234,7 @@ jobs:
         run: corepack enable
 
       - name: Install yarn
-        run: corepack install --global yarn@stable
+        run: corepack install --global yarn@${{ vars.YARN_VERSION }}
 
       - name: Set yarn version
         run: corepack use yarn@stable
