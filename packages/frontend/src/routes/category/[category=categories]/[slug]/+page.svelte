@@ -12,9 +12,11 @@
 
 <article class="measure-wide center">
 	<header>
+		<h1 class="f1 f-5-l fw2 tracked-tight tracked-tight-4-ns tracked-tight-6-l lh-solid">
 			{data.article.title}
 		</h1>
 		{#if data.article.subtitle}
+			<p class="fw5 i f2 tracked-tight-2 lh-title" id="subtitle">{data.article.subtitle}</p>
 		{/if}
 
 		<ByLine authors={data.article.authors} />
