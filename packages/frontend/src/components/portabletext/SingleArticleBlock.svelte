@@ -39,11 +39,11 @@
 	h4,
 	h5,
 	h6 {
-		font-family: 'Noto Serif Regular';
+		font-family: 'Noto Serif Regular', serif;
 	}
 
 	p {
-		font-family: 'Archivo Regular';
+		font-family: 'Archivo Regular',sans-serif;
 		text-align: justify;
 		-ms-hyphens: auto;
 		-moz-hyphens: auto;

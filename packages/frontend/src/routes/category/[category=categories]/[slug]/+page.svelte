@@ -4,19 +4,15 @@
 	import type { PageData } from './$types';
 	import { ArticleHardBreak, SingleArticleBlock } from '$lib';
 	import { dateFormatter } from '$lib/helpers.js';
-	import ByLine from '../../../../components/article/ByLine.svelte';
-	import DateLine from '../../../../components/article/DateLine.svelte';
 
 	export let data: PageData;
 </script>
 
 <article class="measure-wide center">
 	<header>
-		<h1 class="f1 f-5-l fw2 tracked-tight tracked-tight-4-ns tracked-tight-6-l">
 			{data.article.title}
 		</h1>
 		{#if data.article.subtitle}
-			<p class="fw5 i f2" id="subtitle">{data.article.subtitle}</p>
 		{/if}
 
 		<ByLine authors={data.article.authors} />
@@ -50,11 +46,11 @@
 	/* https://github.com/mnater/Hyphenopoly */
 
 	h1 {
-		font-family: 'Noto Serif Regular';
+		font-family: 'Noto Serif Regular', serif;
 	}
 
 	#subtitle {
-		font-family: 'Noto Serif Italic';
-		text-justify: none;
+		font-family: 'Noto Serif Italic', serif;
+			text-align: left;
 	}
 </style>
