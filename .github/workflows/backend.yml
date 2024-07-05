@@ -41,13 +41,7 @@ on:
       - "packages/backend/schemaTypes/**"
 
   push:
-    branches:
-      [
-        "main",
-        "staging",
-        "dev",
-        "43-refactor-development-and-deployment-pipeline",
-      ]
+    branches: ["main", "staging", "dev"]
     paths-ignore:
       # Ignore changes in documentation.
       - "docs/**"
@@ -85,9 +79,37 @@ on:
       - "packages/backend/schemaTypes/**"
 
 jobs:
+  # Sets the environment.
+  set-environment:
+    runs-on: ubuntu-latest
+    outputs:
+      current_env: ${{ steps.set_env.outputs.current_env }}
+    steps:
+      - name: Check if production
+        if: github.ref_name == 'production'
+        run: |
+          echo "ENVIRONMENT_NAME=production" >> $GITHUB_ENV
+      - name: Check if staging
+        if: github.ref_name == 'staging'
+        run: |
+          echo "ENVIRONMENT_NAME=staging" >> $GITHUB_ENV
+
+      - name: Check if development
+        if: github.ref_name == 'dev'
+        run: |
+          echo "ENVIRONMENT_NAME=development" >> $GITHUB_ENV
+
+      # Original: https://magnussundstrom.se/blog/github-action-environment-check
+      # Edited, due to: https://github.blog/changelog/2023-07-24-github-actions-update-on-save-state-and-set-output-commands/
+      # Solution derived from: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#example-of-writing-an-environment-variable-to-github_env
+      - name: Set environment
+        id: set_env
+        run: echo "current_env=${{ env.ENVIRONMENT_NAME }}" >> "$GITHUB_ENV"
+
   setup:
     runs-on: ubuntu-latest
-    environment: development
+    environment: ${{ needs.set-environment.outputs.current_env }}
+    needs: set-environment
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
@@ -100,7 +122,7 @@ jobs:
         run: corepack enable
 
       - name: Install yarn
-        run: corepack install --global yarn@stable
+        run: corepack install --global yarn@${{ vars.YARN_VERSION }}
 
       - name: Set yarn version
         run: corepack use yarn@stable
@@ -125,7 +147,9 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    environment: development
+    # Maybe can also use:
+    # https://github.com/orgs/community/discussions/56123#discussioncomment-5968189
+    environment: ${{ needs.set-environment.outputs.current_env }}
     needs: setup
     steps:
       - uses: actions/checkout@v4
@@ -139,7 +163,7 @@ jobs:
         run: corepack enable
 
       - name: Install yarn
-        run: corepack install --global yarn@stable
+        run: corepack install --global yarn@${{ vars.YARN_VERSION }}
 
       - name: Set yarn version
         run: corepack use yarn@stable
