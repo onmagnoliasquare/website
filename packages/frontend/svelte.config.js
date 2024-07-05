@@ -8,7 +8,7 @@ const config = {
 	preprocess: vitePreprocess(),
 
 	kit: {
-		// We're using cloudflare's adapter, as we'll be on Cloudflare pages
+		// We're using Cloudflare's adapter, as we'll be on Cloudflare pages
 		// for the time being...
 		// See: https://kit.svelte.dev/docs/adapter-cloudflare
 		adapter: adapter({
@@ -16,7 +16,9 @@ const config = {
 				include: ['/*'],
 				exclude: ['<all>']
 			}
-		})
+		}),
+		alias: {
+			$components: 'src/components/*',
 	}
 };
 
