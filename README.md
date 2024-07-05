@@ -109,6 +109,10 @@ We are either using Cloudflare Pages or Vercel to deploy the frontend. The backe
 
 - [SvelteKit testing with Vitest](https://www.tejusparikh.com/2023/sveltekit-testing-with-vitest.html)
 - [Vite Testing Data Driven Tests Parameterization](https://www.the-koi.com/projects/parameterized-data-driven-tests-in-vitest-example/)
+
+### GitHub Actions
+
+- [Filter Pattern Cheat Sheet](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#patterns-to-match-branches-and-tags)
 - [Vitest Coverage](https://vitest.dev/guide/coverage)
 - [Vitest Workspace](https://vitest.dev/guide/workspace.html#workspace)
 - [Add formatting and styles to JS console log](https://levelup.gitconnected.com/add-styles-and-formatting-to-your-console-log-messages-in-javascript-5f14819b1c5d)

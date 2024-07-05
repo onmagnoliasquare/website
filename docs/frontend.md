@@ -41,3 +41,7 @@ Testing for the frontend consists of two frameworks: Vitest and Playwright. Vite
 Tests for Vitest exist in `frontend/src/index.test.ts`. Playwright tests exist in `frontend/tests`.
 
 A dependency installed is `vitest-ui`, which lets you view tests running in browser. Check frontend `package.json` to view its usage.
+
+## Useful Links
+
+- [SvelteKit use environment variables in different directory](https://github.com/sveltejs/kit/issues/10822#issuecomment-1742971327)
