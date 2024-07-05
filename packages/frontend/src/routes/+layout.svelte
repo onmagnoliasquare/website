@@ -10,7 +10,9 @@
 	<Navbar />
 </header>
 <main>
-	<slot />
+	<div class="measure-wide center">
+		<slot />
+	</div>
 </main>
 <footer>
 	<p>On Magnolia Square</p>
