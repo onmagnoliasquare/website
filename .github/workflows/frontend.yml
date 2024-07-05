@@ -43,7 +43,13 @@ on:
       - "packages/frontend/svelte.config.js"
 
   push:
-    branches: ["main", "staging", "dev"]
+    branches:
+      [
+        "main",
+        "staging",
+        "dev",
+        "43-refactor-development-and-deployment-pipeline",
+      ]
     paths-ignore:
       # Ignore changes in documentation.
       - "docs/**"
@@ -81,13 +87,81 @@ on:
       - "packages/frontend/svelte.config.js"
 
 jobs:
-  unit-test:
+  # Sets the environment.
+  set-environment:
     runs-on: ubuntu-latest
-    environment: development # GitHub Actions Repo Environment
+    outputs:
+      current_env: ${{ steps.set_env.outputs.current_env }}
+    steps:
+      - name: Check if production
+        if: github.ref_name == 'production'
+        run: |
+          echo "ENVIRONMENT_NAME=production" >> $GITHUB_ENV
+      - name: Check if staging
+        if: github.ref_name == 'staging'
+        run: |
+          echo "ENVIRONMENT_NAME=staging" >> $GITHUB_ENV
 
-    # environment variables are needed for build. Checkout this
-    # link for a discussion issue referencing errors you may
-    # encounter: https://github.com/sveltejs/kit/discussions/7265#discussioncomment-6208508
+      - name: Check if development
+        if: github.ref_name == 'dev'
+        run: |
+          echo "ENVIRONMENT_NAME=development" >> $GITHUB_ENV
+
+      # Original: https://magnussundstrom.se/blog/github-action-environment-check
+      # Edited, due to: https://github.blog/changelog/2023-07-24-github-actions-update-on-save-state-and-set-output-commands/
+      # Solution derived from: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#example-of-writing-an-environment-variable-to-github_env
+      - name: Set environment
+        id: set_env
+        run: echo "current_env=${{ env.ENVIRONMENT_NAME }}" >> "$GITHUB_ENV"
+
+  # Setup and build the yarn cache for the rest of the jobs.
+  setup:
+    runs-on: ubuntu-latest
+    environment: ${{ needs.set-environment.outputs.current_env }}
+    needs: set-environment
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+
+        # Yarn installation
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Install yarn
+        run: corepack install --global yarn@stable
+
+      - name: Set yarn version
+        run: corepack use yarn@stable
+
+      - name: Install dependencies
+        run: yarn --immutable
+
+        # Cache dependencies.
+        # Retrieved from: https://github.com/actions/cache/blob/main/examples.md#node---yarn
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v4
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+  # Run unit, component, and E2E tests.
+  test:
+    runs-on: ubuntu-latest
+
+    # Maybe can also use:
+    # https://github.com/orgs/community/discussions/56123#discussioncomment-5968189
+    environment: ${{ needs.set-environment.outputs.current_env }}
+    needs: setup
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
@@ -101,7 +175,7 @@ jobs:
         with:
           node-version: "20.x"
 
-      # Yarn installation
+        # Use corepack
       - name: Enable corepack
         run: corepack enable
 
@@ -111,16 +185,97 @@ jobs:
       - name: Set yarn version
         run: corepack use yarn@stable
 
-      - name: Install dependencies
-        run: yarn --immutable
+        # ================================================ #
+        #  Retrieve cached dependencies from previous job  #
+        # ================================================ #
 
-      # Linting and Formatting
-      # Should happen on package deployment
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
 
-      # Check if there are any errors in the SvelteKit code
+      - uses: actions/cache@v4
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+        # ============================================== #
+        # ############################################## #
+        # ============================================== #
+
+        # Check if there are any errors in the SvelteKit code.
       - name: Run SvelteKit Check
         run: yarn check:front
 
-      # Run unit tests
+        # Run unit tests.
       - name: Run frontend tests
         run: yarn test-ci:front
+
+  # Deploy to services if on staging or on production.
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+
+    if: github.ref_name == 'main' || github.ref_name == 'staging'
+    environment: ${{ needs.set-environment.outputs.current_env }}
+    needs: test
+    env:
+      SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+      SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
+      SANITY_DATASET: ${{ vars.SANITY_DATASET }}
+      SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+
+        # Use corepack
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Install yarn
+        run: corepack install --global yarn@stable
+
+      - name: Set yarn version
+        run: corepack use yarn@stable
+
+        # ================================================ #
+        #  Retrieve cached dependencies from previous job  #
+        # ================================================ #
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v4
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+        # ============================================== #
+        # ############################################## #
+        # ============================================== #
+
+      - name: Build website
+        run: yarn build:front
+
+      # Deploy using wrangler CLI
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          branch: ${{ github.ref_name }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: website
+          directory: ".svelte-kit/output"
+          workingDirectory: packages/frontend
+          wranglerVersion: "3"

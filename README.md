@@ -12,27 +12,29 @@ Please first have __yarn__ installed on your computer first before starting deve
 
 ### MacOS
 
-If you're using MacOS the brew package ```corepack``` is needed. Corepack ships with Node, but zsh does not find this linkage in the shell. Therefore, since we are using brew, corepack can be installed with:
+If you're using MacOS the brew package `corepack` is needed. Corepack ships with Node, but zsh does not find this linkage in the shell. Therefore, since we are using brew, corepack can be installed with:
 
-```brew install corepack```
+`brew install corepack`
 
-Brew may error and say that you must remove the symlink for ```yarn``` if you used brew to install yarn. Do not fret, run this command:
+Brew may error and say that you must remove the symlink for `yarn` if you used brew to install yarn. Do not fret, run this command:
 
-```brew unlink yarn```
+`brew unlink yarn`
 
-Then, rerun ```brew install corepack```.
+Then, rerun `brew install corepack`.
 
-Now, run ```corepack enable```. This will enable corepack globally. Optionally, one can run ```corepack install --global yarn@stable``` to install the latest yarn version globally using corepack.
+Now, run `corepack enable`. This will enable corepack globally. Optionally, one can run `corepack install --global yarn@stable` to install the latest yarn version globally using corepack.
 
-To set the yarn version in the frontend directory, first ```cd frontend``` then ```corepack use yarn@v```, where ```v``` is the version you want to set. In this project, we are using stable, so the command would be ```corepack use yarn@stable```.
+Now, in the root directory, type `corepack use yarn@v`, where `v` is the version you want to set. In this project, we are using stable, so the command would be `corepack use yarn@stable`.
 
 ## Development
 
-In the root directory on this repository, run ```yarn```. This will install all necessary files.
+In the root directory on this repository, run `yarn`. This will install all necessary files.
 
-To start development for either backend or frontend, run ```yarn dev``` in their respective directories.
+The frontend and backend directories have `.env.example` files that must be duplicated and turned into `.env` files. Fill in the template with appropriate, legitimate values.
 
-Keep in mind that for backend work, one must be signed into the OMS Sanity account to interact with Sanity Studio.
+To start development for either backend or frontend, run `yarn dev:front` or `yarn dev:back` in the root directory.
+
+Keep in mind that for backend work, one must be logged into the OMS Sanity account to interact with Sanity Studio.
 
 ## Good Habits
 
@@ -98,10 +100,50 @@ We are either using Cloudflare Pages or Vercel to deploy the frontend. The backe
 
 ## Useful Links
 
+### Build
+
+- [Yarn workspace tutorial and cheatsheet](https://www.chandankumar.com/blog/yarn-workspace-tutorial)
+- [Using yarn workspaces to create a monorepo](https://medium.com/tribalscale/using-yarn-workspaces-to-create-a-monorepo-33203152d0c6)
+
 ### Testing
 
+- [SvelteKit testing with Vitest](https://www.tejusparikh.com/2023/sveltekit-testing-with-vitest.html)
 - [Vite Testing Data Driven Tests Parameterization](https://www.the-koi.com/projects/parameterized-data-driven-tests-in-vitest-example/)
 
 ### GitHub Actions
 
 - [Filter Pattern Cheat Sheet](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#patterns-to-match-branches-and-tags)
+- [Vitest Coverage](https://vitest.dev/guide/coverage)
+- [Vitest Workspace](https://vitest.dev/guide/workspace.html#workspace)
+- [Add formatting and styles to JS console log](https://levelup.gitconnected.com/add-styles-and-formatting-to-your-console-log-messages-in-javascript-5f14819b1c5d)
+- [Vitest - Vitest hangs tests, close timed out after 1000ms](https://github.com/vitest-dev/vitest/issues/2008)
+
+### GitHub
+
+- [Git Merge](https://www.atlassian.com/git/tutorials/using-branches/git-merge)
+
+#### Actions
+
+- [act - Local GitHub action runner](https://nektosact.com/usage/index.html)
+- [Prevent File Change](https://github.com/marketplace/actions/prevent-file-change)
+- [Auto Assign](https://github.com/marketplace/actions/auto-assign-action)
+- [Require Labels](https://github.com/marketplace/actions/require-labels)
+- [Google Sheet](https://github.com/marketplace/actions/gsheet-action)
+- [Building a CI/CD environment with eslint and prettier](https://t-i-show.medium.com/build-a-ci-cd-environment-with-github-actions-eslint-prettier-ee725c5fe2ab)
+- [Integrating and Enforcing ESLint and Prettier with Husky](https://silvenon.com/blog/integrating-and-enforcing-prettier-and-eslint)
+
+### Sanity
+
+- [Sanity and Algolia](https://www.sanity.io/technology-partners/algolia)
+- [Pagination with Groq](https://www.sanity.io/docs/paginating-with-groq)
+
+### Troubleshooting
+
+#### Vitest
+
+**--no-threads command not found**
+- [It was converted to --pool forks --poolOptions.forks.singleFork](https://vitest.dev/guide/migration.html#pools-are-standardized-4172)
+
+### Design
+
+- [Magnolia in Shanghai](https://wapbaike.baidu.com/tashuo/browse/content?id=24921b1a0cbe87e07289d90b)

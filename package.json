@@ -8,8 +8,8 @@
     "packages/*"
   ],
   "scripts": {
-    "build:front": "cd frontend && yarn build",
-    "build:back": "cd backend && yarn build",
+    "build:front": "yarn workspace frontend build",
+    "build:back": "yarn workspace backend build",
     "build": "yarn && yarn build:frontend && yarn build:backend",
     "check:front": "yarn workspace frontend check",
     "dev:front": "yarn workspace frontend dev",
