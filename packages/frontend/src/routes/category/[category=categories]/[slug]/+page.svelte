@@ -4,6 +4,8 @@
 	import type { PageData } from './$types';
 	import { ArticleHardBreak, SingleArticleBlock } from '$lib';
 	import { dateFormatter } from '$lib/helpers.js';
+	import ByLine from '$components/article/ByLine.svelte';
+	import DateLine from '$components/article/DateLine.svelte';
 
 	export let data: PageData;
 </script>
