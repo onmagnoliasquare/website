@@ -1,6 +1,7 @@
 <script lang="ts">
-	import ByLine from '../../../components/article/ByLine.svelte';
-	import DateLine from '../../../components/article/DateLine.svelte';
+	import ByLine from '$components/article/ByLine.svelte';
+	import DateLine from '$components/article/DateLine.svelte';
+	import PageHeader from "$components/PageHeader.svelte";
 	import type { PageData } from './$types';
 	export let data: PageData;
 
@@ -8,9 +9,9 @@
 	$: category = data.category!;
 </script>
 
-<h1 class="f1 f-5-l fw2 tracked-tight tracked-tight-2-ns tracked-tight-5-l">
+<PageHeader>
 	{category.charAt(0).toUpperCase() + category.slice(1)}
-</h1>
+</PageHeader>
 
 <ul class="list">
 	{#each data.articles as article}
@@ -28,9 +29,3 @@
 		</li>
 	{/each}
 </ul>
-
-<style>
-	h1 {
-		font-family: 'Noto Serif Regular';
-	}
-</style>
