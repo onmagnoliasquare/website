@@ -1,13 +1,16 @@
 import { error } from '@sveltejs/kit';
 import { getSeriesList, type Series } from '$lib/sanity';
 import type { PageServerLoad } from './$types';
+import createSiteTitle from '$lib/createSiteTitle';
 
 export const load: PageServerLoad = (async () => {
 	const series: Series[] = await getSeriesList();
+	const title = "Series"
 
 	if (series) {
 		return {
-			series
+			series,
+			title
 		};
 	}
 

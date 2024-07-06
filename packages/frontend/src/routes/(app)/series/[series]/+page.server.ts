@@ -6,9 +6,15 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	const { series } = event.params;
 	const articles: Article[] = await getArticlesFromSeries(series as string);
 
+	// TODO this is flawed design, what if we want to showcase a series
+	// that isn't out yet but get our viewers ready? This will fail.
+	// figure out a way to get the title without using an article.
+	const title = articles[0].series.name;
+
 	if (articles.length >= 1) {
 		return {
-			articles
+			articles,
+			title
 		};
 	}
 
