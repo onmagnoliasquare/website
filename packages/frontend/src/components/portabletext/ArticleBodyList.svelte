@@ -8,8 +8,10 @@
 	$: ({ listItem } = value);
 </script>
 
+<div class="mv4">
 {#if listItem === 'number'}
-	<ol class=""><slot /></ol>
+	<ol><slot /></ol>
 {:else}
 	<ul><slot /></ul>
 {/if}
+</div>
