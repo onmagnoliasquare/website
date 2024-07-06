@@ -109,8 +109,11 @@ jobs:
         run: echo "current_env=${{ env.ENVIRONMENT_NAME }}" >> "$GITHUB_ENV"
 
   # Setup and build the yarn cache for the rest of the jobs.
+  # Also exports yarn version from package.json.
   setup:
     runs-on: ubuntu-latest
+    outputs:
+      yarn_version: ${{ steps.set_yarn_version.outputs.yarn_version }}
     environment: ${{ needs.set-environment.outputs.current_env }}
     needs: set-environment
     steps:
@@ -118,17 +121,29 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
+          node-version: ${{ vars.NODE_VERSION }}
+
+      # Retrieve yarn version from package.json
+      - name: Get yarn version
+        run: |
+          echo "yarn_version=" >> "$GITHUB_ENV"
+          grep 'packageManager' package.json | awk -F: '{gsub(/[", ]/, "", $2); print $2}' | xargs -I {} echo "YARN_VERSION="{} >> "$GITHUB_ENV"
+
+      # Set the yarn version by exporting to env var and output
+      - name: Set yarn version
+        id: set_yarn_version
+        run: |
+          echo "yarn_version=${{ env.YARN_VERSION }}" >> "$GITHUB_ENV"
 
         # Yarn installation
       - name: Enable corepack
         run: corepack enable
 
       - name: Install yarn
-        run: corepack install --global yarn@${{ vars.YARN_VERSION }}
+        run: corepack install --global ${{ env.YARN_VERSION }}
 
       - name: Set yarn version
-        run: corepack use yarn@stable
+        run: corepack use ${{ env.YARN_VERSION }}
 
       - name: Install dependencies
         run: yarn --immutable
@@ -167,17 +182,17 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
+          node-version: ${{ vars.NODE_VERSION }}
 
         # Use corepack
       - name: Enable corepack
         run: corepack enable
 
       - name: Install yarn
-        run: corepack install --global yarn@${{ vars.YARN_VERSION }}
+        run: corepack install --global ${{ needs.setup.outputs.yarn_version }}
 
       - name: Set yarn version
-        run: corepack use yarn@stable
+        run: corepack use  ${{ needs.setup.outputs.yarn_version }}
 
         # ================================================ #
         #  Retrieve cached dependencies from previous job  #
@@ -227,17 +242,17 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
+          node-version: ${{ vars.NODE_VERSION }}
 
         # Use corepack
       - name: Enable corepack
         run: corepack enable
 
       - name: Install yarn
-        run: corepack install --global yarn@${{ vars.YARN_VERSION }}
+        run: corepack install --global ${{ needs.setup.outputs.yarn_version }}
 
       - name: Set yarn version
-        run: corepack use yarn@stable
+        run: corepack use  ${{ needs.setup.outputs.yarn_version }}
 
         # ================================================ #
         #  Retrieve cached dependencies from previous job  #
