@@ -1,6 +1,10 @@
-<!-- Modification of https://github.com/portabletext/svelte-portabletext/blob/main/src/customComponents/SingleComponentBlock.svelte -->
+<!-- -->
 
 <script lang="ts">
+	/**
+	 * This component is a modification of:
+	 *  https://github.com/portabletext/svelte-portabletext/blob/main/src/customComponents/SingleComponentBlock.svelte
+	 * */
 	import type { BlockComponentProps } from '@portabletext/svelte';
 
 	export let portableText: BlockComponentProps;
@@ -27,26 +31,7 @@
 {:else if style === 'blockquote'}
 	<blockquote><slot /></blockquote>
 {:else if style === 'normal'}
-	<p class="lh-copy f5 f4-l tracked-02 fw3 pa0 mt0 mb3"><slot /></p>
+	<p class="lh-copy f5 f4-l tracked-02 fw3 pa0 mt0 mb3 hyphenate"><slot /></p>
 {:else}
 	<slot />
 {/if}
-
-<style>
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
-		font-family: 'Noto Serif Regular', serif;
-	}
-
-	p {
-		font-family: 'Archivo Regular',sans-serif;
-		text-align: justify;
-		-ms-hyphens: auto;
-		-moz-hyphens: auto;
-		-webkit-hyphens: auto;
-	}
-</style>

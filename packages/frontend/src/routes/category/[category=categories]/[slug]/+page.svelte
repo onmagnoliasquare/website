@@ -1,11 +1,12 @@
 <script lang="ts">
-	// import { PortableText } from '@portabletext/svelte';
 	import PortableText from '$lib/PortableText.svelte';
 	import type { PageData } from './$types';
-	import { ArticleHardBreak, SingleArticleBlock } from '$lib';
-	import { dateFormatter } from '$lib/helpers.js';
 	import ByLine from '$components/article/ByLine.svelte';
 	import DateLine from '$components/article/DateLine.svelte';
+	import ArticleBodyList from '$components/portabletext/ArticleBodyList.svelte';
+	import ArticleBodyListItem from '$components/portabletext/ArticleBodyListItem.svelte';
+	import ArticleBodyMarks from '$components/portabletext/ArticleBodyMarks.svelte';
+	import ArticleSingleComponentBlock from '$components/portabletext/ArticleSingleComponentBlock.svelte';
 
 	export let data: PageData;
 </script>
@@ -26,7 +27,12 @@
 		<PortableText
 			value={data.article.content}
 			components={{
-				block: SingleArticleBlock
+				marks: ArticleBodyMarks,
+				block: ArticleSingleComponentBlock,
+				list: ArticleBodyList,
+				listItem: {
+					normal: ArticleBodyListItem
+				}
 			}}
 		/>
 	</section>
@@ -48,10 +54,6 @@
 	/* https://css-tricks.com/almanac/properties/h/hyphenate/ */
 	/* Can also use this library if need be: */
 	/* https://github.com/mnater/Hyphenopoly */
-
-	h1 {
-		font-family: 'Noto Serif Regular', serif;
-	}
 
 	#subtitle {
 		font-family: 'Noto Serif Italic', serif;
