@@ -5,7 +5,6 @@
 
 <svelte:head>
 	<link rel="icon" href="https://fav.farm/🟪" />
-	<title>On Magnolia Square</title>
 </svelte:head>
 
 <slot />
