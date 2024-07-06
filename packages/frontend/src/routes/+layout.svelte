@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../styles/onmagnoliasquare.css';
-	import '../styles/fonts.css';
+	import '../styles/typography.css';
 	import { Navbar } from '$lib';
 </script>
 
