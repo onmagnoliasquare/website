@@ -165,6 +165,9 @@ jobs:
     # https://github.com/orgs/community/discussions/56123#discussioncomment-5968189
     environment: ${{ needs.set-environment.outputs.current_env }}
     needs: setup
+    env:
+      YARN_VERSION: ${{ needs.setup.outputs.yarn_version }}
+
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
@@ -177,10 +180,10 @@ jobs:
         run: corepack enable
 
       - name: Install yarn
-        run: corepack install --global ${{ needs.setup.outputs.yarn_version }}
+        run: corepack install --global ${{ env.YARN_VERSION }}
 
       - name: Set yarn version
-        run: corepack use ${{ needs.setup.outputs.yarn_version }}
+        run: corepack use ${{ env.YARN_VERSION }}
 
         # ============================================== #
         # Retrieve cached dependencies from previous job #
