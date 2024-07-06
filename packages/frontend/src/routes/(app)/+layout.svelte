@@ -1,4 +1,8 @@
 <script lang="ts">
+	/**
+	 * ======== MAIN LAYOUT ========
+	 * */
+
 	import { Navbar } from '$lib';
 </script>
 

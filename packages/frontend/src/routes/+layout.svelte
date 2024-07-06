@@ -1,4 +1,7 @@
 <script lang="ts">
+	/**
+	 * ======== ROOT LAYOUT ========
+	 * */
 	import '../styles/onmagnoliasquare.css';
 	import '../styles/typography.css';
 </script>
