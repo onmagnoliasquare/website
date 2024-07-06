@@ -1,19 +1,11 @@
 <script lang="ts">
 	import '../styles/onmagnoliasquare.css';
 	import '../styles/typography.css';
-	import { Navbar } from '$lib';
 </script>
 
-<!-- This is the main layout for the entire website. -->
-<header>
-	On Magnolia Square
-	<Navbar />
-</header>
-<main>
-	<div class="measure-wide center">
-		<slot />
-	</div>
-</main>
-<footer>
-	<p>On Magnolia Square</p>
-</footer>
+<svelte:head>
+	<link rel="icon" href="https://fav.farm/🟪" />
+	<title>On Magnolia Square</title>
+</svelte:head>
+
+<slot />
