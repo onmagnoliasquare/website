@@ -13,10 +13,3 @@
 {:else}
 	<ul><slot /></ul>
 {/if}
-
-<style>
-	ol,
-	ul {
-		font-family: 'Archivo Regular';
-	}
-</style>
