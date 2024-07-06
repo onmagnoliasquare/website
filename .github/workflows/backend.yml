@@ -130,7 +130,7 @@ jobs:
       - name: Set yarn version
         id: set_yarn_version
         run: |
-          echo "yarn_version=${{ env.YARN_VERSION }}" >> "$GITHUB_ENV"
+          echo "yarn_version=${{ env.YARN_VERSION }}" >> $GITHUB_OUTPUT
 
         # Yarn installation
       - name: Enable corepack
