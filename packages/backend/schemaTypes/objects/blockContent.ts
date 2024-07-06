@@ -12,8 +12,8 @@ export default defineType({
       // Only allow these block styles
       styles: [
         {title: 'Normal', value: 'normal'},
-        {title: 'Heading', value: 'h3'},
-        {title: 'Subheading', value: 'h4'},
+        {title: 'Heading', value: 'h2'},
+        {title: 'Subheading', value: 'h3'},
         {title: 'Quote', value: 'blockquote'},
       ],
       // Allow all types of lists
