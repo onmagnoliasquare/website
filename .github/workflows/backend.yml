@@ -31,6 +31,7 @@ on:
       - ".env.example"
 
       # Ignore changes in frontend package.
+      - ".github/workflows/frontend.yml"
       - "packages/frontend/**"
 
       # Ignore frontend package specific paths.
@@ -88,16 +89,16 @@ jobs:
       - name: Check if production
         if: github.ref_name == 'production'
         run: |
-          echo "ENVIRONMENT_NAME=production" >> $GITHUB_ENV
+          echo "ENVIRONMENT_NAME=production" >> "$GITHUB_ENV"
       - name: Check if staging
         if: github.ref_name == 'staging'
         run: |
-          echo "ENVIRONMENT_NAME=staging" >> $GITHUB_ENV
+          echo "ENVIRONMENT_NAME=staging" >> "$GITHUB_ENV"
 
       - name: Check if development
         if: github.ref_name == 'dev'
         run: |
-          echo "ENVIRONMENT_NAME=development" >> $GITHUB_ENV
+          echo "ENVIRONMENT_NAME=development" >> "$GITHUB_ENV"
 
       # Original: https://magnussundstrom.se/blog/github-action-environment-check
       # Edited, due to: https://github.blog/changelog/2023-07-24-github-actions-update-on-save-state-and-set-output-commands/
@@ -108,6 +109,8 @@ jobs:
 
   setup:
     runs-on: ubuntu-latest
+    outputs:
+      yarn_version: ${{ steps.set_yarn_version.outputs.yarn_version }}
     environment: ${{ needs.set-environment.outputs.current_env }}
     needs: set-environment
     steps:
@@ -115,17 +118,28 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
+          node-version: ${{ vars.NODE_VERSION }}
+
+      # Retrieve yarn version from package.json
+      - name: Get yarn version from package.json
+        run: |
+          grep 'packageManager' package.json | awk -F: '{gsub(/[", ]/, "", $2); print $2}' | xargs -I {} echo "YARN_VERSION="{} >> "$GITHUB_ENV"
+
+      # Set the yarn version by exporting to env var and output
+      - name: Append yarn version to $GITHUB_OUTPUT
+        id: set_yarn_version
+        run: |
+          echo "yarn_version=${{ env.YARN_VERSION }}" >> "$GITHUB_OUTPUT"
 
         # Yarn installation
       - name: Enable corepack
         run: corepack enable
 
       - name: Install yarn
-        run: corepack install --global yarn@${{ vars.YARN_VERSION }}
+        run: corepack install --global ${{ env.YARN_VERSION }}
 
       - name: Set yarn version
-        run: corepack use yarn@stable
+        run: corepack use ${{ env.YARN_VERSION }}
 
       - name: Install dependencies
         run: yarn --immutable
@@ -135,7 +149,7 @@ jobs:
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+        run: echo "dir=$(yarn config get cacheFolder)" >> "$GITHUB_OUTPUT"
 
       - uses: actions/cache@v4
         id: yarn-cache
@@ -151,22 +165,25 @@ jobs:
     # https://github.com/orgs/community/discussions/56123#discussioncomment-5968189
     environment: ${{ needs.set-environment.outputs.current_env }}
     needs: setup
+    env:
+      YARN_VERSION: ${{ needs.setup.outputs.yarn_version }}
+
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
+          node-version: ${{ vars.NODE_VERSION }}
 
       # Yarn installation
       - name: Enable corepack
         run: corepack enable
 
       - name: Install yarn
-        run: corepack install --global yarn@${{ vars.YARN_VERSION }}
+        run: corepack install --global ${{ env.YARN_VERSION }}
 
       - name: Set yarn version
-        run: corepack use yarn@stable
+        run: corepack use ${{ env.YARN_VERSION }}
 
         # ============================================== #
         # Retrieve cached dependencies from previous job #
@@ -174,7 +191,7 @@ jobs:
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+        run: echo "dir=$(yarn config get cacheFolder)" >> "$GITHUB_OUTPUT"
 
       - uses: actions/cache@v4
         id: yarn-cache
