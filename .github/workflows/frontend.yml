@@ -71,6 +71,7 @@ on:
       - ".env.example"
 
       # Ignore changes in backend package.
+      - ".github/workflows/backend.yml"
       - "packages/backend/**"
 
       # Ignore frontend package specific paths.
