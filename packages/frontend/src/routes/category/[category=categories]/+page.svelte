@@ -9,9 +9,13 @@
 	$: category = data.category!;
 </script>
 
+<!--https://svelte.dev/docs/logic-blocks#key -->
+<!--Not sure if this is needed... -->
+{#key category}
 <PageHeader>
 	{category.charAt(0).toUpperCase() + category.slice(1)}
 </PageHeader>
+{/key}
 
 <ul class="list">
 	{#each data.articles as article}
