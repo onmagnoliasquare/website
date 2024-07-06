@@ -42,8 +42,7 @@ on:
       - "packages/backend/schemaTypes/**"
 
   push:
-    branches:
-      ["main", "staging", "dev", "48-retrieve-yarn-version-from-packagejson"]
+    branches: ["main", "staging", "dev"]
     paths-ignore:
       # Ignore changes in documentation.
       - "docs/**"
