@@ -1,4 +1,4 @@
-const createSiteTitle = (t: string | undefined): string => {
+const createSiteTitle = (t?: string): string => {
 	const omsDefault = "On Magnolia Square"
 
 	if (t) {
