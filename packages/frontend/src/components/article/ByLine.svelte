@@ -11,6 +11,6 @@
 			{/each}
 		</ul>
 	{:else}
-		<p>by {authors[0].name}</p>
+		<p class="pa0 ma0 lh-copy">{authors[0].name}</p>
 	{/if}
 </div>

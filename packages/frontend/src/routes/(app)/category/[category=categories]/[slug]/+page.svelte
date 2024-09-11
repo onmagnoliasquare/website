@@ -20,8 +20,10 @@
 			<p class="fw5 i f2 tracked-tight-2 lh-title" id="subtitle">{data.article.subtitle}</p>
 		{/if}
 
-		<ByLine authors={data.article.authors} />
-		<DateLine date={data.article.date} />
+		<div id="bydate" class="flex flex-column mb4">
+			<ByLine authors={data.article.authors} />
+			<DateLine date={data.article.date} />
+		</div>
 	</header>
 	<section>
 		<PortableText
@@ -50,13 +52,17 @@
 {/if}
 
 <style>
-	/* Code modified from:  */
-	/* https://css-tricks.com/almanac/properties/h/hyphenate/ */
-	/* Can also use this library if need be: */
-	/* https://github.com/mnater/Hyphenopoly */
+    /* Code modified from:  */
+    /* https://css-tricks.com/almanac/properties/h/hyphenate/ */
+    /* Can also use this library if need be: */
+    /* https://github.com/mnater/Hyphenopoly */
 
-	#subtitle {
-		font-family: 'Noto Serif Italic', serif;
-			text-align: left;
-	}
+    #subtitle {
+        font-family: 'Noto Serif Italic', serif;
+        text-align: left;
+    }
+
+    #bydate {
+        font-weight: 500;
+    }
 </style>

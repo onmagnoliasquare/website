@@ -20,7 +20,7 @@
 </svelte:head>
 
 <!-- This is the main layout for the entire website. -->
-<header>
+<header class="measure-wide center">
 	On Magnolia Square
 	<Navbar />
 </header>
