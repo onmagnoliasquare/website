@@ -8,31 +8,31 @@ Our current website exists at a Wordpress host on GoDaddy. We are in the process
 
 ## Setup
 
-Please first have __yarn__ installed on your computer first before starting development.
+Please first have **yarn** installed on your computer first before starting development.
 
 ### MacOS
 
-If you're using MacOS the brew package ```corepack``` is needed. Corepack ships with Node, but zsh does not find this linkage in the shell. Therefore, since we are using brew, corepack can be installed with:
+If you're using MacOS the brew package `corepack` is needed. Corepack ships with Node, but zsh does not find this linkage in the shell. Therefore, since we are using brew, corepack can be installed with:
 
-```brew install corepack```
+`brew install corepack`
 
-Brew may error and say that you must remove the symlink for ```yarn``` if you used brew to install yarn. Do not fret, run this command:
+Brew may error and say that you must remove the symlink for `yarn` if you used brew to install yarn. Do not fret, run this command:
 
-```brew unlink yarn```
+`brew unlink yarn`
 
-Then, rerun ```brew install corepack```.
+Then, rerun `brew install corepack`.
 
-Now, run ```corepack enable```. This will enable corepack globally. Optionally, one can run ```corepack install --global yarn@stable``` to install the latest yarn version globally using corepack.
+Now, run `corepack enable`. This will enable corepack globally. Optionally, one can run `corepack install --global yarn@stable` to install the latest yarn version globally using corepack.
 
-To set the yarn version in the frontend directory, first ```cd frontend``` then ```corepack use yarn@v```, where ```v``` is the version you want to set. In this project, we are using stable, so the command would be ```corepack use yarn@stable```.
+Finally, in the root directory on this repository, run `yarn`. This will install all necessary files.
 
 ## Development
 
-In the root directory on this repository, run ```yarn```. This will install all necessary files.
+The frontend and backend directories have `.env.example` files that must be duplicated and renamed into `.env` files. Fill in the template with appropriate, legitimate values.
 
-To start development for either backend or frontend, run ```yarn dev``` in their respective directories.
+To start development for either backend or frontend, run `yarn dev:front` or `yarn dev:back` in the root directory.
 
-Keep in mind that for backend work, one must be signed into the OMS Sanity account to interact with Sanity Studio.
+Keep in mind that for backend work, one must be logged into the OMS Sanity account to interact with Sanity Studio.
 
 ## Good Habits
 
@@ -44,15 +44,29 @@ Commits in this repository follow [Conventional Commits](https://www.conventiona
 
 Proper code attribution is to be followed.
 
+### Branching
+
+The main branch is `dev`. The production branch is `main`. The deployment pipeline is as follows:
+
+`dev` to `staging` then finally to `main`.
+
+Staging is a pre-release branch. This is where we test the dataset against any new releasable changes from dev.
+
+This pipeline is enforced by the GitHub actions labeled `enforcer-`.
+
 ## Technical Specifications
 
 ### Yarn
 
-Our package manager is the latest version of ```yarn```. The version is using the command [```yarn set version stable```](https://yarnpkg.com/cli/set/version#details), run in the root directory. Since this is a monorepo, yarn is also used as the project management tool.
+Our package manager is the latest version of `yarn`. The version is using the command [`yarn set version stable`](https://yarnpkg.com/cli/set/version#details), run in the root directory. Since this is a monorepo, yarn is also used as the project management tool.
 
-In the ```package.json``` folder, you can find the workspaces field, which defines which folders yarn will look and install modules for.
+In the `package.json` folder, you can find the workspaces field, which defines which folders yarn will look and install modules for.
 
-With that being said, Vite does not yet support Yarn pnp, and therefore in the ```.yarnrc.yml``` file in the root directory, [```nodeLinker: "node-modules"```](https://yarnpkg.com/configuration/yarnrc#nodeLinker) line is appended. In the future, we may remove this in case of ghost-dependency creep, or if Vite begins support for pnp.
+With that being said, Vite does not yet support Yarn pnp, and therefore in the `.yarnrc.yml` file in the root directory, [`nodeLinker: "node-modules"`](https://yarnpkg.com/configuration/yarnrc#nodeLinker) line is appended. In the future, we may remove this in case of ghost-dependency creep, or if Vite begins support for pnp.
+
+#### What is `run -T (command)`?
+
+It's used to share commands between workspaces. Since a project like `frontend` does not have any depedencies inside (all of the dependencies are in the root dir), we must use `run -T (command)` to access the correct command. In this case, its either `vite` or `sanity` or any other that requires use like `playwright`.
 
 ### VS Code
 
@@ -70,8 +84,65 @@ Below are VS Code extensions used in this project.
 
 ### Route Enforcement
 
-To enforce categories and routes, we are using ```src/params``` to enforce only certain route categories. This is an example of the [Route Matching](https://kit.svelte.dev/docs/advanced-routing#matching) and [Route Rest Parameters](https://kit.svelte.dev/docs/advanced-routing#rest-parameters) of SvelteKit.
+To enforce categories and routes, we are using `src/params` to enforce only certain route categories. This is an example of the [Route Matching](https://kit.svelte.dev/docs/advanced-routing#matching) and [Route Rest Parameters](https://kit.svelte.dev/docs/advanced-routing#rest-parameters) of SvelteKit.
 
 ### Page Server Loading
 
 [Load Server Page for Sanity](https://kit.svelte.dev/docs/load#page-data)
+
+## Deployment
+
+CI requires unit tests and perhaps integration tests if you could secure a development key. This comes with managing the secret on GitHub, though.
+
+We are either using Cloudflare Pages or Vercel to deploy the frontend. The backend is deployed via the Sanity CLI deploy command. The frontend requires the enviornment variables to be injected at build time in order to build and deploy successfully. These can be accessed in either Cloudflare page's or Vercel's appropriate deploy configuration settings. Make sure all of the .env.example fields are used in the deployment environment.
+
+## Useful Links
+
+### Build
+
+- [Yarn workspace tutorial and cheatsheet](https://www.chandankumar.com/blog/yarn-workspace-tutorial)
+- [Using yarn workspaces to create a monorepo](https://medium.com/tribalscale/using-yarn-workspaces-to-create-a-monorepo-33203152d0c6)
+
+### Testing
+
+- [SvelteKit testing with Vitest](https://www.tejusparikh.com/2023/sveltekit-testing-with-vitest.html)
+- [Vite Testing Data Driven Tests Parameterization](https://www.the-koi.com/projects/parameterized-data-driven-tests-in-vitest-example/)
+
+### GitHub Actions
+
+- [Filter Pattern Cheat Sheet](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#patterns-to-match-branches-and-tags)
+- [Vitest Coverage](https://vitest.dev/guide/coverage)
+- [Vitest Workspace](https://vitest.dev/guide/workspace.html#workspace)
+- [Add formatting and styles to JS console log](https://levelup.gitconnected.com/add-styles-and-formatting-to-your-console-log-messages-in-javascript-5f14819b1c5d)
+- [Vitest - Vitest hangs tests, close timed out after 1000ms](https://github.com/vitest-dev/vitest/issues/2008)
+
+### GitHub
+
+- [Git Merge](https://www.atlassian.com/git/tutorials/using-branches/git-merge)
+
+#### Actions
+
+- [act - Local GitHub action runner](https://nektosact.com/usage/index.html)
+- [Prevent File Change](https://github.com/marketplace/actions/prevent-file-change)
+- [Auto Assign](https://github.com/marketplace/actions/auto-assign-action)
+- [Require Labels](https://github.com/marketplace/actions/require-labels)
+- [Google Sheet](https://github.com/marketplace/actions/gsheet-action)
+- [Building a CI/CD environment with eslint and prettier](https://t-i-show.medium.com/build-a-ci-cd-environment-with-github-actions-eslint-prettier-ee725c5fe2ab)
+- [Integrating and Enforcing ESLint and Prettier with Husky](https://silvenon.com/blog/integrating-and-enforcing-prettier-and-eslint)
+
+### Sanity
+
+- [Sanity and Algolia](https://www.sanity.io/technology-partners/algolia)
+- [Pagination with Groq](https://www.sanity.io/docs/paginating-with-groq)
+
+### Troubleshooting
+
+#### Vitest
+
+**--no-threads command not found**
+
+- [It was converted to --pool forks --poolOptions.forks.singleFork](https://vitest.dev/guide/migration.html#pools-are-standardized-4172)
+
+### Design
+
+- [Magnolia in Shanghai](https://wapbaike.baidu.com/tashuo/browse/content?id=24921b1a0cbe87e07289d90b)

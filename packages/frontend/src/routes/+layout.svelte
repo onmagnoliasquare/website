@@ -1,0 +1,13 @@
+<script lang="ts">
+	/**
+	 * ======== ROOT LAYOUT ========
+	 * */
+	import '../styles/onmagnoliasquare.css';
+	import '../styles/typography.css';
+</script>
+
+<svelte:head>
+	<link rel="icon" href="https://fav.farm/🟪" />
+</svelte:head>
+
+<slot />
