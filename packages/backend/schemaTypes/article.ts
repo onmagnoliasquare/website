@@ -121,10 +121,28 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
 
+    // Retrieved and modified from:
+    // https://www.sanity.io/docs/portable-text-editor-configuration#ec55d49cfe6c
     defineField({
       name: 'content',
+      type: 'array',
       title: 'Content',
-      type: 'content',
+      of: [
+        {
+          type: 'block',
+          styles: [
+            {title: 'Normal', value: 'normal'},
+            {title: 'Heading 1', value: 'h2'},
+            {title: 'Heading 2', value: 'h3'},
+            {title: 'Heading 3', value: 'h4'},
+            {title: 'Quote', value: 'blockquote'},
+            {title: 'Hidden', value: 'blockComment'},
+          ],
+        },
+        {
+          type: 'image',
+        },
+      ],
     }),
 
     defineField({

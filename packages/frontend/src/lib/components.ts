@@ -5,6 +5,6 @@
  */
 
 import ArticleHardBreak from '../components/portabletext/ArticleHardBreak.svelte';
-import SingleArticleBlock from '../components/portabletext/SingleArticleBlock.svelte';
+import SingleArticleBlock from '$components/portabletext/ArticleSingleComponentBlock.svelte';
 
 export const customComponents = { ArticleHardBreak, SingleArticleBlock };

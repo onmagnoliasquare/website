@@ -1,0 +1,81 @@
+@font-face {
+	font-family: 'Archivo Regular';
+	font-style: normal;
+	font-weight: 100 900;
+	src: url('/fonts/latin/Archivo-Normal-Variable.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Archivo Italic';
+	font-style: italic;
+	font-weight: 100 900;
+	src: url('/fonts/latin/Archivo-Italic-Variable.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Noto Serif Regular';
+	font-style: normal;
+	font-weight: 100 900;
+	src: url('/fonts/latin/NotoSerif-Normal-Variable.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Noto Serif Italic';
+	font-style: italic;
+	font-weight: 100 900;
+	src: url('/fonts/latin/NotoSerif-Italic-Variable.woff2') format('woff2');
+}
+
+article {
+	width: 100%;
+	text-align: left;
+
+	/* https://developer.mozilla.org/en-US/docs/Web/CSS/line-break */
+	line-break: loose;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: 'Noto Serif Regular', serif;
+	font-optical-sizing: auto;
+}
+
+h2, h3, h4, h5, h6 {
+	font-weight: 500;
+}
+
+ol, ul, li, p {
+	font-family: 'Archivo Regular', sans-serif;
+	font-optical-sizing: auto;
+}
+
+strong {
+	font-weight: 600;
+}
+
+.hyphenate {
+	/* Retrieved from: https://clagnut.com/blog/2395 */
+
+	/*-webkit-hyphenate-limit-before: 3;*/
+	/*-webkit-hyphenate-limit-after: 3;*/
+	/*-webkit-hyphenate-limit-chars: 6 3 3;*/
+	/*-webkit-hyphenate-limit-lines: 2;*/
+	/*-webkit-hyphenate-limit-last: always;*/
+	/*-webkit-hyphenate-limit-zone: 8%;*/
+
+	/*hyphenate-limit-lines: 2;*/
+	/*hyphenate-limit-last: always;*/
+	/*hyphenate-limit-zone: 8%;*/
+
+	hyphenate-limit-chars: 6 3 3;
+	/*word-wrap: break-word;*/
+	/*overflow-wrap: break-word;*/
+	-ms-hyphens: auto;
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	hyphens: auto;
+}

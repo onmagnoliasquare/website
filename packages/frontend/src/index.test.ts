@@ -1,5 +1,6 @@
 import { dateFormatter, hasUppercase } from '$lib';
 import { describe, it, expect, test } from 'vitest';
+import createSiteTitle from '$lib/createSiteTitle';
 
 describe('hasUppercase', () => {
 	it('is true for uppercase', () => {
@@ -10,6 +11,24 @@ describe('hasUppercase', () => {
 		expect(hasUppercase('abcdefg')).toBe(false);
 	});
 });
+
+describe('createSiteTitle', () => {
+	it('is "On Magnolia Square" when no argument provided', () => {
+		expect(createSiteTitle()).toBe('On Magnolia Square');
+	})
+
+	it('is the argument passed with OMS title appended', () => {
+		expect(createSiteTitle("Random News Story")).toBe("Random News Story – On Magnolia Square");
+	})
+
+	it('outputs with random numbers', () => {
+		expect(createSiteTitle("1234567890 Cup Conundrum")).toBe("1234567890 Cup Conundrum – On Magnolia Square");
+	})
+
+	it('outputs with non-alphanumeric characters', () => {
+		expect(createSiteTitle("100% of students need to read our newspaper!")).toBe("100% of students need to read our newspaper! – On Magnolia Square");
+	})
+})
 
 /**
  * The reason for many test cases in dateFormatter is because of,
