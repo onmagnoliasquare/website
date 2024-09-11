@@ -14,7 +14,8 @@
 		<li><a href="/tags">Tags</a></li>
 		<li><a href="/about">About</a></li>
 	</ul>
-	<form id="form">
+	<!-- No search bar yet! -->
+	<!-- <form id="form">
 		<input
 			type="search"
 			id="query"
@@ -23,7 +24,7 @@
 			aria-label="Search through site content"
 		/>
 		<button>Search</button>
-	</form>
+	</form> -->
 </nav>
 
 <style>
