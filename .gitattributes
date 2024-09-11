@@ -1,0 +1,3 @@
+# Ignores large CSS file in GitHub page side-bar code count.
+packages/frontend/src/styles/onmagnoliasquare.css linguist-vendored
+packages/frontend/src/styles/onmagnoliasquare.min.css linguist-vendored

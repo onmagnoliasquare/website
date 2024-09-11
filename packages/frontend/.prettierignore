@@ -1,0 +1,19 @@
+# === Build Tools ===
+# Ignore files for PNPM, NPM and YARN
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# === Directories ===
+# These are directories that contain files that
+# are either output from proceses or are library
+# dependencies.
+.svelte-kit
+node_modules
+
+# === CSS ===
+# This should be ignored because it is imported from the
+# onmagnoliasquare/css project, and therefore does not need
+# to be formatted again.
+src/styles/onmagnoliasquare.css
+src/styles/onmagnoliasquare.min.css
