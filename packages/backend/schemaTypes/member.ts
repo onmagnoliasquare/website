@@ -38,6 +38,7 @@ export default defineType({
       name: 'year',
       title: 'Joined Year',
       type: 'number',
+      description: 'Optional member join year',
 
       // The only valid inputs would be the organization's founding up to the current year.
       validation: (rule) => rule.integer().min(2013).max(new Date().getFullYear()),
@@ -47,6 +48,7 @@ export default defineType({
       name: 'netid',
       title: 'NYU Net ID',
       type: 'string',
+      description: 'Optional Net ID for email contact',
 
       // This is optional–way back when,
       // we used to keep this in the Wordpress DB
@@ -61,7 +63,7 @@ export default defineType({
       name: 'bio',
       title: 'Bio',
       type: 'text',
-      description: 'Optional description personal description',
+      description: 'Optional personal description',
       //@ts-ignore TS(2353)
       rows: 3,
     }),
