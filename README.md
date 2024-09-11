@@ -8,7 +8,7 @@ Our current website exists at a Wordpress host on GoDaddy. We are in the process
 
 ## Setup
 
-Please first have __yarn__ installed on your computer first before starting development.
+Please first have **yarn** installed on your computer first before starting development.
 
 ### MacOS
 
@@ -60,11 +60,11 @@ This pipeline is enforced by the GitHub actions labeled `enforcer-`.
 
 ### Yarn
 
-Our package manager is the latest version of ```yarn```. The version is using the command [```yarn set version stable```](https://yarnpkg.com/cli/set/version#details), run in the root directory. Since this is a monorepo, yarn is also used as the project management tool.
+Our package manager is the latest version of `yarn`. The version is using the command [`yarn set version stable`](https://yarnpkg.com/cli/set/version#details), run in the root directory. Since this is a monorepo, yarn is also used as the project management tool.
 
-In the ```package.json``` folder, you can find the workspaces field, which defines which folders yarn will look and install modules for.
+In the `package.json` folder, you can find the workspaces field, which defines which folders yarn will look and install modules for.
 
-With that being said, Vite does not yet support Yarn pnp, and therefore in the ```.yarnrc.yml``` file in the root directory, [```nodeLinker: "node-modules"```](https://yarnpkg.com/configuration/yarnrc#nodeLinker) line is appended. In the future, we may remove this in case of ghost-dependency creep, or if Vite begins support for pnp.
+With that being said, Vite does not yet support Yarn pnp, and therefore in the `.yarnrc.yml` file in the root directory, [`nodeLinker: "node-modules"`](https://yarnpkg.com/configuration/yarnrc#nodeLinker) line is appended. In the future, we may remove this in case of ghost-dependency creep, or if Vite begins support for pnp.
 
 #### What is `run -T (command)`?
 
@@ -86,7 +86,7 @@ Below are VS Code extensions used in this project.
 
 ### Route Enforcement
 
-To enforce categories and routes, we are using ```src/params``` to enforce only certain route categories. This is an example of the [Route Matching](https://kit.svelte.dev/docs/advanced-routing#matching) and [Route Rest Parameters](https://kit.svelte.dev/docs/advanced-routing#rest-parameters) of SvelteKit.
+To enforce categories and routes, we are using `src/params` to enforce only certain route categories. This is an example of the [Route Matching](https://kit.svelte.dev/docs/advanced-routing#matching) and [Route Rest Parameters](https://kit.svelte.dev/docs/advanced-routing#rest-parameters) of SvelteKit.
 
 ### Page Server Loading
 
@@ -142,6 +142,7 @@ We are either using Cloudflare Pages or Vercel to deploy the frontend. The backe
 #### Vitest
 
 **--no-threads command not found**
+
 - [It was converted to --pool forks --poolOptions.forks.singleFork](https://vitest.dev/guide/migration.html#pools-are-standardized-4172)
 
 ### Design
