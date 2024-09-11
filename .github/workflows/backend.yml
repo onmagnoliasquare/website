@@ -87,7 +87,7 @@ jobs:
       current_env: ${{ steps.set_env.outputs.current_env }}
     steps:
       - name: Check if production
-        if: github.ref_name == 'production'
+        if: github.ref_name == 'main'
         run: |
           echo "ENVIRONMENT_NAME=production" >> "$GITHUB_ENV"
       - name: Check if staging
