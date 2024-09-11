@@ -357,10 +357,11 @@ export async function getArticleTags(slug: string): Promise<Article> {
 export interface Member {
 	_type: 'member';
 	name: string;
-	year: number;
-	netid: string;
-	bio: string;
-	portrait: ImageAsset;
+	year?: number;
+	netid?: string;
+	bio?: string;
+	portrait?: ImageAsset;
+	// handles
 }
 
 export interface Tag {

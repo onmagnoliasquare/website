@@ -1,5 +1,6 @@
 <script lang="ts">
-	export let authors;
+	import type { Member } from '$lib/sanity';
+	export let authors: Member[];
 </script>
 
 <div>

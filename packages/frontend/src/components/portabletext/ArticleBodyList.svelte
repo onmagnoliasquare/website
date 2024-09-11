@@ -1,17 +1,16 @@
 <script lang="ts">
-	import type {ListComponentProps} from '$lib/rendererTypes'
-	// import type { ListComponentProps } from '../rendererTypes';
+	import type { ListComponentProps } from '$lib/rendererTypes';
 
-	export let portableText: ListComponentProps
+	export let portableText: ListComponentProps;
 
-	$: ({value} = portableText)
+	$: ({ value } = portableText);
 	$: ({ listItem } = value);
 </script>
 
 <div class="mv4">
-{#if listItem === 'number'}
-	<ol><slot /></ol>
-{:else}
-	<ul><slot /></ul>
-{/if}
+	{#if listItem === 'number'}
+		<ol><slot /></ol>
+	{:else}
+		<ul><slot /></ul>
+	{/if}
 </div>

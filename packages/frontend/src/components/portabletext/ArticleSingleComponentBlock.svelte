@@ -1,5 +1,3 @@
-<!-- -->
-
 <script lang="ts">
 	/**
 	 * This component is a modification of:
