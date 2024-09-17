@@ -46,7 +46,10 @@ export { client };
  * @async
  */
 export async function getArticles(): Promise<Article[]> {
-	return await client.fetch(groq`*[_type == "article"] | order(_createdAt desc)`);
+	return await client.fetch(
+		groq`*[_type == "article"]{ title,
+		category->{name}, slug } | order(_createdAt desc)`
+	);
 }
 
 /**
@@ -357,10 +360,11 @@ export async function getArticleTags(slug: string): Promise<Article> {
 export interface Member {
 	_type: 'member';
 	name: string;
-	year: number;
-	netid: string;
-	bio: string;
-	portrait: ImageAsset;
+	year?: number;
+	netid?: string;
+	bio?: string;
+	portrait?: ImageAsset;
+	// handles
 }
 
 export interface Tag {
