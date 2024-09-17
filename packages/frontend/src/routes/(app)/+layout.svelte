@@ -4,7 +4,7 @@
 	 * */
 
 	import { Navbar } from '$lib';
-	import { page } from '$app/stores'
+	import { page } from '$app/stores';
 	import createSiteTitle from '$lib/createSiteTitle';
 
 	/**
@@ -12,7 +12,6 @@
 	 * from the layout.
 	 * https://kit.svelte.dev/docs/load#$page-data
 	 * */
-
 </script>
 
 <svelte:head>
@@ -21,8 +20,8 @@
 
 <!-- This is the main layout for the entire website. -->
 <header class="measure-wide center">
-	On Magnolia Square
-	<Navbar />
+	<!-- On Magnolia Square -->
+	<!-- <Navbar /> -->
 </header>
 <main>
 	<div class="measure-wide center">
@@ -30,5 +29,5 @@
 	</div>
 </main>
 <footer>
-	<p>On Magnolia Square</p>
+	<!-- <p>On Magnolia Square</p> -->
 </footer>

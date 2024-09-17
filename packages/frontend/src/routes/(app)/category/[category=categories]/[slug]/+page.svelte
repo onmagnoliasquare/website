@@ -7,6 +7,7 @@
 	import ArticleBodyListItem from '$components/portabletext/ArticleBodyListItem.svelte';
 	import ArticleBodyMarks from '$components/portabletext/ArticleBodyMarks.svelte';
 	import ArticleSingleComponentBlock from '$components/portabletext/ArticleSingleComponentBlock.svelte';
+	import ArticleLink from '$components/portabletext/ArticleLink.svelte';
 
 	export let data: PageData;
 </script>
@@ -29,7 +30,11 @@
 		<PortableText
 			value={data.article.content}
 			components={{
-				marks: ArticleBodyMarks,
+				//@ts-ignore
+				marks: {
+					ArticleBodyMarks,
+					link: ArticleLink
+				},
 				block: ArticleSingleComponentBlock,
 				list: ArticleBodyList,
 				listItem: {
@@ -52,17 +57,17 @@
 {/if}
 
 <style>
-    /* Code modified from:  */
-    /* https://css-tricks.com/almanac/properties/h/hyphenate/ */
-    /* Can also use this library if need be: */
-    /* https://github.com/mnater/Hyphenopoly */
+	/* Code modified from:  */
+	/* https://css-tricks.com/almanac/properties/h/hyphenate/ */
+	/* Can also use this library if need be: */
+	/* https://github.com/mnater/Hyphenopoly */
 
-    #subtitle {
-        font-family: 'Noto Serif Italic', serif;
-        text-align: left;
-    }
+	#subtitle {
+		font-family: 'Noto Serif Italic', serif;
+		text-align: left;
+	}
 
-    #bydate {
-        font-weight: 500;
-    }
+	#bydate {
+		font-weight: 500;
+	}
 </style>
