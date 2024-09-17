@@ -5,5 +5,5 @@
 </script>
 
 <p class="pa0 ma0 lh-copy">
-	<time datetime={date}>{dateFormatter(date, navigator.language)} UTC</time>
+	on&nbsp;<time datetime={date}>{dateFormatter(date, navigator.language)} UTC</time>
 </p>

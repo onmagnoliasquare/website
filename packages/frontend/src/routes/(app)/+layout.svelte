@@ -19,8 +19,8 @@
 </svelte:head>
 
 <!-- This is the main layout for the entire website. -->
-
-<header class="">
+<header class="measure-wide center">
+	<!-- On Magnolia Square -->
 	<!-- <Navbar /> -->
 </header>
 
@@ -29,5 +29,6 @@
 		<slot />
 	</div>
 </main>
-
-<footer></footer>
+<footer>
+	<!-- <p>On Magnolia Square</p> -->
+</footer>

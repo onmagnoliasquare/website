@@ -14,8 +14,8 @@
 	$: if (!listItemComponent) {
 		global.missingComponentHandler!(style, 'listItemStyle');
 	}
-	// TODO: BAD FORM BELOW--TYPE ASSERTION AS ANY
-	$: styleComponent = style !== 'normal' ? (components.block as any)[style] : undefined;
+	//@ts-ignore
+	$: styleComponent = style !== 'normal' ? components.block[style] : undefined;
 
 	// Using a function is the only way to use TS in Svelte reactive assignments
 	$: listItemProps = (() => {

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { ArbitraryTypedObject, PortableTextBlock } from '@portabletext/types';
-	import type { CustomBlockComponentProps, GlobalProps } from '$lib/rendererTypes';
+	import type { CustomBlockComponentProps, GlobalProps } from '../rendererTypes';
 
 	export let global: GlobalProps;
 	$: ({ components } = global);
@@ -11,7 +11,8 @@
 	export let isInline = false;
 
 	$: ({ _type } = node);
-	$: customComponent = (components.types[_type] as any).constructor;
+	// DANGER
+	$: customComponent = components.types[_type] as any;
 	$: if (!customComponent) {
 		global.missingComponentHandler!(_type, 'block');
 	}

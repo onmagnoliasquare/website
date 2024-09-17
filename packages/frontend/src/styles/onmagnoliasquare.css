@@ -4740,8 +4740,8 @@ p {
 
 p {
   color: var(--text-color);
-  text-align: justify;
-  display: flex;
+  text-align: left;
+  display: inline-block;
   padding-bottom: 1rem;
 }
 
@@ -10395,4 +10395,8 @@ h6 {
     --text-color: var(--white);
     --bg-color: var(--black);
   }
+}
+
+body {
+  background-color: var(--bg-color);
 }
