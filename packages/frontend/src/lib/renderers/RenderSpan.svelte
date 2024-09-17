@@ -11,7 +11,8 @@
 	export let parentBlock: PortableTextBlock;
 
 	$: ({ markType } = node);
-	$: markComponent = (components.marks[markType] as any).constructor;
+	// DANGER
+	$: markComponent = components.marks[markType] as any;
 	$: if (!markComponent) {
 		global.missingComponentHandler!(markType, 'mark');
 	}

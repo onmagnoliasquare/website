@@ -26,7 +26,7 @@
 {:else if style === 'blockquote'}
 	<blockquote><slot /></blockquote>
 {:else if style === 'normal'}
-	<p class="lh-copy f5 f4-l tracked-1 fw4 pa0 mt0 mb3 tl"><slot /></p>
+	<p class="lh-copy f5 f4-l tracked-1 fw4 pa0 mt0 mb3 tl hyphenate"><slot /></p>
 {:else}
 	<slot />
 {/if}

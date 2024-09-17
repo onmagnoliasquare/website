@@ -22,6 +22,8 @@
 		indexInParent: number;
 		node: GenericNode;
 		parentBlock?: PortableTextBlock;
+		// Enforce the fact that there will be a parent block.
+		// parentBlock: PortableTextBlock;
 		isInline?: boolean;
 	};
 	$: ({ node, indexInParent, parentBlock, isInline } = options);
