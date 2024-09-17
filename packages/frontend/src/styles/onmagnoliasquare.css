@@ -4740,6 +4740,8 @@ p {
 
 p {
   color: var(--text-color);
+  text-align: left;
+  display: inline-block;
   padding-bottom: 1rem;
 }
 
