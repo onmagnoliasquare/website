@@ -23,8 +23,9 @@
 	<!-- On Magnolia Square -->
 	<!-- <Navbar /> -->
 </header>
-<main>
-	<div class="measure-wide center">
+
+<main class="pa3">
+	<div class="measure-wide center mw-9">
 		<slot />
 	</div>
 </main>

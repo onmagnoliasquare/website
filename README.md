@@ -24,13 +24,11 @@ Then, rerun `brew install corepack`.
 
 Now, run `corepack enable`. This will enable corepack globally. Optionally, one can run `corepack install --global yarn@stable` to install the latest yarn version globally using corepack.
 
-Now, in the root directory, type `corepack use yarn@v`, where `v` is the version you want to set. In this project, we are using stable, so the command would be `corepack use yarn@stable`.
+Finally, in the root directory on this repository, run `yarn`. This will install all necessary files.
 
 ## Development
 
-In the root directory on this repository, run `yarn`. This will install all necessary files.
-
-The frontend and backend directories have `.env.example` files that must be duplicated and turned into `.env` files. Fill in the template with appropriate, legitimate values.
+The frontend and backend directories have `.env.example` files that must be duplicated and renamed into `.env` files. Fill in the template with appropriate, legitimate values.
 
 To start development for either backend or frontend, run `yarn dev:front` or `yarn dev:back` in the root directory.
 

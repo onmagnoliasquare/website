@@ -44,11 +44,18 @@ h6 {
 	font-optical-sizing: auto;
 }
 
-h2, h3, h4, h5, h6 {
+h2,
+h3,
+h4,
+h5,
+h6 {
 	font-weight: 500;
 }
 
-ol, ul, li, p {
+ol,
+ul,
+li,
+p {
 	font-family: 'Archivo Regular', sans-serif;
 	font-optical-sizing: auto;
 }
@@ -72,8 +79,8 @@ strong {
 	/*hyphenate-limit-zone: 8%;*/
 
 	hyphenate-limit-chars: 6 3 3;
-	/*word-wrap: break-word;*/
-	/*overflow-wrap: break-word;*/
+	word-wrap: break-word;
+	overflow-wrap: break-word;
 	-ms-hyphens: auto;
 	-webkit-hyphens: auto;
 	-moz-hyphens: auto;
