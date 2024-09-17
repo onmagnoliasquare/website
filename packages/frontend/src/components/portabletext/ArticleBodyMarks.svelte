@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type {MarkComponentProps} from '../rendererTypes'
+	import type { MarkComponentProps } from '$lib/rendererTypes';
 
-	export let portableText: MarkComponentProps
+	export let portableText: MarkComponentProps;
 
-	$: ({markType} = portableText)
+	$: ({ markType } = portableText);
 </script>
 
 {#if markType === 'strong'}
@@ -19,9 +19,9 @@
 		<slot />
 	</code>
 {:else if markType === 'underline'}
-  <span style="text-decoration:underline;">
-    <slot />
-  </span>
+	<span style="text-decoration:underline;">
+		<slot />
+	</span>
 {:else if markType === 'strike-through'}
 	<del>
 		<slot />
