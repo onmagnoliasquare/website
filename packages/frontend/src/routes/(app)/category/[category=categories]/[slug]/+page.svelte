@@ -7,6 +7,7 @@
 	import ArticleBodyListItem from '$components/portabletext/ArticleBodyListItem.svelte';
 	import ArticleBodyMarks from '$components/portabletext/ArticleBodyMarks.svelte';
 	import ArticleSingleComponentBlock from '$components/portabletext/ArticleSingleComponentBlock.svelte';
+	import ArticleLink from '$components/portabletext/ArticleLink.svelte';
 
 	export let data: PageData;
 </script>
@@ -30,7 +31,10 @@
 			value={data.article.content}
 			components={{
 				//@ts-ignore
-				marks: ArticleBodyMarks,
+				marks: {
+					ArticleBodyMarks,
+					link: ArticleLink
+				},
 				block: ArticleSingleComponentBlock,
 				list: ArticleBodyList,
 				listItem: {

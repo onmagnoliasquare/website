@@ -1,17 +1,16 @@
 <script lang="ts">
 	import type { Member } from '$lib/sanity';
+
 	export let authors: Member[];
+	let authorString = '';
+
+	for (let i = 0; i < authors.length; i++) {
+		authorString = authorString.concat(authors[i].name, ', ');
+	}
+
+	authorString = authorString.slice(0, -2);
 </script>
 
 <div>
-	{#if authors.length > 1}
-		by
-		<ul class="list pl0 tracked-02 lh-copy f5 f4-l">
-			{#each authors as author}
-				<li class="di">{author.name}</li>
-			{/each}
-		</ul>
-	{:else}
-		<p class="pa0 ma0 lh-copy">{authors[0].name}</p>
-	{/if}
+	<p class="pa0 ma0 lh-copy">by {authorString}</p>
 </div>

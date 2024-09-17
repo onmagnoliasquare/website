@@ -31,8 +31,7 @@
 	export let onMissingComponent: MissingComponentHandler | boolean = true;
 
 	$: mergedComponents = mergeComponents(defaultComponents, components);
-	// BAD FORM
-	// @ts-ignore
+	//@ts-ignore
 	$: keyedBlocks = (Array.isArray(value) ? value : [value]).map(assertBlockKey);
 	$: blocks = nestLists(keyedBlocks, LIST_NEST_MODE_HTML);
 	$: missingComponentHandler = (type: string, nodeType: NodeType) => {
@@ -61,6 +60,7 @@
 		}}
 		options={{
 			node,
+			// parentBlock: node,
 			isInline: false,
 			indexInParent: index
 		}}

@@ -7,7 +7,6 @@ export function mergeComponents(
 	return {
 		...parent,
 		...overrides,
-		// REMOVE THIS LATER THIS IS BAD FORM
 		//@ts-ignore
 		block: mergeDeeply(parent, overrides, 'block'),
 		//@ts-ignore

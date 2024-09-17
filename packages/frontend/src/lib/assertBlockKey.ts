@@ -17,12 +17,8 @@ export default function assertBlockKey(block: PortableTextBlock): typeof block {
 		...block,
 		...(block._type === 'block' && Array.isArray(block.children)
 			? {
-					children: block.children.map((value) => {
-						if ('text' in value) {
-							return assertSpanKey(value as PortableTextSpan);
-						}
-						return value;
-					})
+					//@ts-ignore
+					children: block.children.map(assertSpanKey)
 				}
 			: {})
 	};
