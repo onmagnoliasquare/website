@@ -1,0 +1,16 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+
+Disallow: /*.js$
+Disallow: /*.json
+Disallow: /*.pdf
+
+# The `www` subdomain is being used here, make sure that this redirects
+# 301 to the apex, onmagnoliasquare.com. This redirect is a page rule,
+# and the `www` is a DNS record.
+#
+# `www` is used because it accounts for both the apex and sub domain.
+# If just the apex domain were used, it would not account for the
+# subdomain `www`.
+
+Sitemap: https://www.onmagnoliasquare.com/sitemap.xml

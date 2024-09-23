@@ -7,7 +7,7 @@
 	$: ({ listItem } = value);
 </script>
 
-<div class="mv4">
+<div class="mb4">
 	{#if listItem === 'number'}
 		<ol><slot /></ol>
 	{:else}
