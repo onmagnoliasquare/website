@@ -1,42 +1,53 @@
-import type { PortableTextBlock } from '@portabletext/types';
-import { SanityClient, createClient, type ClientConfig } from '@sanity/client';
+import { type ClientConfig, createClient, SanityClient } from '@sanity/client';
+import imageUrlBuilder from '@sanity/image-url';
 import type { ImageAsset, Slug } from '@sanity/types';
 import groq from 'groq';
 
 // Environment variables, found in ".env". Check ".env.example" for explanation.
-import {
-	SANITY_DATASET,
-	SANITY_PROJECT_ID,
-	SANITY_DEVELOPER_TOKEN,
-	SANITY_API_VERSION
-} from '$env/static/private';
+import type { PortableTextBlock } from '@portabletext/types';
 
-if (!SANITY_PROJECT_ID || !SANITY_DATASET) {
-	throw new Error('Did you forget to run yarn run -T sanity init --env?');
-}
+// if (!SANITY_PROJECT_ID || !SANITY_DATASET) {
+// 	throw new Error('Did you forget to run yarn run -T sanity init --env?');
+// }
 
-if (!SANITY_API_VERSION) {
-	throw new Error('Did you forget to add an API Version environment variable?');
-}
+// if (!import.meta.env.PUBLIC_SANITY_API_VERSION) {
+// 	throw new Error('Did you forget to add an API Version environment variable?');
+// }
 
 // Check the current runtime environment based on Sanity's Dataset environment variable.
-const isDevEnv: boolean = SANITY_DATASET !== 'production';
+const isDevEnv: boolean = import.meta.env.PUBLIC_SANITY_DATASET !== 'production';
+// const isDevEnv: boolean = ;
 
+// It's okay to expose projectId
+// See: https://www.sanity.io/answers/hello-quick-question-is-it-safe-to-commit-p1609342625280000
 const config: ClientConfig = {
-	projectId: SANITY_PROJECT_ID,
-	dataset: SANITY_DATASET,
+	projectId: '1ah7xxlt',
+	dataset: 'production',
 	useCdn: true,
-	apiVersion: SANITY_API_VERSION
+	apiVersion: '2024-09-20'
 };
+// const config: ClientConfig = {
+// 	projectId: SANITY_PROJECT_ID,
+// 	dataset: SANITY_DATASET,
+// 	useCdn: true,
+// 	apiVersion: SANITY_API_VERSION
+// };
 
 if (isDevEnv) {
-	config.token = SANITY_DEVELOPER_TOKEN;
+	// config.token = SANITY_DEVELOPER_TOKEN;
+	config.dataset = 'development';
 	config.useCdn = false;
 }
 
-const client: SanityClient = createClient(config);
+export const client: SanityClient = createClient(config);
 
-export { client };
+// Helps transform images from Sanity.
+// See: https://www.sanity.io/docs/presenting-images#mY9Be3Ph
+const builder = imageUrlBuilder(client);
+
+export function urlFor(source: any) {
+	return builder.image(source);
+}
 
 /**
  * getArticles, that is "Article" with an "s" for plural, returns all articles.
@@ -49,6 +60,19 @@ export async function getArticles(): Promise<Article[]> {
 	return await client.fetch(
 		groq`*[_type == "article"]{ title,
 		category->{name}, slug } | order(_createdAt desc)`
+	);
+}
+
+export async function getHomepageArticles(): Promise<Article[]> {
+	return await client.fetch(
+		groq`*[_type == "article" && wasDeleted != true && isDraft != true] | order(date desc){
+  			title,
+  			subtitle,
+  			date,
+			category->{name},
+			authors[]->{name},
+			slug
+		}[0...5]`
 	);
 }
 
@@ -236,13 +260,34 @@ export async function getOneArticleFrom(where: string, what: string): Promise<Ar
 
 export async function getOneArticleFromCategory(where: string, what: string): Promise<Article> {
 	return await client.fetch(
+		// groq`*[_type == "article" && category->slug.current == $where && slug.current == $what][0]{
+		// 	title,
+		// 	subtitle,
+		// 	date,
+		// 	content,
+		// 	authors[]->{name},
+		// 	tags[]->{name},
+		// 	"headerImage": media.asset->{altText, description, url}
+		// }`,
 		groq`*[_type == "article" && category->slug.current == $where && slug.current == $what][0]{
 			title,
 			subtitle,
 			date,
-			content,
+			content[]{
+				_type == "image" => {
+					"attrs": asset->{
+						altText,
+						title,
+						description,
+						metadata,
+						creditLine
+					},
+				},
+				...
+			},
 			authors[]->{name},
-			tags[]->{name}
+			tags[]->{name},
+			media
 		}`,
 		{
 			where,
@@ -285,7 +330,8 @@ export async function getArticle(slug: string): Promise<Article> {
 			// See https://medium.com/@imvinojanv/understanding-groq-how-queries-work-9ea37dee749a.
 			authors[]->{name},
 			category->{name},
-			tags->{name}
+			tags->{name},
+			media,
 		}`,
 		{
 			slug
@@ -401,7 +447,17 @@ export interface Article {
 	series: Series;
 	category: Category;
 	tags: Tag[];
-	mainImage?: ImageAsset;
+	headerImage?: ImageAsset;
 	authors: Member[];
+	media: Image;
 	content: PortableTextBlock[];
+	// content: PortableTextComponents[];
+}
+
+export interface Image {
+	_type: string;
+	asset: {
+		_ref: string;
+		_type: string;
+	};
 }

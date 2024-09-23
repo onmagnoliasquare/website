@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { LIST_NEST_MODE_HTML, nestLists } from '@portabletext/toolkit';
-	import assertBlockKey from './assertBlockKey';
-	import defaultComponents from './defaultComponents/defaultComponents';
-	import { mergeComponents } from './defaultComponents/mergeComponents';
-	import type { InputValue, PortableTextSvelteContext } from './ptTypes';
-	import type { MissingComponentHandler, NodeType, PortableTextComponents } from './rendererTypes';
-	import RenderNode from './RenderNode.svelte';
-	import { getWarningMessage, printWarning } from './warnings';
+	import assertBlockKey from '../assertBlockKey';
+	import defaultComponents from '../defaultComponents/defaultComponents';
+	import { mergeComponents } from '../defaultComponents/mergeComponents';
+	import type { InputValue, PortableTextSvelteContext } from '../ptTypes';
+	import type { MissingComponentHandler, NodeType, PortableTextComponents } from '../rendererTypes';
+	import RenderNode from '../RenderNode.svelte';
+	import { getWarningMessage, printWarning } from '../warnings';
 
 	export let value: InputValue = [];
 
@@ -50,6 +50,8 @@
 </script>
 
 {#each blocks as node, index (node._key)}
+	<!-- {console.log(node)}
+	{console.log(index)} -->
 	<RenderNode
 		global={{
 			components: mergedComponents,
@@ -60,7 +62,13 @@
 		}}
 		options={{
 			node,
-			// parentBlock: node,
+
+			// Need this for rendering images.
+			// Don't ask me why, but it just works,
+			// and if you remove it, images just don't
+			// get displayed. ¯\_(ツ)_/¯.
+			parentBlock: node,
+
 			isInline: false,
 			indexInParent: index
 		}}

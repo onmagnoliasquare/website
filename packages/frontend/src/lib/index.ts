@@ -1,27 +1,28 @@
 // place files you want to import through the `$lib` alias in this folder.
 
-import Navbar from '../components/Navbar.svelte';
-import ArticleHardBreak from '../components/portabletext/ArticleHardBreak.svelte';
-import SingleArticleBlock from '$components/portabletext/ArticleSingleComponentBlock.svelte';
+// Main module users interact with
+export { default as PortableText } from './pt/PortableText.svelte';
+
+// Utilities
+export { toPlainText } from '@portabletext/toolkit';
+
+import Navbar from '$components/general/Navbar.svelte';
 import { dateFormatter, hasUppercase } from './helpers';
 
 // Functions
 export { dateFormatter, hasUppercase };
 
 // Components
-export { Navbar, ArticleHardBreak, SingleArticleBlock };
+export { default as ArticleSingleArticleBlock } from '$components/portabletext/ArticleSingleComponentBlock.svelte';
+export { default as ArticleImage } from '$components/portabletext/ArticleImage.svelte';
 
-// Main module users interact with
-export { default as PortableText } from './PortableText.svelte';
-
-// Utilities
-export { toPlainText } from '@portabletext/toolkit';
+export { Navbar };
 
 // Default components for edge cases of overwriting components in a specific way
-export { default as DefaultBlock } from './defaultComponents/DefaultBlock.svelte';
-export { default as DefaultList } from './defaultComponents/DefaultList.svelte';
-export { default as DefaultListItem } from './defaultComponents/DefaultListItem.svelte';
-export { default as DefaultMark } from './defaultComponents/DefaultMark.svelte';
+export { default as DefaultBlock } from './defaultComponents/DefaultPTBlock.svelte';
+export { default as DefaultList } from './defaultComponents/DefaultPTList.svelte';
+export { default as DefaultListItem } from './defaultComponents/DefaultPTListItem.svelte';
+export { default as DefaultMark } from './defaultComponents/DefaultPTMark.svelte';
 
 // Types
 export type { InputValue } from './ptTypes';

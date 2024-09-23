@@ -86,3 +86,10 @@ strong {
 	-moz-hyphens: auto;
 	hyphens: auto;
 }
+
+a:link,
+a:visited,
+a:active {
+	color: var(--link-color);
+	font-weight: 400;
+}

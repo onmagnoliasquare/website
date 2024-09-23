@@ -1,16 +1,17 @@
 import { error, type ServerLoadEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getOneArticleFromCategory, type Article } from '$lib/sanity';
+import { type Article, getOneArticleFromCategory } from '$lib/sanity';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	const { category, slug } = event.params;
-	const article: Article = await getOneArticleFromCategory(category as string, slug as string);
-	const title = article.title
+	const article: Article = await getOneArticleFromCategory(
+		(category as string).toLowerCase(),
+		slug as string
+	);
 
 	if (article) {
 		return {
-			article,
-			title
+			article
 		};
 	}
 

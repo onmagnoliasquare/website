@@ -1,3 +1,5 @@
+import type { Member } from './sanity';
+
 /**
  * dateFormatter expects a string in the format YYYY/MM/DD,
  * which is the format that Sanity Content Lake stores dates.
@@ -47,4 +49,22 @@ export const dateFormatter = (date: string, locale?: Intl.LocalesArgument): stri
 export const hasUppercase = (p: string): boolean => {
 	const m: RegExpMatchArray | null = p.match(/[A-Z]/);
 	return m ? true : false;
+};
+
+/**
+ * createAuthorString creates an author string from
+ * an array of authors.
+ * @param a authors array
+ * @returns `string`
+ */
+export const createAuthorString = (a: Member[]): string => {
+	let authorString = '';
+
+	for (let i = 0; i < a.length; i++) {
+		authorString = authorString.concat(a[i].name, ', ');
+	}
+
+	authorString = authorString.slice(0, -2);
+
+	return authorString;
 };

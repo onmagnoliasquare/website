@@ -4901,8 +4901,7 @@ h6 {
   --washed-green: #e8fdf5;
   --washed-yellow: #fffceb;
   --washed-red: #ffdfdf;
-  --text-color: var(--black);
-  --bg-color: var(--white);
+
 }
 
 /*
@@ -10390,13 +10389,45 @@ h6 {
   }
 }
 
+/* BELOW IS NOT FROM CSS REPO  */
+
+:root {
+  --text-color: var(--black);
+  --bg-color: var(--white);
+  --link-color: var(--gold);
+  --red-color: var(--dark-red);
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --text-color: var(--white);
     --bg-color: var(--black);
+    --link-color: var(--light-yellow);
+    --red-color: var(--bg-color);
+    --border-color: var(--text-color)
   }
 }
 
 body {
   background-color: var(--bg-color);
+  -webkit-transition: background-color 100ms ease-out;
+  -ms-transition: background-color 100ms ease-out;
+  transition: background-color 100ms ease-out;
+}
+
+.border-color {
+  border-color: var(--border-color);
+}
+
+.outline {
+  color: var(--text-color)
+}
+
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: sideways;
+}
+
+.bg-red {
+  background-color: var(--red-color)
 }
