@@ -6,6 +6,7 @@
 	import { Navbar } from '$lib';
 	import { page } from '$app/stores';
 	import createSiteTitle from '$lib/createSiteTitle';
+	import SiteTitle from '$components/SiteTitle.svelte';
 
 	/**
 	 * This documentation discusses $page.data and how to access it
@@ -19,15 +20,12 @@
 </svelte:head>
 
 <!-- This is the main layout for the entire website. -->
-<header class="measure-wide center">
-	<!-- On Magnolia Square -->
-	<!-- <Navbar /> -->
-</header>
-
-<main class="pa3">
-	<div class="measure-wide center mw-9">
-		<slot />
-	</div>
+<div class=" w-100 flex flex-wrap items-baseline">
+	<SiteTitle />
+	<Navbar />
+</div>
+<main class="">
+	<slot />
 </main>
 <footer>
 	<!-- <p>On Magnolia Square</p> -->

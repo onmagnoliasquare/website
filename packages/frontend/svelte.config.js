@@ -6,7 +6,6 @@ const config = {
 	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
 	// for more information about preprocessors
 	preprocess: vitePreprocess(),
-
 	kit: {
 		// We're using Cloudflare's adapter, as we'll be on Cloudflare pages
 		// for the time being...
@@ -18,7 +17,7 @@ const config = {
 			}
 		}),
 		alias: {
-			$components: 'src/components/*',
+			$components: 'src/components/*'
 		}
 	}
 };

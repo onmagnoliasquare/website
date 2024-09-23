@@ -1,5 +1,17 @@
 import {describe, expect, test} from 'vitest'
 import slugValidator from './slugValidator'
+import replaceApostrophes from './replaceApostrophes'
+
+describe('removeTrailing', () => {
+  const tests = [
+    [`woohoo--`, `woohoo`],
+    [`lotta-yahoos-here- _`, `lotta-yahoos-here`],
+  ]
+
+  test.each([...tests])('%s -> %s', (input, output) => {
+    expect(slugValidator(input)).toBe(output)
+  })
+})
 
 describe('slugValidator', () => {
   // Uppercase to lowercase.
@@ -15,6 +27,10 @@ describe('slugValidator', () => {
     ['ab!cDEfg', 'abcdefg'],
     ['A!??b/cd', 'abcd'],
     ['.&.aB#?130', 'ab130'],
+    [
+      `should remove them all!(),.\\$%&?#'"“”‘’「」「」『』《》〈〉【】〖〗«»‘’„‚‹›﹙﹚﹛﹜﹝﹞（）［］｛｝｟｠`,
+      'should-remove-them-all',
+    ],
   ]
 
   // Replaces spaces with hyphens.
@@ -24,11 +40,23 @@ describe('slugValidator', () => {
     ['HELLO! Go ahead, ILLEGAL ch#!', 'hello-go-ahead-illegal-ch'],
   ]
 
+  // Replaces – and — with -
+  const replaceDifferentHyphen = [
+    [
+      `Off the clock—what they do in their free time`,
+      `off-the-clock-what-they-do-in-their-free-time`,
+    ],
+    [
+      `Off the clock–what they do in their free time`,
+      `off-the-clock-what-they-do-in-their-free-time`,
+    ],
+  ]
+
   // Replaces all types of brackets.
   const replaceBrackets = [
     [`{this type of thing isn't allowed`, `this-type-of-thing-isnt-allowed`],
     [`[when and where]? Did you find this?`, `when-and-where-did-you-find-this`],
-    [`THE WORLD is_round...`, `the-world-is_round`],
+    [`THE WORLD is_round...`, `the-world-is-round`],
   ]
 
   // Removes *common* diacritics. There will be edge cases not accounted for.
@@ -36,6 +64,32 @@ describe('slugValidator', () => {
     [`áēîöùćž`, `aeioucz`],
     [`ěûäõșţ`, `euaost`],
     [`iîøüçñĝ`, `iiøucng`],
+  ]
+
+  // Removes other unicode punctuations.
+  const removeSpecialPunctuation = [
+    [`再见，长乐路`, `再见-长乐路`],
+    [`「知事を優先しすぎた兵庫県政」`, `知事を優先しすぎた兵庫県政`],
+    [
+      `兵庫県議会が開会、斎藤知事の不信任決議案を提案へ`,
+      `兵庫県議会が開会-斎藤知事の不信任決議案を提案へ`,
+    ],
+  ]
+
+  // Remove currency symbols.
+  const removeCurrency = [
+    [`$5000`, `5000`],
+    [
+      `New campus cats are EXTREMELY broke, lost ¥20 in poker`,
+      `new-campus-cats-are-extremely-broke-lost-20-in-poker`,
+    ],
+    [`Gaining more £s`, `gaining-more-s`],
+  ]
+
+  // No emojis allowed.
+  const removeEmojis = [
+    [`lemon🍋`, `lemon`],
+    [`Oh 💩! The website broke :(`, `oh-the-website-broke`],
   ]
 
   // Truncates output to max 200 characters.
@@ -60,12 +114,56 @@ describe('slugValidator', () => {
     ...upperToLower,
     ...specialChars,
     ...spaceToHyphen,
+    ...replaceDifferentHyphen,
     ...replaceBrackets,
     ...removeDiacritics,
+    ...removeSpecialPunctuation,
+    ...removeCurrency,
+    ...removeEmojis,
     ...charLimit,
   ])('%s -> %s', (input, output) => {
     expect(slugValidator(input)).toBe(output)
   })
 })
 
-// describe('slugValidator', () => {})
+describe('replaceApostrophes', () => {
+  const single = [
+    [`What's good?`, `What’s good?`],
+    [
+      `I've told you nothing but the truth, and that's that.`,
+      `I’ve told you nothing but the truth, and that’s that.`,
+    ],
+  ]
+
+  const double: string[][] = [
+    [`"No one says anything", said no one at all.`, `“No one says anything”, said no one at all.`],
+    [`"Lord have mercy"`, `“Lord have mercy”`],
+    [
+      `"The admonishment never ends. You learn that one in school", said the boy. "The pain never ends. You learn that one in life", said the man. And consequently, "he was right", said the wife.`,
+      `“The admonishment never ends. You learn that one in school”, said the boy. “The pain never ends. You learn that one in life”, said the man. And consequently, “he was right”, said the wife.`,
+    ],
+  ]
+
+  const both: string[][] = [
+    [
+      `"No one says anything", said no one's dog at all.`,
+      `“No one says anything”, said no one’s dog at all.`,
+    ],
+    [
+      `"No one says anything", said no one's dog at all. And then he said "it's not too bad".`,
+      `“No one says anything”, said no one’s dog at all. And then he said “it’s not too bad”.`,
+    ],
+    [
+      `"Anytime I see someone, I cry" - A sad man's words`,
+      `“Anytime I see someone, I cry” - A sad man’s words`,
+    ],
+    [
+      `"Anytime I see someone, I cry" - A sad man's words. Here's an erroneous ending"`,
+      `“Anytime I see someone, I cry” - A sad man’s words. Here’s an erroneous ending“`,
+    ],
+  ]
+
+  test.each([...single, ...double, ...both])('%s -> %s', (input, output) => {
+    expect(replaceApostrophes(input)).toBe(output)
+  })
+})
