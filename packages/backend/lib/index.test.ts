@@ -1,5 +1,6 @@
 import {describe, expect, test} from 'vitest'
 import slugValidator from './slugValidator'
+import replaceApostrophes from './replaceApostrophes'
 
 describe('removeTrailing', () => {
   const tests = [
@@ -122,5 +123,47 @@ describe('slugValidator', () => {
     ...charLimit,
   ])('%s -> %s', (input, output) => {
     expect(slugValidator(input)).toBe(output)
+  })
+})
+
+describe('replaceApostrophes', () => {
+  const single = [
+    [`What's good?`, `What’s good?`],
+    [
+      `I've told you nothing but the truth, and that's that.`,
+      `I’ve told you nothing but the truth, and that’s that.`,
+    ],
+  ]
+
+  const double: string[][] = [
+    [`"No one says anything", said no one at all.`, `“No one says anything”, said no one at all.`],
+    [`"Lord have mercy"`, `“Lord have mercy”`],
+    [
+      `"The admonishment never ends. You learn that one in school", said the boy. "The pain never ends. You learn that one in life", said the man. And consequently, "he was right", said the wife.`,
+      `“The admonishment never ends. You learn that one in school”, said the boy. “The pain never ends. You learn that one in life”, said the man. And consequently, “he was right”, said the wife.`,
+    ],
+  ]
+
+  const both: string[][] = [
+    [
+      `"No one says anything", said no one's dog at all.`,
+      `“No one says anything”, said no one’s dog at all.`,
+    ],
+    [
+      `"No one says anything", said no one's dog at all. And then he said "it's not too bad".`,
+      `“No one says anything”, said no one’s dog at all. And then he said “it’s not too bad”.`,
+    ],
+    [
+      `"Anytime I see someone, I cry" - A sad man's words`,
+      `“Anytime I see someone, I cry” - A sad man’s words`,
+    ],
+    [
+      `"Anytime I see someone, I cry" - A sad man's words. Here's an erroneous ending"`,
+      `“Anytime I see someone, I cry” - A sad man’s words. Here’s an erroneous ending“`,
+    ],
+  ]
+
+  test.each([...single, ...double, ...both])('%s -> %s', (input, output) => {
+    expect(replaceApostrophes(input)).toBe(output)
   })
 })
