@@ -15,8 +15,8 @@ import type { PortableTextBlock } from '@portabletext/types';
 // }
 
 // Check the current runtime environment based on Sanity's Dataset environment variable.
-const isDevEnv: boolean = import.meta.env.PUBLIC_SANITY_DATASET !== 'production';
-// const isDevEnv: boolean = ;
+// const isDevEnv: boolean = import.meta.env.PUBLIC_SANITY_DATASET !== 'production';
+const isDevEnv: boolean = false;
 
 // It's okay to expose projectId
 // See: https://www.sanity.io/answers/hello-quick-question-is-it-safe-to-commit-p1609342625280000
