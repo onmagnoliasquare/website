@@ -7,11 +7,11 @@
 </script>
 
 {#if markType === 'strong'}
-	<strong>
+	<strong class="tracked-02">
 		<slot />
 	</strong>
 {:else if markType === 'em'}
-	<em>
+	<em class="tracked-02">
 		<slot />
 	</em>
 {:else if markType === 'code'}
@@ -19,11 +19,11 @@
 		<slot />
 	</code>
 {:else if markType === 'underline'}
-	<span style="text-decoration:underline;">
+	<span style="text-decoration:underline;" class="tracked-02">
 		<slot />
 	</span>
 {:else if markType === 'strike-through'}
-	<del>
+	<del class="tracked-02">
 		<slot />
 	</del>
 {:else}
