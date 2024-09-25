@@ -15,6 +15,7 @@ export { dateFormatter, hasUppercase };
 // Components
 export { default as ArticleSingleArticleBlock } from '$components/portabletext/ArticleSingleComponentBlock.svelte';
 export { default as ArticleImage } from '$components/portabletext/ArticleImage.svelte';
+export { default as ProtoAnnouncement } from '$components/home/ProtoAnnouncement.svelte';
 
 export { Navbar };
 
