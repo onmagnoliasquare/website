@@ -15,7 +15,7 @@ import type { PortableTextBlock } from '@portabletext/types';
 // }
 
 // Check the current runtime environment based on Sanity's Dataset environment variable.
-// const isDevEnv: boolean = import.meta.env.PUBLIC_SANITY_DATASET !== 'production';
+// const isDevEnv: boolean = process.env.PUBLIC_SANITY_DATASET !== 'production';
 const isDevEnv: boolean = false;
 
 // It's okay to expose projectId

@@ -17,7 +17,14 @@ export default defineConfig([
     projectId: '1ah7xxlt',
     dataset: 'production',
 
-    plugins: [structureTool(), media()],
+    plugins: [
+      structureTool(),
+      media({
+        creditLine: {
+          enabled: true,
+        },
+      }),
+    ],
 
     schema: {
       types: schemaTypes,

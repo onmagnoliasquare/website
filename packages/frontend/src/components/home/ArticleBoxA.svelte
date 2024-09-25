@@ -15,14 +15,14 @@
 	</a>
 	<div class="fl flex flex-column ba border-color pa3 mw9 w-100 w-50-ns">
 		{#if article.subtitle}
-			<p class="serif fw5 i f4-ns f2-l tracked-tight-1 lh-solid pa2 ma0 mb3 measure">
+			<p class="serif fw5 i f4-ns f2-l tracked-tight-1-ns lh-solid pa2 ma0 mb3 measure">
 				{article.subtitle}
 			</p>
 		{/if}
-		<div class="h-100 f4 pa1">
+		<div class="h-100 f6 f5-ns pa1">
 			<DateLine date={article.date} />
 		</div>
-		<p class=" h-100 fw6 f4 lh-copy tracked-02 pa1 ma0">{authorString}</p>
+		<p class=" h-100 fw6 f6 f5-ns lh-copy tracked-02 pa1 ma0">{authorString}</p>
 	</div>
 </div>
 
