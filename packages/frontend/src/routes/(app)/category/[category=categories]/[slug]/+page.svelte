@@ -73,15 +73,15 @@
 
 <NormalCentering>
 	{#if data.article.tags}
-		<section>
-			<h4 class="sans-serif tracked-02 ttu fw7">Tags:</h4>
+		<section class="mt5">
+			<a href="/tags" class="dib">
+				<h4 class="sans-serif tracked-02 fw7 ma0">Tags</h4>
+			</a>
 			<!-- `<ul>` for accessibility -->
 			<ul class="list pa0 flex flex-wrap items-center justify-left">
 				{#each data.article.tags as tag}
 					<li class="pa0 ma0 pr1">
-						<Tag>
-							# {tag.name}
-						</Tag>
+						<Tag tagName={tag.name} />
 					</li>
 				{/each}
 			</ul>
