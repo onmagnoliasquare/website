@@ -8,7 +8,7 @@
 	import ArticleLink from '$components/portabletext/ArticleLink.svelte';
 	import NormalCentering from '$components/NormalCentering.svelte';
 	import { urlFor } from '$lib/sanity';
-	import { PortableText, ArticleSingleArticleBlock, ArticleImage } from '$lib';
+	import { PortableText, ArticleSingleArticleBlock, ArticleImage, Tag } from '$lib';
 
 	export let data: PageData;
 	let headerImageURL: string;
@@ -75,9 +75,14 @@
 	{#if data.article.tags}
 		<section>
 			<h4 class="sans-serif tracked-02 ttu fw7">Tags:</h4>
-			<ul class="list">
+			<!-- `<ul>` for accessibility -->
+			<ul class="list pa0 flex flex-wrap items-center justify-left">
 				{#each data.article.tags as tag}
-					<li>{tag.name}</li>
+					<li class="pa0 ma0 pr1">
+						<Tag>
+							# {tag.name}
+						</Tag>
+					</li>
 				{/each}
 			</ul>
 		</section>
