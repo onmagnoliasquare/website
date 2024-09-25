@@ -3,12 +3,14 @@
 	import { routes } from '$lib/navRoutes';
 	import ArticleBoxA from '$components/home/ArticleBoxA.svelte';
 	import ArticleBoxB from '$components/home/ArticleBoxB.svelte';
+	import { ProtoAnnouncement } from '$lib';
 	// let listOfRoutes = routes.slice(1);
 	let listOfRoutes = routes;
 	export let data: PageData;
 </script>
 
 <div class="v-100 vh-100-ns">
+	<ProtoAnnouncement />
 	<div class="center mw9">
 		<div class="cf">
 			<div class="fl w-100 flex">
