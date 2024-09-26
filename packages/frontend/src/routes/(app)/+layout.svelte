@@ -3,7 +3,7 @@
 	 * ======== MAIN LAYOUT ========
 	 * */
 
-	import { Navbar } from '$lib';
+	import { Navbar, VersionLabel } from '$lib';
 	import { page } from '$app/stores';
 	import createSiteTitle from '$lib/createSiteTitle';
 	import SiteTitle from '$components/SiteTitle.svelte';
@@ -60,7 +60,7 @@
 	</div>
 </footer> -->
 
-<style>
+<!-- <style>
 	#f-bg {
 		/* background-color: var(--black); */
 	}
@@ -84,4 +84,4 @@
 		text-align: left;
 		/* color: var(--white); */
 	}
-</style>
+</style> -->
