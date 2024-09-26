@@ -1,5 +1,6 @@
 import {DocumentsIcon, TagsIcon} from '@sanity/icons'
 import {defineArrayMember, defineField, defineType} from 'sanity'
+import slugValidator from '../lib/slugValidator'
 
 // Portable text editor configuration on Sanity docs:
 // https://www.sanity.io/docs/portable-text-editor-configuration
@@ -53,7 +54,7 @@ export default defineType({
       options: {
         source: 'title',
         maxLength: 200,
-        slugify: (input: string) => input.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
+        slugify: (input: string) => slugValidator(input),
       },
       validation: (rule) => rule.required(),
     }),
