@@ -1,5 +1,5 @@
 <div class="mw6">
-	<h2 class="f1 ma0 pa0 fw6 tracked-tight-2">Code of Ethics</h2>
+	<h2 class="f2 f1-l ma0 pa0 fw6 tracked-tight-2">Code of Ethics</h2>
 	<div class="">
 		<div class="ba border-color pa2">
 			<ol class="tracked-02 lh-copy pr2">
