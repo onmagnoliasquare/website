@@ -398,6 +398,15 @@ export async function getArticleTags(slug: string): Promise<Article> {
 	);
 }
 
+export async function getAllMembers(): Promise<Member[]> {
+	return await client.fetch(
+		groq`*[_type == "member"] {
+			name,
+			bio
+		} | order(lower(name))`
+	);
+}
+
 export interface Member {
 	_type: 'member';
 	name: string;
