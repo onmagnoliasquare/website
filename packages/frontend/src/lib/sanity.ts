@@ -14,10 +14,6 @@ import type { PortableTextBlock } from '@portabletext/types';
 // 	throw new Error('Did you forget to add an API Version environment variable?');
 // }
 
-// Check the current runtime environment based on Sanity's Dataset environment variable.
-// const isDevEnv: boolean = process.env.PUBLIC_SANITY_DATASET !== 'production';
-const isDevEnv: boolean = false;
-
 // It's okay to expose projectId
 // See: https://www.sanity.io/answers/hello-quick-question-is-it-safe-to-commit-p1609342625280000
 const config: ClientConfig = {
@@ -26,13 +22,12 @@ const config: ClientConfig = {
 	useCdn: true,
 	apiVersion: '2024-09-20'
 };
-// const config: ClientConfig = {
-// 	projectId: SANITY_PROJECT_ID,
-// 	dataset: SANITY_DATASET,
-// 	useCdn: true,
-// 	apiVersion: SANITY_API_VERSION
-// };
 
+// Get runtime from Vite's prescribed environment.
+// See: https://vitejs.dev/guide/env-and-mode
+export const isDevEnv: boolean = import.meta.env.DEV;
+
+// Change the dataset if it is a development environment.
 if (isDevEnv) {
 	// config.token = SANITY_DEVELOPER_TOKEN;
 	config.dataset = 'development';
