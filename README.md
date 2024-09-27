@@ -37,7 +37,23 @@ Keep in mind that for backend work, one must be logged into the OMS Sanity accou
 
 ### Commits
 
-Commits in this repository follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). Here's a [ChatGPT chat about what they are](https://chat.openai.com/share/475c34ae-1ce2-47cd-85a9-16045a550011).
+Commits in this repository follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), with some minor changes fit for our project. Here's a [ChatGPT chat about what they are](https://chat.openai.com/share/475c34ae-1ce2-47cd-85a9-16045a550011).
+
+When making a commit, one must specify the affected package (the scope) next to the `type`:
+
+- f(rontend)
+- b(ackend)
+-
+
+The third type is `null`, i.e. something that is not a package specific change. Here is an example of what this looks like:
+
+```bash
+git commit -m "refactor(b): remove whitespace"
+...
+git commit -m "fix(f): Component.svelte state logic"
+...
+git commit -m "chore: bump yarn version"
+```
 
 ### Code Attribution
 
