@@ -27,6 +27,7 @@ export default defineType({
       options: {
         source: 'name',
         maxLength: 200,
+        slugify: (input: string) => slugValidator(input),
       },
       validation: (rule) => rule.required(),
     }),
