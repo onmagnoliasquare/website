@@ -1,5 +1,6 @@
 import {TagIcon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
+import slugValidator from '../lib/slugValidator'
 
 /**
  * A tag can be attached to an article. It lets us organize content into
@@ -24,9 +25,8 @@ export default defineType({
       title: 'Slug',
       type: 'slug',
       options: {
-        source: 'title',
+        source: 'name',
         maxLength: 200,
-        slugify: (input: string) => input.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
       },
       validation: (rule) => rule.required(),
     }),
