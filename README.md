@@ -1,16 +1,15 @@
 # On Magnolia Square
 
-Monorepo for the On Magnolia Square website.
+On Magnolia Square website monorepo for frontend and backend.
 
-## 🚧 Website Under Construction 🚧
-
-Our current website exists at a Wordpress host on GoDaddy. We are in the process of moving to Sanity.io for the Content Management System (CMS), and SvelteKit for the frontend.
+> [!IMPORTANT]
+> Complications required a release of a rolling development version of our site. Some function, styling, and content may be absent or unfinished, but core functionality is present. Read at your leisure.
 
 ## Setup
 
-Please first have **yarn** installed on your computer first before starting development.
+Please first have **yarn** installed on your computer first before starting development. Here is the [yarn documentation for installing it](https://yarnpkg.com/corepack#installation).
 
-### MacOS
+### MacOS - `brew` specific
 
 If you're using MacOS the brew package `corepack` is needed. Corepack ships with Node, but zsh does not find this linkage in the shell. Therefore, since we are using brew, corepack can be installed with:
 
@@ -50,15 +49,15 @@ The main branch is `dev`. The production branch is `main`. The deployment pipeli
 
 `dev` to `staging` then finally to `main`.
 
-Staging is a pre-release branch. This is where we test the dataset against any new releasable changes from dev.
+This pipeline is enforced by the `enforcer.yml` GitHub action.
 
-This pipeline is enforced by the GitHub actions labeled `enforcer-`.
+Staging is a pre-release branch. This is where we test the dataset against any new releasable changes from dev. It is not publicly viewable.
 
 ## Technical Specifications
 
 ### Yarn
 
-Our package manager is the latest version of `yarn`. The version is using the command [`yarn set version stable`](https://yarnpkg.com/cli/set/version#details), run in the root directory. Since this is a monorepo, yarn is also used as the project management tool.
+Our package manager is the latest version of `yarn`. The version is using the command [`yarn set version stable`](https://yarnpkg.com/cli/set/version#details), which, during version updates, is executed in the root directory. Since this is a monorepo, yarn is also used as the project management tool.
 
 In the `package.json` folder, you can find the workspaces field, which defines which folders yarn will look and install modules for.
 
@@ -66,7 +65,7 @@ With that being said, Vite does not yet support Yarn pnp, and therefore in the `
 
 #### What is `run -T (command)`?
 
-It's used to share commands between workspaces. Since a project like `frontend` does not have any depedencies inside (all of the dependencies are in the root dir), we must use `run -T (command)` to access the correct command. In this case, its either `vite` or `sanity` or any other that requires use like `playwright`.
+It's used to share commands between workspaces. Since a project like `frontend` does not have any dependencies inside (all of the dependencies are in the root dir), we must use `run -T (command)` to access the correct command. In this case, its either `vite` or `sanity` or any other that requires use like `playwright`.
 
 ### VS Code
 
@@ -77,8 +76,6 @@ Below are VS Code extensions used in this project.
 - Code Spell Checker (by Street Side Software)
 - Codeium
 - Prettier
-
----
 
 ## Development
 
@@ -94,7 +91,7 @@ To enforce categories and routes, we are using `src/params` to enforce only cert
 
 CI requires unit tests and perhaps integration tests if you could secure a development key. This comes with managing the secret on GitHub, though.
 
-We are either using Cloudflare Pages or Vercel to deploy the frontend. The backend is deployed via the Sanity CLI deploy command. The frontend requires the environment variables to be injected at build time in order to build and deploy successfully. These can be accessed in either Cloudflare page's or Vercel's appropriate deploy configuration settings. Make sure all of the .env.example fields are used in the deployment environment.
+We are using Cloudflare Pages for our main deployment solution. The backend is deployed via the Sanity CLI deploy command. The frontend requires the environment variables to be injected at build time in order to build and deploy successfully. These can be accessed in either Cloudflare Pages deployment build configuration settings. Make sure all of the `.env` fields are used in the deployment environment.
 
 ## Useful Links
 
