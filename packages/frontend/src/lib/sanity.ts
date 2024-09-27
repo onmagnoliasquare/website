@@ -111,7 +111,7 @@ export async function getArticlesFromCategory(
 ): Promise<Article[]> {
 	if (!n) {
 		return await client.fetch(
-			groq`*[_type == "article" && category->slug.current == $name]{
+			groq`*[_type == "article" && category->slug.current == $name] | order(date desc){
 				title,
 				subtitle,
 				date,
