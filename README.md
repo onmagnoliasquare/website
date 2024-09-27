@@ -3,7 +3,7 @@
 On Magnolia Square website monorepo for frontend and backend.
 
 > [!IMPORTANT]
-> Complications required a release of a rolling development version of our site. Some function, styling, and content may be absent or unfinished, but core functionality is present. Read at your leisure.
+> Complications required a release of a rolling development version of our site. Some function, styling, and content may be absent or unfinished, but core functionality is present.
 
 ## Setup
 
