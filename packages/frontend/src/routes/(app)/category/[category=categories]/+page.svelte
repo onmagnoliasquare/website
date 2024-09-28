@@ -20,7 +20,7 @@
 	{/key}
 	<ul class="list pa1">
 		{#each data.articles as article}
-			<li class="ma0">
+			<li class="ma0 ba mv2 pa4 pt2 pb4 border-color">
 				<a href={`/category/${data.category}/${article.slug.current}`} target="_self">
 					<h2 class="f2 fw7 tracked-tight measure-wide">{article.title}</h2>
 					{#if article.subtitle}

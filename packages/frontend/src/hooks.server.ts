@@ -25,6 +25,7 @@ import { hasUppercase } from '$lib/helpers';
 import { getArticleToValidate, type Article } from '$lib/sanity';
 import { redirect, type Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
+import { isDevEnv } from './lib/sanity';
 
 /**
  * redirectHome redirects `/home` to `/`.
@@ -33,7 +34,7 @@ import { sequence } from '@sveltejs/kit/hooks';
 const redirectHome: Handle = async ({ event, resolve }) => {
 	const isHome = event.url.pathname.startsWith('/home');
 	if (isHome) {
-		if (import.meta.env.PUBLIC_SANITY_DATASET !== 'production') {
+		if (isDevEnv) {
 			console.log('redirecting /home to /');
 		}
 		throw redirect(301, '/');
@@ -85,7 +86,7 @@ const redirectTag: Handle = async ({ event, resolve }) => {
 
 		// Respond with a category redirect.
 		const categoryPath = `/category/${article.category.slug.current}/${pathArticleSlug}`;
-		if (import.meta.env.PUBLIC_SANITY_DATASET !== 'production') {
+		if (isDevEnv) {
 			const out = `tag URL redirecting...
 	from: ${event.url.pathname}
 	to:   ${categoryPath}

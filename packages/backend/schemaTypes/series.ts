@@ -20,7 +20,7 @@ export default defineType({
       title: 'Slug',
       type: 'slug',
       options: {
-        source: 'title',
+        source: 'name',
         maxLength: 200,
         slugify: (input: string) => slugValidator(input),
       },

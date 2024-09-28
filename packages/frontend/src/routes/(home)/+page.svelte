@@ -30,14 +30,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- <div class="flex flex-column fl w-100 pa2 mt4">
-		<p class="serif f4 fw4 tracked-tight-1 measure">
-			On Magnolia Square, or OMS, is a student journalism organization maintaining an active archive
-			and living record of student life at NYU Shanghai. We keep time. <a href="/about" class="mb4"
-				>Learn more about who we are</a
-			>
-		</p>
-	</div> -->
 </div>
 
 <style>
