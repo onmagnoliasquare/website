@@ -14,10 +14,6 @@ import type { PortableTextBlock } from '@portabletext/types';
 // 	throw new Error('Did you forget to add an API Version environment variable?');
 // }
 
-// Check the current runtime environment based on Sanity's Dataset environment variable.
-// const isDevEnv: boolean = process.env.PUBLIC_SANITY_DATASET !== 'production';
-const isDevEnv: boolean = false;
-
 // It's okay to expose projectId
 // See: https://www.sanity.io/answers/hello-quick-question-is-it-safe-to-commit-p1609342625280000
 const config: ClientConfig = {
@@ -33,6 +29,11 @@ const config: ClientConfig = {
 // 	apiVersion: SANITY_API_VERSION
 // };
 
+// Get runtime from Vite's prescribed environment.
+// See: https://vitejs.dev/guide/env-and-mode
+export const isDevEnv: boolean = import.meta.env.DEV;
+
+// Change the dataset if it is a development environment.
 if (isDevEnv) {
 	// config.token = SANITY_DEVELOPER_TOKEN;
 	config.dataset = 'development';
@@ -116,7 +117,7 @@ export async function getArticlesFromCategory(
 ): Promise<Article[]> {
 	if (!n) {
 		return await client.fetch(
-			groq`*[_type == "article" && category->slug.current == $name]{
+			groq`*[_type == "article" && category->slug.current == $name] | order(date desc){
 				title,
 				subtitle,
 				date,
@@ -400,6 +401,15 @@ export async function getArticleTags(slug: string): Promise<Article> {
 		{
 			slug
 		}
+	);
+}
+
+export async function getAllMembers(): Promise<Member[]> {
+	return await client.fetch(
+		groq`*[_type == "member"] {
+			name,
+			bio
+		} | order(lower(name))`
 	);
 }
 

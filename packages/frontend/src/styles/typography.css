@@ -26,6 +26,18 @@
 	src: url('/fonts/latin/NotoSerif-Italic-Variable.woff2') format('woff2');
 }
 
+@font-face {
+	font-family: 'Space Mono Regular';
+	font-style: normal;
+	src: url('/fonts/latin/SpaceMono-Regular.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Space Mono Bold';
+	font-style: normal;
+	src: url('/fonts/latin/SpaceMono-Bold.woff2') format('woff2');
+}
+
 article {
 	width: 100%;
 	text-align: left;
@@ -92,4 +104,12 @@ a:visited,
 a:active {
 	color: var(--link-color);
 	font-weight: 400;
+}
+
+.newSerif {
+	font-family: 'Noto Serif Regular'
+}
+
+.font-monospace {
+	font-family: 'Space Mono Regular'
 }

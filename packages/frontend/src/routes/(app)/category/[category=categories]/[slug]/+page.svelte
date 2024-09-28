@@ -39,7 +39,7 @@
 					<img src={urlFor(data.article.media).format('webp').fit('max').url()} alt="" />
 				</figure>
 			{/if}
-			<div id="bydate" class="flex flex-column mb4">
+			<div id="bydate" class="flex flex-column mb4 fw5">
 				<ByLine authors={data.article.authors} />
 				<DateLine date={data.article.date} />
 			</div>
@@ -75,7 +75,7 @@
 	{#if data.article.tags}
 		<section class="mt5">
 			<a href="/tags" class="dib">
-				<h4 class="sans-serif tracked-02 fw7 ma0">Tags</h4>
+				<h4 class="sans-serif fw7 ma0">Tags</h4>
 			</a>
 			<!-- `<ul>` for accessibility -->
 			<ul class="list pa0 flex flex-wrap items-center justify-left">
@@ -94,8 +94,4 @@
 	/* https://css-tricks.com/almanac/properties/h/hyphenate/ */
 	/* Can also use this library if need be: */
 	/* https://github.com/mnater/Hyphenopoly */
-
-	#bydate {
-		font-weight: 500;
-	}
 </style>

@@ -18,6 +18,9 @@ export { default as ArticleImage } from '$components/portabletext/ArticleImage.s
 export { default as ProtoAnnouncement } from '$components/home/ProtoAnnouncement.svelte';
 export { default as Tag } from '$components/Tag.svelte';
 
+export { default as CodeOfEthics } from '$components/about/CodeOfEthics.svelte';
+export { default as CardLink } from '$components/CardLink.svelte';
+
 export { Navbar };
 
 // Default components for edge cases of overwriting components in a specific way
@@ -25,6 +28,7 @@ export { default as DefaultBlock } from './defaultComponents/DefaultPTBlock.svel
 export { default as DefaultList } from './defaultComponents/DefaultPTList.svelte';
 export { default as DefaultListItem } from './defaultComponents/DefaultPTListItem.svelte';
 export { default as DefaultMark } from './defaultComponents/DefaultPTMark.svelte';
+export { default as VersionLabel } from '$components/general/VersionLabel.svelte';
 
 // Types
 export type { InputValue } from './ptTypes';
