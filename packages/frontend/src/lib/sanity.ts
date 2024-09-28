@@ -22,6 +22,12 @@ const config: ClientConfig = {
 	useCdn: true,
 	apiVersion: '2024-09-20'
 };
+// const config: ClientConfig = {
+// 	projectId: SANITY_PROJECT_ID,
+// 	dataset: SANITY_DATASET,
+// 	useCdn: true,
+// 	apiVersion: SANITY_API_VERSION
+// };
 
 // Get runtime from Vite's prescribed environment.
 // See: https://vitejs.dev/guide/env-and-mode
