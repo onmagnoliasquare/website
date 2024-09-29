@@ -36,6 +36,7 @@
 			{/if}
 			{#if data.article.media}
 				<figure class="ma0 mb4">
+					// TODO THIS NEEDS AN ALT TEXT
 					<img src={urlFor(data.article.media).format('webp').fit('max').url()} alt="" />
 				</figure>
 			{/if}
