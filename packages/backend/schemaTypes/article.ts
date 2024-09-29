@@ -48,6 +48,27 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
 
+    // updatedDate defines an optional date at when an article was
+    // updated. This is separate from the Sanity _updatedAt date because
+    // that field refers to the time an article was edited and updated
+    // in the dataset. That is metadata. This is public facing, general
+    // data, and so it may be set by the editor.
+    //
+    // In the future, I think that perhaps we should be able to have an
+    // automatic article updated date, but that would require some logic
+    // that I don't have the time right now to implement. Eventually.
+    defineField({
+      name: 'updatedDate',
+      title: 'Updated on',
+      description: "Date an article's content has been updated",
+      type: 'date',
+      options: {
+        dateFormat: 'YYYY-MM-DD',
+        //@ts-ignore - ignore TS(2353)
+        calendarTodayLabel: 'Today',
+      },
+    }),
+
     defineField({
       name: 'slug',
       title: 'Slug',
