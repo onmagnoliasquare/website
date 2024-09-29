@@ -288,7 +288,8 @@ export async function getOneArticleFromCategory(where: string, what: string): Pr
 			},
 			authors[]->{name},
 			tags[]->{name},
-			media
+			media,
+			updatedDate
 		}`,
 		{
 			where,
@@ -449,6 +450,16 @@ export interface Category {
 export interface Article {
 	_type: 'post';
 	_createdAt: string;
+
+	// This is for when the author gets to choose
+	// the updated time for something, in case
+	// the time when something is updated is a necessary
+	// addition to the article, especially for live
+	// news. If that's a thing for us.
+	//
+	// See `sanity.ts` in packages/backend for more info.
+	updatedDate: string;
+
 	title: string;
 	subtitle: string;
 	abstract?: string;
