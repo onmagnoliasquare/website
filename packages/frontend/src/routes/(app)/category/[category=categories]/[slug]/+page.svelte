@@ -40,8 +40,19 @@
 				</figure>
 			{/if}
 			<div id="bydate" class="flex flex-column mb4 fw5">
-				<ByLine authors={data.article.authors} />
-				<DateLine date={data.article.date} />
+				<div class="gray mb2">
+					<ByLine authors={data.article.authors} />
+				</div>
+				<div class="gray tracked-02">
+					written
+					<DateLine date={data.article.date} />
+				</div>
+				{#if data.article.updatedDate}
+					<div class="gray f6 tracked-02">
+						updated
+						<DateLine date={data.article.updatedDate} />
+					</div>
+				{/if}
 			</div>
 		</NormalCentering>
 	</header>
