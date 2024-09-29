@@ -38,6 +38,7 @@ export default defineType({
     defineField({
       name: 'date',
       title: 'Written on',
+      description: 'Original date the article was written/published',
       type: 'date',
       options: {
         dateFormat: 'YYYY-MM-DD',
@@ -72,7 +73,7 @@ export default defineType({
     defineField({
       name: 'series',
       title: 'Series',
-      description: 'Series of this article',
+      description: 'Series of this article, if any',
       type: 'reference',
       //@ts-ignore - TS(2353)
       to: [{type: 'series'}],
@@ -98,6 +99,7 @@ export default defineType({
     defineField({
       name: 'media',
       title: 'Main Image',
+      description: 'The header image at the top of an article',
       type: 'image',
       options: {
         hotspot: true,
