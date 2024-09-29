@@ -4,6 +4,6 @@
 	export let date: string;
 </script>
 
-<p class="pa0 ma0 lh-copy gray tracked-02">
+<p class="pa0 ma0 lh-copy tracked-02">
 	<time datetime={date}>{dateFormatter(date, navigator.language)} UTC</time>
 </p>
