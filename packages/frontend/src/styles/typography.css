@@ -113,3 +113,11 @@ a:active {
 .font-monospace {
 	font-family: 'Space Mono Regular'
 }
+
+.serif {
+	font-family: 'Noto Serif Regular', 'Noto Serif SC', serif;
+}
+
+.serif-headline {}
+
+.sans-headline {}
