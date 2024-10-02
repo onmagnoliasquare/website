@@ -16,10 +16,14 @@
 
 	{#if portableText.value.attrs.description || portableText.value.attrs.creditLine}
 		<figcaption class="fw5 f6 gray">
-			{portableText.value.attrs.description}
-			<span class="">
-				Photo {portableText.value.attrs.creditLine}
-			</span>
+			<div class="flex flex-column">
+				<div>
+					{portableText.value.attrs.description}
+				</div>
+				<div class="o-50 mt1">
+					Photo Credit: {portableText.value.attrs.creditLine}
+				</div>
+			</div>
 		</figcaption>
 	{:else}
 		<img

@@ -32,11 +32,11 @@
 		</div>
 		<NormalCentering>
 			{#if data.article.subtitle}
-				<p class="serif fw5 i f2 lh-solid" id="subtitle">{data.article.subtitle}</p>
+				<p class="serif fw2 i f2 lh-title" id="subtitle">{data.article.subtitle}</p>
 			{/if}
 			{#if data.article.media}
 				<figure class="ma0 mb4">
-					// TODO THIS NEEDS AN ALT TEXT
+					<!-- TODO THIS NEEDS AN ALT TEXT -->
 					<img src={urlFor(data.article.media).format('webp').fit('max').url()} alt="" />
 				</figure>
 			{/if}
