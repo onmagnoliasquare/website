@@ -155,7 +155,7 @@
 }
 
 @font-face {
-	font-family: 'Archivo Italic';
+	font-family: 'Archivo Regular';
 	font-style: italic;
 	font-weight: 100 900;
 	src: url('/fonts/latin/Archivo-Italic-Variable.woff2') format('woff2');
@@ -219,6 +219,7 @@ li,
 p {
 	font-family: 'Archivo Regular', 'Noto Sans SC', 'Noto Sans JP', 'Noto Sans KR', 'Noto Sans AR', sans-serif;
 	font-optical-sizing: auto;
+	/* letter-spacing: .0225rem; */
 }
 
 strong {
@@ -255,16 +256,17 @@ a:active {
 	font-weight: 400;
 }
 
-.newSerif {
-	font-family: 'Noto Serif EN'
-}
-
 .font-monospace {
 	font-family: 'Space Mono Regular'
 }
 
 .serif {
-	font-family: 'Noto Serif Regular', 'Noto Serif SC', serif;
+	font-family: 'Noto Serif Regular',
+		'Noto Serif SC',
+		'Zen Old Mincho JP',
+		'Nanum Myeongjo KR',
+		'Mirza AR',
+		serif;
 }
 
 .serif-headline {}
