@@ -8,7 +8,7 @@
 	<a href={link} class="ma0 pa0">
 		<div class="flex flex-column">
 			<div class="pl4 pt4 pb4">
-				<p class="pa0 ma0 f1 newSerif fw5">{title}</p>
+				<p class="pa0 ma0 f1 serif fw5">{title}</p>
 			</div>
 			<div class="pl4 pb4">
 				<p class="pa0 ma0 f5 tracked-02"><slot /></p>

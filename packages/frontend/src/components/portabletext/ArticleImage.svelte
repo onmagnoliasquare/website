@@ -5,21 +5,29 @@
 </script>
 
 <figure class="ma2 mb4">
-	{#if portableText.value.attrs.title}
-		<h4 class="tc fw3">{portableText.value.attrs.title}</h4>
-	{/if}
-
 	<!-- If there's a description, no need altText -->
 	{#if portableText.value.attrs.description}
-		<img src={urlFor(portableText.value).fit('max').auto('format').url()} alt="" loading="lazy" />
+		<img
+			src={urlFor(portableText.value).fit('max').auto('format').url()}
+			alt={portableText.value.attrs.description}
+			loading="lazy"
+		/>
 	{/if}
-
+	{#if portableText.value.attrs.title}
+		<h4 class="ph1 fw5 i ma0 mb3 mt2">{portableText.value.attrs.title}</h4>
+	{/if}
 	{#if portableText.value.attrs.description || portableText.value.attrs.creditLine}
-		<figcaption class="fw5 f6 gray">
-			{portableText.value.attrs.description}
-			<span class="">
-				Photo {portableText.value.attrs.creditLine}
-			</span>
+		<figcaption class="fw5 f6 gray ph1">
+			<div class="flex flex-column">
+				<div>
+					{portableText.value.attrs.description}
+				</div>
+				<div class="mt1">
+					<p class="pa0 ma0 i o-40">
+						Photo credit: {portableText.value.attrs.creditLine}
+					</p>
+				</div>
+			</div>
 		</figcaption>
 	{:else}
 		<img

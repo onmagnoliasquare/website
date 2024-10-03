@@ -24,7 +24,7 @@
 				<a href={`/category/${data.category}/${article.slug.current}`} target="_self">
 					<h2 class="f2 fw7 tracked-tight measure-wide">{article.title}</h2>
 					{#if article.subtitle}
-						<p class="serif fw1 i f4 f2-l tracked-tight-1 lh-solid ma0 mb3 measure">
+						<p class="serif fw1 i f4 f2-l tracked-tight-1 lh-title ma0 mb3 measure">
 							{article.subtitle}
 						</p>
 					{/if}

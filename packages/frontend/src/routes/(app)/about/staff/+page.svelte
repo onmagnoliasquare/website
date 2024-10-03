@@ -12,7 +12,7 @@
 	<ul class="list pa0">
 		{#each data.members as member}
 			<li>
-				<p class="pa0 ma0 tracked-02 newSerif f4 fw6">
+				<p class="pa0 ma0 tracked-02 serif f4 fw6">
 					{member.name}
 					{#if member.bio}
 						<span class="sans-serif fw4 f6 gray">{member.bio}</span>
