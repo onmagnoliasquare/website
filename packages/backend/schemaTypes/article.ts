@@ -38,6 +38,7 @@ export default defineType({
     defineField({
       name: 'date',
       title: 'Written on',
+      description: 'Original date the article was written/published',
       type: 'date',
       options: {
         dateFormat: 'YYYY-MM-DD',
@@ -45,6 +46,27 @@ export default defineType({
         calendarTodayLabel: 'Today',
       },
       validation: (rule) => rule.required(),
+    }),
+
+    // updatedDate defines an optional date at when an article was
+    // updated. This is separate from the Sanity _updatedAt date because
+    // that field refers to the time an article was edited and updated
+    // in the dataset. That is metadata. This is public facing, general
+    // data, and so it may be set by the editor.
+    //
+    // In the future, I think that perhaps we should be able to have an
+    // automatic article updated date, but that would require some logic
+    // that I don't have the time right now to implement. Eventually.
+    defineField({
+      name: 'updatedDate',
+      title: 'Updated on',
+      description: "Date an article's content has been updated",
+      type: 'date',
+      options: {
+        dateFormat: 'YYYY-MM-DD',
+        //@ts-ignore - ignore TS(2353)
+        calendarTodayLabel: 'Today',
+      },
     }),
 
     defineField({
@@ -72,7 +94,7 @@ export default defineType({
     defineField({
       name: 'series',
       title: 'Series',
-      description: 'Series of this article',
+      description: 'Series of this article, if any',
       type: 'reference',
       //@ts-ignore - TS(2353)
       to: [{type: 'series'}],
@@ -98,6 +120,7 @@ export default defineType({
     defineField({
       name: 'media',
       title: 'Main Image',
+      description: 'The header image at the top of an article',
       type: 'image',
       options: {
         hotspot: true,

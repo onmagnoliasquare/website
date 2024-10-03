@@ -27,7 +27,7 @@
 	<blockquote><slot /></blockquote>
 {:else if style === 'normal'}
 	<!-- add class `db` to display as block, rather than inline <p> -->
-	<p class="lh-copy f5 f4-l tracked-02 fw4 pa0 mt0 mb3 tl hyphenate db"><slot /></p>
+	<p class="lh-copy f5 f4-l tracked-02 fw4 pa0 mt0 mb3 tl hyphenate db w-100"><slot /></p>
 {:else}
 	<slot />
 {/if}
