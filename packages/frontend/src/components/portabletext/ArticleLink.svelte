@@ -11,3 +11,12 @@
 <a href={portableText.value.href} target="_blank">
 	<slot />
 </a>
+
+<style>
+	a:link,
+	a:visited,
+	a:active {
+		color: var(--article-link-color);
+		font-weight: 400;
+	}
+</style>

@@ -4,11 +4,16 @@
 	import DateLine from '$components/article/DateLine.svelte';
 	import ArticleBodyList from '$components/portabletext/ArticleBodyList.svelte';
 	import ArticleBodyListItem from '$components/portabletext/ArticleBodyListItem.svelte';
-	import ArticleBodyMarks from '$components/portabletext/ArticleBodyMarks.svelte';
 	import ArticleLink from '$components/portabletext/ArticleLink.svelte';
 	import NormalCentering from '$components/NormalCentering.svelte';
 	import { urlFor } from '$lib/sanity';
-	import { PortableText, ArticleSingleArticleBlock, ArticleImage, Tag } from '$lib';
+	import {
+		PortableText,
+		ArticleSingleArticleBlock,
+		ArticleImage,
+		ArticleBodyMarks,
+		Tag
+	} from '$lib';
 
 	export let data: PageData;
 	let headerImageURL: string;
@@ -32,29 +37,39 @@
 		</div>
 		<NormalCentering>
 			{#if data.article.subtitle}
-				<p class="serif fw5 i f2 lh-solid" id="subtitle">{data.article.subtitle}</p>
+				<p class="serif fw2 i f2 lh-title" id="subtitle">{data.article.subtitle}</p>
 			{/if}
 			{#if data.article.media}
 				<figure class="ma0 mb4">
-					// TODO THIS NEEDS AN ALT TEXT
+					<!-- TODO THIS NEEDS AN ALT TEXT -->
 					<img src={urlFor(data.article.media).format('webp').fit('max').url()} alt="" />
 				</figure>
 			{/if}
-			<div id="bydate" class="flex flex-column mb4 fw5">
-				<div class="gray mb2">
-					<ByLine authors={data.article.authors} />
-				</div>
-				<div class="gray tracked-02">
-					written
-					<DateLine date={data.article.date} />
-				</div>
-				{#if data.article.updatedDate}
+			{#if data.article.updatedDate}
+				<div class="flex flex-column mb4 fw5">
+					<div class="gray mb1">
+						<ByLine authors={data.article.authors} />
+					</div>
+					<div class="gray tracked-02">
+						written
+						<DateLine date={data.article.date} />
+					</div>
 					<div class="gray f6 tracked-02">
 						updated
 						<DateLine date={data.article.updatedDate} />
 					</div>
-				{/if}
-			</div>
+				</div>
+			{:else}
+				<div class="flex flex-column mb4 fw5">
+					<div class="gray mb1">
+						<ByLine authors={data.article.authors} />
+					</div>
+					<div class="gray tracked-02">
+						written
+						<DateLine date={data.article.date} />
+					</div>
+				</div>
+			{/if}
 		</NormalCentering>
 	</header>
 	<section>

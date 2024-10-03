@@ -15,7 +15,7 @@
 	</a>
 	<div class="fl flex flex-column ba border-color pa3 mw9 w-100 w-50-ns">
 		{#if article.subtitle}
-			<p class="serif fw5 i f4-ns f2-l tracked-tight-1-ns lh-solid pa2 ma0 mb3 measure">
+			<p class="serif fw2 i f4-ns f2-l tracked-tight-1-ns lh-title pa2 ma0 mb3 measure">
 				{article.subtitle}
 			</p>
 		{/if}
