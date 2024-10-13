@@ -30,6 +30,7 @@ export { default as DefaultList } from './defaultComponents/DefaultPTList.svelte
 export { default as DefaultListItem } from './defaultComponents/DefaultPTListItem.svelte';
 export { default as DefaultMark } from './defaultComponents/DefaultPTMark.svelte';
 export { default as VersionLabel } from '$components/general/VersionLabel.svelte';
+export { default as CategoryArticleBox } from '$components/general/CategoryArticleBox.svelte';
 
 // Types
 export type { InputValue } from './ptTypes';

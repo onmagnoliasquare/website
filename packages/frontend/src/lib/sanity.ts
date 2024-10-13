@@ -102,6 +102,43 @@ export async function getArticlesFrom(where: string, what: string): Promise<Arti
 	);
 }
 
+export async function getArticlesFromTag(tagSlugName: string): Promise<Article[]> {
+	return await client.fetch(
+		groq`*[_type == "article" && references(*[_type == "tag" && slug.current == $tagSlugName]._id)] {
+			title,
+			subtitle,
+			date,
+			authors[]->{name},
+			slug,
+			category->
+
+		}`,
+		{
+			tagSlugName
+		}
+	);
+}
+
+/**
+ * getTagName from a slug. Not exactly the most efficient
+ * solution to getting the name of a Tag, but for now,
+ * this will do.
+ * @param slug string for query
+ * @returns `Promise<Tag>`
+ */
+export async function getTag(tagSlugName: string): Promise<Tag> {
+	return await client.fetch(
+		groq`*[_type == "tag" && slug.current == $tagSlugName][0]{
+			name,
+			slug,
+			description
+	}`,
+		{
+			tagSlugName
+		}
+	);
+}
+
 /**
  * getArticlesFromCategory from a certain category.
  * @param name category name.
@@ -122,7 +159,8 @@ export async function getArticlesFromCategory(
 				subtitle,
 				date,
 				authors[]->{name},
-				slug
+				slug,
+				category->
 			}`,
 			{
 				name
@@ -287,9 +325,10 @@ export async function getOneArticleFromCategory(where: string, what: string): Pr
 				...
 			},
 			authors[]->{name},
-			tags[]->{name},
+			tags[]->{name, slug},
 			media,
-			updatedDate
+			updatedDate,
+			"headerImage": media.asset->{creditLine}
 		}`,
 		{
 			where,
@@ -360,26 +399,29 @@ export async function getArticleToValidate(slug: string): Promise<Article> {
  * @param n integer for the amount of tags to retrieve.
  * @async uses a Sanity Client to fetch data.
  */
-export async function getTags(n?: number): Promise<Tag[]> {
-	if (!n) {
-		return await client.fetch(
-			groq`*[_type == "tag"]{
-			  name,
-			slug
-			}`
-		);
-	} else {
-		// run n-based, paginated query here.
-		return await client.fetch(
-			groq`*[_type == "tag"]{
-			  name,
-				slug
-			}`,
-			{
-				n
-			}
-		);
-	}
+// export async function getTags(n?: number): Promise<Tag[]> {
+// 	if (!n) {
+// 		return await client.fetch(
+// 			groq`*[_type == "tag"]{
+// 			  name,
+// 	    	  slug
+// 			}`
+// 		);
+// 	} else {
+// 		// run n-based, paginated query here.
+// 		return await client.fetch(
+// 			groq`*[_type == "tag"]{
+// 			  name,
+// 			  slug
+// 			}`,
+// 			{
+// 				n
+// 			}
+// 		);
+// 	}
+// }
+export async function getTags(): Promise<Tag[]> {
+	return await client.fetch(groq`*[_type == "tag"] { name, slug } | order(lower(name))`);
 }
 
 export async function getOneTag(what: string): Promise<Tag> {
@@ -429,6 +471,7 @@ export interface Tag {
 	_createdAt: string;
 	name: string;
 	slug: Slug;
+	description: string;
 }
 
 export interface Series {
@@ -468,10 +511,10 @@ export interface Article {
 	series: Series;
 	category: Category;
 	tags: Tag[];
-	headerImage?: ImageAsset;
 	authors: Member[];
 	media: Image;
 	content: PortableTextBlock[];
+	headerImage: ImageAsset;
 	// content: PortableTextComponents[];
 }
 

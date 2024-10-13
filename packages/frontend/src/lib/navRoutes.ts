@@ -12,7 +12,7 @@ const routes: route[] = [
 	{ path: '/category/professors', name: 'Professors' },
 	{ path: '/category/multimedia', name: 'Multimedia' },
 	{ path: '/series', name: 'Series' },
-	{ path: '/tags', name: 'Tags' },
+	{ path: '/archive', name: 'Archive' },
 	{ path: '/about', name: 'About' }
 ];
 
