@@ -16,8 +16,7 @@
 	} from '$lib';
 
 	export let data: PageData;
-	let headerImageURL: string;
-
+	// let headerImageURL: string;
 	// if (data.article.headerImage) {
 	// 	// This retrieves a web-optimized version (`.webp` format)
 	// 	// of the image asset.
@@ -43,6 +42,15 @@
 				<figure class="ma0 mb4">
 					<!-- TODO THIS NEEDS AN ALT TEXT -->
 					<img src={urlFor(data.article.media).format('webp').fit('max').url()} alt="" />
+					{#if data.article.headerImage.creditLine}
+						<figcaption class="fw5 f6 gray ph1">
+							<div class="mt1">
+								<p class="pa0 ma0 i o-40">
+									Photo credit: {data.article.headerImage.creditLine}
+								</p>
+							</div>
+						</figcaption>
+					{/if}
 				</figure>
 			{/if}
 			{#if data.article.updatedDate}
