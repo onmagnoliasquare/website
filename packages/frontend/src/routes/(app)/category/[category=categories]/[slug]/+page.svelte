@@ -108,19 +108,21 @@
 
 <NormalCentering>
 	{#if data.article.tags}
-		<section class="mt5">
-			<a href="/tags" class="dib">
+		<div data-sveltekit-preload-data="false" class="mt5">
+			<a href="/archive" class="dib">
 				<h4 class="sans-serif fw7 ma0">Tags</h4>
 			</a>
 			<!-- `<ul>` for accessibility -->
 			<ul class="list pa0 flex flex-wrap items-center justify-left">
 				{#each data.article.tags as tag}
 					<li class="pa0 ma0 pr1">
-						<Tag tagName={tag.name} />
+						<a href={`/archive/tags/${tag.slug.current}`}>
+							<Tag tagName={tag.name} />
+						</a>
 					</li>
 				{/each}
 			</ul>
-		</section>
+		</div>
 	{/if}
 </NormalCentering>
 
