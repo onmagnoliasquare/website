@@ -16,8 +16,7 @@
 	} from '$lib';
 
 	export let data: PageData;
-	let headerImageURL: string;
-
+	// let headerImageURL: string;
 	// if (data.article.headerImage) {
 	// 	// This retrieves a web-optimized version (`.webp` format)
 	// 	// of the image asset.
@@ -43,6 +42,15 @@
 				<figure class="ma0 mb4">
 					<!-- TODO THIS NEEDS AN ALT TEXT -->
 					<img src={urlFor(data.article.media).format('webp').fit('max').url()} alt="" />
+					{#if data.article.headerImage.creditLine}
+						<figcaption class="fw5 f6 gray ph1">
+							<div class="mt1">
+								<p class="pa0 ma0 i o-40">
+									Photo credit: {data.article.headerImage.creditLine}
+								</p>
+							</div>
+						</figcaption>
+					{/if}
 				</figure>
 			{/if}
 			{#if data.article.updatedDate}
@@ -100,19 +108,21 @@
 
 <NormalCentering>
 	{#if data.article.tags}
-		<section class="mt5">
-			<a href="/tags" class="dib">
+		<div data-sveltekit-preload-data="false" class="mt5">
+			<a href="/archive" class="dib">
 				<h4 class="sans-serif fw7 ma0">Tags</h4>
 			</a>
 			<!-- `<ul>` for accessibility -->
 			<ul class="list pa0 flex flex-wrap items-center justify-left">
 				{#each data.article.tags as tag}
 					<li class="pa0 ma0 pr1">
-						<Tag tagName={tag.name} />
+						<a href={`/archive/tags/${tag.slug.current}`}>
+							<Tag tagName={tag.name} />
+						</a>
 					</li>
 				{/each}
 			</ul>
-		</section>
+		</div>
 	{/if}
 </NormalCentering>
 

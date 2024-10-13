@@ -1,10 +1,11 @@
 import { error, type ServerLoadEvent } from '@sveltejs/kit';
-import { type Article, getArticlesFrom } from '$lib/sanity';
+import { type Article, getArticlesFrom, getArticlesFromTag, getTag, type Tag } from '$lib/sanity';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
-	const { tag } = event.params;
-	const articles: Article[] = await getArticlesFrom('tags', tag as string);
+	const { tagName } = event.params;
+	const articles: Article[] = await getArticlesFromTag(tagName as string);
+	const tag: Tag = await getTag(tagName as string);
 
 	if (articles) {
 		return {

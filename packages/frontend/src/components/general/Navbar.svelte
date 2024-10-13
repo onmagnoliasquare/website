@@ -10,7 +10,7 @@
 			{#each listOfRoutes as route}
 				<a href={route.path} id="heroLinks">
 					<div class="pa2">
-						<p id="newSerif" class="f6 f4-l fw4 pa0 tracked-tight-1">{route.name}</p>
+						<p class="sans f6 dark-gray f4-l fw5 pa0 tracked-tight-1">{route.name}</p>
 					</div>
 				</a>
 			{/each}
@@ -19,9 +19,6 @@
 </div>
 
 <style>
-	#newSerif {
-		font-family: 'Noto Serif', serif;
-	}
 	#heroLinks {
 		text-decoration: none;
 		color: var(--text-color);

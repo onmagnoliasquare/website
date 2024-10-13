@@ -5,12 +5,10 @@ import createSiteTitle from '$lib/createSiteTitle';
 
 export const load: PageServerLoad = (async () => {
 	const tags: Tag[] = await getTags();
-	const title = "Tags"
 
 	if (tags) {
 		return {
-			tags,
-			title
+			tags
 		};
 	}
 
