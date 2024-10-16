@@ -1,2 +1,2 @@
 // Release version.
-export const semVer = '0.3.4';
+export const semVer = '0.3.5';
