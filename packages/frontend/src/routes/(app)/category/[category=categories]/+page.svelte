@@ -6,6 +6,7 @@
 	import NormalCentering from '$components/NormalCentering.svelte';
 	import PageHeader from '$components/PageHeader.svelte';
 	import type { PageData } from './$types';
+
 	export let data: PageData;
 
 	// `$` syntax needed for dynamic routes. See:  https://stackoverflow.com/questions/75756247/dynamic-routes-dont-refresh-when-navigation-between-them
@@ -23,9 +24,11 @@
 	{/key}
 	<p class="tracked-02">{category.description}</p>
 	<ul class="list pa1">
-		{#each data.articles as article}
-			<!-- <CategoryArticleBox {article} /> -->
-			<ArticleBoxC {article} />
+		{#each articles as article}
+			<!-- #key is a fix for https://github.com/onmagnoliasquare/website/issues/96  -->
+			{#key article}
+				<ArticleBoxC {article} />
+			{/key}
 		{/each}
 	</ul>
 </NormalCentering>
