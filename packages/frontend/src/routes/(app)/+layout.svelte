@@ -3,10 +3,9 @@
 	 * ======== MAIN LAYOUT ========
 	 * */
 
-	import { Navbar, VersionLabel } from '$lib';
+	import { Header, Navbar, VersionLabel } from '$lib';
 	import { page } from '$app/stores';
 	import createSiteTitle from '$lib/createSiteTitle';
-	import SiteTitle from '$components/SiteTitle.svelte';
 	import { routes } from '$lib/navRoutes';
 	let listOfRoutes = routes;
 	/**
@@ -21,10 +20,7 @@
 </svelte:head>
 
 <!-- This is the main layout for the entire website. -->
-<div class="w-100 flex flex-wrap items-baseline">
-	<SiteTitle />
-	<Navbar />
-</div>
+<Header />
 
 <main class="pb4 pb7-ns">
 	<slot />
