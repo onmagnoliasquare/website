@@ -10,7 +10,7 @@
 </script>
 
 <div class="v-100 vh-100-ns">
-	<ProtoAnnouncement />
+	<!-- <ProtoAnnouncement /> -->
 	<div class="center mw9">
 		<div class="cf">
 			<div class="fl w-100 flex">
