@@ -7,5 +7,5 @@
 </script>
 
 <div>
-	<p class="pa0 ma0 lh-copy f6 tracked-02 gray">{authorString}</p>
+	<p class="pa0 ma0 lh-copy f6 tracked-02">{authorString}</p>
 </div>
