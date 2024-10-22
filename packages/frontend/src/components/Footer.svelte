@@ -35,10 +35,4 @@
 	a:hover {
 		text-decoration: underline;
 	}
-
-	p {
-		display: inline;
-		text-align: left;
-		color: var(--white);
-	}
 </style>

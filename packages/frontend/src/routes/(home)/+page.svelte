@@ -35,7 +35,7 @@
 		-ms-animation: fadeIn 1s;
 	}
 
-	@keyframes fade-in-hero {
+	@keyframes fadeIn {
 		0% {
 			opacity: 0;
 		}
