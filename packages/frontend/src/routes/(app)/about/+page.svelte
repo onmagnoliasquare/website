@@ -3,7 +3,7 @@
 </script>
 
 <div class="mw9 center mt4">
-	<h1 class="ma0 tc f-4 f-5-l tracked-tight-4">About</h1>
+	<h1 class="ma0 tc f-4 f-5-l fw5 tracked-tight-4">About</h1>
 	<div class="flex justify-center items-center">
 		<div class="mv2 mv4-l">
 			<p class="serif f4 fw4 tracked-tight-1 measure pa0 lh-title">

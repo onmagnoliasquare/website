@@ -1,5 +1,6 @@
 import {UserIcon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
+import slugValidator from '../lib/slugValidator'
 
 /**
  * A "member" is someone who produces content for our organization.
@@ -57,6 +58,18 @@ export default defineType({
       // conceal data appropriately.
       //
       // validation: (rule) => rule.required(),
+    }),
+
+    defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'name',
+        maxLength: 200,
+        slugify: (input: string) => slugValidator(input),
+      },
+      validation: (rule) => rule.required(),
     }),
 
     defineField({

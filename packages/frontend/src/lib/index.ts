@@ -22,6 +22,9 @@ export { default as Tag } from '$components/Tag.svelte';
 export { default as CodeOfEthics } from '$components/about/CodeOfEthics.svelte';
 export { default as CardLink } from '$components/CardLink.svelte';
 
+export { default as Header } from '$components/Header.svelte';
+export { default as Footer } from '$components/Footer.svelte';
+
 export { Navbar };
 
 // Default components for edge cases of overwriting components in a specific way
