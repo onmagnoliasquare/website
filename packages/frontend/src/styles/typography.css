@@ -252,7 +252,7 @@ strong {
 a:link,
 a:visited,
 a:active {
-	color: var(--link-color);
+	/* color: var(--link-color); */
 	font-weight: 400;
 }
 
@@ -267,6 +267,10 @@ a:active {
 		'Nanum Myeongjo KR',
 		'Mirza AR',
 		serif;
+}
+
+.sans {
+	font-family: 'Archivo Regular', 'Noto Sans SC', 'Noto Sans JP', 'Noto Sans KR', 'Noto Sans AR', sans-serif;
 }
 
 .serif-headline {}

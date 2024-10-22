@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { VersionLabel } from '$lib';
+	import { Footer, VersionLabel } from '$lib';
 	/**
 	 * ======== ROOT LAYOUT ========
 	 * */
@@ -29,3 +29,5 @@
 <div class="mw9 w-100 center pa1 pa3-l">
 	<slot />
 </div>
+
+<Footer />
