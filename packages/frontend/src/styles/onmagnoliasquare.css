@@ -10435,18 +10435,20 @@ body {
   background-color: var(--red-color)
 }
 
+/* DIMMING TRANSITION SHOULD BE FUNCTION OF MAJOR SCALE! */
+
 .dim {
   opacity: 1;
-  transition: opacity .05s ease-in;
+  transition: opacity .10s ease-in-out;
 }
 
 .dim:hover,
 .dim:focus {
   opacity: .5;
-  transition: opacity .05s ease-in;
+  transition: opacity .10s ease-in-out;
 }
 
 .dim:active {
   opacity: .8;
-  transition: opacity .05s ease-out;
+  transition: opacity .10s ease-in-out;
 }
