@@ -22,7 +22,7 @@
 			{category.name.charAt(0).toUpperCase() + category.name.slice(1)}
 		</PageHeader>
 	{/key}
-	<p class="tracked-02">{category.description}</p>
+	<p class="tracked-02 f5 f4-l pa2">{category.description}</p>
 	<ul class="list pa1">
 		{#each articles as article}
 			<!-- #key is a fix for https://github.com/onmagnoliasquare/website/issues/96  -->
