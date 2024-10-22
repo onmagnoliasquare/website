@@ -5,7 +5,7 @@
 </script>
 
 <div class="mw6 ba border-color w-100 ma2" id={`${bgColor}`}>
-	<a href={link} class="ma0 pa0">
+	<a data-sveltekit-preload-data="tap" href={link} class="ma0 pa0">
 		<div class="flex flex-column">
 			<div class="pl4 pt4 pb4">
 				<p class="pa0 ma0 f1 serif fw5">{title}</p>
