@@ -12,7 +12,7 @@
 	<article>
 		<div class="flex flex-column flex-row-ns">
 			<div class="dtc v-mid pa2 w-100 w-60-ns">
-				<h1 class="f2 f-subheadline-l fw7 tracked-tight pa0 ma0 mw9">
+				<h1 class="f2 f-subheadline-l fw6 tracked-tight pa0 ma0 mw9">
 					{article.title}
 				</h1>
 				{#if article.subtitle}

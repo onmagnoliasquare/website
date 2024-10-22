@@ -161,7 +161,8 @@ export async function getArticlesFromCategory(
 				date,
 				authors[]->{name},
 				slug,
-				category->
+				category->,
+				media
 			}`,
 			{
 				name

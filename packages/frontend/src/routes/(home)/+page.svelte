@@ -14,7 +14,7 @@
 </script>
 
 <div class="flex flex-column">
-	<section class="ma4">
+	<section class="ma4 fade-in-hero">
 		<HomepageHero article={data.articles[0]} />
 	</section>
 
@@ -25,3 +25,58 @@
 		{/each}
 	</section>
 </div>
+
+<style>
+	.fade-in-hero {
+		animation: fadeIn 1s;
+		-webkit-animation: fadeIn 1s;
+		-moz-animation: fadeIn 1s;
+		-o-animation: fadeIn 1s;
+		-ms-animation: fadeIn 1s;
+	}
+
+	@keyframes fade-in-hero {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+
+	@-moz-keyframes fadeIn {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+
+	@-webkit-keyframes fadeIn {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+
+	@-o-keyframes fadeIn {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+
+	@-ms-keyframes fadeIn {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+</style>

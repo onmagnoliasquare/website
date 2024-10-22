@@ -14,6 +14,7 @@
 		ArticleBodyMarks,
 		Tag
 	} from '$lib';
+	import { fade, fly } from 'svelte/transition';
 
 	export let data: PageData;
 	// let headerImageURL: string;
@@ -25,7 +26,7 @@
 	// }
 </script>
 
-<article class="pa3">
+<article class="pa1 pa3-ns">
 	<header>
 		<!-- <div
 			class="vh-100 dt w-100 tc bg-dark-gray white cover"
@@ -48,9 +49,14 @@
 		</div> -->
 		<div class="flex justify-center">
 			<div class="center mw7">
-				<h1 class="f1 f-5-l fw6 tracked-tight-2 tracked-tight-3-ns tracked-tight-4-l lh-solid">
-					{data.article.title}
-				</h1>
+				{#if data.article.title}
+					<h1
+						class="f1 f-5-l fw6 tracked-tight-2 tracked-tight-3-ns tracked-tight-4-l lh-solid"
+						in:fly
+					>
+						{data.article.title}
+					</h1>
+				{/if}
 			</div>
 		</div>
 
@@ -126,10 +132,12 @@
 	</section>
 </article>
 
+<div class="mw6 center bb b--black-10 ph3 ph0-l mt3"></div>
+
 <NormalCentering>
 	{#if data.article.tags}
 		<div data-sveltekit-preload-data="false" class="mt5">
-			<a href="/archive" class="dib">
+			<a href="/archive" class="dib no-underline">
 				<h4 class="sans-serif fw7 ma0">Tags</h4>
 			</a>
 			<!-- `<ul>` for accessibility -->
