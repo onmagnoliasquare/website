@@ -6,7 +6,12 @@
 	export let article;
 </script>
 
-<a href={`/category/${article.category.name}/${article.slug.current}`} class="dim">
+<a
+	data-sveltekit-preload-code="viewport"
+	data-sveltekit-preload-data="tap"
+	href={`/category/${article.category.name}/${article.slug.current}`}
+	class="dim"
+>
 	<article class="pv4 bt bb b--black-10 ph3 ph0-l">
 		<div class="flex flex-column flex-row-ns">
 			<div class="w-100 w-60-ns pr3-ns order-2 order-1-ns">
