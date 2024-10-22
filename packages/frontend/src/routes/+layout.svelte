@@ -8,10 +8,6 @@
 	import '../styles/typography.css';
 </script>
 
-<svelte:head>
-	<link rel="icon" href="https://fav.farm/🟪" />
-</svelte:head>
-
 {#if isDevEnv}
 	<div class="w-100 ma0 pa0 bg-red">
 		<div class="mw9 center ma0 pa0">
