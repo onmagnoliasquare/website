@@ -11,7 +11,7 @@
 		<HomepageHero article={data.articles[0]} />
 	</section>
 
-	<section class="mw9 center mt4">
+	<section class="mw9 center mv4-l mt2">
 		<h2 class="ph3 ph0-l tc">Recent News</h2>
 		<div class="flex flex-column flex-row-l">
 			<div class="pa4-ns w-100 w-50-l">
