@@ -74,7 +74,7 @@ export async function getHomepageArticles(): Promise<Article[]> {
 			authors[]->{name},
 			slug,
 			media
-		}[0...5]`
+		}[0...10]`
 	);
 }
 
@@ -140,6 +140,12 @@ export async function getTag(tagSlugName: string): Promise<Tag> {
 	);
 }
 
+export async function getCategory(c: string): Promise<Category> {
+	return await client.fetch(groq`*[_type == "category" && slug.current == $c][0]`, {
+		c
+	});
+}
+
 /**
  * getArticlesFromCategory from a certain category.
  * @param name category name.
@@ -161,7 +167,7 @@ export async function getArticlesFromCategory(
 				date,
 				authors[]->{name},
 				slug,
-				category->,
+				category->{name},
 				media
 			}`,
 			{
@@ -244,12 +250,12 @@ export async function getSeriesList(n?: number): Promise<Series[]> {
 export async function getArticlesFromSeries(name: string, n?: number): Promise<Article[]> {
 	if (!n) {
 		return await client.fetch(
-			groq`*[_type == "article" && series->slug.current == $name]{
+			groq`*[_type == "article" && series->slug.current == $name]|order(date desc){
 				title,
 				subtitle,
 				date,
 				authors[]->{name},
-				category->{slug},
+				category->{name},
 				slug,
 				series->
 			}`,

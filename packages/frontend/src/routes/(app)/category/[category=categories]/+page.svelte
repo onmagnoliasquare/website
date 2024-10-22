@@ -9,7 +9,8 @@
 	export let data: PageData;
 
 	// `$` syntax needed for dynamic routes. See:  https://stackoverflow.com/questions/75756247/dynamic-routes-dont-refresh-when-navigation-between-them
-	$: category = data.category!;
+	$: category = data.cat!;
+	$: articles = data.articles;
 </script>
 
 <NormalCentering>
@@ -17,9 +18,10 @@
 	<!--Not sure if this is needed... -->
 	{#key category}
 		<PageHeader>
-			{category.charAt(0).toUpperCase() + category.slice(1)}
+			{category.name.charAt(0).toUpperCase() + category.name.slice(1)}
 		</PageHeader>
 	{/key}
+	<p class="tracked-02">{category.description}</p>
 	<ul class="list pa1">
 		{#each data.articles as article}
 			<!-- <CategoryArticleBox {article} /> -->
