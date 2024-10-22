@@ -5,7 +5,7 @@
 </script>
 
 <div class="w-100 flex flex-column items-baseline">
-	<a href="/">
+	<a href="/" class="center">
 		<div class="w-100 flex flex-wrap items-center ma0 pa0">
 			<div class="mw3 mw4-ns">
 				<img src="/favicon.svg" alt="On Magnolia Square Logo" class="mw-100" />
@@ -15,7 +15,9 @@
 			</div>
 		</div>
 	</a>
-	<Navbar />
+	<div class="center">
+		<Navbar />
+	</div>
 </div>
 
 <style>
