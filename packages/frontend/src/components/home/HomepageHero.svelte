@@ -9,6 +9,12 @@
 </script>
 
 <a href={`/category/${article.category.name}/${article.slug.current}`} class="no-underline">
+<a
+	data-sveltekit-preload-data="hover"
+	data-sveltekit-preload-code="eager"
+	href={`/category/${article.category.name}/${article.slug.current}`}
+	class="no-underline"
+>
 	<article>
 		<div class="flex flex-column flex-row-ns">
 			<div class="dtc v-mid pa2 w-100 w-60-ns">
