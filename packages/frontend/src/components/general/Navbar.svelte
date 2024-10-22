@@ -8,7 +8,7 @@
 	<div class="w-100 center">
 		<nav id="indexNav" class="flex justify-left flex-wrap">
 			{#each listOfRoutes as route}
-				<a href={route.path} id="heroLinks">
+				<a href={route.path} title={route.name} id="heroLinks">
 					<div class="pa2">
 						<p class="sans f6 dark-gray f4-l fw5 pa0 tracked-02">{route.name}</p>
 					</div>
