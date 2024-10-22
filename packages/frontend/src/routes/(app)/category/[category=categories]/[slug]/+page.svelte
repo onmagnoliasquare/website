@@ -27,6 +27,25 @@
 
 <article class="pa3">
 	<header>
+		<!-- <div
+			class="vh-100 dt w-100 tc bg-dark-gray white cover"
+			style={`background:url(${urlFor(data.article.media).format('webp').fit('max').url()}) no-repeat center center fixed; background-size: cover; filter: brightness(70%);`}
+		>
+			<div class="dtc v-mid pa2">
+				<h1 class="f2 f-subheadline-l fw2 tracked-tight pa0 ma0 mw9 white">
+					<span class="bg-black-90 lh-copy white pa3">
+						{data.article.title}
+					</span>
+				</h1>
+				{#if data.article.subtitle}
+					<p
+						class="serif fw2 i f4-ns f2-l tracked-tight-1-ns lh-title pa2 ma0 mb3 measure mt4 white-80"
+					>
+						{data.article.subtitle}
+					</p>
+				{/if}
+			</div>
+		</div> -->
 		<div class="flex justify-center">
 			<div class="center mw7">
 				<h1 class="f1 f-5-l fw6 tracked-tight-2 tracked-tight-3-ns tracked-tight-4-l lh-solid">
@@ -34,6 +53,7 @@
 				</h1>
 			</div>
 		</div>
+
 		<NormalCentering>
 			{#if data.article.subtitle}
 				<p class="serif fw2 i f2 lh-title" id="subtitle">{data.article.subtitle}</p>

@@ -1,6 +1,5 @@
 <script>
-	import SiteTitle from '$components/SiteTitle.svelte';
-	import { Header, Navbar } from '$lib';
+	import { Footer, Header, Navbar } from '$lib';
 </script>
 
 <!-- Header is duplicated here for special customization -->
