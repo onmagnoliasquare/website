@@ -72,7 +72,8 @@ export async function getHomepageArticles(): Promise<Article[]> {
   			date,
 			category->{name},
 			authors[]->{name},
-			slug
+			slug,
+			media
 		}[0...5]`
 	);
 }
@@ -160,7 +161,8 @@ export async function getArticlesFromCategory(
 				date,
 				authors[]->{name},
 				slug,
-				category->
+				category->,
+				media
 			}`,
 			{
 				name

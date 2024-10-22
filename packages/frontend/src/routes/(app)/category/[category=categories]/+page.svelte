@@ -2,6 +2,7 @@
 	import ByLine from '$components/article/ByLine.svelte';
 	import DateLine from '$components/article/DateLine.svelte';
 	import CategoryArticleBox from '$components/general/CategoryArticleBox.svelte';
+	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
 	import NormalCentering from '$components/NormalCentering.svelte';
 	import PageHeader from '$components/PageHeader.svelte';
 	import type { PageData } from './$types';
@@ -21,7 +22,8 @@
 	{/key}
 	<ul class="list pa1">
 		{#each data.articles as article}
-			<CategoryArticleBox {article} />
+			<!-- <CategoryArticleBox {article} /> -->
+			<ArticleBoxC {article} />
 		{/each}
 	</ul>
 </NormalCentering>

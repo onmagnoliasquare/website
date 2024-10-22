@@ -10433,3 +10433,19 @@ body {
 .bg-red {
   background-color: var(--red-color)
 }
+
+.dim {
+  opacity: 1;
+  transition: opacity .05s ease-in;
+}
+
+.dim:hover,
+.dim:focus {
+  opacity: .5;
+  transition: opacity .05s ease-in;
+}
+
+.dim:active {
+  opacity: .8;
+  transition: opacity .05s ease-out;
+}

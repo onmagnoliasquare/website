@@ -8,10 +8,12 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 		(category as string).toLowerCase(),
 		slug as string
 	);
+	const title = article.title;
 
 	if (article) {
 		return {
-			article
+			article,
+			title
 		};
 	}
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { VersionLabel } from '$lib';
+	import { Footer, VersionLabel } from '$lib';
 	/**
 	 * ======== ROOT LAYOUT ========
 	 * */
@@ -7,10 +7,6 @@
 	import '../styles/onmagnoliasquare.css';
 	import '../styles/typography.css';
 </script>
-
-<svelte:head>
-	<link rel="icon" href="https://fav.farm/🟪" />
-</svelte:head>
 
 {#if isDevEnv}
 	<div class="w-100 ma0 pa0 bg-red">
@@ -33,3 +29,5 @@
 <div class="mw9 w-100 center pa1 pa3-l">
 	<slot />
 </div>
+
+<Footer />
