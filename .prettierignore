@@ -1,0 +1,16 @@
+.git
+.yarn
+.sveltekit
+dist
+node_modules
+packages/frontend/src/styles/*
+packages/frontend/static/*
+
+
+**/*.png
+**/*.jpg
+**/*.gif
+**/*.txt
+
+.yarnrc.yml
+yarn.lock
