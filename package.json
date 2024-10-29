@@ -19,7 +19,7 @@
     "test-coverage": "yarn vitest run --coverage"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": ["yarn eslint --fix", "yarn prettier --write"],
+    "*.{js,jsx,ts,tsx}": ["yarn prettier --write"],
     "*.{html,css,json,svelte}": ["yarn prettier --write"]
   },
   "dependencies": {
