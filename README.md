@@ -215,3 +215,4 @@ fields are used in the deployment environment.
 ### Design
 
 - [Magnolia in Shanghai](https://wapbaike.baidu.com/tashuo/browse/content?id=24921b1a0cbe87e07289d90b)
+- [Social Icons SVGs](https://github.com/gauravghongde/social-icons)
