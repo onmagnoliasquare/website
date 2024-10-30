@@ -4,7 +4,7 @@ import type { PageServerLoad } from './$types';
 import createSiteTitle from '$lib/createSiteTitle';
 
 export const load: PageServerLoad = (async () => {
-	const title = "About"
+	const title = 'About';
 
 	return {
 		title
