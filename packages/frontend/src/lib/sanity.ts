@@ -40,6 +40,8 @@ if (isDevEnv) {
 	config.useCdn = false;
 }
 
+config.dataset = 'production';
+
 export const client: SanityClient = createClient(config);
 
 // Helps transform images from Sanity.
@@ -94,7 +96,8 @@ export async function getArticlesFrom(where: string, what: string): Promise<Arti
 			subtitle,
 			date,
 			authors[]->{name},
-			slug
+			slug,
+			media
 		}`,
 		{
 			where,
@@ -220,7 +223,7 @@ export async function getSeriesList(n?: number): Promise<Series[]> {
 				description,
 				date,
 				authors[]->{name},
-				slug
+				slug,
 			}`
 		);
 	} else {
@@ -257,7 +260,8 @@ export async function getArticlesFromSeries(name: string, n?: number): Promise<A
 				authors[]->{name},
 				category->{name},
 				slug,
-				series->
+				series->,
+				media
 			}`,
 			{
 				name
