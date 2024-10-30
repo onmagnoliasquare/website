@@ -14,7 +14,7 @@
 		ArticleBodyMarks,
 		Tag
 	} from '$lib';
-	import { fade, fly } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 
 	export let data: PageData;
 	// let headerImageURL: string;
@@ -80,26 +80,24 @@
 				</figure>
 			{/if}
 			{#if data.article.updatedDate}
-				<div class="flex flex-column mb4 fw5">
-					<div class="gray mb1">
+				<div class="flex flex-column mb4 o-70">
+					<div class="gray">
 						<ByLine authors={data.article.authors} />
 					</div>
 					<div class="gray tracked-02">
-						written
 						<DateLine date={data.article.date} />
 					</div>
-					<div class="gray f6 tracked-02">
+					<div class="gray tracked-02 f6">
 						updated
 						<DateLine date={data.article.updatedDate} />
 					</div>
 				</div>
 			{:else}
-				<div class="flex flex-column mb4 fw5">
-					<div class="gray mb1">
+				<div class="flex flex-column mb4 o-70">
+					<div class="gray">
 						<ByLine authors={data.article.authors} />
 					</div>
 					<div class="gray tracked-02">
-						written
 						<DateLine date={data.article.date} />
 					</div>
 				</div>
