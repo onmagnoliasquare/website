@@ -89,7 +89,7 @@ export default defineType({
         // https://www.sanity.io/docs/image-type#hotspot-3e6da78954a8
         hotspot: true,
       },
-      description: '⚠️ WIP ⚠️ Optional profile picture to display on the website',
+      description: 'Optional profile image, cropped when displayed on the website',
     }),
 
     defineField({

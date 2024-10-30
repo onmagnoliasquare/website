@@ -336,7 +336,7 @@ export async function getOneArticleFromCategory(where: string, what: string): Pr
 				},
 				...
 			},
-			authors[]->{name},
+			authors[]->{name, slug},
 			tags[]->{name, slug},
 			media,
 			updatedDate,
@@ -463,8 +463,41 @@ export async function getAllMembers(): Promise<Member[]> {
 	return await client.fetch(
 		groq`*[_type == "member"] {
 			name,
-			bio
+			bio,
+			slug
 		} | order(lower(name))`
+	);
+}
+
+export async function getArticlesOfMember(slug: string): Promise<Article[]> {
+	return await client.fetch(
+		groq`*[_type == "article" && references(*[_type == "member" && slug.current == $slug]._id)] | order(date desc) {
+			title,
+			subtitle,
+			date,
+			authors[]->{name},
+			slug,
+			category->,
+			media
+		}`,
+		{
+			slug
+		}
+	);
+}
+
+export async function getMember(slug: string): Promise<Member> {
+	return await client.fetch(
+		groq`*[_type == "member" && slug.current == $slug][0]{
+	  		name,
+			year,
+			bio,
+			handles,
+			portrait
+		}`,
+		{
+			slug
+		}
 	);
 }
 
@@ -475,7 +508,16 @@ export interface Member {
 	netid?: string;
 	bio?: string;
 	portrait?: ImageAsset;
+	slug: Slug;
+	handles: Handles;
 	// handles
+}
+
+export interface Handles {
+	instagram?: string;
+	facebook?: string;
+	linkedin?: string;
+	twitter?: string;
 }
 
 export interface Tag {
