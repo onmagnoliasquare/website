@@ -75,7 +75,7 @@ export async function getHomepageArticles(): Promise<Article[]> {
 			category->{name},
 			authors[]->{name},
 			slug,
-			media
+			media,
 		}[0...10]`
 	);
 }
@@ -311,25 +311,16 @@ export async function getOneArticleFrom(where: string, what: string): Promise<Ar
 
 export async function getOneArticleFromCategory(where: string, what: string): Promise<Article> {
 	return await client.fetch(
-		// groq`*[_type == "article" && category->slug.current == $where && slug.current == $what][0]{
-		// 	title,
-		// 	subtitle,
-		// 	date,
-		// 	content,
-		// 	authors[]->{name},
-		// 	tags[]->{name},
-		// 	"headerImage": media.asset->{altText, description, url}
-		// }`,
 		groq`*[_type == "article" && category->slug.current == $where && slug.current == $what][0]{
 			title,
 			subtitle,
 			date,
 			content[]{
 				_type == "image" => {
+					title,
+					alt,
+					description,
 					"attrs": asset->{
-						altText,
-						title,
-						description,
 						metadata,
 						creditLine
 					},
@@ -508,7 +499,7 @@ export interface Member {
 	year?: number;
 	netid?: string;
 	bio?: string;
-	portrait?: ImageAsset;
+	portrait?: CustomImageAsset;
 	slug: Slug;
 	from: From;
 	handles: Handles;
@@ -574,10 +565,30 @@ export interface Article {
 	category: Category;
 	tags: Tag[];
 	authors: Member[];
-	media: Image;
 	content: PortableTextBlock[];
-	headerImage: ImageAsset;
 	// content: PortableTextComponents[];
+
+	// headerImage and media both refer to the topmost
+	// image on an article. headerImage is queried in its
+	// own attribute because we need to obtain the
+	// `altText`, as well as the `creditLine`, both of
+	// which are not present in the sanity `ImageBuilder`
+	// package. Which is annoying. Therefore, the `ImageBuilder`
+	// takes the `media` attribute in the function
+	// signature, and the `altText` is retrieved from
+	// the headerImage attribute.
+	media: Image;
+	headerImage: CustomImageAsset;
+}
+
+/**
+ * HeaderImage exists because ImageAsset, for some reason,
+ * does not have an `altText` attribute. Hopefully, in
+ * the future, it receives one. For now, this must be
+ * implemented.
+ */
+export interface CustomImageAsset extends ImageAsset {
+	alt: string;
 }
 
 export interface Image {
@@ -586,4 +597,7 @@ export interface Image {
 		_ref: string;
 		_type: string;
 	};
+	title?: string;
+	description?: string;
+	alt: string;
 }

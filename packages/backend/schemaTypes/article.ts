@@ -125,6 +125,13 @@ export default defineType({
       options: {
         hotspot: true,
       },
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          validation: (rule) => rule.required(),
+        },
+      ],
     }),
 
     defineField({
@@ -165,6 +172,25 @@ export default defineType({
         },
         {
           type: 'image',
+          fields: [
+            {
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+            },
+            {
+              name: 'description',
+              title: 'Description',
+              type: 'text',
+              rows: 2,
+            },
+            {
+              name: 'alt',
+              title: 'Alt Text',
+              type: 'string',
+              validation: (rule) => rule.required(),
+            },
+          ],
         },
       ],
     }),

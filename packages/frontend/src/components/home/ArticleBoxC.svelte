@@ -1,9 +1,11 @@
 <script lang="ts">
 	import Image from '$components/Image.svelte';
+	import type { Article } from '$lib/sanity';
 	import ByLine from './ByLine.svelte';
 	import DateLine from './DateLine.svelte';
 
-	export let article;
+	export let article: Article;
+	export let locale = 'en-US';
 </script>
 
 <a
@@ -26,12 +28,19 @@
 			</div>
 			{#if article.media}
 				<div class="pl3-ns order-1 order-2-ns mb4 mb0-ns w-100 w-40-l">
-					<Image media={article.media} width={480} height={320} quality={20} fit={'crop'} />
+					<Image
+						media={article.media}
+						width={480}
+						height={320}
+						quality={20}
+						fit={'crop'}
+						altText={article.media.alt}
+					/>
 				</div>
 			{/if}
 		</div>
 		<ByLine authors={article.authors} />
-		<DateLine date={article.date} />
+		<DateLine date={article.date} {locale} />
 	</article>
 </a>
 

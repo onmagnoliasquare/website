@@ -10,7 +10,7 @@
 	import type { ImageUrlBuilder } from 'sanity';
 
 	export let className = 'db';
-	export let alt = '';
+	export let altText = '';
 
 	export let media;
 	export let format: ImageFormat = 'webp';
@@ -30,4 +30,4 @@
 		.height(height);
 </script>
 
-<img src={Image.url()} {alt} class={className} />
+<img src={Image.url()} alt={altText} class={className} />
