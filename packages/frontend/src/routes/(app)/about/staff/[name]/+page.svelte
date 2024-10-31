@@ -21,15 +21,18 @@
 				<Image media={member.portrait} width={250} height={250} fit={'crop'} quality={80} />
 			</div>
 		{/if}
-		<div class="w-100">
-			<h1 class="fw2 lh-title">{member.name}</h1>
-			<p class="tracked-02 pa0 ma0 hyphenate f6">
-				{#if member.bio}
-					{member.bio}
-				{:else}
-					{member.name} is a contributor to On Magnolia Square.
-				{/if}
-			</p>
+		<div class="w-100 mb4">
+			<h1 class="fw2 lh-title mb4">{member.name}</h1>
+			<div>
+				<h2 class="fw6 tracked f7 sans gray">BIO</h2>
+				<p class="tracked-02 pa0 ma0 hyphenate f6">
+					{#if member.bio}
+						{member.bio}
+					{:else}
+						{member.name} is a contributor to On Magnolia Square.
+					{/if}
+				</p>
+			</div>
 		</div>
 		{#if location}
 			<div class="w-100 mb4">
@@ -40,8 +43,8 @@
 			</div>
 		{/if}
 		{#if handles}
-			<h4 class="ma0 mt4 pa0">Contact</h4>
-			<ul class="list pa0 ma0 mt3 w-fit" id="contactList">
+			<h2 class="fw6 tracked f7 sans gray mb2">CONTACT</h2>
+			<ul class="list pa0 ma0 w-fit" id="contactList">
 				{#if handles.linkedin}
 					<li>
 						<ContactIcons
