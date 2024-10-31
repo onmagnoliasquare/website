@@ -1,12 +1,16 @@
 <script lang="ts">
+	import Location from '$components/authorPage/Location.svelte';
 	import ContactIcons from '$components/general/ContactIcons.svelte';
 	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
 	import Image from '$components/Image.svelte';
+	import { getCountryName, getFlagEmoji } from '$lib/helpers';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 	let member = data.member;
 	let handles = data.member.handles;
+	let location = data.member.from;
+
 	let articles = data.articles;
 </script>
 
@@ -27,6 +31,14 @@
 				{/if}
 			</p>
 		</div>
+		{#if location}
+			<div class="w-100 mb4">
+				<div class="mb2">
+					<h2 class="fw6 tracked f7 sans gray">FROM</h2>
+				</div>
+				<Location {location} />
+			</div>
+		{/if}
 		{#if handles}
 			<h4 class="ma0 mt4 pa0">Contact</h4>
 			<ul class="list pa0 ma0 mt3 w-fit" id="contactList">
