@@ -75,7 +75,7 @@ export async function getHomepageArticles(): Promise<Article[]> {
 			category->{name},
 			authors[]->{name},
 			slug,
-			media
+			media,
 		}[0...10]`
 	);
 }
@@ -311,25 +311,16 @@ export async function getOneArticleFrom(where: string, what: string): Promise<Ar
 
 export async function getOneArticleFromCategory(where: string, what: string): Promise<Article> {
 	return await client.fetch(
-		// groq`*[_type == "article" && category->slug.current == $where && slug.current == $what][0]{
-		// 	title,
-		// 	subtitle,
-		// 	date,
-		// 	content,
-		// 	authors[]->{name},
-		// 	tags[]->{name},
-		// 	"headerImage": media.asset->{altText, description, url}
-		// }`,
 		groq`*[_type == "article" && category->slug.current == $where && slug.current == $what][0]{
 			title,
 			subtitle,
 			date,
 			content[]{
 				_type == "image" => {
+					title,
+					alt,
+					description,
 					"attrs": asset->{
-						altText,
-						title,
-						description,
 						metadata,
 						creditLine
 					},
@@ -508,7 +499,7 @@ export interface Member {
 	year?: number;
 	netid?: string;
 	bio?: string;
-	portrait?: ImageAsset;
+	portrait?: CustomImageAsset;
 	slug: Slug;
 	from: From;
 	handles: Handles;
@@ -587,7 +578,7 @@ export interface Article {
 	// signature, and the `altText` is retrieved from
 	// the headerImage attribute.
 	media: Image;
-	headerImage: HeaderImage;
+	headerImage: CustomImageAsset;
 }
 
 /**
@@ -596,8 +587,8 @@ export interface Article {
  * the future, it receives one. For now, this must be
  * implemented.
  */
-export interface HeaderImage extends ImageAsset {
-	altText?: string;
+export interface CustomImageAsset extends ImageAsset {
+	alt: string;
 }
 
 export interface Image {
@@ -606,4 +597,7 @@ export interface Image {
 		_ref: string;
 		_type: string;
 	};
+	title?: string;
+	description?: string;
+	alt: string;
 }
