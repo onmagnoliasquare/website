@@ -3,7 +3,6 @@
 	import ContactIcons from '$components/general/ContactIcons.svelte';
 	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
 	import Image from '$components/Image.svelte';
-	import { getCountryName, getFlagEmoji } from '$lib/helpers';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -18,7 +17,14 @@
 	<header class="mt4 mb3-l mb2 pa2 pa4-l flex flex-column w-100 w-30-ns pr3-l order-2 order-1-ns">
 		{#if member.portrait}
 			<div class="w-100">
-				<Image media={member.portrait} width={250} height={250} fit={'crop'} quality={80} />
+				<Image
+					media={member.portrait}
+					width={250}
+					height={250}
+					fit={'crop'}
+					quality={80}
+					altText={member.portrait.alt}
+				/>
 			</div>
 		{/if}
 		<div class="w-100 mb4">
