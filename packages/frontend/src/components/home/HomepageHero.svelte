@@ -35,7 +35,7 @@
 			</div>
 			<div class="pl3-ns order-2 order-1-ns mb4-ns w-100 w-40-ns">
 				{#if article.media}
-					<Image media={article.media} className="db" quality={50} />
+					<Image media={article.media} className="db" quality={50} width={1080} height={720} />
 				{/if}
 			</div>
 		</div>
