@@ -40,7 +40,7 @@ if (isDevEnv) {
 	config.useCdn = false;
 }
 
-config.dataset = 'production';
+// config.dataset = 'production';
 
 export const client: SanityClient = createClient(config);
 
@@ -493,7 +493,8 @@ export async function getMember(slug: string): Promise<Member> {
 			year,
 			bio,
 			handles,
-			portrait
+			portrait,
+			from
 		}`,
 		{
 			slug
@@ -509,8 +510,15 @@ export interface Member {
 	bio?: string;
 	portrait?: ImageAsset;
 	slug: Slug;
+	from: From;
 	handles: Handles;
 	// handles
+}
+
+export interface From {
+	country?: string;
+	city?: string;
+	region?: string;
 }
 
 export interface Handles {
