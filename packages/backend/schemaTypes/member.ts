@@ -82,6 +82,13 @@ export default defineType({
     }),
 
     defineField({
+      name: 'from',
+      title: 'Home country',
+      type: 'fromLocation',
+      description: 'Optional country of origin',
+    }),
+
+    defineField({
       name: 'portrait',
       title: 'Headshot',
       type: 'image',
