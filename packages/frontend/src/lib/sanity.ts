@@ -574,10 +574,30 @@ export interface Article {
 	category: Category;
 	tags: Tag[];
 	authors: Member[];
-	media: Image;
 	content: PortableTextBlock[];
-	headerImage: ImageAsset;
 	// content: PortableTextComponents[];
+
+	// headerImage and media both refer to the topmost
+	// image on an article. headerImage is queried in its
+	// own attribute because we need to obtain the
+	// `altText`, as well as the `creditLine`, both of
+	// which are not present in the sanity `ImageBuilder`
+	// package. Which is annoying. Therefore, the `ImageBuilder`
+	// takes the `media` attribute in the function
+	// signature, and the `altText` is retrieved from
+	// the headerImage attribute.
+	media: Image;
+	headerImage: HeaderImage;
+}
+
+/**
+ * HeaderImage exists because ImageAsset, for some reason,
+ * does not have an `altText` attribute. Hopefully, in
+ * the future, it receives one. For now, this must be
+ * implemented.
+ */
+export interface HeaderImage extends ImageAsset {
+	altText?: string;
 }
 
 export interface Image {
