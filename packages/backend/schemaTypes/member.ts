@@ -97,6 +97,14 @@ export default defineType({
         hotspot: true,
       },
       description: 'Optional profile image, cropped when displayed on the website',
+      fields: [
+        {
+          title: 'Alt Text',
+          name: 'alt',
+          type: 'string',
+          validation: (rule) => rule.required(),
+        },
+      ],
     }),
 
     defineField({
