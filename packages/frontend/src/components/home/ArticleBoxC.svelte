@@ -31,7 +31,7 @@
 			{/if}
 		</div>
 		<ByLine authors={article.authors} />
-		<DateLine date={article.date} />
+		<DateLine date={article.date} {locale} />
 	</article>
 </a>
 

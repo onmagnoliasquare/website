@@ -3,6 +3,10 @@
 	import type { From } from '$lib/sanity';
 
 	export let location: From;
+
+	// Locale determines the language the viewer sees the location in.
+	export let locale: string = 'en-US';
+
 	let flagEmoji: string;
 	let countryName: string;
 	let regionName: string;
@@ -10,7 +14,7 @@
 
 	if (location.country) {
 		flagEmoji = getFlagEmoji(location.country);
-		countryName = getCountryName(location.country, navigator.language)!;
+		countryName = getCountryName(location.country, locale) as string;
 	}
 
 	if (location.region) {

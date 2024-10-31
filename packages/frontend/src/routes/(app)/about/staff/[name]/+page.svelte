@@ -39,7 +39,7 @@
 				<div class="mb2">
 					<h2 class="fw6 tracked f7 sans gray">FROM</h2>
 				</div>
-				<Location {location} />
+				<Location {location} locale={data.chosenLocale} />
 			</div>
 		{/if}
 		{#if handles}
@@ -90,7 +90,7 @@
 				{#each articles as article}
 					<!-- #key is a fix for https://github.com/onmagnoliasquare/website/issues/96  -->
 					{#key article}
-						<ArticleBoxC {article} />
+						<ArticleBoxC {article} locale={data.chosenLocale} />
 					{/key}
 				{/each}
 			</ul>

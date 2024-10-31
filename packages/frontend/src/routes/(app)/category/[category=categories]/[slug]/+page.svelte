@@ -85,11 +85,11 @@
 						<ByLine authors={data.article.authors} />
 					</div>
 					<div class="gray tracked-02">
-						<DateLine date={data.article.date} />
+						<DateLine date={data.article.date} locale={data.chosenLocale} />
 					</div>
 					<div class="gray tracked-02 f6">
 						updated
-						<DateLine date={data.article.updatedDate} />
+						<DateLine date={data.article.updatedDate} locale={data.chosenLocale} />
 					</div>
 				</div>
 			{:else}
