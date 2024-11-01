@@ -32,6 +32,16 @@ Now, run `corepack enable`. This will enable corepack globally. Optionally, one
 can run `corepack install --global yarn@stable` to install the latest yarn
 version globally using corepack.
 
+### Windows
+
+Install `node` on Windows and enable corepack. Make sure to run powershell in administrator mode. An error may occur when using yarn, something along the lines of `yarn.ps1 cannot be loaded`.
+
+To fix this, input this command into the current powershell terminal session:
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
 ## Setup
 
 In the repository's root directory, run the following commands:
