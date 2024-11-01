@@ -331,7 +331,8 @@ export async function getOneArticleFromCategory(where: string, what: string): Pr
 			tags[]->{name, slug},
 			media,
 			updatedDate,
-			"headerImage": media.asset->{creditLine}
+			category->{name, slug},
+			"headerImage": media.asset->{creditLine},
 		}`,
 		{
 			where,

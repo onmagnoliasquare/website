@@ -56,29 +56,29 @@
 					{/if}
 				</figure>
 			{/if}
-			{#if data.article.updatedDate}
-				<div class="flex flex-column mb4 o-70">
-					<div class="gray">
-						<ByLine authors={data.article.authors} />
-					</div>
-					<div class="gray tracked-02">
-						<DateLine date={data.article.date} locale={data.chosenLocale} />
-					</div>
+			<div class="flex flex-column mb4 o-70">
+				<div class="gray flex flex-row items-center align-center">
+					<ByLine authors={data.article.authors} />&nbsp;
+					<p class="di pa0 ma0 lh-copy tracked-02 fw6 f6">
+						<span class="fw5">~</span>
+						<a
+							class="ma0 pa0 no-underline serif fw6"
+							href={`/category/${data.article.category.slug.current}`}
+						>
+							{data.article.category.name}
+						</a>
+					</p>
+				</div>
+				<div class="gray tracked-02">
+					<DateLine date={data.article.date} locale={data.chosenLocale} />
+				</div>
+				{#if data.article.updatedDate}
 					<div class="gray tracked-02 f6">
 						updated
 						<DateLine date={data.article.updatedDate} locale={data.chosenLocale} />
 					</div>
-				</div>
-			{:else}
-				<div class="flex flex-column mb4 o-70">
-					<div class="gray">
-						<ByLine authors={data.article.authors} />
-					</div>
-					<div class="gray tracked-02">
-						<DateLine date={data.article.date} />
-					</div>
-				</div>
-			{/if}
+				{/if}
+			</div>
 		</NormalCentering>
 	</header>
 	<section>
