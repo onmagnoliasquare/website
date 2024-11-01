@@ -3,7 +3,7 @@
   "endOfLine": "auto",
   "printWidth": 80,
   "arrowParens": "avoid",
-  "proseWrap": "always",
+  "proseWrap": "preserve",
   "htmlWhitespaceSensitivity": "strict",
   "bracketSpacing": true,
   "insertPragma": false,
