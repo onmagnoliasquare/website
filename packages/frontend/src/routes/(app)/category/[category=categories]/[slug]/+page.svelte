@@ -14,39 +14,13 @@
 		ArticleBodyMarks,
 		Tag
 	} from '$lib';
-	import { fade, fly } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 
 	export let data: PageData;
-	// let headerImageURL: string;
-	// if (data.article.headerImage) {
-	// 	// This retrieves a web-optimized version (`.webp` format)
-	// 	// of the image asset.
-	// 	// See: https://www.sanity.io/docs/image-urls#auto-777d41f23d56
-	// 	headerImageURL = data.article.headerImage.url.concat('?auto=format&fit=max');
-	// }
 </script>
 
 <article class="pa1 pa3-ns">
 	<header>
-		<!-- <div
-			class="vh-100 dt w-100 tc bg-dark-gray white cover"
-			style={`background:url(${urlFor(data.article.media).format('webp').fit('max').url()}) no-repeat center center fixed; background-size: cover; filter: brightness(70%);`}
-		>
-			<div class="dtc v-mid pa2">
-				<h1 class="f2 f-subheadline-l fw2 tracked-tight pa0 ma0 mw9 white">
-					<span class="bg-black-90 lh-copy white pa3">
-						{data.article.title}
-					</span>
-				</h1>
-				{#if data.article.subtitle}
-					<p
-						class="serif fw2 i f4-ns f2-l tracked-tight-1-ns lh-title pa2 ma0 mb3 measure mt4 white-80"
-					>
-						{data.article.subtitle}
-					</p>
-				{/if}
-			</div>
-		</div> -->
 		<div class="flex justify-center">
 			<div class="center mw7">
 				{#if data.article.title}
@@ -67,7 +41,10 @@
 			{#if data.article.media}
 				<figure class="ma0 mb4">
 					<!-- TODO THIS NEEDS AN ALT TEXT -->
-					<img src={urlFor(data.article.media).format('webp').fit('max').url()} alt="" />
+					<img
+						src={urlFor(data.article.media).format('webp').fit('max').url()}
+						alt={data.article.media.alt}
+					/>
 					{#if data.article.headerImage.creditLine}
 						<figcaption class="fw5 f6 gray ph1">
 							<div class="mt1">
@@ -79,31 +56,29 @@
 					{/if}
 				</figure>
 			{/if}
-			{#if data.article.updatedDate}
-				<div class="flex flex-column mb4 fw5">
-					<div class="gray mb1">
-						<ByLine authors={data.article.authors} />
-					</div>
-					<div class="gray tracked-02">
-						written
-						<DateLine date={data.article.date} />
-					</div>
-					<div class="gray f6 tracked-02">
+			<div class="flex flex-column mb4 o-70">
+				<div class="gray flex flex-row items-center align-center">
+					<ByLine authors={data.article.authors} />&nbsp;
+					<p class="di pa0 ma0 lh-copy tracked-02 fw6 f6">
+						<span class="fw5">~</span>
+						<a
+							class="ma0 pa0 no-underline serif fw6"
+							href={`/category/${data.article.category.slug.current}`}
+						>
+							{data.article.category.name}
+						</a>
+					</p>
+				</div>
+				<div class="gray tracked-02">
+					<DateLine date={data.article.date} locale={data.chosenLocale} />
+				</div>
+				{#if data.article.updatedDate}
+					<div class="gray tracked-02 f6">
 						updated
-						<DateLine date={data.article.updatedDate} />
+						<DateLine date={data.article.updatedDate} locale={data.chosenLocale} />
 					</div>
-				</div>
-			{:else}
-				<div class="flex flex-column mb4 fw5">
-					<div class="gray mb1">
-						<ByLine authors={data.article.authors} />
-					</div>
-					<div class="gray tracked-02">
-						written
-						<DateLine date={data.article.date} />
-					</div>
-				</div>
-			{/if}
+				{/if}
+			</div>
 		</NormalCentering>
 	</header>
 	<section>

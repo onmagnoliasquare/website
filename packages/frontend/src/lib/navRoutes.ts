@@ -9,7 +9,7 @@ const routes: route[] = [
 	{ path: '/category/opinion', name: 'Opinion' },
 	{ path: '/category/people', name: 'People' },
 	{ path: '/category/culture', name: 'Culture' },
-	{ path: '/category/professors', name: 'Professors' },
+	// { path: '/category/professors', name: 'Professors' },
 	{ path: '/category/multimedia', name: 'Multimedia' },
 	{ path: '/series', name: 'Series' },
 	{ path: '/archive', name: 'Archive' },

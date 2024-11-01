@@ -9,7 +9,7 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
-		"moduleResolution": "node",
+		"moduleResolution": "node"
 	},
 	"include": ["./**/*"],
 	"exclude": ["node_modules", ".vscode"]

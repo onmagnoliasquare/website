@@ -1,13 +1,13 @@
 {
-  "packageManager": "yarn@4.5.0",
+  "packageManager": "yarn@4.5.1+sha512.341db9396b6e289fecc30cd7ab3af65060e05ebff4b3b47547b278b9e67b08f485ecd8c79006b405446262142c7a38154445ef7f17c1d5d1de7d90bf9ce7054d",
   "name": "website",
   "version": "0.2.0",
   "license": "MIT",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": ["packages/*"],
   "scripts": {
+    "postinstall": "husky",
+    "format": "yarn lint-staged",
     "build:front": "yarn workspace frontend build",
     "build:back": "yarn workspace backend build",
     "build": "yarn && yarn build:frontend && yarn build:backend",
@@ -17,6 +17,10 @@
     "test-ci:front": "yarn workspace frontend test:ci-no-pool",
     "test-ci:back": "yarn workspace backend test:ci-no-pool",
     "test-coverage": "yarn vitest run --coverage"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": ["yarn prettier --write"],
+    "*.{html,css,json,svelte}": ["yarn prettier --write"]
   },
   "dependencies": {
     "@portabletext/svelte": "^2.1.11",
@@ -51,7 +55,9 @@
     "eslint": "^9.11.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-svelte": "^2.44.0",
+    "husky": "^9.1.6",
     "jsdom": "^25.0.1",
+    "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
     "prettier-plugin-svelte": "^3.2.7",
     "svelte": "^4.2.19",

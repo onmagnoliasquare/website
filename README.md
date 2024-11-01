@@ -3,55 +3,97 @@
 On Magnolia Square website monorepo for frontend and backend.
 
 > [!IMPORTANT]
-> Complications required a release of a rolling development version of our site. Some function, styling, and content may be absent or unfinished, but core functionality is present.
+> Complications required a release of a rolling development version
+> of our site. Some function, styling, and content may be absent or unfinished,
+> but core functionality is present.
 
-## Setup
+## Prerequisites
 
-Please first have **yarn** installed on your computer first before starting development. Here is the [yarn documentation for installing it](https://yarnpkg.com/corepack#installation).
+Please first have **yarn** installed on your computer first before starting
+development. Here is the
+[yarn documentation for installing it](https://yarnpkg.com/corepack#installation).
 
 ### MacOS - `brew` specific
 
-If you're using MacOS the brew package `corepack` is needed. Corepack ships with Node, but zsh does not find this linkage in the shell. Therefore, since we are using brew, corepack can be installed with:
+If you're using MacOS the brew package `corepack` is needed. Corepack ships with
+Node, but zsh does not find this linkage in the shell. Therefore, since we are
+using brew, corepack can be installed with:
 
 `brew install corepack`
 
-Brew may error and say that you must remove the symlink for `yarn` if you used brew to install yarn. Do not fret, run this command:
+Brew may error and say that you must remove the symlink for `yarn` if you used
+brew to install yarn. Do not fret, run this command:
 
 `brew unlink yarn`
 
 Then, rerun `brew install corepack`.
 
-Now, run `corepack enable`. This will enable corepack globally. Optionally, one can run `corepack install --global yarn@stable` to install the latest yarn version globally using corepack.
+Now, run `corepack enable`. This will enable corepack globally. Optionally, one
+can run `corepack install --global yarn@stable` to install the latest yarn
+version globally using corepack.
 
-Finally, in the root directory on this repository, run `yarn`. This will install all necessary files.
+### Windows
+
+Install `node` on Windows and enable corepack. Make sure to run powershell in administrator mode. An error may occur when using yarn, something along the lines of `yarn.ps1 cannot be loaded`.
+
+To fix this, input this command into the current powershell terminal session:
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+## Setup
+
+In the repository's root directory, run the following commands:
+
+```bash
+# Install yarn dependencies
+yarn
+
+# !! IMPORTANT !!
+# Setup husky, a git hook modifier
+yarn run postinstall
+```
 
 ## Development
 
-The frontend and backend directories have `.env.example` files that must be duplicated and renamed into `.env` files. Fill in the template with appropriate, legitimate values.
+The frontend and backend directories have `.env.example` files that must be
+duplicated and renamed into `.env` files. Fill in the template with appropriate,
+legitimate values.
 
-To start development for either backend or frontend, run `yarn dev:front` or `yarn dev:back` in the root directory.
+To start development for either backend or frontend, run `yarn dev:front` or
+`yarn dev:back` in the root directory.
 
-Keep in mind that for backend work, one must be logged into the OMS Sanity account to interact with Sanity Studio.
+Keep in mind that for backend work, one must be logged into the OMS Sanity
+account to interact with Sanity Studio.
 
 ## Good Habits
 
 ### Commits
 
-Commits in this repository follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), with some minor changes fit for our project. Here's a [ChatGPT chat about what they are](https://chat.openai.com/share/475c34ae-1ce2-47cd-85a9-16045a550011).
+Commits in this repository follow
+[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), with
+some minor changes fit for our project. Here's a
+[ChatGPT chat about what they are](https://chat.openai.com/share/475c34ae-1ce2-47cd-85a9-16045a550011).
 
-When making a commit, one must specify the affected package (the scope) next to the `type`:
+When making a commit, one must specify the affected package (the scope) next to
+the `type`:
 
 - f(rontend)
 - b(ackend)
 -
 
-The third type is `null`, i.e. something that is not a package specific change. Here is an example of what this looks like:
+The third type is `null`, i.e. something that is not a package specific change.
+Here is an example of what this looks like:
 
 ```bash
+# (b) indicates a backend commit
 git commit -m "refactor(b): remove whitespace"
-...
+
+# (f) indicates a frontend commit
 git commit -m "fix(f): Component.svelte state logic"
-...
+
+# null type
 git commit -m "chore: bump yarn version"
 ```
 
@@ -61,27 +103,42 @@ Proper code attribution is to be followed.
 
 ### Branching
 
-The main branch is `dev`. The production branch is `main`. The deployment pipeline is as follows:
+The main branch is `dev`. The production branch is `main`. The deployment
+pipeline is as follows:
 
 `dev` to `staging` then finally to `main`.
 
 This pipeline is enforced by the `enforcer.yml` GitHub action.
 
-Staging is a pre-release branch. This is where we test the dataset against any new releasable changes from dev. It is not publicly viewable.
+Staging is a pre-release branch. This is where we test the dataset against any
+new releasable changes from dev. It is not publicly viewable.
 
 ## Technical Specifications
 
 ### Yarn
 
-Our package manager is the latest version of `yarn`. The version is using the command [`yarn set version stable`](https://yarnpkg.com/cli/set/version#details), which, during version updates, is executed in the root directory. Since this is a monorepo, yarn is also used as the project management tool.
+Our package manager is the latest version of `yarn`. The version is using the
+command
+[`yarn set version stable`](https://yarnpkg.com/cli/set/version#details), which,
+during version updates, is executed in the root directory. Since this is a
+monorepo, yarn is also used as the project management tool.
 
-In the `package.json` folder, you can find the workspaces field, which defines which folders yarn will look and install modules for.
+In the `package.json` folder, you can find the workspaces field, which defines
+which folders yarn will look and install modules for.
 
-With that being said, Vite does not yet support Yarn pnp, and therefore in the `.yarnrc.yml` file in the root directory, [`nodeLinker: "node-modules"`](https://yarnpkg.com/configuration/yarnrc#nodeLinker) line is appended. In the future, we may remove this in case of ghost-dependency creep, or if Vite begins support for pnp.
+With that being said, Vite does not yet support Yarn pnp, and therefore in the
+`.yarnrc.yml` file in the root directory,
+[`nodeLinker: "node-modules"`](https://yarnpkg.com/configuration/yarnrc#nodeLinker)
+line is appended. In the future, we may remove this in case of ghost-dependency
+creep, or if Vite begins support for pnp.
 
 #### What is `run -T (command)`?
 
-It's used to share commands between workspaces. Since a project like `frontend` does not have any dependencies inside (all of the dependencies are in the root dir), we must use `run -T (command)` to access the correct command. In this case, its either `vite` or `sanity` or any other that requires use like `playwright`.
+It's used to share commands between workspaces. Since a project like `frontend`
+does not have any dependencies inside (all of the dependencies are in the root
+dir), we must use `run -T (command)` to access the correct command. In this
+case, its either `vite` or `sanity` or any other that requires use like
+`playwright`.
 
 ### VS Code
 
@@ -97,7 +154,11 @@ Below are VS Code extensions used in this project.
 
 ### Route Enforcement
 
-To enforce categories and routes, we are using `src/params` to enforce only certain route categories. This is an example of the [Route Matching](https://kit.svelte.dev/docs/advanced-routing#matching) and [Route Rest Parameters](https://kit.svelte.dev/docs/advanced-routing#rest-parameters) of SvelteKit.
+To enforce categories and routes, we are using `src/params` to enforce only
+certain route categories. This is an example of the
+[Route Matching](https://kit.svelte.dev/docs/advanced-routing#matching) and
+[Route Rest Parameters](https://kit.svelte.dev/docs/advanced-routing#rest-parameters)
+of SvelteKit.
 
 ### Page Server Loading
 
@@ -105,9 +166,15 @@ To enforce categories and routes, we are using `src/params` to enforce only cert
 
 ## Deployment
 
-CI requires unit tests and perhaps integration tests if you could secure a development key. This comes with managing the secret on GitHub, though.
+CI requires unit tests and perhaps integration tests if you could secure a
+development key. This comes with managing the secret on GitHub, though.
 
-We are either using Cloudflare Pages or Vercel to deploy the frontend. The backend is deployed via the Sanity CLI deploy command. The frontend requires the environment variables to be injected at build time in order to build and deploy successfully. These can be accessed in either Cloudflare page's or Vercel's appropriate deploy configuration settings. Make sure all of the .env.example fields are used in the deployment environment.
+We are either using Cloudflare Pages or Vercel to deploy the frontend. The
+backend is deployed via the Sanity CLI deploy command. The frontend requires the
+environment variables to be injected at build time in order to build and deploy
+successfully. These can be accessed in either Cloudflare page's or Vercel's
+appropriate deploy configuration settings. Make sure all of the .env.example
+fields are used in the deployment environment.
 
 ## Useful Links
 
@@ -159,3 +226,9 @@ We are either using Cloudflare Pages or Vercel to deploy the frontend. The backe
 ### Design
 
 - [Magnolia in Shanghai](https://wapbaike.baidu.com/tashuo/browse/content?id=24921b1a0cbe87e07289d90b)
+- [Social Icons SVGs](https://github.com/gauravghongde/social-icons)
+
+### Prettier
+
+- [Prettier prose-wrap](https://prettier.io/docs/en/options.html)
+- [Markdown callout for GitHub Prettier](https://github.com/prettier/prettier/issues/15479)

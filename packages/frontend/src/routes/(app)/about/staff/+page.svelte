@@ -8,20 +8,35 @@
 
 <NormalCentering>
 	<PageHeader>Staff</PageHeader>
-	<p class="tracked-02">Here's a list of everyone that ever was or is..</p>
+	<p class="tracked-02">Here's a list of everyone that ever was or is...</p>
 	<ul class="list pa0">
 		{#each data.members as member}
 			<li>
-				<p class="pa0 ma0 tracked-02 serif f4 fw6">
-					{member.name}
-					{#if member.bio}
-						<span class="sans-serif fw4 f6 gray">{member.bio}</span>
-					{/if}
-				</p>
+				{#if member.slug.current}
+					<a href={`/about/staff/${member.slug.current}`}>
+						<p class="pa0 ma0 tracked-02 serif f4 fw3">
+							{member.name}
+						</p>
+					</a>
+				{/if}
 			</li>
 		{/each}
 	</ul>
 </NormalCentering>
 
 <style>
+	ul > li > a {
+		text-decoration: none;
+		color: var(--text-color);
+	}
+
+	ul > li > a:hover {
+		/* background-color: var(--gold); */
+		text-decoration: underline;
+	}
+
+	p {
+		display: inline;
+		text-align: left;
+	}
 </style>
