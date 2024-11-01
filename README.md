@@ -2,7 +2,8 @@
 
 On Magnolia Square website monorepo for frontend and backend.
 
-> [!IMPORTANT] Complications required a release of a rolling development version
+> [!IMPORTANT]
+> Complications required a release of a rolling development version
 > of our site. Some function, styling, and content may be absent or unfinished,
 > but core functionality is present.
 
@@ -216,3 +217,8 @@ fields are used in the deployment environment.
 
 - [Magnolia in Shanghai](https://wapbaike.baidu.com/tashuo/browse/content?id=24921b1a0cbe87e07289d90b)
 - [Social Icons SVGs](https://github.com/gauravghongde/social-icons)
+
+### Prettier
+
+- [Prettier prose-wrap](https://prettier.io/docs/en/options.html)
+- [Markdown callout for GitHub Prettier](https://github.com/prettier/prettier/issues/15479)
