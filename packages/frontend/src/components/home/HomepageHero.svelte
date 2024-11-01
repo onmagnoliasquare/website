@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Image from '$components/Image.svelte';
 	import { createAuthorString, dateFormatter } from '$lib/helpers';
 	import { urlFor } from '$lib/sanity';
 	import ByLine from './ByLine.svelte';
@@ -34,7 +35,7 @@
 			</div>
 			<div class="pl3-ns order-2 order-1-ns mb4-ns w-100 w-40-ns">
 				{#if article.media}
-					<img class="db" src={urlFor(article.media).format('webp').fit('max').url()} alt="" />
+					<Image media={article.media} className="db" quality={50} width={1080} height={720} />
 				{/if}
 			</div>
 		</div>

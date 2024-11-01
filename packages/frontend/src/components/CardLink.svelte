@@ -11,7 +11,7 @@
 				<p class="pa0 ma0 f1 serif fw5">{title}</p>
 			</div>
 			<div class="pl4 pb4">
-				<p class="pa0 ma0 f5 tracked-02"><slot /></p>
+				<p class="pa0 ma0 f6 tracked-02"><slot /></p>
 			</div>
 		</div>
 	</a>

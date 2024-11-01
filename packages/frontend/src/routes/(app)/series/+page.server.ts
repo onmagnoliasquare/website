@@ -5,7 +5,7 @@ import createSiteTitle from '$lib/createSiteTitle';
 
 export const load: PageServerLoad = (async () => {
 	const series: Series[] = await getSeriesList();
-	const title = "Series"
+	const title = 'Series';
 
 	if (series) {
 		return {

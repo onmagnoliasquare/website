@@ -68,3 +68,34 @@ export const createAuthorString = (a: Member[]): string => {
 
 	return authorString;
 };
+
+/**
+ * getFlagEmoji retrieves the flag emoji of a specified
+ * country using code points and `.replace`.
+ * Modified from:
+ * https://dev.to/jorik/country-code-to-flag-emoji-a21#comment-1d92e
+ * @param countryCode ISO-3166 alpha-2 format country code
+ * @returns `string` flag emoji
+ */
+export const getFlagEmoji = (countryCode: string): string => {
+	return (
+		countryCode
+			.toUpperCase()
+			//@ts-ignore
+			.replace(/./g, (char) => String.fromCodePoint(127397 + char.charCodeAt()))
+	);
+};
+
+/**
+ * getCountryName retrieves the country name of
+ * a country, as determined by `Intl.DisplayNames`.
+ * Modified from:
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DisplayNames
+ * @param countryCode ISO-3166 alpha-2 format country code
+ * @param locale retrieved from browser
+ * @returns `string` country name
+ */
+export const getCountryName = (countryCode: string, locale: string): string | undefined => {
+	let name = new Intl.DisplayNames([locale], { type: 'region' });
+	return name.of(countryCode);
+};
