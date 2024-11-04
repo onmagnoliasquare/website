@@ -494,6 +494,56 @@ export async function getMember(slug: string): Promise<Member> {
 	);
 }
 
+export async function getRecommendedArticles(
+	fetched_num: number = 9,
+	desired_return_num: number = 3,
+	series: string,
+	currentArticle: string,
+	member: string,
+	articleTag: string,
+	category: string
+): Promise<Article[]> {
+	const uniqueArticles: Set<Article> = new Set<Article>();
+	const returnedArticles: Article[] = [];
+	const articles: Article[] = await client.fetch(
+		groq`*[(_type == "article" && slug.current->$series && slug.current != $currentArticle) ||
+		 (_type == "article" && slug.current->$member && slug.current != $currentArticle) ||
+		  (_type == "article" && slug.current->$articleTag && slug.current != $currentArticle) ||
+		  (_type == "article" && slug.current->$category && slug.current != $currentArticle)]
+		  | order(_type == "article" && slug.current->$series=>0,
+		   _type == "member" && slug.current->$series=>1,
+			_type == "member" && slug.current->$series=>2,
+		     _type == "category" && slug.current->$series=>3,
+			 date desc)[0...$fetched_num] {
+			title,
+			subtitle,
+			date,
+			authors[]->{name},
+			slug,
+			category->{name},
+			media
+		}`,
+		{
+			series,
+			currentArticle,
+			member,
+			category,
+			articleTag,
+			fetched_num
+		}
+	);
+	for (const item of articles) {
+		if (!uniqueArticles.has(item)) {
+			returnedArticles.push(item);
+			uniqueArticles.add(item);
+		}
+		if (returnedArticles.length == desired_return_num) {
+			break;
+		}
+	}
+	return returnedArticles;
+}
+
 export interface Member {
 	_type: 'member';
 	name: string;
