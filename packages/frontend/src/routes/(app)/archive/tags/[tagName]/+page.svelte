@@ -1,8 +1,11 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import NormalCentering from '$components/NormalCentering.svelte';
-	import { CategoryArticleBox } from '$lib';
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 </script>
 
 <NormalCentering>
@@ -26,9 +29,9 @@
 	</header>
 
 	<ul class="list pa1">
-		{#each data.articles as article}
+		<!-- {#each data.articles as article}
 			<CategoryArticleBox {article} />
-		{/each}
+		{/each} -->
 	</ul>
 </NormalCentering>
 
