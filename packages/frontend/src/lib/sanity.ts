@@ -495,13 +495,13 @@ export async function getMember(slug: string): Promise<Member> {
 }
 
 export async function getRecommendedArticles(
-	fetched_num: number = 9,
-	desired_return_num: number = 3,
 	series: string,
 	currentArticle: string,
 	member: string,
 	articleTag: string,
-	category: string
+	category: string,
+	fetched_num: number = 9,
+	desired_return_num: number = 3
 ): Promise<Article[]> {
 	const uniqueArticles: Set<Article> = new Set<Article>();
 	const returnedArticles: Article[] = [];
