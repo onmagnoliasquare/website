@@ -4,10 +4,11 @@
 	 *  https://github.com/portabletext/svelte-portabletext/blob/main/src/customComponents/SingleComponentBlock.svelte
 	 * */
 	import type { BlockComponentProps } from '@portabletext/svelte';
+	import type { Snippet } from 'svelte';
 
 	interface Props {
 		portableText: BlockComponentProps;
-		children?: import('svelte').Snippet;
+		children?: Snippet;
 	}
 
 	let { portableText, children }: Props = $props();

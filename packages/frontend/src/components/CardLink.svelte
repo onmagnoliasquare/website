@@ -1,9 +1,11 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
+
 	interface Props {
-		title: any;
-		link: any;
+		title: string;
+		link: string;
 		bgColor?: string;
-		children?: import('svelte').Snippet;
+		children?: Snippet;
 	}
 
 	let { title, link, bgColor = 'purple', children }: Props = $props();

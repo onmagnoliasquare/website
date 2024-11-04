@@ -1,11 +1,16 @@
-<script>
+<script lang="ts">
 	/**
 	 * @typedef {Object} Props
 	 * @property {import('svelte').Snippet} [children]
 	 */
 
-	/** @type {Props} */
-	let { children } = $props();
+	import type { Snippet } from 'svelte';
+
+	interface Props {
+		children: Snippet;
+	}
+
+	let { children }: Props = $props();
 </script>
 
 <div class="measure-wide center">{@render children?.()}</div>
