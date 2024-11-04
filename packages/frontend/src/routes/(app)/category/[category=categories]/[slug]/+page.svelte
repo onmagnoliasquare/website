@@ -16,7 +16,7 @@
 	} from '$lib';
 	import { fly } from 'svelte/transition';
 
-	export let data: PageData;
+	let { data }: { data: PageData } = $props();
 </script>
 
 <article class="pa1 pa3-ns">

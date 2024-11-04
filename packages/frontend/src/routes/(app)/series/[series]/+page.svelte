@@ -4,8 +4,8 @@
 	import PageHeader from '$components/PageHeader.svelte';
 	import type { Article } from '$lib/sanity';
 	import type { PageData } from './$types';
-	export let data: PageData;
-	export let articles: Article[] = data.articles;
+	let { data }: { data: PageData } = $props();
+	let articles: Article[] = data.articles;
 </script>
 
 <NormalCentering>

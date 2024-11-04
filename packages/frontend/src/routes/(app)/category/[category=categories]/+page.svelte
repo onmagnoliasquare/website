@@ -7,11 +7,11 @@
 	import PageHeader from '$components/PageHeader.svelte';
 	import type { PageData } from './$types';
 
-	export let data: PageData;
+	let { data }: { data: PageData } = $props();
 
 	// `$` syntax needed for dynamic routes. See:  https://stackoverflow.com/questions/75756247/dynamic-routes-dont-refresh-when-navigation-between-them
-	$: category = data.cat!;
-	$: articles = data.articles;
+	let category = $state(data.cat!);
+	let articles = $state(data.articles);
 </script>
 
 <NormalCentering>

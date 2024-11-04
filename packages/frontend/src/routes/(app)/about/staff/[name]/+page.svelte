@@ -5,7 +5,7 @@
 	import Image from '$components/Image.svelte';
 	import type { PageData } from './$types';
 
-	export let data: PageData;
+	let { data }: { data: PageData } = $props();
 	let member = data.member;
 	let handles = data.member.handles;
 	let location = data.member.from;
