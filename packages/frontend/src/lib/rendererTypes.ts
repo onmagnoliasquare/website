@@ -129,7 +129,14 @@ export interface PortableTextSvelteComponents {
 	 * The object has the shape `{markName: SvelteComponent}`, where `markName` is the value set
 	 * in individual `_type` attributes, values being stored in the parent blocks `markDefs`.
 	 */
-	marks: CustomMarks;
+
+	/**
+	 * TODO
+	 * Change this to something that isn't ANY!
+	 * See line pt/PortableText.svelte, line 20
+	 */
+	// marks: CustomMarks;
+	marks: any;
 
 	/**
 	 * Object of Svelte components that renders blocks with different `style` properties.
@@ -139,7 +146,8 @@ export interface PortableTextSvelteComponents {
 	 *
 	 * Can also be set to a single Svelte component, which would handle block styles of _any_ type.
 	 */
-	block: CustomStyles;
+	// block: CustomStyles;
+	block: any;
 
 	/**
 	 * Object of Svelte components used to render lists of different types (bulleted vs numbered,
@@ -151,7 +159,8 @@ export interface PortableTextSvelteComponents {
 	 *
 	 * Can also be set to a single Svelte component, which would handle lists of _any_ type.
 	 */
-	list: Record<PortableTextListItemType, ListComponent | undefined> | ListComponent;
+	// list: Record<PortableTextListItemType, ListComponent | undefined> | ListComponent;
+	list: any;
 
 	/**
 	 * Object of Svelte components used to render different list item styles.
@@ -161,43 +170,50 @@ export interface PortableTextSvelteComponents {
 	 *
 	 * Can also be set to a single Svelte component, which would handle list items of _any_ type.
 	 */
-	listItem: Record<PortableTextListItemType, ListItemComponent | undefined> | ListItemComponent;
+	// listItem: Record<PortableTextListItemType, ListItemComponent | undefined> | ListItemComponent;
+	listItem: any;
 
 	/**
 	 * Component to use for rendering "hard breaks", eg `\n` inside of text spans
 	 * Will by default render a `<br />`. Pass `false` to render as-is (`\n`)
 	 */
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	hardBreak: SvelteComponent<never> | typeof SvelteComponent<any> | false;
+	// hardBreak: SvelteComponent<never> | typeof SvelteComponent<any> | false;
+	hardBreak: any;
 
 	/* eslint-disable */
 	/**
 	 * Override the default component for blocks of unknown type, if ignoreUnknownTypes is set to false.
 	 */
-	unknownType: BlockComponent;
+	// unknownType: BlockComponent;
+	unknownType: any;
 
 	/**
 	 * Override the default component for marks of unknown type. Defaults to rendering its content without a container.
 	 */
-	unknownMark: MarkComponent;
+	// unknownMark: MarkComponent;
+	unknownMark: any;
 
 	/**
 	 * Svelte component used when encountering a block style there is no registered component for
 	 * in the `components.block` prop. Only used if `components.block` is an object.
 	 */
-	unknownBlockStyle: BlockComponent;
+	// unknownBlockStyle: BlockComponent;
+	unknownBlockStyle: any;
 
 	/**
 	 * Svelte component used when encountering a list style there is no registered component for
 	 * in the `components.list` prop. Only used if `components.list` is an object.
 	 */
-	unknownList: ListComponent;
+	// unknownList: ListComponent;
+	unknownList: any;
 
 	/**
 	 * Svelte component used when encountering a list item style there is no registered component for
 	 * in the `components.listItem` prop. Only used if `components.listItem` is an object.
 	 */
-	unknownListItem: ListItemComponent;
+	// unknownListItem: ListItemComponent;
+	unknownListItem: any;
 	/* eslint-enable */
 }
 

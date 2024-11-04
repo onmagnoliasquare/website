@@ -1,9 +1,11 @@
 <script lang="ts">
 	import type { ListComponentProps } from '../rendererTypes';
 
+	import type { Snippet } from 'svelte';
+
 	interface Props {
 		portableText: ListComponentProps;
-		children?: import('svelte').Snippet;
+		children?: Snippet;
 	}
 
 	let { portableText, children }: Props = $props();

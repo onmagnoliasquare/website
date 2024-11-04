@@ -14,7 +14,23 @@
 		 * Svelte components used to render portable text.
 		 * This is an object with user-defined components merged with native ones.
 		 */
-		components: PortableTextComponents;
+
+		/**
+		 * TODO
+		 * This is a quick hotfix for this prop, and is ALSO DANGEROUS.
+		 * We should require type safety for this, but for the time being,
+		 * I have yet to figure out how to incorporate the typescript
+		 * components into this correctly. Without the `any` type,
+		 * the TS(2322) error happens.
+		 *
+		 * The authors of the library where I retrieved this rendering
+		 * logic have not yet updated to Svelte 5. Here is the link
+		 * to the library:
+		 * https://github.com/portabletext/svelte-portabletext
+		 */
+		// components: PortableTextComponents;
+		components: any;
+
 		/**
 		 * User-defined data context, as passed to the `<PortableText>` component.
 		 */
