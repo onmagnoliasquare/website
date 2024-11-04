@@ -13,6 +13,7 @@
 	 * from the layout.
 	 * https://kit.svelte.dev/docs/load#$page-data
 	 * */
+	let { children } = $props();
 </script>
 
 <svelte:head>
@@ -23,5 +24,5 @@
 <Header />
 
 <main class="pb4 pb7-ns">
-	<slot />
+	{@render children()}
 </main>
