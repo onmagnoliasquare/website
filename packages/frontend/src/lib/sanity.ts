@@ -116,7 +116,6 @@ export async function getArticlesFromTag(tagSlugName: string): Promise<Article[]
 			slug,
 			category->,
 			media
-
 		}`,
 		{
 			tagSlugName
