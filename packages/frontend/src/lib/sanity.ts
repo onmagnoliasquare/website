@@ -114,8 +114,8 @@ export async function getArticlesFromTag(tagSlugName: string): Promise<Article[]
 			date,
 			authors[]->{name},
 			slug,
-			category->
-
+			category->,
+			media
 		}`,
 		{
 			tagSlugName

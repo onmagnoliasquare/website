@@ -1,7 +1,6 @@
 <script lang="ts">
 	import ByLine from '$components/article/ByLine.svelte';
 	import DateLine from '$components/article/DateLine.svelte';
-	import CategoryArticleBox from '$components/general/CategoryArticleBox.svelte';
 	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
 	import NormalCentering from '$components/NormalCentering.svelte';
 	import PageHeader from '$components/PageHeader.svelte';
