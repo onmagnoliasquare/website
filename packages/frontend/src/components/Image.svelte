@@ -9,16 +9,29 @@
 	import type { FitMode, ImageFormat, CropMode } from '@sanity/image-url/lib/types/types';
 	import type { ImageUrlBuilder } from 'sanity';
 
-	export let className = 'db';
-	export let altText = '';
+	interface Props {
+		className?: string;
+		altText?: string;
+		media: any;
+		format?: ImageFormat;
+		crop?: CropMode;
+		fit?: FitMode;
+		quality?: number;
+		width: number;
+		height: number;
+	}
 
-	export let media;
-	export let format: ImageFormat = 'webp';
-	export let crop: CropMode = 'entropy';
-	export let fit: FitMode = 'max';
-	export let quality: number = 50;
-	export let width: number;
-	export let height: number;
+	let {
+		className = 'db',
+		altText = '',
+		media,
+		format = 'webp',
+		crop = 'entropy',
+		fit = 'max',
+		quality = 50,
+		width,
+		height
+	}: Props = $props();
 
 	// let Image: ImageUrlBuilder = urlFor(media).format(format).fit(fit).quality(quality);
 	let Image: ImageUrlBuilder = urlFor(media)

@@ -3,13 +3,18 @@
 <script lang="ts">
 	import type { MarkComponentProps } from '$lib/rendererTypes';
 
-	export let portableText: MarkComponentProps<{
-		href: string;
-	}>;
+	interface Props {
+		portableText: MarkComponentProps<{
+			href: string;
+		}>;
+		children?: import('svelte').Snippet;
+	}
+
+	let { portableText, children }: Props = $props();
 </script>
 
 <a href={portableText.value.href} target="_blank">
-	<slot />
+	{@render children?.()}
 </a>
 
 <style>

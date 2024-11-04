@@ -1,32 +1,42 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import type { ArbitraryTypedObject, PortableTextBlock } from '@portabletext/types';
 	import type { CustomBlockComponentProps, GlobalProps } from '../rendererTypes';
 
-	export let global: GlobalProps;
-	$: ({ components } = global);
-
-	export let node: ArbitraryTypedObject;
-	export let parentBlock: PortableTextBlock;
-	export let indexInParent: number;
-	export let isInline = false;
-
-	$: ({ _type } = node);
-	// DANGER
-	$: customComponent = components.types[_type] as any;
-	$: if (!customComponent) {
-		global.missingComponentHandler!(_type, 'block');
+	interface Props {
+		global: GlobalProps;
+		node: ArbitraryTypedObject;
+		parentBlock: PortableTextBlock;
+		indexInParent: number;
+		isInline?: boolean;
 	}
 
+	let { global, node, parentBlock, indexInParent, isInline = false }: Props = $props();
+
+	let { components } = $derived(global);
+	let { _type } = $derived(node);
+	// DANGER
+	let customComponent = $derived(components.types[_type] as any);
+	run(() => {
+		if (!customComponent) {
+			global.missingComponentHandler!(_type, 'block');
+		}
+	});
 	// Using a function is the only way to use TS in Svelte reactive assignments
-	$: componentProps = (() => {
-		return {
-			global,
-			value: node,
-			indexInParent,
-			parentBlock,
-			isInline
-		} as CustomBlockComponentProps;
-	})();
+	let componentProps = $derived(
+		(() => {
+			return {
+				global,
+				value: node,
+				indexInParent,
+				parentBlock,
+				isInline
+			} as CustomBlockComponentProps;
+		})()
+	);
+
+	const SvelteComponent = $derived(customComponent || components.unknownType);
 </script>
 
-<svelte:component this={customComponent || components.unknownType} portableText={componentProps} />
+<SvelteComponent portableText={componentProps} />

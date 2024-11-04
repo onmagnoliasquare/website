@@ -1,11 +1,10 @@
 <script lang="ts">
 	import Image from '$components/Image.svelte';
 	import { createAuthorString, dateFormatter } from '$lib/helpers';
-	import { urlFor } from '$lib/sanity';
-	import ByLine from './ByLine.svelte';
+	import { type Article } from '$lib/sanity';
 	import DateLine from './DateLine.svelte';
 
-	export let article;
+	let { article }: { article: Article } = $props();
 	let authorString = createAuthorString(article.authors);
 </script>
 

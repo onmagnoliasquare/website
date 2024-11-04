@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let tagName;
+	let { tagName } = $props();
 </script>
 
 <div class="dib">

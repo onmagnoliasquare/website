@@ -2,7 +2,7 @@
 	import ByLine from '$components/article/ByLine.svelte';
 	import DateLine from '$components/article/DateLine.svelte';
 
-	export let article;
+	let { article } = $props();
 </script>
 
 <li class="ma0 ba mv2 pa4 pt2 pb4 border-color">

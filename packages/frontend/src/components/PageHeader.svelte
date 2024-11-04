@@ -1,4 +1,9 @@
 <script lang="ts">
+	interface Props {
+		children?: import('svelte').Snippet;
+	}
+
+	let { children }: Props = $props();
 	/**
 	 * PageHeader component is a simple header that displays a page's title.
 	 * The pages that use this component should not be articles or their
@@ -7,5 +12,7 @@
 </script>
 
 <header class="mt4 mb4-l mb2">
-	<h1 class="f1 f-5-l fw5 tracked-tight tracked-tight-2-ns tracked-tight-4-l ma0"><slot /></h1>
+	<h1 class="f1 f-5-l fw5 tracked-tight tracked-tight-2-ns tracked-tight-4-l ma0">
+		{@render children?.()}
+	</h1>
 </header>
