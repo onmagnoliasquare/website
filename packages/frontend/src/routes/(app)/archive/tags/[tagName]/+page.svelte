@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import NormalCentering from '$components/NormalCentering.svelte';
-	import { CategoryArticleBox } from '$lib';
 	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
 	export let data: PageData;
 </script>
