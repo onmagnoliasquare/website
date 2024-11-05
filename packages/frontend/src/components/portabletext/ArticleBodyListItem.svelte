@@ -1,11 +1,11 @@
-<script>
-	/**
-	 * @typedef {Object} Props
-	 * @property {import('svelte').Snippet} [children]
-	 */
+<script lang="ts">
+	import type { Snippet } from 'svelte';
 
-	/** @type {Props} */
-	let { children } = $props();
+	interface Props {
+		children: Snippet;
+	}
+
+	let { children }: Props = $props();
 </script>
 
 <li class="lh-copy f5 f4-l tracked-02 fw4 pa0 mt0 mb3 tl">{@render children?.()}</li>

@@ -4,7 +4,12 @@
 	import PageHeader from '$components/PageHeader.svelte';
 	import type { Article } from '$lib/sanity';
 	import type { PageData } from './$types';
-	let { data }: { data: PageData } = $props();
+
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 	let articles: Article[] = data.articles;
 </script>
 

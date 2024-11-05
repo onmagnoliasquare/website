@@ -5,7 +5,7 @@
 		title: string;
 		link: string;
 		bgColor?: string;
-		children?: Snippet;
+		children: Snippet;
 	}
 
 	let { title, link, bgColor = 'purple', children }: Props = $props();

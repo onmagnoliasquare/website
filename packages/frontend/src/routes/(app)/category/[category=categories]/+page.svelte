@@ -4,7 +4,11 @@
 	import PageHeader from '$components/PageHeader.svelte';
 	import type { PageData } from './$types';
 
-	let { data }: { data: PageData } = $props();
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 
 	// `$` syntax needed for dynamic routes. See:  https://stackoverflow.com/questions/75756247/dynamic-routes-dont-refresh-when-navigation-between-them
 	let category = $state(data.cat!);

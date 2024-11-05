@@ -1,9 +1,4 @@
 <script lang="ts">
-	/**
-	 * @typedef {Object} Props
-	 * @property {import('svelte').Snippet} [children]
-	 */
-
 	import type { Snippet } from 'svelte';
 
 	interface Props {

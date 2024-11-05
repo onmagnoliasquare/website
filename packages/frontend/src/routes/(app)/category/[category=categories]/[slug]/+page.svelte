@@ -16,7 +16,11 @@
 	} from '$lib';
 	import { fly } from 'svelte/transition';
 
-	let { data }: { data: PageData } = $props();
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 </script>
 
 <article class="pa1 pa3-ns">

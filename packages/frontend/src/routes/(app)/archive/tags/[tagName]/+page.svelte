@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import NormalCentering from '$components/NormalCentering.svelte';
+
 	interface Props {
 		data: PageData;
 	}

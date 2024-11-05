@@ -4,9 +4,15 @@
 	 * ======== ROOT LAYOUT ========
 	 * */
 	import { isDevEnv } from '$lib/sanity';
+	import type { Snippet } from 'svelte';
 	import '../styles/onmagnoliasquare.css';
 	import '../styles/typography.css';
-	let { children } = $props();
+
+	interface Props {
+		children: Snippet;
+	}
+
+	let { children }: Props = $props();
 </script>
 
 {#if isDevEnv}

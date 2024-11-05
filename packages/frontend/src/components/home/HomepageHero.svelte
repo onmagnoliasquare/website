@@ -4,7 +4,11 @@
 	import { type Article } from '$lib/sanity';
 	import DateLine from './DateLine.svelte';
 
-	let { article }: { article: Article } = $props();
+	interface Props {
+		article: Article;
+	}
+
+	let { article }: Props = $props();
 	let authorString = createAuthorString(article.authors);
 </script>
 
