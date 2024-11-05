@@ -51,7 +51,7 @@ export default defineType({
               {
                 title: 'Open in new tab',
                 name: 'blank',
-                description: 'Make the link open in a new tab',
+                description: 'Make the link open in a new tab.',
                 type: 'boolean',
               },
             ],

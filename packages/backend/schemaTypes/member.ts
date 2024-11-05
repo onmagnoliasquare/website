@@ -28,7 +28,7 @@ export default defineType({
       name: 'name',
       title: 'Name',
       type: 'string',
-      description: 'First Name and Last Name',
+      description: 'First Name and Last Name.',
 
       // This is the only required field, as it links
       // an author to their article.
@@ -39,7 +39,7 @@ export default defineType({
       name: 'year',
       title: 'Joined Year',
       type: 'number',
-      description: 'Optional member join year',
+      description: 'Optional member join year.',
 
       // The only valid inputs would be the organization's founding up to the current year.
       validation: (rule) => rule.integer().min(2013).max(new Date().getFullYear()),
@@ -49,7 +49,7 @@ export default defineType({
       name: 'netid',
       title: 'NYU Net ID',
       type: 'string',
-      description: 'Optional Net ID for email contact',
+      description: 'Optional Net ID for email contact.',
 
       // This is optional–way back when,
       // we used to keep this in the Wordpress DB
@@ -76,7 +76,7 @@ export default defineType({
       name: 'bio',
       title: 'Bio',
       type: 'text',
-      description: 'Optional personal description',
+      description: 'Optional personal description.',
       //@ts-ignore TS(2353)
       rows: 3,
     }),
@@ -85,7 +85,7 @@ export default defineType({
       name: 'from',
       title: 'Home country',
       type: 'fromLocation',
-      description: 'Optional country of origin',
+      description: 'Optional country of origin.',
     }),
 
     defineField({
@@ -96,7 +96,8 @@ export default defineType({
         // https://www.sanity.io/docs/image-type#hotspot-3e6da78954a8
         hotspot: true,
       },
-      description: 'Optional profile image, cropped when displayed on the website',
+      description:
+        'Optional profile image, cropped to 1:1 dimensions when displayed on the website.',
       fields: [
         {
           title: 'Alt Text',
@@ -110,7 +111,7 @@ export default defineType({
     defineField({
       name: 'handles',
       title: 'Social Media',
-      description: 'Optional usernames for social platforms displayed on bio page',
+      description: 'Optional usernames for social platforms.',
       type: 'handles',
     }),
   ],

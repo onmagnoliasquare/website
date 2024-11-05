@@ -30,7 +30,7 @@ export default defineType({
       name: 'abstract',
       title: 'Summary',
       type: 'text',
-      description: 'Optional summary for the article that appears before article body',
+      description: 'Optional summary for the article that appears before the article body.',
       //@ts-ignore TS(2353)
       rows: 4,
     }),
@@ -38,7 +38,7 @@ export default defineType({
     defineField({
       name: 'date',
       title: 'Written on',
-      description: 'Original date the article was written/published',
+      description: 'Original date the article was written/published.',
       type: 'date',
       options: {
         dateFormat: 'YYYY-MM-DD',
@@ -60,7 +60,7 @@ export default defineType({
     defineField({
       name: 'updatedDate',
       title: 'Updated on',
-      description: "Date an article's content has been updated",
+      description: "Date an article's content has been updated.",
       type: 'date',
       options: {
         dateFormat: 'YYYY-MM-DD',
@@ -94,7 +94,7 @@ export default defineType({
     defineField({
       name: 'series',
       title: 'Series',
-      description: 'Series of this article, if any',
+      description: 'Series of this article, if any.',
       type: 'reference',
       //@ts-ignore - TS(2353)
       to: [{type: 'series'}],
@@ -120,7 +120,7 @@ export default defineType({
     defineField({
       name: 'media',
       title: 'Main Image',
-      description: 'The header image at the top of an article',
+      description: 'The header image at the top of an article.',
       type: 'image',
       options: {
         hotspot: true,
@@ -137,7 +137,7 @@ export default defineType({
     defineField({
       name: 'authors',
       title: 'Authors',
-      description: 'Multiple authors and contributors can be added',
+      description: 'Multiple authors and contributors can be added.',
       type: 'array',
       //@ts-ignore - ignore TS(2353).
       of: [
@@ -177,16 +177,20 @@ export default defineType({
               name: 'title',
               title: 'Title',
               type: 'string',
+              description: 'Optional title of the image, displayed in larger text.',
             },
             {
               name: 'description',
               title: 'Description',
+              description: 'Optional short image caption, displayed under the image title.',
               type: 'text',
-              rows: 2,
+              rows: 3,
             },
             {
               name: 'alt',
               title: 'Alt Text',
+              description:
+                'Alt text is a description for those hard of seeing; it is a simple description of what is happening in a piece of media. For example, if there is an image that pertains to a dinner hosted by the school, the alt text would be—staff and faculty gathered around a table in-front of the speaker stage.',
               type: 'string',
               validation: (rule) => rule.required(),
             },
