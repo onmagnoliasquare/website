@@ -1,4 +1,5 @@
 <script lang="ts">
+	import RenderNode from './RenderNode.svelte';
 	import {
 		buildMarksTree,
 		isPortableTextBlock,
@@ -17,22 +18,26 @@
 	import RenderText from './renderers/RenderText.svelte';
 	import type { GlobalProps } from './rendererTypes';
 
-	export let global: GlobalProps;
-	export let options: {
-		indexInParent: number;
-		node: GenericNode;
-		parentBlock?: PortableTextBlock;
-		// Enforce the fact that there will be a parent block.
-		// parentBlock: PortableTextBlock;
-		isInline?: boolean;
-	};
-	$: ({ node, indexInParent, parentBlock, isInline } = options);
+	interface Props {
+		global: GlobalProps;
+		options: {
+			indexInParent: number;
+			node: GenericNode;
+			parentBlock?: PortableTextBlock;
+			// Enforce the fact that there will be a parent block.
+			// parentBlock: PortableTextBlock;
+			isInline?: boolean;
+		};
+	}
+
+	let { global, options }: Props = $props();
+	let { node, indexInParent, parentBlock, isInline } = $derived(options);
 </script>
 
 {#if isPortableTextToolkitList(node)}
 	<RenderList {node} {indexInParent} {global}>
 		{#each node.children as child, childIndex}
-			<svelte:self
+			<RenderNode
 				options={{
 					node: child,
 					indexInParent: childIndex,
@@ -47,7 +52,7 @@
 {:else if isPortableTextListItemBlock(node)}
 	<RenderListItem {node} {indexInParent} {global}>
 		{#each buildMarksTree(node) as child, childIndex}
-			<svelte:self
+			<RenderNode
 				options={{
 					// Pass the current listItem as a parentBlock
 					parentBlock: node,
@@ -63,7 +68,7 @@
 	{#if parentBlock}
 		<RenderSpan {node} {parentBlock} {global}>
 			{#each node.children as child, childIndex}
-				<svelte:self
+				<RenderNode
 					options={{
 						parentBlock,
 						node: child,
@@ -78,7 +83,7 @@
 {:else if isPortableTextBlock(node)}
 	<RenderBlock {node} {indexInParent} {global}>
 		{#each buildMarksTree(node) as child, childIndex}
-			<svelte:self
+			<RenderNode
 				options={{
 					parentBlock: node,
 					node: child,

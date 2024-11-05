@@ -2,8 +2,13 @@
 	import type { PageData } from './$types';
 	import PageHeader from '$components/PageHeader.svelte';
 	import NormalCentering from '$components/NormalCentering.svelte';
-	import { CardLink, Tag } from '$lib';
-	export let data: PageData;
+	import { Tag } from '$lib';
+
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 </script>
 
 <NormalCentering>

@@ -4,8 +4,12 @@
 	import ByLine from './ByLine.svelte';
 	import DateLine from './DateLine.svelte';
 
-	export let article: Article;
-	export let locale = 'en-US';
+	interface Props {
+		article: Article;
+		locale?: string;
+	}
+
+	let { article, locale = 'en-US' }: Props = $props();
 </script>
 
 <a

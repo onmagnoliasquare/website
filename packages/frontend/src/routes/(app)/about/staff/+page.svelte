@@ -3,7 +3,11 @@
 	import PageHeader from '$components/PageHeader.svelte';
 	import type { PageData } from './$types';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 </script>
 
 <NormalCentering>

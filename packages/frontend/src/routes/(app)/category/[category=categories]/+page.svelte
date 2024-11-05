@@ -1,16 +1,18 @@
 <script lang="ts">
-	import ByLine from '$components/article/ByLine.svelte';
-	import DateLine from '$components/article/DateLine.svelte';
 	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
 	import NormalCentering from '$components/NormalCentering.svelte';
 	import PageHeader from '$components/PageHeader.svelte';
 	import type { PageData } from './$types';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 
 	// `$` syntax needed for dynamic routes. See:  https://stackoverflow.com/questions/75756247/dynamic-routes-dont-refresh-when-navigation-between-them
-	$: category = data.cat!;
-	$: articles = data.articles;
+	let category = $state(data.cat!);
+	let articles = $state(data.articles);
 </script>
 
 <NormalCentering>

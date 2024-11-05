@@ -2,17 +2,22 @@
 	/**
 	 * ======== MAIN LAYOUT ========
 	 * */
-
-	import { Footer, Header, Navbar, VersionLabel } from '$lib';
+	import { Header } from '$lib';
 	import { page } from '$app/stores';
 	import createSiteTitle from '$lib/createSiteTitle';
-	import { routes } from '$lib/navRoutes';
-	let listOfRoutes = routes;
+	import type { Snippet } from 'svelte';
+
 	/**
 	 * This documentation discusses $page.data and how to access it
 	 * from the layout.
 	 * https://kit.svelte.dev/docs/load#$page-data
 	 * */
+
+	interface Props {
+		children: Snippet;
+	}
+
+	let { children }: Props = $props();
 </script>
 
 <svelte:head>
@@ -23,5 +28,5 @@
 <Header />
 
 <main class="pb4 pb7-ns">
-	<slot />
+	{@render children()}
 </main>

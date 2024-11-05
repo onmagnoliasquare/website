@@ -2,8 +2,7 @@
 	import type { PageData } from '../(home)/$types';
 	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
 	import HomepageHero from '$components/home/HomepageHero.svelte';
-
-	export let data: PageData;
+	let { data }: { data: PageData } = $props();
 </script>
 
 <div class="flex flex-column">
