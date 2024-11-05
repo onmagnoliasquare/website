@@ -4,6 +4,8 @@ import slugValidator from '../lib/slugValidator'
 
 /**
  * A "member" is someone who produces content for our organization.
+ * Programmers do technically produce content for the organization,
+ * but this content is not typically viewed by the average reader.
  *
  * Member data is not fully opt-in. The only required field is the
  * `name`. This is important because our dataset is not
