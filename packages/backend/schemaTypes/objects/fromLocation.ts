@@ -1,8 +1,10 @@
+import {EarthGlobeIcon, PinIcon} from '@sanity/icons'
 import {defineType} from 'sanity'
 
 export default defineType({
   type: 'object',
   name: 'fromLocation',
+  icon: EarthGlobeIcon,
   fields: [
     {
       title: 'Country',
