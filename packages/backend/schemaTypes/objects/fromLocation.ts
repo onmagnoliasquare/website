@@ -210,13 +210,13 @@ export default defineType({
       title: 'Region Name',
       name: 'region',
       type: 'string',
-      description: 'Optional region name, like a state or province',
+      description: 'Optional region name, like a state or province.',
     },
     {
       title: 'City Name',
       name: 'city',
       type: 'string',
-      description: 'Optional city name',
+      description: 'Optional city name.',
     },
   ],
   options: {
