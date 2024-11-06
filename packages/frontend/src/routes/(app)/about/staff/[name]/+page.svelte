@@ -10,10 +10,10 @@
 	}
 
 	let { data }: Props = $props();
+
 	let member = data.member;
 	let handles = data.member.handles;
 	let location = data.member.from;
-
 	let articles = data.articles;
 </script>
 
@@ -59,7 +59,7 @@
 					<li>
 						<ContactIcons
 							icon="/icons/linkedin.svg"
-							title={handles.linkedin}
+							title={member.name}
 							link={`https://linkedin.com/in/${handles.linkedin}`}
 						/>
 					</li>
