@@ -4,6 +4,7 @@
 	import DateLine from '$components/article/DateLine.svelte';
 	import ArticleBodyList from '$components/portabletext/ArticleBodyList.svelte';
 	import ArticleBodyListItem from '$components/portabletext/ArticleBodyListItem.svelte';
+	import EmbeddedLink from '$components/embeds/EmbeddedLink.svelte';
 	import ArticleLink from '$components/portabletext/ArticleLink.svelte';
 	import NormalCentering from '$components/NormalCentering.svelte';
 	import { urlFor } from '$lib/sanity';
@@ -99,7 +100,8 @@
 					},
 					block: ArticleSingleArticleBlock,
 					types: {
-						image: ArticleImage
+						image: ArticleImage,
+						embeddedLink: EmbeddedLink
 					},
 					list: ArticleBodyList,
 					listItem: {
