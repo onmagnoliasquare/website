@@ -1,7 +1,25 @@
 import { dateFormatter, hasUppercase } from '$lib';
 import { describe, it, expect, test } from 'vitest';
 import createSiteTitle from '$lib/createSiteTitle';
+import { parseEmbedLink } from '$lib/helpers';
 
+describe('parseEmbedLink', () => {
+	it('extracts spotify name, given a valid link', () => {
+		expect(
+			parseEmbedLink('https://open.spotify.com/album/5zi7WsKlIiUXv09tbGLKsE?si=28a6cae09d214cc6')
+				.name
+		).toBe('spotify');
+	});
+
+	it('extracts spotify path, given a valid link', () => {
+		expect(
+			parseEmbedLink('https://open.spotify.com/album/5zi7WsKlIiUXv09tbGLKsE?si=28a6cae09d214cc6')
+				.path
+		).toBe('album/5zi7WsKlIiUXv09tbGLKsE?si=28a6cae09d214cc6');
+	});
+});
+
+//
 describe('hasUppercase', () => {
 	it('is true for uppercase', () => {
 		expect(hasUppercase('abcDefg')).toBe(true);
