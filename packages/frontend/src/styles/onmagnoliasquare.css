@@ -10407,7 +10407,7 @@ h6 {
     --link-color: var(--light-yellow);
     --red-color: var(--bg-color);
     --border-color: var(--text-color);
-    --article-link-color: var(--green);
+    --article-link-color: var(--light-purple);
   }
 }
 
