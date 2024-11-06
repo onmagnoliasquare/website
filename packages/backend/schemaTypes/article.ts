@@ -1,4 +1,4 @@
-import {DocumentsIcon, TagsIcon} from '@sanity/icons'
+import {DocumentsIcon, ImageIcon, TagsIcon} from '@sanity/icons'
 import {defineArrayMember, defineField, defineType} from 'sanity'
 import slugValidator from '../lib/slugValidator'
 
@@ -172,6 +172,7 @@ export default defineType({
         },
         {
           type: 'image',
+          icon: ImageIcon,
           fields: [
             {
               name: 'title',
