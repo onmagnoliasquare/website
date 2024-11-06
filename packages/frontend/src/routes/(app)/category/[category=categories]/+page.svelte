@@ -10,9 +10,17 @@
 
 	let { data }: Props = $props();
 
-	// `$` syntax needed for dynamic routes. See:  https://stackoverflow.com/questions/75756247/dynamic-routes-dont-refresh-when-navigation-between-them
-	let category = $state(data.cat!);
-	let articles = $state(data.articles);
+	/**
+	 * In Svelte versions below v5, `$` was needed for dynamic routes
+	 * to reload the content of the pages.
+	 * See: https://stackoverflow.com/questions/75756247/dynamic-routes-dont-refresh-when-navigation-between-them
+	 * Nowadays, use the `$derived` and `$state` syntax. See:
+	 * https://svelte.dev/docs/kit/state-management#Component-and-page-state-is-preserved. I am not
+	 * entirely sure why it's `$derived` and not `$state`. All I know
+	 * is that `$state` wasn't working and so `$derived` worked...
+	 */
+	let category = $derived(data.cat!);
+	let articles = $derived(data.articles);
 </script>
 
 <NormalCentering>
