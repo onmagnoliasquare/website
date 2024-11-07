@@ -21,11 +21,11 @@
 	}
 
 	if (location.region) {
-		regionName = location.region;
+		regionName = location.region.trim();
 	}
 
 	if (location.city) {
-		cityName = location.city;
+		cityName = location.city.trim();
 	}
 </script>
 
@@ -34,7 +34,7 @@
 		{flagEmoji}&nbsp;{countryName}
 	{/if}
 	{#if regionName}
-		—
+		~
 		{#if cityName}
 			{cityName},
 		{/if}
