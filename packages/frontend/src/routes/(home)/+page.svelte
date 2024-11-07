@@ -11,7 +11,7 @@
 	</section>
 
 	<section class="mw9 center mv4-l mt2">
-		<h2 class="ph3 ph0-l tc">Recent News</h2>
+		<h2 class="ph3 ph0-l tc">Latest Articles</h2>
 		<div class="flex flex-column flex-row-l">
 			<div class="pa4-ns w-100 w-50-l">
 				{#each data.articles.slice(1, 5) as article}
