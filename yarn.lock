@@ -11611,7 +11611,7 @@ __metadata:
       optional: true
     "@rollup/rollup-darwin-arm64":
       optional: true
-    "@rollup/rollup-freebsd-x64":
+    "@rollup/rollup-darwin-x64":
       optional: true
     "@rollup/rollup-freebsd-arm64":
       optional: true
