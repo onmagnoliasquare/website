@@ -602,3 +602,9 @@ export interface Image {
 	description?: string;
 	alt: string;
 }
+
+export interface EmbeddedLink {
+	_type: string;
+	_key: string;
+	contentUrl: string;
+}

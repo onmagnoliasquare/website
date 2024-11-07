@@ -1,6 +1,35 @@
 import { dateFormatter, hasUppercase } from '$lib';
 import { describe, it, expect, test } from 'vitest';
 import createSiteTitle from '$lib/createSiteTitle';
+import { parseEmbedLink } from '$lib/helpers';
+
+describe('parseEmbedLink', () => {
+	it('extracts spotify name, given a valid link', () => {
+		expect(
+			parseEmbedLink('https://open.spotify.com/album/5zi7WsKlIiUXv09tbGLKsE?si=28a6cae09d214cc6')
+				.name
+		).toBe('spotify');
+	});
+
+	it('extracts spotify path, given a valid link', () => {
+		expect(
+			parseEmbedLink('https://open.spotify.com/album/5zi7WsKlIiUXv09tbGLKsE?si=28a6cae09d214cc6')
+				.path
+		).toBe('album/5zi7WsKlIiUXv09tbGLKsE?si=28a6cae09d214cc6');
+	});
+
+	it('is URL for .name for erroneous link', () => {
+		expect(
+			parseEmbedLink('https://open.tokify.com/nonsense/album/5zi7WsKlIiUXv09tbGLKsEsicc6').name
+		).toBe('https://open.tokify.com/nonsense/album/5zi7WsKlIiUXv09tbGLKsEsicc6');
+	});
+
+	it('is URL for .path for erroneous link', () => {
+		expect(
+			parseEmbedLink('https://open.tokify.com/nonsense/album/5zi7WsKlIiUXv09tbGLKsEsicc6').path
+		).toBe('https://open.tokify.com/nonsense/album/5zi7WsKlIiUXv09tbGLKsEsicc6');
+	});
+});
 
 describe('hasUppercase', () => {
 	it('is true for uppercase', () => {

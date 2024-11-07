@@ -197,6 +197,9 @@ export default defineType({
             },
           ],
         },
+        {
+          type: 'embeddedLink',
+        },
       ],
     }),
 
