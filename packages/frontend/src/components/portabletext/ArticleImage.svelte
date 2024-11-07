@@ -1,7 +1,11 @@
 <script lang="ts">
 	import { urlFor } from '$lib/sanity';
 
-	export let portableText;
+	interface Props {
+		portableText: any;
+	}
+
+	let { portableText }: Props = $props();
 </script>
 
 <figure class="ma2 mb4">

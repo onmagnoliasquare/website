@@ -114,8 +114,8 @@ export async function getArticlesFromTag(tagSlugName: string): Promise<Article[]
 			date,
 			authors[]->{name},
 			slug,
-			category->
-
+			category->,
+			media
 		}`,
 		{
 			tagSlugName
@@ -456,7 +456,8 @@ export async function getAllMembers(): Promise<Member[]> {
 		groq`*[_type == "member"] {
 			name,
 			bio,
-			slug
+			slug,
+			portrait
 		} | order(lower(name))`
 	);
 }
@@ -601,4 +602,10 @@ export interface Image {
 	title?: string;
 	description?: string;
 	alt: string;
+}
+
+export interface EmbeddedLink {
+	_type: string;
+	_key: string;
+	contentUrl: string;
 }

@@ -4,6 +4,7 @@
 	import DateLine from '$components/article/DateLine.svelte';
 	import ArticleBodyList from '$components/portabletext/ArticleBodyList.svelte';
 	import ArticleBodyListItem from '$components/portabletext/ArticleBodyListItem.svelte';
+	import EmbeddedLink from '$components/embeds/EmbeddedLink.svelte';
 	import ArticleLink from '$components/portabletext/ArticleLink.svelte';
 	import NormalCentering from '$components/NormalCentering.svelte';
 	import { urlFor } from '$lib/sanity';
@@ -16,7 +17,11 @@
 	} from '$lib';
 	import { fly } from 'svelte/transition';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 </script>
 
 <article class="pa1 pa3-ns">
@@ -33,14 +38,12 @@
 				{/if}
 			</div>
 		</div>
-
-		<NormalCentering>
+		<div class="mw7 ph4-ns center">
 			{#if data.article.subtitle}
 				<p class="serif fw2 i f2 lh-title" id="subtitle">{data.article.subtitle}</p>
 			{/if}
 			{#if data.article.media}
 				<figure class="ma0 mb4">
-					<!-- TODO THIS NEEDS AN ALT TEXT -->
 					<img
 						src={urlFor(data.article.media).format('webp').fit('max').url()}
 						alt={data.article.media.alt}
@@ -79,10 +82,11 @@
 					</div>
 				{/if}
 			</div>
-		</NormalCentering>
+		</div>
 	</header>
 	<section>
-		<NormalCentering>
+		<div class="mw7 ph4-ns center">
+			<!-- TODO move this to its own component for testing -->
 			<PortableText
 				value={data.article.content}
 				onMissingComponent={(message, options) => {
@@ -95,7 +99,8 @@
 					},
 					block: ArticleSingleArticleBlock,
 					types: {
-						image: ArticleImage
+						image: ArticleImage,
+						embeddedLink: EmbeddedLink
 					},
 					list: ArticleBodyList,
 					listItem: {
@@ -103,7 +108,8 @@
 					}
 				}}
 			/>
-		</NormalCentering>
+		</div>
+		<!-- <NormalCentering></NormalCentering> -->
 	</section>
 </article>
 
