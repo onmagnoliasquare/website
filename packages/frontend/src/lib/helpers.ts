@@ -125,6 +125,14 @@ export const parseEmbedLink = (url: string): EmbeddedLinkAttributes => {
 	// Search the string for a name from the list of domain names.
 	let match = url.match(name)!;
 
+	// If there's no match...
+	if (!match) {
+		return {
+			name: url,
+			path: url
+		};
+	}
+
 	// switch statements are faster than 'if'.
 	switch (match[0]) {
 		case 'anchorfm':
@@ -140,7 +148,7 @@ export const parseEmbedLink = (url: string): EmbeddedLinkAttributes => {
 			return {
 				name: match[0],
 
-				// extracts the last part of the spotify URL.
+				// Extracts the last part of the spotify URL.
 				path: url.split('/').slice(-2).join('/')
 			};
 		case 'stackblitz':
