@@ -456,7 +456,8 @@ export async function getAllMembers(): Promise<Member[]> {
 		groq`*[_type == "member"] {
 			name,
 			bio,
-			slug
+			slug,
+			portrait
 		} | order(lower(name))`
 	);
 }

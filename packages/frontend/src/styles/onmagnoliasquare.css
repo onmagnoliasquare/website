@@ -10411,6 +10411,47 @@ h6 {
   }
 }
 
+.column-grid-1 {
+  column-count: 1;
+}
+
+.column-grid-4 {
+  column-count: 4;
+}
+
+/* -ns */
+@media screen and (min-width: 30em) {
+  .column-grid-4-ns {
+    column-count: 4
+  }
+
+  .column-grid-1-ns {
+    column-count: 1;
+  }
+}
+
+/* -m */
+@media screen and (min-width: 30em) and (max-width: 60em) {
+  .column-grid-4-m {
+    column-count: 4
+  }
+
+  .column-grid-1-m {
+    column-count: 1;
+  }
+}
+
+/* -l */
+@media screen and (min-width: 60em) {
+  .column-grid-4-l {
+    column-count: 4
+  }
+
+  .column-grid-1-l {
+    column-count: 1;
+  }
+}
+
 body {
   background-color: var(--bg-color);
   -webkit-transition: background-color 100ms ease-out;
