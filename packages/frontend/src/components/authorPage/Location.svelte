@@ -2,15 +2,18 @@
 	import { getCountryName, getFlagEmoji } from '$lib/helpers';
 	import type { From } from '$lib/sanity';
 
-	export let location: From;
+	interface Props {
+		location: From;
+		// Locale determines the language the viewer sees the location in.
+		locale?: string;
+	}
 
-	// Locale determines the language the viewer sees the location in.
-	export let locale: string = 'en-US';
+	let { location, locale = 'en-US' }: Props = $props();
 
-	let flagEmoji: string;
-	let countryName: string;
-	let regionName: string;
-	let cityName: string;
+	let flagEmoji: string | undefined = $state();
+	let countryName: string | undefined = $state();
+	let regionName: string | undefined = $state();
+	let cityName: string | undefined = $state();
 
 	if (location.country) {
 		flagEmoji = getFlagEmoji(location.country);
@@ -18,11 +21,11 @@
 	}
 
 	if (location.region) {
-		regionName = location.region;
+		regionName = location.region.trim();
 	}
 
 	if (location.city) {
-		cityName = location.city;
+		cityName = location.city.trim();
 	}
 </script>
 
@@ -31,7 +34,7 @@
 		{flagEmoji}&nbsp;{countryName}
 	{/if}
 	{#if regionName}
-		—
+		~
 		{#if cityName}
 			{cityName},
 		{/if}

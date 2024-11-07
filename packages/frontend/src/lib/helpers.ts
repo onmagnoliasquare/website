@@ -99,3 +99,110 @@ export const getCountryName = (countryCode: string, locale: string): string | un
 	let name = new Intl.DisplayNames([locale], { type: 'region' });
 	return name.of(countryCode);
 };
+
+/**
+ * parseEmbedLink returns a string that is usable by the
+ * dependency `sveltekit-embed`. The dependency exposes
+ * multiple components that accept links to embed embedded
+ * content from different sources, like Spotify. The components
+ * require the strings to be chopped in a certain style.
+ * This function returns this formatting. See:
+ * https://sveltekit-embed.pages.dev/. In the future, there may
+ * be updates to URL domains and paths. I really hope this does
+ * not happen, and I doubt it will. Any sane company will not do
+ * this unless absolutely necessary.
+ * @param url given URL, retrieved from Sanity
+ * @returns `string` formatted link
+ */
+export const parseEmbedLink = (url: string): EmbeddedLinkAttributes => {
+	// This builds a long string of `or` boolean expressions for
+	// `RegExp()` parameter input.
+	const domainNames = sourcesList.join('|');
+
+	// Defines the regex expression to seek for what we want.
+	const name = new RegExp(`(${domainNames})(\/*)?`, 'i');
+
+	// Search the string for a name from the list of domain names.
+	let match = url.match(name)!;
+
+	// If there's no match...
+	if (!match) {
+		return {
+			name: url,
+			path: url
+		};
+	}
+
+	// switch statements are faster than 'if'.
+	switch (match[0]) {
+		case 'anchorfm':
+		case 'buzzsprout':
+		case 'codepen':
+		case 'deezer':
+		case 'gist':
+		case 'guild':
+		case 'relive':
+		case 'simplecast':
+		case 'slides':
+		case 'spotify':
+			return {
+				name: match[0],
+
+				// Extracts the last part of the spotify URL.
+				path: url.split('/').slice(-2).join('/')
+			};
+		case 'stackblitz':
+
+		/**
+		 * TikTok requires the extraction of the `webid`, which
+		 * is just a query in the URL. The very last part.
+		 */
+		case 'tiktok':
+		case 'toot':
+		case 'tweet':
+		case 'vimeo':
+		case 'youtube':
+		case 'zencastr':
+		case 'soundcloud':
+		case 'genericembed':
+		default:
+			return {
+				name: url,
+				path: url
+			};
+	}
+};
+
+interface EmbeddedLinkAttributes {
+	name?: string;
+	path?: string;
+}
+
+/**
+ * These are the sources supported by `sveltekit-embed`.
+ * Notice the lack of `instagram`. Instagram, or more
+ * specifically Meta, requires their own API verification to
+ * use their embed API.
+ */
+export const sourcesList = [
+	'anchorfm',
+	'bluesky',
+	'buzzsprout',
+	'codepen',
+	'deezer',
+	'genericembed',
+	'gist',
+	'guild',
+	'relive',
+	'simplecast',
+	'slides',
+	'soundcloud',
+	'spotify',
+	'stackblitz',
+	'tiktok',
+	'toot',
+	'tweet',
+	'vimeo',
+	'youtube',
+	'zencastr'
+];

@@ -4,8 +4,13 @@
 	import PageHeader from '$components/PageHeader.svelte';
 	import NormalCentering from '$components/NormalCentering.svelte';
 	import { CardLink } from '$lib';
-	export let data: PageData;
-	export let series: Series[] = data.series;
+
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
+	let series: Series[] = data.series;
 </script>
 
 <NormalCentering>

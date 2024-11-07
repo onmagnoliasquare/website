@@ -1,7 +1,14 @@
 <script lang="ts">
-	export let title;
-	export let link;
-	export let bgColor = 'purple';
+	import type { Snippet } from 'svelte';
+
+	interface Props {
+		title: string;
+		link: string;
+		bgColor?: string;
+		children: Snippet;
+	}
+
+	let { title, link, bgColor = 'purple', children }: Props = $props();
 </script>
 
 <div class="mw6 ba border-color w-100 ma2" id={`${bgColor}`}>
@@ -11,7 +18,7 @@
 				<p class="pa0 ma0 f1 serif fw5">{title}</p>
 			</div>
 			<div class="pl4 pb4">
-				<p class="pa0 ma0 f6 tracked-02"><slot /></p>
+				<p class="pa0 ma0 f6 tracked-02">{@render children?.()}</p>
 			</div>
 		</div>
 	</a>

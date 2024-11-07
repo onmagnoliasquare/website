@@ -2,7 +2,11 @@
 	import { createAuthorString } from '$lib/helpers';
 	import type { Member } from '$lib/sanity';
 
-	export let authors: Member[];
+	interface Props {
+		authors: Member[];
+	}
+
+	let { authors }: Props = $props();
 	let authorString = createAuthorString(authors);
 </script>
 
