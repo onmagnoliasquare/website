@@ -17,9 +17,20 @@ describe('parseEmbedLink', () => {
 				.path
 		).toBe('album/5zi7WsKlIiUXv09tbGLKsE?si=28a6cae09d214cc6');
 	});
+
+	it('is URL for .name for erroneous link', () => {
+		expect(
+			parseEmbedLink('https://open.tokify.com/nonsense/album/5zi7WsKlIiUXv09tbGLKsEsicc6').name
+		).toBe('https://open.tokify.com/nonsense/album/5zi7WsKlIiUXv09tbGLKsEsicc6');
+	});
+
+	it('is URL for .path for erroneous link', () => {
+		expect(
+			parseEmbedLink('https://open.tokify.com/nonsense/album/5zi7WsKlIiUXv09tbGLKsEsicc6').path
+		).toBe('https://open.tokify.com/nonsense/album/5zi7WsKlIiUXv09tbGLKsEsicc6');
+	});
 });
 
-//
 describe('hasUppercase', () => {
 	it('is true for uppercase', () => {
 		expect(hasUppercase('abcDefg')).toBe(true);
