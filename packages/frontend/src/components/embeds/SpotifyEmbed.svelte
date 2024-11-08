@@ -9,5 +9,5 @@
 </script>
 
 <div>
-	<Spotify spotifyLink={spotifyPath} />
+	<Spotify spotifyLink={spotifyPath} height="352px" />
 </div>
