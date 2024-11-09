@@ -6,7 +6,7 @@
  * used in Sanity schemas as an argument to `rule.custom()`.
  * @returns boolean or string
  */
-export default function checkWhitespace() {
+export function checkWhitespace() {
   return function checkWhitespaceValidator<RuleType>(value: RuleType) {
     if (typeof value !== 'string') {
       return true

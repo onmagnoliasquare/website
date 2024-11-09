@@ -3,11 +3,16 @@
 // Useful links:
 // https://en.wikipedia.org/wiki/Unicode_equivalence#Normal_forms
 
-// slugValidator validates a slug from Sanity. It formats
-// it from a title or user input. All of the `.replace` functions
-// can be combined into a single `.replace`, but it would
-// have an extremely, extremely long regex string. This is
-// unreadable, and therefore, we split them.
+/**
+ * slugValidator validates a slug from Sanity. It formats
+ * it from a title or user input. All of the `.replace`
+ * functions can be combined into a single `replace`, but it
+ * would have an extremely, extremely long regex string.
+ * This is unreadable, and therefore, makes more sense to split
+ * them for readability and debugging purposes.
+ * @param slug
+ * @returns formatted slug
+ */
 export default function slugValidator(slug: string): string {
   let newSlug = slug
 
@@ -66,9 +71,12 @@ export default function slugValidator(slug: string): string {
   return newSlug
 }
 
-// removeTrailing deletes `-`, ` `, `_`.
-// Once all matching characters have been
-// deleted, it returns the modified string.
+/**
+ * removeTrailing removes trailing `-`, `_`, and ` `. It is a helper
+ * function used in the `slugValidator` function.
+ * @param s string
+ * @returns
+ */
 function removeTrailing(s: string) {
   // Retrieve last char in string.
   let lc = s.at(-1)
