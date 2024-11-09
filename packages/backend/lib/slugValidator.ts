@@ -14,6 +14,9 @@ export default function slugValidator(slug: string): string {
     // Make everything lowercase.
     .toLowerCase()
 
+    // Remove any initial or terminating spaces.
+    .trim()
+
     // Replace emojis with empty string.
     .replace(/\p{Emoji_Presentation}/gu, '')
 
