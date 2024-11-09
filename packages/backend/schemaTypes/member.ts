@@ -27,39 +27,12 @@ export default defineType({
   icon: UserIcon,
   fields: [
     defineField({
-      name: 'name',
-      title: 'Name',
-      type: 'string',
-      description: 'First Name and Last Name.',
-
       // This is the only required field, as it links
       // an author to their article.
-      validation: (rule) => rule.required(),
-    }),
-
-    defineField({
-      name: 'year',
-      title: 'Joined Year',
-      type: 'number',
-      description: 'Optional member join year.',
-
-      // The only valid inputs would be the organization's founding up to the current year.
-      validation: (rule) => rule.integer().min(2013).max(new Date().getFullYear()),
-    }),
-
-    defineField({
-      name: 'netid',
-      title: 'NYU Net ID',
-      type: 'string',
-      description: 'Optional Net ID for email contact.',
-
-      // This is optional–way back when,
-      // we used to keep this in the Wordpress DB
-      // since that was private. Now that the guarantee
-      // of a private dataset is near non-existent, we must
-      // conceal data appropriately.
-      //
-      // validation: (rule) => rule.required(),
+      name: 'name',
+      title: 'Name',
+      type: 'requiredFormattedString',
+      description: 'First name and last name.',
     }),
 
     defineField({
@@ -75,9 +48,31 @@ export default defineType({
     }),
 
     defineField({
+      name: 'year',
+      title: 'Joined Year',
+      type: 'number',
+      description: 'Optional member join year.',
+
+      // The only valid inputs would be the organization's founding up to the current year.
+      validation: (rule) => rule.integer().min(2013).max(new Date().getFullYear()),
+    }),
+
+    defineField({
+      // This field was optional–way back when,
+      // we used to keep this in the Wordpress DB
+      // since that was private. Now that the guarantee
+      // of a private dataset is near non-existent, we must
+      // conceal data appropriately.
+      name: 'netid',
+      title: 'NYU Net ID',
+      type: 'formattedString',
+      description: 'Optional Net ID for email contact.',
+    }),
+
+    defineField({
       name: 'bio',
       title: 'Bio',
-      type: 'text',
+      type: 'formattedText',
       description: 'Optional personal description.',
       //@ts-ignore TS(2353)
       rows: 3,
@@ -104,8 +99,7 @@ export default defineType({
         {
           title: 'Alt Text',
           name: 'alt',
-          type: 'string',
-          validation: (rule) => rule.required(),
+          type: 'requiredFormattedString',
         },
       ],
     }),

@@ -14,14 +14,13 @@ export default defineType({
     defineField({
       name: 'title',
       title: 'Title',
-      type: 'string',
-      validation: (rule) => rule.required(),
+      type: 'requiredFormattedString',
     }),
 
     defineField({
       name: 'subtitle',
       title: 'Lede',
-      type: 'text',
+      type: 'formattedText',
       //@ts-ignore TS(2353)
       rows: 2,
     }),
