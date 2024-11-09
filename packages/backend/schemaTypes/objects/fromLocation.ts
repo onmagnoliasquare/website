@@ -211,13 +211,13 @@ export default defineType({
     {
       title: 'Region Name',
       name: 'region',
-      type: 'string',
+      type: 'formattedString',
       description: 'Optional region name, like a state or province.',
     },
     {
       title: 'City Name',
       name: 'city',
-      type: 'string',
+      type: 'formattedString',
       description: 'Optional city name.',
     },
   ],

@@ -7,22 +7,22 @@ export default defineType({
     {
       title: 'Twitter',
       name: 'twitter',
-      type: 'string',
+      type: 'formattedString',
     },
     {
       title: 'Instagram',
       name: 'instagram',
-      type: 'string',
+      type: 'formattedString',
     },
     {
       title: 'Facebook',
       name: 'facebook',
-      type: 'string',
+      type: 'formattedString',
     },
     {
       title: 'LinkedIn',
       name: 'linkedin',
-      type: 'string',
+      type: 'formattedString',
     },
   ],
   options: {
