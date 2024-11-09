@@ -50,4 +50,9 @@ export default defineType({
       type: 'boolean',
     }),
   ],
+  preview: {
+    select: {
+      title: 'name',
+    },
+  },
 })
