@@ -9,11 +9,18 @@
  */
 export default function abbreviateName(name: string): string {
   let splitted = name.split(' ')
+  let length = splitted.length
 
-  // If the name is only one word
-  if (splitted.length == 1) {
-    return name
+  switch (length) {
+    case 1:
+      return name
+    case 2:
+      return `${splitted[0][0]}. ${splitted[1]}`
+    case 3:
+      return `${splitted[0][0]}.${splitted[1][0]}. ${splitted[2]}`
+    case 4:
+      return `${splitted[0][0]}.${splitted[1][0]}.${splitted[2][0]}. ${splitted[3]}`
+    default:
+      return `${splitted[0][0]}. ${splitted[1]}...`
   }
-
-  return `${splitted[0][0]}. ${splitted[1]}`
 }
