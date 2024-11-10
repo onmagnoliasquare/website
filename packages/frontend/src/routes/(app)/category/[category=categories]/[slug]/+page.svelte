@@ -73,12 +73,12 @@
 					</p>
 				</div>
 				<div class="gray tracked-02">
-					<DateLine date={data.article.date} locale={data.chosenLocale} />
+					<DateLine date={data.article.date} locale={data.userLocale} />
 				</div>
 				{#if data.article.updatedDate}
 					<div class="gray tracked-02 f6">
 						updated
-						<DateLine date={data.article.updatedDate} locale={data.chosenLocale} />
+						<DateLine date={data.article.updatedDate} locale={data.userLocale} />
 					</div>
 				{/if}
 			</div>
