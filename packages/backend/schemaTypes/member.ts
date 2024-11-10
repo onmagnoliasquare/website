@@ -1,5 +1,5 @@
 import {UserIcon} from '@sanity/icons'
-import {defineField, defineType} from 'sanity'
+import {defineField, defineType, defineArrayMember} from 'sanity'
 import slugValidator from '../lib/slugValidator'
 
 /**
@@ -45,6 +45,20 @@ export default defineType({
 
       // The only valid inputs would be the organization's founding up to the current year.
       validation: (rule) => rule.integer().min(2013).max(new Date().getFullYear()),
+    }),
+
+    defineField({
+      name: 'committee',
+      title: 'Committee',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          name: 'committee',
+          title: 'Committee',
+          type: 'reference',
+          to: [{type: 'committee'}],
+        }),
+      ],
     }),
 
     defineField({
