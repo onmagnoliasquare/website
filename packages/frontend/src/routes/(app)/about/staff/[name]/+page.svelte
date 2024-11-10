@@ -3,6 +3,7 @@
 	import ContactIcons from '$components/general/ContactIcons.svelte';
 	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
 	import Image from '$components/Image.svelte';
+	import { domainFromUrl } from '$lib/helpers';
 	import type { PageData } from './$types';
 
 	interface Props {
@@ -94,6 +95,24 @@
 								icon="/icons/facebook.svg"
 								title={handles.facebook}
 								link={`https://facebook.com/${handles.facebook}`}
+							/>
+						</li>
+					{/if}
+					{#if handles.github}
+						<li>
+							<ContactIcons
+								icon="/icons/github.svg"
+								title={handles.github}
+								link={`https://github.com/${handles.github}`}
+							/>
+						</li>
+					{/if}
+					{#if handles.website}
+						<li>
+							<ContactIcons
+								icon="/icons/www.svg"
+								title={domainFromUrl(handles.website)}
+								link={`${handles.website}`}
 							/>
 						</li>
 					{/if}
