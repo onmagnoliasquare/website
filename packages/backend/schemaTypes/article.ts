@@ -1,4 +1,4 @@
-import {DocumentsIcon, ImageIcon, TagsIcon} from '@sanity/icons'
+import {ComposeIcon, DocumentsIcon, ImageIcon, InfoOutlineIcon, TagsIcon} from '@sanity/icons'
 import {defineArrayMember, defineField, defineType} from 'sanity'
 import slugValidator from '../lib/slugValidator'
 import abbreviateName from '../lib/abbreviateName'
@@ -11,11 +11,29 @@ export default defineType({
   title: 'Articles',
   type: 'document',
   icon: DocumentsIcon,
+  groups: [
+    {name: 'info', title: 'Info', default: true, icon: InfoOutlineIcon},
+    {name: 'content', title: 'Content', icon: ComposeIcon},
+  ],
   fields: [
     defineField({
       name: 'title',
       title: 'Title',
       type: 'requiredFormattedString',
+      group: 'info',
+    }),
+
+    defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'title',
+        maxLength: 200,
+        slugify: (input: string) => slugValidator(input),
+      },
+      validation: (rule) => rule.required(),
+      group: 'info',
     }),
 
     defineField({
@@ -24,15 +42,7 @@ export default defineType({
       type: 'formattedText',
       //@ts-ignore TS(2353)
       rows: 2,
-    }),
-
-    defineField({
-      name: 'abstract',
-      title: 'Summary',
-      type: 'text',
-      description: 'Optional summary for the article that appears before the article body.',
-      //@ts-ignore TS(2353)
-      rows: 4,
+      group: 'info',
     }),
 
     defineField({
@@ -46,6 +56,7 @@ export default defineType({
         calendarTodayLabel: 'Today',
       },
       validation: (rule) => rule.required(),
+      group: 'info',
     }),
 
     // updatedDate defines an optional date at when an article was
@@ -67,18 +78,7 @@ export default defineType({
         //@ts-ignore - ignore TS(2353)
         calendarTodayLabel: 'Today',
       },
-    }),
-
-    defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {
-        source: 'title',
-        maxLength: 200,
-        slugify: (input: string) => slugValidator(input),
-      },
-      validation: (rule) => rule.required(),
+      group: 'info',
     }),
 
     defineField({
@@ -89,6 +89,7 @@ export default defineType({
       to: [{type: 'category'}],
       options: {disableNew: true},
       validation: (rule) => rule.required(),
+      group: 'info',
     }),
 
     defineField({
@@ -99,6 +100,7 @@ export default defineType({
       //@ts-ignore - TS(2353)
       to: [{type: 'series'}],
       options: {disableNew: true},
+      group: 'info',
     }),
 
     defineField({
@@ -115,23 +117,7 @@ export default defineType({
           to: [{type: 'tag'}],
         }),
       ],
-    }),
-
-    defineField({
-      name: 'media',
-      title: 'Main Image',
-      description: 'The header image at the top of an article.',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
-      fields: [
-        {
-          name: 'alt',
-          type: 'requiredFormattedString',
-          hidden: ({parent}) => !parent?.asset,
-        },
-      ],
+      group: 'info',
     }),
 
     defineField({
@@ -150,6 +136,35 @@ export default defineType({
         }),
       ],
       validation: (rule) => rule.required(),
+      group: 'info',
+    }),
+
+    defineField({
+      name: 'media',
+      title: 'Main Image',
+      description: 'The header image at the top of an article.',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        {
+          name: 'alt',
+          type: 'requiredFormattedString',
+          hidden: ({parent}) => !parent?.asset,
+        },
+      ],
+      group: 'content',
+    }),
+
+    defineField({
+      name: 'abstract',
+      title: 'Summary',
+      type: 'text',
+      description: 'Optional summary for the article that appears before the article body.',
+      //@ts-ignore TS(2353)
+      rows: 4,
+      group: 'content',
     }),
 
     // Retrieved and modified from:
@@ -199,6 +214,7 @@ export default defineType({
           type: 'embeddedLink',
         },
       ],
+      group: 'content',
     }),
 
     defineField({
@@ -207,6 +223,7 @@ export default defineType({
       description:
         'Enable if Custom CSS has been designed for this specific article and is ready on the frontend for use. If no custom CSS is applied, default styling will be used.',
       type: 'boolean',
+      group: 'info',
     }),
   ],
 
