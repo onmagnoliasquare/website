@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { siteUrl } from '$lib/variables';
+	import { site } from '$lib/variables';
 
 	/**
 	 * SEO is a modified version of this code from Reddit:
@@ -23,7 +23,7 @@
 		title,
 		description,
 		image = '/og-default-preview.png',
-		currentSiteUrl = siteUrl
+		currentSiteUrl = site.url
 	}: Props = $props();
 </script>
 
