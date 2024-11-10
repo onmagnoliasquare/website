@@ -3,17 +3,25 @@
 	/**
 	 * ======== ROOT LAYOUT ========
 	 * */
+	import { Footer, VersionLabel } from '$lib';
 	import { isDevEnv } from '$lib/sanity';
 	import type { Snippet } from 'svelte';
+	import type { LayoutData } from './$types';
+	import { page } from '$app/stores';
+	import { MetaTags, deepMerge } from 'svelte-meta-tags';
 	import '../styles/onmagnoliasquare.css';
 	import '../styles/typography.css';
 
 	interface Props {
+		data: LayoutData;
 		children: Snippet;
 	}
 
-	let { children }: Props = $props();
+	let { data, children }: Props = $props();
+	let metaTags = $derived(deepMerge(data.baseMetaTags, $page.data.pageMetaTags));
 </script>
+
+<MetaTags {...metaTags} />
 
 {#if isDevEnv}
 	<div class="w-100 ma0 pa0 bg-red">
