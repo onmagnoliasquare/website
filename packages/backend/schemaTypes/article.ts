@@ -110,7 +110,7 @@ export default defineType({
       of: [
         defineArrayMember({
           name: 'tag',
-          title: 'Tag',
+          title: 'Reference a tag',
           type: 'reference',
           to: [{type: 'tag'}],
         }),
@@ -128,8 +128,8 @@ export default defineType({
       fields: [
         {
           name: 'alt',
-          type: 'string',
-          validation: (rule) => rule.required(),
+          type: 'requiredFormattedString',
+          hidden: ({parent}) => !parent?.asset,
         },
       ],
     }),
@@ -177,23 +177,21 @@ export default defineType({
             {
               name: 'title',
               title: 'Title',
-              type: 'string',
+              type: 'formattedString',
               description: 'Optional title of the image, displayed in larger text.',
             },
             {
               name: 'description',
               title: 'Description',
               description: 'Optional short image caption, displayed under the image title.',
-              type: 'text',
-              rows: 3,
+              type: 'formattedText',
             },
             {
               name: 'alt',
               title: 'Alt Text',
               description:
                 'Alt text is a description for those hard of seeing; it is a simple description of what is happening in a piece of media. For example, if there is an image that pertains to a dinner hosted by the school, the alt text would be—staff and faculty gathered around a table in-front of the speaker stage.',
-              type: 'string',
-              validation: (rule) => rule.required(),
+              type: 'requiredFormattedString',
             },
           ],
         },
