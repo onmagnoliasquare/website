@@ -1,14 +1,17 @@
 <script lang="ts">
-	import { Footer, VersionLabel } from '$lib';
 	/**
 	 * ======== ROOT LAYOUT ========
 	 * */
+
 	import { Footer, VersionLabel } from '$lib';
 	import { isDevEnv } from '$lib/sanity';
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
+
 	import { page } from '$app/stores';
 	import { MetaTags, deepMerge } from 'svelte-meta-tags';
+
+	// CSS styling
 	import '../styles/onmagnoliasquare.css';
 	import '../styles/typography.css';
 
@@ -18,6 +21,7 @@
 	}
 
 	let { data, children }: Props = $props();
+
 	let metaTags = $derived(deepMerge(data.baseMetaTags, $page.data.pageMetaTags));
 </script>
 
