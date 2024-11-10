@@ -23,7 +23,7 @@ export const load: LayoutLoad = async ({ url, data }) => {
 			url: new URL(url.pathname, url.origin).href,
 			locale: site.locale,
 			title: site.title,
-			description: 'Open Graph Description',
+			description: site.description,
 			siteName: site.name
 		},
 		images: [
