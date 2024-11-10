@@ -7,6 +7,7 @@ import fromLocation from './objects/fromLocation'
 import socialHandles from './objects/socialHandles'
 import series from './series'
 import tag from './tag'
+import committee from './committee'
 
 export const schemaTypes = [
   socialHandles,
@@ -18,4 +19,5 @@ export const schemaTypes = [
   category,
   series,
   tag,
+  committee,
 ]
