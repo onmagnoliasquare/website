@@ -58,6 +58,15 @@ export default defineType({
     }),
 
     defineField({
+      name: 'committee',
+      title: 'Committee',
+      type: 'reference',
+      //@ts-ignore - TS(2353)
+      to: [{type: 'committee'}],
+      options: {disableNew: true},
+    }),
+
+    defineField({
       // This field was optional–way back when,
       // we used to keep this in the Wordpress DB
       // since that was private. Now that the guarantee
