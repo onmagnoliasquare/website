@@ -24,6 +24,16 @@ export default defineType({
       name: 'linkedin',
       type: 'formattedString',
     },
+    {
+      title: 'GitHub',
+      name: 'github',
+      type: 'formattedString',
+    },
+    {
+      title: 'Website URL',
+      name: 'website',
+      type: 'url',
+    },
   ],
   options: {
     // collapsible: true,

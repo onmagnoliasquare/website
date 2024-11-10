@@ -40,7 +40,7 @@ if (isDevEnv) {
 	config.useCdn = false;
 }
 
-config.dataset = 'production';
+// config.dataset = 'production';
 
 export const client: SanityClient = createClient(config);
 
@@ -519,6 +519,8 @@ export interface Handles {
 	facebook?: string;
 	linkedin?: string;
 	twitter?: string;
+	github?: string;
+	website?: string;
 }
 
 export interface Tag {
