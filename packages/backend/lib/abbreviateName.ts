@@ -7,7 +7,7 @@
  * @param name name to abbreviate
  * @returns abbreviated name
  */
-export function abbreviateName(name: string): string {
+export default function abbreviateName(name: string): string {
   let splitted = name.split(' ')
 
   // If the name is only one word
