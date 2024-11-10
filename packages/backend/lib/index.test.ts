@@ -1,6 +1,40 @@
 import {describe, expect, test} from 'vitest'
 import slugValidator from './slugValidator'
 import replaceApostrophes from './replaceApostrophes'
+import checkWhitespace from './checkWhitespace'
+
+describe('checkWhitespace', () => {
+  //
+  const validator = checkWhitespace() // get the inner validator function
+
+  const nonStrings = [
+    [123, true],
+    [null, true],
+    [undefined, true],
+  ]
+
+  const leadingOrTrailingWhitespace = [
+    [` test`, 'Remove spaces before or after string'],
+    [`test `, 'Remove spaces before or after string'],
+    [` test `, 'Remove spaces before or after string'],
+  ]
+
+  const noWhitespaces = [
+    [`meow`, true],
+    [`woof woof`, true],
+    [`Barack Obama`, true],
+  ]
+
+  const emptyStrings = [[``, '']]
+
+  test.each([...nonStrings, ...leadingOrTrailingWhitespace, ...noWhitespaces, ...emptyStrings])(
+    '%s -> %s',
+    //@ts-ignore TS(2345)
+    (input, output) => {
+      expect(validator(input)).toBe(output)
+    },
+  )
+})
 
 describe('removeTrailing', () => {
   const tests = [
