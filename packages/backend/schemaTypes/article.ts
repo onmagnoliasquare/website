@@ -1,6 +1,7 @@
 import {DocumentsIcon, ImageIcon, TagsIcon} from '@sanity/icons'
 import {defineArrayMember, defineField, defineType} from 'sanity'
 import slugValidator from '../lib/slugValidator'
+import abbreviateName from '../lib/abbreviateName'
 
 // Portable text editor configuration on Sanity docs:
 // https://www.sanity.io/docs/portable-text-editor-configuration
@@ -14,14 +15,13 @@ export default defineType({
     defineField({
       name: 'title',
       title: 'Title',
-      type: 'string',
-      validation: (rule) => rule.required(),
+      type: 'requiredFormattedString',
     }),
 
     defineField({
       name: 'subtitle',
       title: 'Lede',
-      type: 'text',
+      type: 'formattedText',
       //@ts-ignore TS(2353)
       rows: 2,
     }),
@@ -110,7 +110,7 @@ export default defineType({
       of: [
         defineArrayMember({
           name: 'tag',
-          title: 'Tag',
+          title: 'Reference a tag',
           type: 'reference',
           to: [{type: 'tag'}],
         }),
@@ -128,8 +128,8 @@ export default defineType({
       fields: [
         {
           name: 'alt',
-          type: 'string',
-          validation: (rule) => rule.required(),
+          type: 'requiredFormattedString',
+          hidden: ({parent}) => !parent?.asset,
         },
       ],
     }),
@@ -177,23 +177,21 @@ export default defineType({
             {
               name: 'title',
               title: 'Title',
-              type: 'string',
+              type: 'formattedString',
               description: 'Optional title of the image, displayed in larger text.',
             },
             {
               name: 'description',
               title: 'Description',
               description: 'Optional short image caption, displayed under the image title.',
-              type: 'text',
-              rows: 3,
+              type: 'formattedText',
             },
             {
               name: 'alt',
               title: 'Alt Text',
               description:
                 'Alt text is a description for those hard of seeing; it is a simple description of what is happening in a piece of media. For example, if there is an image that pertains to a dinner hosted by the school, the alt text would be—staff and faculty gathered around a table in-front of the speaker stage.',
-              type: 'string',
-              validation: (rule) => rule.required(),
+              type: 'requiredFormattedString',
             },
           ],
         },
@@ -229,18 +227,24 @@ export default defineType({
     },
   ],
 
+  // See: https://www.sanity.io/docs/previews-list-views#62febb15a63a
   preview: {
     select: {
       title: 'title',
-      authors0: 'authors.0.name',
-      media: 'mainImage',
+      author0: 'authors.0.name', // <- authors.0 is a reference to author, and the preview component will automatically resolve the reference and return the name
+      author1: 'authors.1.name',
+      author2: 'authors.2.name',
+      author3: 'authors.3.name',
+      media: 'media',
       date: 'date',
     },
-    prepare(selection) {
-      const {title, date, authors0} = selection
+    prepare: ({title, author0, author1, author2, author3, media, date}) => {
+      const authors: string[] = [author0, author1, author2, author3].filter(Boolean)
+      const authorList = `${abbreviateName(authors[0])}${authors.length > 1 ? `+${authors.slice(1).length}` : ''}`
       return {
-        title: title,
-        subtitle: date && `${authors0} on ${date}`,
+        title,
+        subtitle: `${authorList} on ${date}`,
+        media,
       }
     },
   },

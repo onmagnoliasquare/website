@@ -16,8 +16,7 @@ export default defineType({
     defineField({
       name: 'name',
       title: 'Category Name',
-      type: 'string',
-      validation: (rule) => rule.required(),
+      type: 'requiredFormattedString',
     }),
 
     defineField({
@@ -35,11 +34,10 @@ export default defineType({
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'text',
+      type: 'requiredFormattedText',
       description: 'What is this category about?',
       //@ts-ignore TS(2353)
       rows: 4,
-      validation: (rule) => rule.required(),
     }),
 
     defineField({
@@ -50,4 +48,9 @@ export default defineType({
       type: 'boolean',
     }),
   ],
+  preview: {
+    select: {
+      title: 'name',
+    },
+  },
 })
