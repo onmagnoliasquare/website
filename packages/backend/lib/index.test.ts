@@ -2,10 +2,40 @@ import {describe, expect, test} from 'vitest'
 import slugValidator from './slugValidator'
 import replaceApostrophes from './replaceApostrophes'
 import checkWhitespace from './checkWhitespace'
+import abbreviateName from './abbreviateName'
+
+describe('abbreviateName', () => {
+  const twoWordNames = [
+    [`Neo Alabastro`, `N. Alabastro`],
+    [`Barack Obama`, `B. Obama`],
+    [`Kendrick Lamar`, `K. Lamar`],
+  ]
+
+  const oneWordNames = [
+    [`Zendaya`, `Zendaya`],
+    [`God`, `God`],
+    [`Jesus`, `Jesus`],
+  ]
+
+  const moreThanTwoWordNames = [
+    [`Lord Have Mercy`, `L.H. Mercy`],
+    [`John Ronald Reuel Tolkien`, `J.R.R. Tolkien`],
+    [`Sometimes You Have To Try Harder`, `S. You...`],
+    [`JingDong And TaoBao Have A Sale`, `J. And...`],
+  ]
+
+  test.each([...twoWordNames, ...oneWordNames, ...moreThanTwoWordNames])(
+    '%s -> %s',
+    //@ts-ignore TS(2345)
+    (input, output) => {
+      expect(abbreviateName(input)).toBe(output)
+    },
+  )
+})
 
 describe('checkWhitespace', () => {
-  //
-  const validator = checkWhitespace() // get the inner validator function
+  // Extracts the inner validator function
+  const validator = checkWhitespace()
 
   const nonStrings = [
     [123, true],
