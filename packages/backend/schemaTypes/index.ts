@@ -13,6 +13,7 @@ import requiredFormattedString from './primitives/requiredFormattedString'
 import requiredFormattedText from './primitives/requiredFormattedText'
 import series from './series'
 import tag from './tag'
+import committee from './committee'
 
 export const schemaTypes = [
   socialHandles,
@@ -30,4 +31,5 @@ export const schemaTypes = [
   category,
   series,
   tag,
+  committee,
 ]
