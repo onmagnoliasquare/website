@@ -14,22 +14,18 @@ import requiredFormattedText from './primitives/requiredFormattedText'
 import series from './series'
 import tag from './tag'
 import committee from './committee'
+import seoMetadataTagText from './primitives/seoMetadataTagText'
 
-export const schemaTypes = [
-  socialHandles,
-  blockContent,
-  fromLocation,
-  embeddedLink,
-  dateInfo,
-  accessibleImage,
+const objects = [socialHandles, blockContent, fromLocation, embeddedLink, dateInfo, accessibleImage]
+
+const primitives = [
   requiredFormattedString,
   requiredFormattedText,
   formattedString,
   formattedText,
-  article,
-  member,
-  category,
-  series,
-  tag,
-  committee,
+  seoMetadataTagText,
 ]
+
+const documents = [article, member, category, series, tag, committee]
+
+export const schemaTypes = [...objects, ...primitives, ...documents]
