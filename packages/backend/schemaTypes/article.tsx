@@ -1,7 +1,9 @@
-import {ComposeIcon, DocumentsIcon, ImageIcon, InfoOutlineIcon, TagsIcon} from '@sanity/icons'
+import {DocumentsIcon, ImageIcon, TagsIcon} from '@sanity/icons'
 import {defineArrayMember, defineField, defineType} from 'sanity'
 import slugValidator from '../lib/slugValidator'
 import abbreviateName from '../lib/abbreviateName'
+import {HtmlDescription} from '../components/HtmlDescription'
+import {ContentGroup, InfoGroup, SeoGroup} from './objects/fieldGroups'
 
 // Portable text editor configuration on Sanity docs:
 // https://www.sanity.io/docs/portable-text-editor-configuration
@@ -11,14 +13,12 @@ export default defineType({
   title: 'Articles',
   type: 'document',
   icon: DocumentsIcon,
-  groups: [
-    {name: 'info', title: 'Info', default: true, icon: InfoOutlineIcon},
-    {name: 'content', title: 'Content', icon: ComposeIcon},
-  ],
+  groups: [InfoGroup, ContentGroup, SeoGroup],
   fields: [
     defineField({
       name: 'title',
       title: 'Title',
+      description: 'Think of something good...',
       type: 'requiredFormattedString',
       group: 'info',
     }),
@@ -26,6 +26,7 @@ export default defineType({
     defineField({
       name: 'slug',
       title: 'Slug',
+      description: 'Click generate to create a slug, or create your own.',
       type: 'slug',
       options: {
         source: 'title',
@@ -39,6 +40,8 @@ export default defineType({
     defineField({
       name: 'subtitle',
       title: 'Lede',
+      description:
+        'This is a subtitle that is displayed under the title of an article. Although optional, it is highly recommended to add one. The optional criteria is to accommodate old articles that never had a subtitle in the first place.',
       type: 'formattedText',
       //@ts-ignore TS(2353)
       rows: 2,
@@ -106,6 +109,8 @@ export default defineType({
     defineField({
       name: 'tags',
       title: 'Tags',
+      description:
+        'Tags help to sort data internally. They are then displayed on the website for readers to view articles in an organized fashion. Tags are also used for SEO.',
       type: 'array',
       icon: TagsIcon,
       // @ts-ignore TS(2353)
@@ -117,7 +122,7 @@ export default defineType({
           to: [{type: 'tag'}],
         }),
       ],
-      group: 'info',
+      group: ['info', 'seo'],
     }),
 
     defineField({
@@ -184,6 +189,20 @@ export default defineType({
             {title: 'Quote', value: 'blockquote'},
             {title: 'Hidden', value: 'blockComment'},
           ],
+          marks: {
+            decorators: [
+              {title: 'Strong', value: 'strong'},
+              {title: 'Emphasis', value: 'em'},
+              {
+                title: 'Lead in',
+                value: 'leadIn',
+                icon: () => <span style={{fontFamily: 'serif'}}>LI</span>,
+                component: ({children}) => (
+                  <span style={{fontFamily: 'serif', fontWeight: 'bolder'}}>{children}</span>
+                ),
+              },
+            ],
+          },
         },
         {
           type: 'image',
@@ -224,6 +243,40 @@ export default defineType({
         'Enable if Custom CSS has been designed for this specific article and is ready on the frontend for use. If no custom CSS is applied, default styling will be used.',
       type: 'boolean',
       group: 'info',
+    }),
+
+    defineField({
+      name: 'seoTags',
+      title: 'Open Graph Tags',
+      description: (
+        <HtmlDescription>
+          Optional additional tags for this article that are placed in the metadata for{' '}
+          <a href="https://ogp.me/">Open Graph</a>. These tags are not for internal data
+          organization, and are only for SEO. If this field is populated, it will be appended to the
+          article tags.
+        </HtmlDescription>
+      ),
+      type: 'array',
+      of: [
+        {
+          type: 'seoMetadataTagText',
+        },
+      ],
+      group: 'seo',
+    }),
+
+    defineField({
+      name: 'seoDescription',
+      title: 'Open Graph Description',
+      description: (
+        <HtmlDescription>
+          Optional alternate description for <a href="https://ogp.me/">Open Graph</a>. If this field
+          is not populated, the lede/subtitle will be used as the Open Graph description.
+        </HtmlDescription>
+      ),
+      type: 'formattedText',
+      validation: (rule) => rule.max(160),
+      group: 'seo',
     }),
   ],
 
