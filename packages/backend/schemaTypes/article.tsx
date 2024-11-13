@@ -2,8 +2,12 @@ import {DocumentsIcon, ImageIcon, TagsIcon} from '@sanity/icons'
 import {defineArrayMember, defineField, defineType} from 'sanity'
 import slugValidator from '../lib/slugValidator'
 import abbreviateName from '../lib/abbreviateName'
-import {HtmlDescription} from '../components/HtmlDescription'
 import {ContentGroup, InfoGroup, SeoGroup} from './objects/fieldGroups'
+import requiredFormattedString from './primitives/requiredFormattedString'
+import formattedText from './primitives/formattedText'
+import formattedString from './primitives/formattedString'
+import embeddedLink from './objects/embeddedLink'
+import metadataInformation from './objects/metadataInformation'
 
 // Portable text editor configuration on Sanity docs:
 // https://www.sanity.io/docs/portable-text-editor-configuration
@@ -19,8 +23,8 @@ export default defineType({
       name: 'title',
       title: 'Title',
       description: 'Think of something good...',
-      type: 'requiredFormattedString',
-      group: 'info',
+      type: requiredFormattedString.name,
+      group: InfoGroup.name,
     }),
 
     defineField({
@@ -34,7 +38,7 @@ export default defineType({
         slugify: (input: string) => slugValidator(input),
       },
       validation: (rule) => rule.required(),
-      group: 'info',
+      group: InfoGroup.name,
     }),
 
     defineField({
@@ -42,10 +46,10 @@ export default defineType({
       title: 'Lede',
       description:
         'This is a subtitle that is displayed under the title of an article. Although optional, it is highly recommended to add one. The optional criteria is to accommodate old articles that never had a subtitle in the first place.',
-      type: 'formattedText',
+      type: formattedText.name,
       //@ts-ignore TS(2353)
       rows: 2,
-      group: 'info',
+      group: InfoGroup.name,
     }),
 
     defineField({
@@ -59,7 +63,7 @@ export default defineType({
         calendarTodayLabel: 'Today',
       },
       validation: (rule) => rule.required(),
-      group: 'info',
+      group: InfoGroup.name,
     }),
 
     // updatedDate defines an optional date at when an article was
@@ -81,7 +85,7 @@ export default defineType({
         //@ts-ignore - ignore TS(2353)
         calendarTodayLabel: 'Today',
       },
-      group: 'info',
+      group: InfoGroup.name,
     }),
 
     defineField({
@@ -92,7 +96,7 @@ export default defineType({
       to: [{type: 'category'}],
       options: {disableNew: true},
       validation: (rule) => rule.required(),
-      group: 'info',
+      group: InfoGroup.name,
     }),
 
     defineField({
@@ -103,7 +107,7 @@ export default defineType({
       //@ts-ignore - TS(2353)
       to: [{type: 'series'}],
       options: {disableNew: true},
-      group: 'info',
+      group: InfoGroup.name,
     }),
 
     defineField({
@@ -122,7 +126,7 @@ export default defineType({
           to: [{type: 'tag'}],
         }),
       ],
-      group: ['info', 'seo'],
+      group: [InfoGroup.name, SeoGroup.name],
     }),
 
     defineField({
@@ -141,7 +145,7 @@ export default defineType({
         }),
       ],
       validation: (rule) => rule.required(),
-      group: 'info',
+      group: InfoGroup.name,
     }),
 
     defineField({
@@ -155,21 +159,21 @@ export default defineType({
       fields: [
         {
           name: 'alt',
-          type: 'requiredFormattedString',
+          type: requiredFormattedString.name,
           hidden: ({parent}) => !parent?.asset,
         },
       ],
-      group: 'content',
+      group: ContentGroup.name,
     }),
 
     defineField({
       name: 'abstract',
       title: 'Summary',
-      type: 'text',
+      type: formattedText.name,
       description: 'Optional summary for the article that appears before the article body.',
       //@ts-ignore TS(2353)
-      rows: 4,
-      group: 'content',
+      rows: 3,
+      group: ContentGroup.name,
     }),
 
     // Retrieved and modified from:
@@ -211,29 +215,29 @@ export default defineType({
             {
               name: 'title',
               title: 'Title',
-              type: 'formattedString',
+              type: formattedString.name,
               description: 'Optional title of the image, displayed in larger text.',
             },
             {
               name: 'description',
               title: 'Description',
               description: 'Optional short image caption, displayed under the image title.',
-              type: 'formattedText',
+              type: formattedText.name,
             },
             {
               name: 'alt',
               title: 'Alt Text',
               description:
                 'Alt text is a description for those hard of seeing; it is a simple description of what is happening in a piece of media. For example, if there is an image that pertains to a dinner hosted by the school, the alt text would be—staff and faculty gathered around a table in-front of the speaker stage.',
-              type: 'requiredFormattedString',
+              type: requiredFormattedString.name,
             },
           ],
         },
         {
-          type: 'embeddedLink',
+          type: embeddedLink.name,
         },
       ],
-      group: 'content',
+      group: ContentGroup.name,
     }),
 
     defineField({
@@ -242,41 +246,13 @@ export default defineType({
       description:
         'Enable if Custom CSS has been designed for this specific article and is ready on the frontend for use. If no custom CSS is applied, default styling will be used.',
       type: 'boolean',
-      group: 'info',
+      group: InfoGroup.name,
     }),
 
     defineField({
-      name: 'seoTags',
-      title: 'Open Graph Tags',
-      description: (
-        <HtmlDescription>
-          Optional additional tags for this article that are placed in the metadata for{' '}
-          <a href="https://ogp.me/">Open Graph</a>. These tags are not for internal data
-          organization, and are only for SEO. If this field is populated, it will be appended to the
-          article tags.
-        </HtmlDescription>
-      ),
-      type: 'array',
-      of: [
-        {
-          type: 'seoMetadataTagText',
-        },
-      ],
-      group: 'seo',
-    }),
-
-    defineField({
-      name: 'seoDescription',
-      title: 'Open Graph Description',
-      description: (
-        <HtmlDescription>
-          Optional alternate description for <a href="https://ogp.me/">Open Graph</a>. If this field
-          is not populated, the lede/subtitle will be used as the Open Graph description.
-        </HtmlDescription>
-      ),
-      type: 'formattedText',
-      validation: (rule) => rule.max(160),
-      group: 'seo',
+      name: 'metaInfo',
+      type: metadataInformation.name,
+      group: SeoGroup.name,
     }),
   ],
 
