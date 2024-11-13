@@ -1,6 +1,7 @@
 import {FolderIcon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
 import slugValidator from '../lib/slugValidator'
+import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 
 export default defineType({
   name: 'committee',
@@ -42,6 +43,7 @@ export default defineType({
         'Enable if Custom CSS has been designed for this specific article and is ready on the frontend for use. If no custom CSS is applied, default styling will be used.',
       type: 'boolean',
     }),
+    defineField(copyPaste),
   ],
   preview: {
     select: {

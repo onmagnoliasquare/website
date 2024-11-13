@@ -1,6 +1,7 @@
 import {UserIcon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
 import slugValidator from '../lib/slugValidator'
+import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 
 /**
  * A "member" is someone who produces content for our organization.
@@ -119,6 +120,7 @@ export default defineType({
       description: 'Optional usernames for social platforms.',
       type: 'handles',
     }),
+    defineField(copyPaste),
   ],
   preview: {
     select: {

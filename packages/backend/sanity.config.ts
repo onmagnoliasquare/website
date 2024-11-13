@@ -1,4 +1,5 @@
 import {defineConfig} from 'sanity'
+import {copyPastePlugin} from '@superside-oss/sanity-plugin-copy-paste'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
@@ -24,6 +25,7 @@ export default defineConfig([
           enabled: true,
         },
       }),
+      copyPastePlugin(),
     ],
 
     schema: {

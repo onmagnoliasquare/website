@@ -2,6 +2,7 @@ import {ComposeIcon, DocumentsIcon, ImageIcon, InfoOutlineIcon, TagsIcon} from '
 import {defineArrayMember, defineField, defineType} from 'sanity'
 import slugValidator from '../lib/slugValidator'
 import abbreviateName from '../lib/abbreviateName'
+import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 
 // Portable text editor configuration on Sanity docs:
 // https://www.sanity.io/docs/portable-text-editor-configuration
@@ -225,6 +226,7 @@ export default defineType({
       type: 'boolean',
       group: 'info',
     }),
+    defineField(copyPaste),
   ],
 
   initialValue: {

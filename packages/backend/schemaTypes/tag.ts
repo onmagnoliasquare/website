@@ -1,6 +1,7 @@
 import {TagIcon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
 import slugValidator from '../lib/slugValidator'
+import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 
 /**
  * A tag can be attached to an article. It lets us organize content into
@@ -39,6 +40,7 @@ export default defineType({
       //@ts-ignore TS(2353)
       rows: 4,
     }),
+    defineField(copyPaste),
   ],
   preview: {
     select: {
