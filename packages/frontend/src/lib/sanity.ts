@@ -115,8 +115,6 @@ export async function getArticlesFromTag(tagSlugName: string): Promise<Article[]
 			slug,
 			category->,
 			media
-			category->,
-			media
 		}`,
 		{
 			tagSlugName
@@ -482,9 +480,8 @@ export async function getAllMembers(): Promise<Member[]> {
 			name,
 			bio,
 			slug,
-			portrait
-			slug,
-			portrait
+			portrait,
+			slug
 		} | order(lower(name))`
 	);
 }
