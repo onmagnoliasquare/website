@@ -1,5 +1,12 @@
 import {defineType} from 'sanity'
 
+/**
+ * accessibleImage is an `image` type with an `alt`, `description`,
+ * and `attributions` field. The `alt` field is required, everything
+ * else is optional. This was retrieved from:
+ * https://www.sanity.io/docs/schema-field-types#81e2f304a9a8
+ */
+
 // See: https://www.sanity.io/docs/schema-field-types#81e2f304a9a8
 export default defineType({
   name: 'accessibleImage',
