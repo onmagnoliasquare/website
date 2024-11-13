@@ -8,14 +8,28 @@ import type { Article, Series } from '$lib/schema';
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	const { series } = event.params;
 	const articles: Article[] = await getArticlesFromSeries(series as string);
+	const seriesPage: Series = await getSeries(series as string);
 
 	// TODO this is flawed design, what if we want to showcase a series
 	// that isn't out yet but get our viewers ready? This will fail.
 	// figure out a way to get the title without using an article.
-	const title = articles[0].series.name;
+	const title = seriesPage.name;
 
-	const ogTitle = `${title} series at ${site.title}`;
-	const ogDescription = `${title} series`;
+	let ogTitle = `${title} series at ${site.title}`;
+	let ogDescription = `${title} series`;
+	if (seriesPage.metaInfo) {
+		if (seriesPage.metaInfo.ogTitle) {
+			ogTitle = seriesPage.metaInfo.ogTitle;
+		}
+
+		if (seriesPage.metaInfo.ogDescription) {
+			ogDescription = seriesPage.metaInfo.ogDescription;
+		}
+
+		if (seriesPage.metaInfo.ogImage) {
+			// TODO
+		}
+	}
 
 	const pageMetaTags = Object.freeze({
 		title: ogTitle,

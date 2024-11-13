@@ -11,10 +11,22 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	const tag: Tag = await getTag(tagName as string);
 	const title = tagName as string;
 
-	const ogTitle = `#${title} at ${site.name}`;
+	let ogTitle = `#${title} at ${site.name}`;
 
-	const ogDescription = ``;
+	let ogDescription = `Browse the #${title} archives at ${site.name}`;
+	if (tag.metaInfo) {
+		if (tag.metaInfo.ogTitle) {
+			ogTitle = tag.metaInfo.ogTitle;
+		}
 
+		if (tag.metaInfo.ogDescription) {
+			ogDescription = tag.metaInfo.ogDescription;
+		}
+
+		if (tag.metaInfo.ogImage) {
+			// TODO
+		}
+	}
 	const pageMetaTags = Object.freeze({
 		title: ogTitle,
 		description: ogDescription,

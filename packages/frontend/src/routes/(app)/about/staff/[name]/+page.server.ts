@@ -11,9 +11,23 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	const articles: Article[] = await getArticlesOfMember(name as string);
 	const title = member.name;
 
-	const ogDescription = member.bio ? member.bio : `${title} ${filler.memberDescription}.`;
+	let ogTitle = `About ${title} at ${site.title}`;
 
-	const ogTitle = `About ${title} at ${site.title}`;
+	let ogDescription = member.bio ? member.bio : `${title} ${filler.memberDescription}.`;
+
+	if (member.metaInfo) {
+		if (member.metaInfo.ogTitle) {
+			ogTitle = member.metaInfo.ogTitle;
+		}
+
+		if (member.metaInfo.ogDescription) {
+			ogDescription = member.metaInfo.ogDescription;
+		}
+
+		if (member.metaInfo.ogImage) {
+			// TODO
+		}
+	}
 
 	const pageMetaTags = Object.freeze({
 		title: `About ${member.name} at ${site.title}`,

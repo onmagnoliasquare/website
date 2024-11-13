@@ -18,9 +18,23 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 
 	const articles: Article[] = await getArticlesFromCategory(cat.slug.current as string);
 
-	const title = cat.name;
-	const ogTitle = `${title} at ${site.name}`;
-	const ogDescription = cat.description;
+	let title = cat.name;
+	let ogTitle = `${title} at ${site.name}`;
+	let ogDescription = cat.description;
+
+	if (cat.metaInfo) {
+		if (cat.metaInfo.ogTitle) {
+			ogTitle = cat.metaInfo.ogTitle;
+		}
+
+		if (cat.metaInfo.ogDescription) {
+			ogDescription = cat.metaInfo.ogDescription;
+		}
+
+		if (cat.metaInfo.ogImage) {
+			// TODO
+		}
+	}
 
 	const pageMetaTags = Object.freeze({
 		title: ogTitle,

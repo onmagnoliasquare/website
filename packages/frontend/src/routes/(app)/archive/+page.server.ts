@@ -8,8 +8,8 @@ import type { Tag } from '$lib/schema';
 export const load: PageServerLoad = (async () => {
 	const tags: Tag[] = await getTags();
 
-	const ogTitle = `The archives at ${site.title}`;
-	const ogDescription = `Browse our articles, tags, and content.`;
+	let ogTitle = `The archives at ${site.title}`;
+	let ogDescription = `Browse our articles, tags, and content.`;
 
 	const pageMetaTags = Object.freeze({
 		title: ogTitle,
