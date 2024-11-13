@@ -1,6 +1,9 @@
 import {FolderIcon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
 import slugValidator from '../lib/slugValidator'
+import requiredFormattedText from './primitives/requiredFormattedText'
+import metadataInformation from './objects/metadataInformation'
+import requiredFormattedString from './primitives/requiredFormattedString'
 
 export default defineType({
   name: 'committee',
@@ -11,7 +14,7 @@ export default defineType({
     defineField({
       name: 'name',
       title: 'Committee Name',
-      type: 'requiredFormattedString',
+      type: requiredFormattedString.name,
     }),
 
     defineField({
@@ -29,7 +32,7 @@ export default defineType({
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'requiredFormattedText',
+      type: requiredFormattedText.name,
       description: 'Information about the committee.',
       //@ts-ignore TS(2353)
       rows: 4,
@@ -41,6 +44,11 @@ export default defineType({
       description:
         'Enable if Custom CSS has been designed for this specific article and is ready on the frontend for use. If no custom CSS is applied, default styling will be used.',
       type: 'boolean',
+    }),
+
+    defineField({
+      name: 'metaInfo',
+      type: metadataInformation.name,
     }),
   ],
   preview: {

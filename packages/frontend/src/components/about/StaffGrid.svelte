@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Member } from '$lib/sanity';
+	import type { Member } from '$lib/schema';
 	import StaffClickable from './StaffClickable.svelte';
 
 	interface Props {
