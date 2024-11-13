@@ -15,8 +15,17 @@ import series from './series'
 import tag from './tag'
 import committee from './committee'
 import seoMetadataTagText from './primitives/seoMetadataTagText'
+import metadataInformation from './objects/metadataInformation'
 
-const objects = [socialHandles, blockContent, fromLocation, embeddedLink, dateInfo, accessibleImage]
+const objects = [
+  socialHandles,
+  blockContent,
+  fromLocation,
+  embeddedLink,
+  dateInfo,
+  accessibleImage,
+  metadataInformation,
+]
 
 const primitives = [
   requiredFormattedString,
