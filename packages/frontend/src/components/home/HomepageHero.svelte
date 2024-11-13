@@ -9,11 +9,6 @@
 	}
 
 	let { article }: Props = $props();
-	interface Props {
-		article: Article;
-	}
-
-	let { article }: Props = $props();
 	let authorString = createAuthorString(article.authors);
 </script>
 
