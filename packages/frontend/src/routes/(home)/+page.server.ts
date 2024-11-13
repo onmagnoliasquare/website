@@ -2,7 +2,8 @@
 
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getArticles, getHomepageArticles, type Article } from '$lib/sanity';
+import { getArticles, getHomepageArticles } from '$lib/sanity';
+import type { Article } from '$lib/schema';
 
 // https://kit.svelte.dev/docs/load#page-data
 export const load: PageServerLoad = (async () => {

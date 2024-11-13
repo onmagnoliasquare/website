@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Image from '$components/Image.svelte';
-	import type { Article } from '$lib/sanity';
+	import type { Article } from '$lib/schema';
 	import ByLine from './ByLine.svelte';
 	import DateLine from './DateLine.svelte';
 

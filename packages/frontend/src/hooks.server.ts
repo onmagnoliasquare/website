@@ -22,10 +22,11 @@
  */
 
 import { hasUppercase } from '$lib/helpers';
-import { getArticleToValidate, type Article } from '$lib/sanity';
+import { getArticleToValidate } from '$lib/sanity';
 import { redirect, type Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 import { isDevEnv } from './lib/sanity';
+import type { Article } from '$lib/schema';
 
 /**
  * redirectHome redirects `/home` to `/`.

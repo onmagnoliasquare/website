@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getCountryName, getFlagEmoji } from '$lib/helpers';
-	import type { From } from '$lib/sanity';
+	import type { From } from '$lib/schema';
 
 	interface Props {
 		location: From;

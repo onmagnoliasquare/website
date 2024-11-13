@@ -16,6 +16,7 @@
 		Tag
 	} from '$lib';
 	import { fly } from 'svelte/transition';
+	import ArticleLeadIn from '$components/portabletext/ArticleLeadIn.svelte';
 
 	interface Props {
 		data: PageData;
@@ -43,7 +44,7 @@
 				<p class="serif fw2 i f2 lh-title" id="subtitle">{data.article.subtitle}</p>
 			{/if}
 			{#if data.article.media}
-				<figure class="ma0 mb4">
+				<figure class="ma0 mb4 mw6 center">
 					<img
 						src={urlFor(data.article.media).format('webp').fit('max').url()}
 						alt={data.article.media.alt}
@@ -73,12 +74,12 @@
 					</p>
 				</div>
 				<div class="gray tracked-02">
-					<DateLine date={data.article.date} locale={data.chosenLocale} />
+					<DateLine date={data.article.date} locale={data.userLocale} />
 				</div>
 				{#if data.article.updatedDate}
 					<div class="gray tracked-02 f6">
 						updated
-						<DateLine date={data.article.updatedDate} locale={data.chosenLocale} />
+						<DateLine date={data.article.updatedDate} locale={data.userLocale} />
 					</div>
 				{/if}
 			</div>
@@ -95,7 +96,8 @@
 				components={{
 					marks: {
 						ArticleBodyMarks,
-						link: ArticleLink
+						link: ArticleLink,
+						leadIn: ArticleLeadIn
 					},
 					block: ArticleSingleArticleBlock,
 					types: {

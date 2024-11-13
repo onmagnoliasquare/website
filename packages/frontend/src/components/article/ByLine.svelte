@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createAuthorString } from '$lib/helpers';
-	import type { Member } from '$lib/sanity';
+	import type { Member } from '$lib/schema';
 
 	interface Props {
 		authors: Member[];

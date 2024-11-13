@@ -1,6 +1,102 @@
 import {describe, expect, test} from 'vitest'
 import slugValidator from './slugValidator'
 import replaceApostrophes from './replaceApostrophes'
+import checkWhitespace from './checkWhitespace'
+import abbreviateName from './abbreviateName'
+import checkBannedTags from './checkBannedTags'
+
+describe('abbreviateName', () => {
+  const twoWordNames = [
+    [`Neo Alabastro`, `N. Alabastro`],
+    [`Barack Obama`, `B. Obama`],
+    [`Kendrick Lamar`, `K. Lamar`],
+  ]
+
+  const oneWordNames = [
+    [`Zendaya`, `Zendaya`],
+    [`God`, `God`],
+    [`Jesus`, `Jesus`],
+  ]
+
+  const moreThanTwoWordNames = [
+    [`Lord Have Mercy`, `L.H. Mercy`],
+    [`John Ronald Reuel Tolkien`, `J.R.R. Tolkien`],
+    [`Sometimes You Have To Try Harder`, `S. You...`],
+    [`JingDong And TaoBao Have A Sale`, `J. And...`],
+  ]
+
+  test.each([...twoWordNames, ...oneWordNames, ...moreThanTwoWordNames])(
+    '%s -> %s',
+    //@ts-ignore TS(2345)
+    (input, output) => {
+      expect(abbreviateName(input)).toBe(output)
+    },
+  )
+})
+
+describe('checkBannedTags', () => {
+  const bannedTags = ['these', 'fake', 'tags']
+  const validator = checkBannedTags(bannedTags)
+
+  const defaultBanList = [
+    [`nyu`, `Cannot use tag 'nyu'`],
+    [`nyu shanghai student`, `Cannot use tag 'nyu shanghai student'`],
+    [`student journalism`, `Cannot use tag 'student journalism'`],
+  ]
+
+  const ignoresCase = [
+    [`NYU`, `Cannot use tag 'NYU'`],
+    [`NYU Shanghai Student`, `Cannot use tag 'NYU Shanghai Student'`],
+    [`Student Journalism`, `Cannot use tag 'Student Journalism'`],
+  ]
+
+  const rejectsCustomTags = [
+    [`these`, `Cannot use tag 'these'`],
+    [`fake`, `Cannot use tag 'fake'`],
+    [`tags`, `Cannot use tag 'tags'`],
+  ]
+
+  test.each([...defaultBanList, ...ignoresCase, ...rejectsCustomTags])(
+    '%s -> %s',
+    //@ts-ignore TS(2345)
+    (input, output) => {
+      expect(validator(input)).toBe(output)
+    },
+  )
+})
+
+describe('checkWhitespace', () => {
+  // Extracts the inner validator function
+  const validator = checkWhitespace()
+
+  const nonStrings = [
+    [123, true],
+    [null, true],
+    [undefined, true],
+  ]
+
+  const leadingOrTrailingWhitespace = [
+    [` test`, 'Remove spaces before or after string'],
+    [`test `, 'Remove spaces before or after string'],
+    [` test `, 'Remove spaces before or after string'],
+  ]
+
+  const noWhitespaces = [
+    [`meow`, true],
+    [`woof woof`, true],
+    [`Barack Obama`, true],
+  ]
+
+  const emptyStrings = [[``, '']]
+
+  test.each([...nonStrings, ...leadingOrTrailingWhitespace, ...noWhitespaces, ...emptyStrings])(
+    '%s -> %s',
+    //@ts-ignore TS(2345)
+    (input, output) => {
+      expect(validator(input)).toBe(output)
+    },
+  )
+})
 
 describe('removeTrailing', () => {
   const tests = [
