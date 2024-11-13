@@ -3,6 +3,7 @@ import slugValidator from './slugValidator'
 import replaceApostrophes from './replaceApostrophes'
 import checkWhitespace from './checkWhitespace'
 import abbreviateName from './abbreviateName'
+import checkBannedTags from './checkBannedTags'
 
 describe('abbreviateName', () => {
   const twoWordNames = [
@@ -29,6 +30,37 @@ describe('abbreviateName', () => {
     //@ts-ignore TS(2345)
     (input, output) => {
       expect(abbreviateName(input)).toBe(output)
+    },
+  )
+})
+
+describe('checkBannedTags', () => {
+  const bannedTags = ['these', 'fake', 'tags']
+  const validator = checkBannedTags(bannedTags)
+
+  const defaultBanList = [
+    [`nyu`, `Cannot use tag 'nyu'`],
+    [`nyu shanghai student`, `Cannot use tag 'nyu shanghai student'`],
+    [`student journalism`, `Cannot use tag 'student journalism'`],
+  ]
+
+  const ignoresCase = [
+    [`NYU`, `Cannot use tag 'NYU'`],
+    [`NYU Shanghai Student`, `Cannot use tag 'NYU Shanghai Student'`],
+    [`Student Journalism`, `Cannot use tag 'Student Journalism'`],
+  ]
+
+  const rejectsCustomTags = [
+    [`these`, `Cannot use tag 'these'`],
+    [`fake`, `Cannot use tag 'fake'`],
+    [`tags`, `Cannot use tag 'tags'`],
+  ]
+
+  test.each([...defaultBanList, ...ignoresCase, ...rejectsCustomTags])(
+    '%s -> %s',
+    //@ts-ignore TS(2345)
+    (input, output) => {
+      expect(validator(input)).toBe(output)
     },
   )
 })

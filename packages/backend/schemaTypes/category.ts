@@ -1,6 +1,9 @@
 import {FolderIcon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
 import slugValidator from '../lib/slugValidator'
+import {ContentGroup, InfoGroup, SeoGroup} from './objects/fieldGroups'
+import requiredFormattedText from './primitives/requiredFormattedText'
+import requiredFormattedString from './primitives/requiredFormattedString'
 
 /**
  * A category defines the navbar headings on the website. It also defines their
@@ -12,11 +15,13 @@ export default defineType({
   title: 'Categories',
   type: 'document',
   icon: FolderIcon,
+  groups: [InfoGroup, ContentGroup, SeoGroup],
   fields: [
     defineField({
       name: 'name',
       title: 'Category Name',
-      type: 'requiredFormattedString',
+      type: requiredFormattedString.name,
+      group: InfoGroup.name,
     }),
 
     defineField({
@@ -29,15 +34,17 @@ export default defineType({
         slugify: (input: string) => slugValidator(input),
       },
       validation: (rule) => rule.required(),
+      group: InfoGroup.name,
     }),
 
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'requiredFormattedText',
+      type: requiredFormattedText.name,
       description: 'What is this category about?',
       //@ts-ignore TS(2353)
       rows: 4,
+      group: InfoGroup.name,
     }),
 
     defineField({
@@ -46,6 +53,13 @@ export default defineType({
       description:
         'Enable if Custom CSS has been designed for this specific article and is ready on the frontend for use. If no custom CSS is applied, default styling will be used.',
       type: 'boolean',
+      group: InfoGroup.name,
+    }),
+
+    defineField({
+      name: 'metaInfo',
+      type: 'metaInfo',
+      group: SeoGroup.name,
     }),
   ],
   preview: {

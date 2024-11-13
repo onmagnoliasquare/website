@@ -4,6 +4,7 @@
 	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
 	import Image from '$components/Image.svelte';
 	import { domainFromUrl } from '$lib/helpers';
+	import { filler } from '$lib/variables';
 	import type { PageData } from './$types';
 
 	interface Props {
@@ -46,7 +47,7 @@
 				{#if member.bio}
 					{member.bio.trim()}
 				{:else}
-					{member.name.trim()} is a contributor to On Magnolia Square.
+					{member.name.trim()} {filler.memberDescription}.
 				{/if}
 			</p>
 		</div>
@@ -55,7 +56,7 @@
 				<div class="mb2">
 					<h2 class="fw6 tracked f7 sans gray">FROM</h2>
 				</div>
-				<Location {location} locale={data.chosenLocale} />
+				<Location {location} locale={data.userLocale} />
 			</div>
 		{/if}
 		{#if handles}
@@ -127,7 +128,7 @@
 					{#each articles as article}
 						<!-- #key is a fix for https://github.com/onmagnoliasquare/website/issues/96  -->
 						{#key article}
-							<ArticleBoxC {article} locale={data.chosenLocale} />
+							<ArticleBoxC {article} locale={data.userLocale} />
 						{/key}
 					{/each}
 				</ul>

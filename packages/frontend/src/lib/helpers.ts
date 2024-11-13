@@ -1,4 +1,4 @@
-import type { Member } from './sanity';
+import type { Member } from './schema';
 
 /**
  * dateFormatter expects a string in the format YYYY/MM/DD,
