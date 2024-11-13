@@ -12,12 +12,18 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 
 	const ogDescription = member.bio ? member.bio : `${title} ${filler.memberDescription}.`;
 
+	const ogTitle = `About ${title} at ${site.title}`;
+
 	const pageMetaTags = Object.freeze({
 		title: `About ${member.name} at ${site.title}`,
 		description: ogDescription,
 		openGraph: {
 			type: 'profile',
-			title: `About ${title} at ${site.title}`,
+			title: ogTitle,
+			description: ogDescription
+		},
+		twitter: {
+			title: ogTitle,
 			description: ogDescription
 		}
 	}) satisfies MetaTagsProps;

@@ -1,6 +1,8 @@
 import { error, type ServerLoadEvent } from '@sveltejs/kit';
 import { type Article, getArticlesFromSeries } from '$lib/sanity';
 import type { PageServerLoad } from './$types';
+import { site } from '$lib/variables';
+import type { MetaTagsProps } from 'svelte-meta-tags';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	const { series } = event.params;
@@ -11,10 +13,27 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	// figure out a way to get the title without using an article.
 	const title = articles[0].series.name;
 
+	const ogTitle = `${title} series at ${site.title}`;
+	const ogDescription = `${title} series`;
+
+	const pageMetaTags = Object.freeze({
+		title: ogTitle,
+		description: ogDescription,
+		openGraph: {
+			title: ogTitle,
+			description: ogDescription
+		},
+		twitter: {
+			title: ogTitle,
+			description: ogDescription
+		}
+	}) satisfies MetaTagsProps;
+
 	if (articles.length >= 1) {
 		return {
 			articles,
-			title
+			title,
+			pageMetaTags
 		};
 	}
 

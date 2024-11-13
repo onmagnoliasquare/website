@@ -3,6 +3,7 @@ import type { PageServerLoad } from './$types';
 import { type Article, getOneArticleFromCategory } from '$lib/sanity';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import { site } from '$lib/variables';
+import { createAuthorString } from '$lib/helpers';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	const { category, slug } = event.params;
@@ -12,7 +13,9 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	);
 	const title = article.title;
 
-	const ogDescription = article.subtitle ? article.subtitle : '';
+	const ogDescription = article.subtitle
+		? article.subtitle
+		: `An article by ${createAuthorString(article.authors)} at ${site.title}`;
 
 	// If tags exist for an article, use them for metadata.
 	// If not, use default site article tags.
@@ -45,6 +48,10 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 				authors: [...ogAuthorLinks],
 				tags: ogTags
 			}
+		},
+		twitter: {
+			title: title,
+			description: ogDescription
 		}
 	}) satisfies MetaTagsProps;
 

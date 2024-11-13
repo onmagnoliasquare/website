@@ -26,6 +26,13 @@ export const load: LayoutLoad = async ({ url, data }) => {
 			description: site.description,
 			siteName: site.name
 		},
+		twitter: {
+			title: site.title,
+			description: site.description,
+			cardType: 'summary_large_image' as 'summary_large_image',
+			image: `${site.url}/og-default-preview.png`,
+			imageAlt: `Photo of text`
+		},
 		images: [
 			{
 				url: `${site.url}/og-default-preview.png`,
