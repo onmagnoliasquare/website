@@ -115,6 +115,8 @@ export async function getArticlesFromTag(tagSlugName: string): Promise<Article[]
 			slug,
 			category->,
 			media
+			category->,
+			media
 		}`,
 		{
 			tagSlugName
@@ -479,6 +481,8 @@ export async function getAllMembers(): Promise<Member[]> {
 		groq`*[_type == "member"] {
 			name,
 			bio,
+			slug,
+			portrait
 			slug,
 			portrait
 		} | order(lower(name))`
