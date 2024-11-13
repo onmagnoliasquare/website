@@ -482,7 +482,7 @@ export async function getAllMembers(): Promise<Member[]> {
 			name,
 			bio,
 			slug,
-			portrait
+			portrait,
 			slug,
 			portrait
 		} | order(lower(name))`
