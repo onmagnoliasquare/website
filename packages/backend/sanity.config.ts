@@ -3,6 +3,7 @@ import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
 import {BookIcon, RobotIcon} from '@sanity/icons'
+import {userGuidePlugin} from 'sanity-plugin-user-guide'
 import {media} from 'sanity-plugin-media'
 
 export default defineConfig([
