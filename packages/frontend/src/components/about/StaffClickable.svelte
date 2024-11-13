@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Image from '$components/Image.svelte';
-	import type { Member } from '$lib/sanity';
+	import type { Member } from '$lib/schema';
 
 	interface Props {
 		member: Member;

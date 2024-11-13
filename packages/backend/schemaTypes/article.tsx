@@ -1,8 +1,13 @@
-import {ComposeIcon, DocumentsIcon, ImageIcon, InfoOutlineIcon, TagsIcon} from '@sanity/icons'
+import {DocumentsIcon, ImageIcon, TagsIcon} from '@sanity/icons'
 import {defineArrayMember, defineField, defineType} from 'sanity'
 import slugValidator from '../lib/slugValidator'
 import abbreviateName from '../lib/abbreviateName'
-import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
+import {ContentGroup, InfoGroup, SeoGroup} from './objects/fieldGroups'
+import requiredFormattedString from './primitives/requiredFormattedString'
+import formattedText from './primitives/formattedText'
+import formattedString from './primitives/formattedString'
+import embeddedLink from './objects/embeddedLink'
+import metadataInformation from './objects/metadataInformation'
 
 // Portable text editor configuration on Sanity docs:
 // https://www.sanity.io/docs/portable-text-editor-configuration
@@ -12,21 +17,20 @@ export default defineType({
   title: 'Articles',
   type: 'document',
   icon: DocumentsIcon,
-  groups: [
-    {name: 'info', title: 'Info', default: true, icon: InfoOutlineIcon},
-    {name: 'content', title: 'Content', icon: ComposeIcon},
-  ],
+  groups: [InfoGroup, ContentGroup, SeoGroup],
   fields: [
     defineField({
       name: 'title',
       title: 'Title',
-      type: 'requiredFormattedString',
-      group: 'info',
+      description: 'Think of something good...',
+      type: requiredFormattedString.name,
+      group: InfoGroup.name,
     }),
 
     defineField({
       name: 'slug',
       title: 'Slug',
+      description: 'Click generate to create a slug, or create your own.',
       type: 'slug',
       options: {
         source: 'title',
@@ -34,16 +38,18 @@ export default defineType({
         slugify: (input: string) => slugValidator(input),
       },
       validation: (rule) => rule.required(),
-      group: 'info',
+      group: InfoGroup.name,
     }),
 
     defineField({
       name: 'subtitle',
       title: 'Lede',
-      type: 'formattedText',
+      description:
+        'This is a subtitle that is displayed under the title of an article. Although optional, it is highly recommended to add one. The optional criteria is to accommodate old articles that never had a subtitle in the first place.',
+      type: formattedText.name,
       //@ts-ignore TS(2353)
       rows: 2,
-      group: 'info',
+      group: InfoGroup.name,
     }),
 
     defineField({
@@ -57,7 +63,7 @@ export default defineType({
         calendarTodayLabel: 'Today',
       },
       validation: (rule) => rule.required(),
-      group: 'info',
+      group: InfoGroup.name,
     }),
 
     // updatedDate defines an optional date at when an article was
@@ -79,7 +85,7 @@ export default defineType({
         //@ts-ignore - ignore TS(2353)
         calendarTodayLabel: 'Today',
       },
-      group: 'info',
+      group: InfoGroup.name,
     }),
 
     defineField({
@@ -90,7 +96,7 @@ export default defineType({
       to: [{type: 'category'}],
       options: {disableNew: true},
       validation: (rule) => rule.required(),
-      group: 'info',
+      group: InfoGroup.name,
     }),
 
     defineField({
@@ -101,12 +107,14 @@ export default defineType({
       //@ts-ignore - TS(2353)
       to: [{type: 'series'}],
       options: {disableNew: true},
-      group: 'info',
+      group: InfoGroup.name,
     }),
 
     defineField({
       name: 'tags',
       title: 'Tags',
+      description:
+        'Tags help to sort data internally. They are then displayed on the website for readers to view articles in an organized fashion. Tags are also used for SEO.',
       type: 'array',
       icon: TagsIcon,
       // @ts-ignore TS(2353)
@@ -118,7 +126,7 @@ export default defineType({
           to: [{type: 'tag'}],
         }),
       ],
-      group: 'info',
+      group: [InfoGroup.name, SeoGroup.name],
     }),
 
     defineField({
@@ -137,7 +145,7 @@ export default defineType({
         }),
       ],
       validation: (rule) => rule.required(),
-      group: 'info',
+      group: InfoGroup.name,
     }),
 
     defineField({
@@ -151,21 +159,21 @@ export default defineType({
       fields: [
         {
           name: 'alt',
-          type: 'requiredFormattedString',
+          type: requiredFormattedString.name,
           hidden: ({parent}) => !parent?.asset,
         },
       ],
-      group: 'content',
+      group: ContentGroup.name,
     }),
 
     defineField({
       name: 'abstract',
       title: 'Summary',
-      type: 'text',
+      type: formattedText.name,
       description: 'Optional summary for the article that appears before the article body.',
       //@ts-ignore TS(2353)
-      rows: 4,
-      group: 'content',
+      rows: 3,
+      group: ContentGroup.name,
     }),
 
     // Retrieved and modified from:
@@ -185,6 +193,20 @@ export default defineType({
             {title: 'Quote', value: 'blockquote'},
             {title: 'Hidden', value: 'blockComment'},
           ],
+          marks: {
+            decorators: [
+              {title: 'Strong', value: 'strong'},
+              {title: 'Emphasis', value: 'em'},
+              {
+                title: 'Lead in',
+                value: 'leadIn',
+                icon: () => <span style={{fontFamily: 'serif'}}>LI</span>,
+                component: ({children}) => (
+                  <span style={{fontFamily: 'serif', fontWeight: 'bolder'}}>{children}</span>
+                ),
+              },
+            ],
+          },
         },
         {
           type: 'image',
@@ -193,29 +215,29 @@ export default defineType({
             {
               name: 'title',
               title: 'Title',
-              type: 'formattedString',
+              type: formattedString.name,
               description: 'Optional title of the image, displayed in larger text.',
             },
             {
               name: 'description',
               title: 'Description',
               description: 'Optional short image caption, displayed under the image title.',
-              type: 'formattedText',
+              type: formattedText.name,
             },
             {
               name: 'alt',
               title: 'Alt Text',
               description:
                 'Alt text is a description for those hard of seeing; it is a simple description of what is happening in a piece of media. For example, if there is an image that pertains to a dinner hosted by the school, the alt text would be—staff and faculty gathered around a table in-front of the speaker stage.',
-              type: 'requiredFormattedString',
+              type: requiredFormattedString.name,
             },
           ],
         },
         {
-          type: 'embeddedLink',
+          type: embeddedLink.name,
         },
       ],
-      group: 'content',
+      group: ContentGroup.name,
     }),
 
     defineField({
@@ -224,9 +246,14 @@ export default defineType({
       description:
         'Enable if Custom CSS has been designed for this specific article and is ready on the frontend for use. If no custom CSS is applied, default styling will be used.',
       type: 'boolean',
-      group: 'info',
+      group: InfoGroup.name,
     }),
-    defineField(copyPaste),
+
+    defineField({
+      name: 'metaInfo',
+      type: metadataInformation.name,
+      group: SeoGroup.name,
+    }),
   ],
 
   initialValue: {

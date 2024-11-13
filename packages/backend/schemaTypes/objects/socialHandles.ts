@@ -1,4 +1,5 @@
 import {defineType} from 'sanity'
+import formattedString from '../primitives/formattedString'
 
 export default defineType({
   type: 'object',
@@ -7,27 +8,27 @@ export default defineType({
     {
       title: 'Twitter',
       name: 'twitter',
-      type: 'formattedString',
+      type: formattedString.name,
     },
     {
       title: 'Instagram',
       name: 'instagram',
-      type: 'formattedString',
+      type: formattedString.name,
     },
     {
       title: 'Facebook',
       name: 'facebook',
-      type: 'formattedString',
+      type: formattedString.name,
     },
     {
       title: 'LinkedIn',
       name: 'linkedin',
-      type: 'formattedString',
+      type: formattedString.name,
     },
     {
       title: 'GitHub',
       name: 'github',
-      type: 'formattedString',
+      type: formattedString.name,
     },
     {
       title: 'Website URL',

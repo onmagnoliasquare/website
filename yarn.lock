@@ -11971,6 +11971,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"schema-dts@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "schema-dts@npm:1.1.2"
+  peerDependencies:
+    typescript: ">=4.1.0"
+  checksum: 10c0/bcca8719b1bb1cd71ba2b01a5126b3579e917a2f193e10fcffe020fa42fef911776ed9d2197c9f376780e703994b3ab854db3f962c47064f7282f41eff0f1d24
+  languageName: node
+  linkType: hard
+
 "scroll-into-view-if-needed@npm:^3.0.3, scroll-into-view-if-needed@npm:^3.1.0":
   version: 3.1.0
   resolution: "scroll-into-view-if-needed@npm:3.1.0"
@@ -12788,6 +12797,17 @@ __metadata:
     svelte:
       optional: true
   checksum: 10c0/52bbbf5d266fc36f64626e38d8de4354d78a5490fa60b61b1cd127c1c661d94f0c671a220e3ed7dd92b144a3c99f517d5205c218f78feea0603132f24eeb4c9d
+  languageName: node
+  linkType: hard
+
+"svelte-meta-tags@npm:^4.0.4":
+  version: 4.0.4
+  resolution: "svelte-meta-tags@npm:4.0.4"
+  dependencies:
+    schema-dts: "npm:^1.1.2"
+  peerDependencies:
+    svelte: ^5.0.0
+  checksum: 10c0/57b03f96773ab5f1998d427dae596e062725e6fe96f719c51cd0fe779963233563d254c740aea41ab286311f75c1ceb06b2bb22912f7dd36388e7cf3131d703a
   languageName: node
   linkType: hard
 
@@ -13844,6 +13864,7 @@ __metadata:
     styled-components: "npm:^6.1.13"
     svelte: "npm:^5.1.9"
     svelte-check: "npm:^4.0.5"
+    svelte-meta-tags: "npm:^4.0.4"
     sveltekit-embed: "npm:^0.0.18"
     tslib: "npm:^2.8.1"
     typescript: "npm:^5.6.3"

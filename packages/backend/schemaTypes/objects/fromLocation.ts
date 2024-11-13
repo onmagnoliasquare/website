@@ -1,6 +1,12 @@
 import {EarthGlobeIcon, PinIcon} from '@sanity/icons'
 import {defineType} from 'sanity'
 
+/**
+ * fromLocation is a field used in member bios to show where
+ * they come from! It consists of `country`, `region`, and
+ * `city` fields.
+ */
+
 export default defineType({
   type: 'object',
   name: 'fromLocation',

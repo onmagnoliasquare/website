@@ -1,6 +1,10 @@
 import {TagIcon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
 import slugValidator from '../lib/slugValidator'
+import {InfoGroup, ContentGroup, SeoGroup} from './objects/fieldGroups'
+import requiredFormattedString from './primitives/requiredFormattedString'
+import requiredFormattedText from './primitives/requiredFormattedText'
+import metadataInformation from './objects/metadataInformation'
 import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 
 /**
@@ -13,11 +17,13 @@ export default defineType({
   title: 'Tags',
   type: 'document',
   icon: TagIcon,
+  groups: [InfoGroup, ContentGroup, SeoGroup],
   fields: [
     defineField({
       name: 'name',
       title: 'Tag Name',
-      type: 'requiredFormattedString',
+      type: requiredFormattedString.name,
+      group: InfoGroup.name,
     }),
 
     defineField({
@@ -30,15 +36,23 @@ export default defineType({
         slugify: (input: string) => slugValidator(input),
       },
       validation: (rule) => rule.required(),
+      group: InfoGroup.name,
     }),
 
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'requiredFormattedText',
+      type: requiredFormattedText.name,
       description: 'What is this tag about?',
       //@ts-ignore TS(2353)
       rows: 4,
+      group: InfoGroup.name,
+    }),
+
+    defineField({
+      name: 'metaInfo',
+      type: metadataInformation.name,
+      group: SeoGroup.name,
     }),
     defineField(copyPaste),
   ],

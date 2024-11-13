@@ -1,6 +1,9 @@
 import { error, type ServerLoadEvent } from '@sveltejs/kit';
-import { type Article, getArticlesFromCategory, getCategory } from '$lib/sanity';
+import { getArticlesFromCategory, getCategory } from '$lib/sanity';
 import type { PageServerLoad } from './$types';
+import type { MetaTagsProps } from 'svelte-meta-tags';
+import { site } from '$lib/variables';
+import type { Article } from '$lib/schema';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	const { category } = event.params!;
@@ -11,18 +14,47 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	// we don't want to muddy the code with too many cross-references
 	// to data that's irrelevant.
 	const cat = await getCategory(category as string);
+	// const title = cat.slug.current!.charAt(0).toUpperCase() + cat.!.slice(1);
 
 	const articles: Article[] = await getArticlesFromCategory(cat.slug.current as string);
 
-	// const title = cat.slug.current!.charAt(0).toUpperCase() + cat.!.slice(1);
+	let title = cat.name;
+	let ogTitle = `${title} at ${site.name}`;
+	let ogDescription = cat.description;
 
-	const title = cat.name;
+	if (cat.metaInfo) {
+		if (cat.metaInfo.ogTitle) {
+			ogTitle = cat.metaInfo.ogTitle;
+		}
+
+		if (cat.metaInfo.ogDescription) {
+			ogDescription = cat.metaInfo.ogDescription;
+		}
+
+		if (cat.metaInfo.ogImage) {
+			// TODO
+		}
+	}
+
+	const pageMetaTags = Object.freeze({
+		title: ogTitle,
+		description: ogDescription,
+		openGraph: {
+			title: ogTitle,
+			description: ogDescription
+		},
+		twitter: {
+			title: ogTitle,
+			description: ogDescription
+		}
+	}) satisfies MetaTagsProps;
 
 	if (articles) {
 		return {
 			articles,
 			cat,
-			title
+			title,
+			pageMetaTags
 		};
 	}
 
