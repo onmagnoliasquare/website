@@ -482,6 +482,8 @@ export async function getAllMembers(): Promise<Member[]> {
 			name,
 			bio,
 			slug,
+			portrait,
+			slug,
 			portrait
 			slug,
 			portrait
