@@ -1,10 +1,9 @@
 import { type ClientConfig, createClient, SanityClient } from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
-import type { ImageAsset, Slug } from '@sanity/types';
 import groq from 'groq';
 
 // Environment variables, found in ".env". Check ".env.example" for explanation.
-import type { PortableTextBlock } from '@portabletext/types';
+import type { Article, Category, Member, Series, Tag } from './schema';
 
 // if (!SANITY_PROJECT_ID || !SANITY_DATASET) {
 // 	throw new Error('Did you forget to run yarn run -T sanity init --env?');
@@ -116,6 +115,8 @@ export async function getArticlesFromTag(tagSlugName: string): Promise<Article[]
 			slug,
 			category->,
 			media
+			category->,
+			media
 		}`,
 		{
 			tagSlugName
@@ -135,7 +136,8 @@ export async function getTag(tagSlugName: string): Promise<Tag> {
 		groq`*[_type == "tag" && slug.current == $tagSlugName][0]{
 			name,
 			slug,
-			description
+			description,
+			metaInfo
 	}`,
 		{
 			tagSlugName
@@ -144,9 +146,18 @@ export async function getTag(tagSlugName: string): Promise<Tag> {
 }
 
 export async function getCategory(c: string): Promise<Category> {
-	return await client.fetch(groq`*[_type == "category" && slug.current == $c][0]`, {
-		c
-	});
+	return await client.fetch(
+		groq`*[_type == "category" && slug.current == $c][0]{
+		name,
+		description,
+		slug,
+		useCustomCss,
+		metaInfo
+	}`,
+		{
+			c
+		}
+	);
 }
 
 /**
@@ -285,6 +296,19 @@ export async function getArticlesFromSeries(name: string, n?: number): Promise<A
 	}
 }
 
+export async function getSeries(s: string): Promise<Series> {
+	return await client.fetch(
+		groq`*[_type == "series" && slug.current == $s][0]{
+		name,
+		description,
+		metaInfo,
+	}`,
+		{
+			s
+		}
+	);
+}
+
 /**
  * getOneArticleFrom uses a top-level route and a unique slug to retrieve a single article.
  * @param where top-level route.
@@ -333,6 +357,7 @@ export async function getOneArticleFromCategory(where: string, what: string): Pr
 			updatedDate,
 			category->{name, slug},
 			"headerImage": media.asset->{creditLine},
+			metaInfo,
 		}`,
 		{
 			where,
@@ -458,6 +483,8 @@ export async function getAllMembers(): Promise<Member[]> {
 			bio,
 			slug,
 			portrait
+			slug,
+			portrait
 		} | order(lower(name))`
 	);
 }
@@ -493,119 +520,4 @@ export async function getMember(slug: string): Promise<Member> {
 			slug
 		}
 	);
-}
-
-export interface Member {
-	_type: 'member';
-	name: string;
-	year?: number;
-	netid?: string;
-	bio?: string;
-	portrait?: CustomImageAsset;
-	slug: Slug;
-	from: From;
-	handles: Handles;
-	// handles
-}
-
-export interface From {
-	country?: string;
-	city?: string;
-	region?: string;
-}
-
-export interface Handles {
-	instagram?: string;
-	facebook?: string;
-	linkedin?: string;
-	twitter?: string;
-}
-
-export interface Tag {
-	_type: 'tag';
-	_createdAt: string;
-	name: string;
-	slug: Slug;
-	description: string;
-}
-
-export interface Series {
-	_type: 'series';
-	_createdAt: string;
-	name: string;
-	slug: Slug;
-	description: string;
-}
-
-export interface Category {
-	_type: 'category';
-	_createdAt: string;
-	name: string;
-	slug: Slug;
-	description: string;
-}
-
-export interface Article {
-	_type: 'post';
-	_createdAt: string;
-
-	// This is for when the author gets to choose
-	// the updated time for something, in case
-	// the time when something is updated is a necessary
-	// addition to the article, especially for live
-	// news. If that's a thing for us.
-	//
-	// See `sanity.ts` in packages/backend for more info.
-	updatedDate: string;
-
-	title: string;
-	subtitle: string;
-	abstract?: string;
-	date: string;
-	slug: Slug;
-	series: Series;
-	category: Category;
-	tags: Tag[];
-	authors: Member[];
-	content: PortableTextBlock[];
-	// content: PortableTextComponents[];
-
-	// headerImage and media both refer to the topmost
-	// image on an article. headerImage is queried in its
-	// own attribute because we need to obtain the
-	// `altText`, as well as the `creditLine`, both of
-	// which are not present in the sanity `ImageBuilder`
-	// package. Which is annoying. Therefore, the `ImageBuilder`
-	// takes the `media` attribute in the function
-	// signature, and the `altText` is retrieved from
-	// the headerImage attribute.
-	media: Image;
-	headerImage: CustomImageAsset;
-}
-
-/**
- * HeaderImage exists because ImageAsset, for some reason,
- * does not have an `altText` attribute. Hopefully, in
- * the future, it receives one. For now, this must be
- * implemented.
- */
-export interface CustomImageAsset extends ImageAsset {
-	alt: string;
-}
-
-export interface Image {
-	_type: string;
-	asset: {
-		_ref: string;
-		_type: string;
-	};
-	title?: string;
-	description?: string;
-	alt: string;
-}
-
-export interface EmbeddedLink {
-	_type: string;
-	_key: string;
-	contentUrl: string;
 }

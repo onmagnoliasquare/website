@@ -1,6 +1,12 @@
 import {InlineElementIcon} from '@sanity/icons'
 import {defineType} from 'sanity'
 
+/**
+ * embeddedLink is an Embedded Link on a webpage, input by a user.
+ * These can take the form of YouTube, bilibili, Spotify, or any
+ * kind of embedded `<iframe>` content.
+ */
+
 export default defineType({
   type: 'object',
   name: 'embeddedLink',
@@ -16,4 +22,9 @@ export default defineType({
       validation: (rule) => rule.required(),
     },
   ],
+  preview: {
+    select: {
+      title: 'contentUrl',
+    },
+  },
 })

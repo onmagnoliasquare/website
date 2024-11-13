@@ -1,4 +1,4 @@
-import type { Member } from './sanity';
+import type { Member } from './schema';
 
 /**
  * dateFormatter expects a string in the format YYYY/MM/DD,
@@ -206,3 +206,28 @@ export const sourcesList = [
 	'youtube',
 	'zencastr'
 ];
+
+/**
+ * domainFromUrl strips a URL of any extra paths or
+ * protocols using a regex query. Currently, this function
+ * does not check if the URL is valid, because that
+ * is handled in the backend. This should be validated on the
+ * frontend, though.
+ * @param url the url to strip
+ * @returns domain name and TLD
+ */
+export const domainFromUrl = (url: string): string => {
+	let parts = new URL(url).hostname.split('.');
+
+	// Remove initial www. In fact, who even uses this
+	// anymore? It's for old heads.
+	if (parts[0] === 'www' || parts[0] === 'www1') {
+		parts = parts.slice(1);
+	}
+
+	if (parts.length >= 2) {
+		return `${parts.slice(-parts.length).join('.')}`;
+	}
+
+	return 'website';
+};

@@ -15,12 +15,12 @@
 		<div class="flex flex-column flex-row-l">
 			<div class="pa4-ns w-100 w-50-l">
 				{#each data.articles.slice(1, 5) as article}
-					<ArticleBoxC {article} locale={data.chosenLocale} />
+					<ArticleBoxC {article} locale={data.userLocale} />
 				{/each}
 			</div>
 			<div class="pa4-ns w-100 w-50-l">
 				{#each data.articles.slice(5, 10) as article}
-					<ArticleBoxC {article} locale={data.chosenLocale} />
+					<ArticleBoxC {article} locale={data.userLocale} />
 				{/each}
 			</div>
 		</div>

@@ -1,7 +1,37 @@
 import { dateFormatter, hasUppercase } from '$lib';
 import { describe, it, expect, test } from 'vitest';
 import createSiteTitle from '$lib/createSiteTitle';
-import { parseEmbedLink } from '$lib/helpers';
+import { domainFromUrl, parseEmbedLink } from '$lib/helpers';
+
+describe('domainFromUrl', () => {
+	it('strips http', () => {
+		expect(domainFromUrl('http://www.google.com')).toBe('google.com');
+	});
+
+	it('strips https', () => {
+		expect(domainFromUrl('https://www.google.com')).toBe('google.com');
+	});
+
+	it('strips short path', () => {
+		expect(domainFromUrl('https://neoalabastro.com/code')).toBe('neoalabastro.com');
+	});
+
+	it('strips long path', () => {
+		expect(
+			domainFromUrl(
+				'https://reddit.com/r/QAnonCasualties/comments/1go1e5m/sovereign_husband_do_i_leave/'
+			)
+		).toBe('reddit.com');
+	});
+
+	it('respects subdomains', () => {
+		expect(domainFromUrl('https://google.co.uk')).toBe('google.co.uk');
+	});
+
+	it('can handle other periods', () => {
+		expect(domainFromUrl('https://www.koreaherald.com/custom/ethics.php')).toBe('koreaherald.com');
+	});
+});
 
 describe('parseEmbedLink', () => {
 	it('extracts spotify name, given a valid link', () => {

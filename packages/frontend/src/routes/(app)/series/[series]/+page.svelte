@@ -2,7 +2,7 @@
 	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
 	import NormalCentering from '$components/NormalCentering.svelte';
 	import PageHeader from '$components/PageHeader.svelte';
-	import type { Article } from '$lib/sanity';
+	import type { Article } from '$lib/schema';
 	import type { PageData } from './$types';
 
 	interface Props {

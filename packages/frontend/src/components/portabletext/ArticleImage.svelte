@@ -8,7 +8,7 @@
 	let { portableText }: Props = $props();
 </script>
 
-<figure class="ma2 mb4">
+<figure class="ma2 mb4 mw6 center">
 	<img
 		src={urlFor(portableText.value).fit('max').auto('format').url()}
 		alt={portableText.value.alt}
