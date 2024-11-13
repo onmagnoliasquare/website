@@ -1,8 +1,9 @@
 import { error, type ServerLoadEvent } from '@sveltejs/kit';
-import { type Article, getArticlesFromCategory, getCategory } from '$lib/sanity';
+import { getArticlesFromCategory, getCategory } from '$lib/sanity';
 import type { PageServerLoad } from './$types';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import { site } from '$lib/variables';
+import type { Article } from '$lib/schema';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	const { category } = event.params!;

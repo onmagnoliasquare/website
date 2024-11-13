@@ -1,8 +1,9 @@
 import { error, type ServerLoadEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getArticlesOfMember, getMember, type Article } from '$lib/sanity';
+import { getArticlesOfMember, getMember } from '$lib/sanity';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import { filler, site } from '$lib/variables';
+import type { Article } from '$lib/schema';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	const { name } = event.params;

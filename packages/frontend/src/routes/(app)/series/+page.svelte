@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Series } from '$lib/sanity';
 	import type { PageData } from './$types';
 	import PageHeader from '$components/PageHeader.svelte';
 	import NormalCentering from '$components/NormalCentering.svelte';
 	import { CardLink } from '$lib';
+	import type { Series } from '$lib/schema';
 
 	interface Props {
 		data: PageData;

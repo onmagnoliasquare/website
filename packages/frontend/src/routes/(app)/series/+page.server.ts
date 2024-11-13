@@ -1,6 +1,7 @@
 import { error } from '@sveltejs/kit';
-import { getSeriesList, type Series } from '$lib/sanity';
+import { getSeriesList } from '$lib/sanity';
 import type { PageServerLoad } from './$types';
+import type { Series } from '$lib/schema';
 
 export const load: PageServerLoad = (async () => {
 	const series: Series[] = await getSeriesList();

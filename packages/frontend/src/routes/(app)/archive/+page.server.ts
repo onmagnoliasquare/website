@@ -1,8 +1,9 @@
 import { error } from '@sveltejs/kit';
-import { getTags, type Tag } from '$lib/sanity';
+import { getTags } from '$lib/sanity';
 import type { PageServerLoad } from './$types';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import { site } from '$lib/variables';
+import type { Tag } from '$lib/schema';
 
 export const load: PageServerLoad = (async () => {
 	const tags: Tag[] = await getTags();
