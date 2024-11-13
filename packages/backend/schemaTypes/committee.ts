@@ -4,6 +4,7 @@ import slugValidator from '../lib/slugValidator'
 import requiredFormattedText from './primitives/requiredFormattedText'
 import metadataInformation from './objects/metadataInformation'
 import requiredFormattedString from './primitives/requiredFormattedString'
+import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 
 export default defineType({
   name: 'committee',
@@ -50,6 +51,7 @@ export default defineType({
       name: 'metaInfo',
       type: metadataInformation.name,
     }),
+    defineField(copyPaste),
   ],
   preview: {
     select: {

@@ -5,6 +5,7 @@ import {InfoGroup, ContentGroup, SeoGroup} from './objects/fieldGroups'
 import requiredFormattedString from './primitives/requiredFormattedString'
 import requiredFormattedText from './primitives/requiredFormattedText'
 import metadataInformation from './objects/metadataInformation'
+import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 
 /**
  * A tag can be attached to an article. It lets us organize content into
@@ -53,6 +54,7 @@ export default defineType({
       type: metadataInformation.name,
       group: SeoGroup.name,
     }),
+    defineField(copyPaste),
   ],
   preview: {
     select: {

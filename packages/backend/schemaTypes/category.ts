@@ -4,6 +4,7 @@ import slugValidator from '../lib/slugValidator'
 import {ContentGroup, InfoGroup, SeoGroup} from './objects/fieldGroups'
 import requiredFormattedText from './primitives/requiredFormattedText'
 import requiredFormattedString from './primitives/requiredFormattedString'
+import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 
 /**
  * A category defines the navbar headings on the website. It also defines their
@@ -61,6 +62,7 @@ export default defineType({
       type: 'metaInfo',
       group: SeoGroup.name,
     }),
+    defineField(copyPaste),
   ],
   preview: {
     select: {
