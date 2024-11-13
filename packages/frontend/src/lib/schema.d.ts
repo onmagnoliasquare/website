@@ -5,6 +5,9 @@ import type { ImageAsset, Slug } from '@sanity/types';
  * This file mirrors the sanity schema types in the backend. These types
  * can be found in `packages/backend` of this repository. These are purely for
  * type inference and assertion.
+ *
+ * For some light reading to understand `.d.ts` files, checkout:
+ * https://stackoverflow.com/a/21247316/20087581
  */
 
 export interface Member {
