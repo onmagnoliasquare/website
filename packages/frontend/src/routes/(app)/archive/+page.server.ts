@@ -1,12 +1,28 @@
 import { error } from '@sveltejs/kit';
-import { getTags } from '$lib/sanity';
+import { buildSanityQuery, sanityFetch } from '$lib/sanity';
 import type { PageServerLoad } from './$types';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import { site } from '$lib/variables';
 import type { Tag } from '$lib/schema';
 
 export const load: PageServerLoad = (async () => {
-	const tags: Tag[] = await getTags();
+	let sanityQuery: string;
+
+	/**
+	 * Retrieve all tags.
+	 */
+
+	sanityQuery = buildSanityQuery({
+		type: 'tag',
+		attributes: ['name', 'slug'],
+		order: 'lower(name)'
+	});
+
+	const tags: Tag[] = await sanityFetch(sanityQuery);
+
+	/**
+	 * Build page information.
+	 */
 
 	let ogTitle = `The archives at ${site.title}`;
 	let ogDescription = `Browse our articles, tags, and content.`;

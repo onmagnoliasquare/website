@@ -1,14 +1,40 @@
 import { error, type ServerLoadEvent } from '@sveltejs/kit';
-import { getArticlesFromTag, getTag } from '$lib/sanity';
+import { buildSanityQuery, equal, sanityFetch } from '$lib/sanity';
 import type { PageServerLoad } from './$types';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import { site } from '$lib/variables';
 import type { Article, Tag } from '$lib/schema';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
+	let sanityQuery: string;
+
+	// Get tagName from URL.
 	const { tagName } = event.params;
-	const articles: Article[] = await getArticlesFromTag(tagName as string);
-	const tag: Tag = await getTag(tagName as string);
+
+	sanityQuery = buildSanityQuery({
+		type: 'tag',
+		conditions: [`&& ${equal('slug.current', tagName as string)}`],
+		idx: [0],
+		attributes: ['name', 'slug', 'description', 'metaInfo']
+	});
+
+	const tag: Tag = await sanityFetch(sanityQuery);
+
+	sanityQuery = buildSanityQuery({
+		type: 'article',
+		conditions: [
+			`&& references((*[${equal('_type', 'tag')} && ${equal('slug.current', tagName as string)}]._id))`
+		],
+		attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
+		customAttrs: ['authors[]->{name}', 'category->']
+	});
+
+	const articles: Article[] = await sanityFetch(sanityQuery);
+
+	/**
+	 * Build page information.
+	 */
+
 	const title = tagName as string;
 
 	let ogTitle = `#${title} at ${site.name}`;
@@ -39,6 +65,10 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 			description: ogDescription
 		}
 	}) satisfies MetaTagsProps;
+
+	/**
+	 * Return page data.
+	 */
 
 	if (articles) {
 		return {

@@ -1,18 +1,37 @@
 import { error, type ServerLoadEvent } from '@sveltejs/kit';
-import { getArticlesFromSeries, getSeries } from '$lib/sanity';
+import { buildSanityQuery, equal, sanityFetch } from '$lib/sanity';
 import type { PageServerLoad } from './$types';
 import { site } from '$lib/variables';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import type { Article, Series } from '$lib/schema';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
-	const { series } = event.params;
-	const articles: Article[] = await getArticlesFromSeries(series as string);
-	const seriesPage: Series = await getSeries(series as string);
+	let sanityQuery: string;
 
-	// TODO this is flawed design, what if we want to showcase a series
-	// that isn't out yet but get our viewers ready? This will fail.
-	// figure out a way to get the title without using an article.
+	// Retrieve the name of series from the URL.
+	const { series } = event.params;
+
+	// Get series information.
+	sanityQuery = buildSanityQuery({
+		type: 'series',
+		idx: [0],
+		conditions: [`&& slug.current == '${series as string}'`],
+		attributes: ['name', 'description', 'metaInfo']
+	});
+
+	const seriesPage: Series = await sanityFetch(sanityQuery);
+
+	// Get articles from the series.
+	sanityQuery = buildSanityQuery({
+		type: 'article',
+		conditions: [`&& ${equal('series->slug.current', series as string)}`],
+		attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
+		customAttrs: ['authors[]->{name}', 'category->{name}', 'series->'],
+		order: 'date desc'
+	});
+
+	const articles: Article[] = await sanityFetch(sanityQuery);
+
 	const title = seriesPage.name;
 
 	let ogTitle = `${title} series at ${site.title}`;

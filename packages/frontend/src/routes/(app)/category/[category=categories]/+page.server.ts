@@ -1,22 +1,36 @@
 import { error, type ServerLoadEvent } from '@sveltejs/kit';
-import { getArticlesFromCategory, getCategory } from '$lib/sanity';
+import { buildSanityQuery, sanityFetch } from '$lib/sanity';
 import type { PageServerLoad } from './$types';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import { site } from '$lib/variables';
-import type { Article } from '$lib/schema';
+import type { Article, Category } from '$lib/schema';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
+	let sanityQuery: string;
+
+	// Retrieve the name of the category from the URL.
 	const { category } = event.params!;
 
-	// Technically, category can just be retrieved from the
-	// first article that is returned by the request. The article has all that
-	// information in it. However, this makes bug tracing difficult, and
-	// we don't want to muddy the code with too many cross-references
-	// to data that's irrelevant.
-	const cat = await getCategory(category as string);
-	// const title = cat.slug.current!.charAt(0).toUpperCase() + cat.!.slice(1);
+	// Get category information.
+	sanityQuery = buildSanityQuery({
+		type: 'category',
+		conditions: [`&& slug.current == '${category as string}'`],
+		idx: [0],
+		attributes: ['name', 'description', 'slug', 'useCustomCss', 'metaInfo']
+	});
 
-	const articles: Article[] = await getArticlesFromCategory(cat.slug.current as string);
+	const cat: Category = await sanityFetch(sanityQuery);
+
+	// Get articles from the category in question.
+	sanityQuery = buildSanityQuery({
+		type: 'article',
+		attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
+		customAttrs: ['authors[]->{name}', 'category->{name}'],
+		conditions: [`&& category->slug.current == '${cat.slug.current as string}'`],
+		order: 'date desc'
+	});
+
+	const articles: Article[] = await sanityFetch(sanityQuery);
 
 	let title = cat.name;
 	let ogTitle = `${title} at ${site.name}`;

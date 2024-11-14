@@ -1,12 +1,20 @@
 import { error } from '@sveltejs/kit';
-import { getSeriesList } from '$lib/sanity';
+import { buildSanityQuery, sanityFetch } from '$lib/sanity';
 import type { PageServerLoad } from './$types';
 import type { Series } from '$lib/schema';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import { site } from '$lib/variables';
 
 export const load: PageServerLoad = (async () => {
-	const series: Series[] = await getSeriesList();
+	let sanityQuery: string;
+
+	sanityQuery = buildSanityQuery({
+		type: 'series',
+		attributes: ['name', 'description', 'slug'],
+		customAttrs: ['authors[]->{name}']
+	});
+
+	const series: Series[] = await sanityFetch(sanityQuery);
 	const title = 'Series';
 
 	let ogTitle = `${title} at ${site.name}`;

@@ -1,17 +1,54 @@
 import { error, type ServerLoadEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getOneArticleFromCategory } from '$lib/sanity';
+import { buildSanityQuery, equal, sanityFetch } from '$lib/sanity';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import { site } from '$lib/variables';
 import { createAuthorString } from '$lib/helpers';
 import type { Article } from '$lib/schema';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
+	let sanityQuery: string;
+
 	const { category, slug } = event.params;
-	const article: Article = await getOneArticleFromCategory(
-		(category as string).toLowerCase(),
-		slug as string
-	);
+
+	/**
+	 * Retrieve article information.
+	 */
+
+	sanityQuery = buildSanityQuery({
+		type: 'article',
+		idx: [0],
+		conditions: [
+			`&& ${equal('category->slug.current', (category as string).toLowerCase())}`,
+			`&& ${equal('slug.current', slug as string)}`
+		],
+		attributes: ['title', 'subtitle', 'date', 'media', 'updatedDate', 'metaInfo'],
+		customAttrs: [
+			`content[]{
+				_type == "image" => {
+					title,
+					alt,
+					description,
+					"attrs": asset-> {
+						metadata,
+						creditLine,
+					}
+				},
+				...
+			}`,
+			'authors[]->{name, slug}',
+			'tags[]->{name, slug}',
+			'category->{name, slug}',
+			`"headerImage": media.asset->{creditLine}`
+		]
+	});
+
+	const article: Article = await sanityFetch(sanityQuery);
+
+	/**
+	 * Build article information.
+	 */
+
 	const title = article.title;
 	const subtitle = article.subtitle
 		? article.subtitle
@@ -79,6 +116,10 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 			description: ogDescription
 		}
 	}) satisfies MetaTagsProps;
+
+	/**
+	 * Return page data.
+	 */
 
 	if (article) {
 		return {
