@@ -139,7 +139,7 @@ const redirectCaps: Handle = async ({ event, resolve }) => {
  * @returns `Response`
  */
 const logSpeed: Handle = async ({ event, resolve }) => {
-	if (import.meta.env.PUBLIC_SANITY_DATASET !== 'production') {
+	if (import.meta.env.DEV) {
 		const route = event.url;
 
 		const start = performance.now();
