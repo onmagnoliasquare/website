@@ -56,7 +56,15 @@ export function urlFor(source: any) {
  * @returns The result of the query as a JSON object.
  */
 export async function sanityFetch(q: string): Promise<any> {
-	return client.fetch(q);
+	try {
+		return client.fetch(q);
+	} catch (err: unknown) {
+		if (err instanceof Error) {
+			return Promise.reject(new Error(`Query failed, review query: ${q} - ${err.message}`));
+		}
+
+		return Promise.reject(new Error(`Query failed, review query: ${q} - Unknown error`));
+	}
 }
 
 /**
