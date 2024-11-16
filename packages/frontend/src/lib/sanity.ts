@@ -1,9 +1,8 @@
 import { type ClientConfig, createClient, SanityClient } from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
-import groq from 'groq';
 
 // Environment variables, found in ".env". Check ".env.example" for explanation.
-import type { Article, Query, Tag } from './schema';
+import type { Query } from './schema';
 
 // if (!SANITY_PROJECT_ID || !SANITY_DATASET) {
 // 	throw new Error('Did you forget to run yarn run -T sanity init --env?');
