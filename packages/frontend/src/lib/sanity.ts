@@ -45,10 +45,23 @@ export function urlFor(source: any) {
 	return builder.image(source);
 }
 
+/**
+ * Makes a request to the Sanity API with the given GROQ query string.
+ * This wraps the `client.fetch()` function provided by Sanity, and
+ * omits the need for a parameter
+ * @param q The GROQ query string to run against the Sanity API.
+ * @returns The result of the query as a JSON object.
+ */
 export async function sanityFetch(q: string): Promise<any> {
 	return client.fetch(q);
 }
 
+/**
+ * Constructs a GROQ query string which checks if `leftSide` equals `rightSide`.
+ * @param leftSide The left side of the equality operator.
+ * @param rightSide The right side of the equality operator.
+ * @returns A GROQ query string of the form `leftSide == rightSide`.
+ */
 export function equal(leftSide: string, rightSide: string | boolean): string {
 	if (typeof rightSide === 'boolean') {
 		return `${leftSide} == ${rightSide}`;
@@ -57,6 +70,12 @@ export function equal(leftSide: string, rightSide: string | boolean): string {
 	return `${leftSide} == '${rightSide}'`;
 }
 
+/**
+ * Constructs a GROQ query string which checks if `leftSide` does not equal `rightSide`.
+ * @param leftSide The left side of the inequality operator.
+ * @param rightSide The right side of the inequality operator.
+ * @returns A GROQ query string of the form `leftSide != rightSide`.
+ */
 export function unequal(leftSide: string, rightSide: string | boolean): string {
 	if (typeof rightSide === 'boolean') {
 		return `${leftSide} != ${rightSide}`;
@@ -90,7 +109,14 @@ export function buildSanityQuery(sq: Query): string {
 	return query;
 }
 
-function getConditions(conditions: string[]): string {
+/**
+ * getConditions takes an array of conditions (strings) and combines them into
+ * a single string. Whitespace is trimmed from each string before
+ * they are combined.
+ * @param conditions The array of string conditions to combine.
+ * @returns A single string containing all the conditions.
+ */
+export function getConditions(conditions: string[]): string {
 	let newConditions = conditions.map((c) => {
 		return c.trim();
 	});
@@ -102,10 +128,10 @@ function getConditions(conditions: string[]): string {
  * `getIdx` should receive an array of two numbers. This array is then
  * used to generate a string containing the indexes to retrieve from the
  * Sanity backend.
- * @param values array of
- * @returns
+ * @param values One to two element array.
+ * @returns A formatted array string.
  */
-function getIdx(values: Number[]): string {
+export function getIdx(values: Number[]): string {
 	let start, end: Number;
 
 	start = values[0];
@@ -118,7 +144,13 @@ function getIdx(values: Number[]): string {
 	return `[${start}]`;
 }
 
-function getAttrs(attrs: string[]): string {
+/**
+ * `getAttrs` takes an array of attributes (strings) and trims each string
+ * before joining them into a single string separated by commas.
+ * @param attrs An array of strings to be joined.
+ * @returns A single string containing all the attributes.
+ */
+export function getAttrs(attrs: string[]): string {
 	let newAttrs = attrs.map((a) => {
 		return a.trim();
 	});
@@ -126,6 +158,12 @@ function getAttrs(attrs: string[]): string {
 	return newAttrs.join(',');
 }
 
-function getOrder(order: string): string {
+/**
+ * `getOrder` takes a string and returns a string containing the order
+ * argument that is properly formatted for the Sanity backend.
+ * @param order The string to be formatted.
+ * @returns A string containing the order argument.
+ */
+export function getOrder(order: string): string {
 	return `| order(${order})`;
 }
