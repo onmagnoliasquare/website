@@ -7,33 +7,42 @@ import { site } from '$lib/variables';
 
 export const load: PageServerLoad = (async () => {
 	let sanityQuery: string;
+	let series: Series[] | undefined;
 
-	sanityQuery = buildSanityQuery({
-		type: 'series',
-		attributes: ['name', 'description', 'slug'],
-		customAttrs: ['authors[]->{name}']
-	});
+	try {
+		// Retrieve any series that has articles greater than or equal to 1.
+		sanityQuery = buildSanityQuery({
+			type: 'series',
+			conditions: ["count(*[_type == 'article' && references(^._id)]) >= 1"],
+			attributes: ['name', 'description', 'slug'],
+			customAttrs: ['authors[]->{name}']
+		});
 
-	const series: Series[] = await sanityFetch(sanityQuery);
-	const title = 'Series';
-
-	let ogTitle = `${title} at ${site.name}`;
-	let ogDescription = `View contributor series at ${site.name}`;
-
-	const pageMetaTags = Object.freeze({
-		title: ogTitle,
-		description: ogDescription,
-		openGraph: {
-			title: ogTitle,
-			description: ogDescription
-		},
-		twitter: {
-			title: ogTitle,
-			description: ogDescription
-		}
-	}) satisfies MetaTagsProps;
+		series = await sanityFetch(sanityQuery);
+	} catch (err) {
+		console.error(err);
+		throw error(500, 'Server network error...');
+	}
 
 	if (series) {
+		const title = 'Series';
+
+		let ogTitle = `${title} at ${site.name}`;
+		let ogDescription = `View contributor series at ${site.name}`;
+
+		const pageMetaTags = Object.freeze({
+			title: ogTitle,
+			description: ogDescription,
+			openGraph: {
+				title: ogTitle,
+				description: ogDescription
+			},
+			twitter: {
+				title: ogTitle,
+				description: ogDescription
+			}
+		}) satisfies MetaTagsProps;
+
 		return {
 			series,
 			title,

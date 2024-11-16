@@ -7,72 +7,88 @@ import type { Article, Tag } from '$lib/schema';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	let sanityQuery: string;
+	let tag: Tag | undefined;
+	let articles: Article[] | undefined;
 
 	// Get tagName from URL.
 	const { tagName } = event.params;
 
-	sanityQuery = buildSanityQuery({
-		type: 'tag',
-		conditions: [`&& ${equal('slug.current', tagName as string)}`],
-		idx: [0],
-		attributes: ['name', 'slug', 'description', 'metaInfo']
-	});
+	try {
+		sanityQuery = buildSanityQuery({
+			type: 'tag',
+			conditions: [`${equal('slug.current', tagName as string)}`],
+			idx: [0],
+			attributes: ['name', 'slug', 'description', 'metaInfo']
+		});
 
-	const tag: Tag = await sanityFetch(sanityQuery);
-
-	sanityQuery = buildSanityQuery({
-		type: 'article',
-		conditions: [
-			`&& references((*[${equal('_type', 'tag')} && ${equal('slug.current', tagName as string)}]._id))`
-		],
-		attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
-		customAttrs: ['authors[]->{name}', 'category->']
-	});
-
-	const articles: Article[] = await sanityFetch(sanityQuery);
+		tag = await sanityFetch(sanityQuery);
+	} catch (err) {
+		console.error(err);
+		throw error(500, 'Server network error...');
+	}
 
 	/**
 	 * Build page information.
 	 */
 
-	const title = tagName as string;
+	if (tag) {
+		sanityQuery = buildSanityQuery({
+			type: 'article',
+			conditions: [
+				`references((*[${equal('_type', 'tag')}`,
+				`${equal('slug.current', tagName as string)}]._id))`
+			],
+			attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
+			customAttrs: ['authors[]->{name}', 'category->']
+		});
 
-	let ogTitle = `#${title} at ${site.name}`;
+		articles = await sanityFetch(sanityQuery);
 
-	let ogDescription = `Browse the #${title} archives at ${site.name}`;
-	if (tag.metaInfo) {
-		if (tag.metaInfo.ogTitle) {
-			ogTitle = tag.metaInfo.ogTitle;
+		const title = tagName as string;
+
+		let ogTitle = `#${title} at ${site.name}`;
+		let ogDescription = `Browse the #${title} archives at ${site.name}`;
+
+		if (tag.metaInfo) {
+			if (tag.metaInfo.ogTitle) {
+				ogTitle = tag.metaInfo.ogTitle;
+			}
+
+			if (tag.metaInfo.ogDescription) {
+				ogDescription = tag.metaInfo.ogDescription;
+			}
+
+			if (tag.metaInfo.ogImage) {
+				// TODO
+			}
 		}
 
-		if (tag.metaInfo.ogDescription) {
-			ogDescription = tag.metaInfo.ogDescription;
-		}
-
-		if (tag.metaInfo.ogImage) {
-			// TODO
-		}
-	}
-	const pageMetaTags = Object.freeze({
-		title: ogTitle,
-		description: ogDescription,
-		openGraph: {
+		const pageMetaTags = Object.freeze({
 			title: ogTitle,
-			description: ogDescription
-		},
-		twitter: {
-			title: ogTitle,
-			description: ogDescription
+			description: ogDescription,
+			openGraph: {
+				title: ogTitle,
+				description: ogDescription
+			},
+			twitter: {
+				title: ogTitle,
+				description: ogDescription
+			}
+		}) satisfies MetaTagsProps;
+
+		/**
+		 * Return page data.
+		 */
+
+		if (articles) {
+			return {
+				articles,
+				tag,
+				pageMetaTags
+			};
 		}
-	}) satisfies MetaTagsProps;
 
-	/**
-	 * Return page data.
-	 */
-
-	if (articles) {
 		return {
-			articles,
 			tag,
 			pageMetaTags
 		};

@@ -8,17 +8,23 @@ import type { Article } from '$lib/schema';
 // https://kit.svelte.dev/docs/load#page-data
 export const load: PageServerLoad = (async () => {
 	let sanityQuery: string;
+	let articles: Article[] | undefined;
 
-	sanityQuery = buildSanityQuery({
-		type: 'article',
-		conditions: [`&& ${unequal('wasDeleted', true)}`, `&& ${unequal('isDraft', true)}`],
-		attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
-		customAttrs: ['category->{name}', 'authors[]->{name}'],
-		idx: [0, 10],
-		order: 'date desc'
-	});
+	try {
+		sanityQuery = buildSanityQuery({
+			type: 'article',
+			conditions: [`${unequal('wasDeleted', true)}`, `${unequal('isDraft', true)}`],
+			attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
+			customAttrs: ['category->{name}', 'authors[]->{name}'],
+			idx: [0, 10],
+			order: 'date desc'
+		});
 
-	const articles: Article[] = await sanityFetch(sanityQuery);
+		articles = await sanityFetch(sanityQuery);
+	} catch (err) {
+		console.error(err);
+		throw error(500, 'Server network error...');
+	}
 
 	if (articles) {
 		return {
