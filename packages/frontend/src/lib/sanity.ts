@@ -47,7 +47,11 @@ export function urlFor(source: any) {
 /**
  * Makes a request to the Sanity API with the given GROQ query string.
  * This wraps the `client.fetch()` function provided by Sanity, and
- * omits the need for a parameter
+ * omits the need for a parameter. This is a pure function, and so it returns
+ * rejected promises. This function **DOES NOT** catch errors like the
+ * non-existence of something from the dataset. Instead, it catches
+ * on the network/fetch/API level. The caller deals with the null/not found
+ * error cases.
  * @param q The GROQ query string to run against the Sanity API.
  * @returns The result of the query as a JSON object.
  */
