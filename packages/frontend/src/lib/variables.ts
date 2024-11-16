@@ -14,9 +14,9 @@ export const site = {
 	name: 'On Magnolia Square',
 	title: 'On Magnolia Square',
 	description: 'On Magnolia Square is a student journalism club at NYU Shanghai.',
-	articleTags: ['student journalism', 'nyu shanghai', 'nyu'],
-	tags: ['student journalism', 'nyu shanghai', 'nyu'],
-	memberTags: ['nyu shanghai student']
+	articleTags: ['student journalism', 'nyu shanghai', 'nyu', 'oms'],
+	tags: ['student journalism', 'nyu shanghai', 'nyu', 'oms'],
+	memberTags: ['nyu shanghai student', 'oms']
 };
 
 /**
