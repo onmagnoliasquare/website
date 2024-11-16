@@ -1,5 +1,16 @@
-import { equal, getAttrs, getConditions, getIdx, getOrder, unequal } from '$lib/sanity';
-import { describe, it, expect } from 'vitest';
+import {
+	buildSanityQuery,
+	client,
+	equal,
+	getAttrs,
+	getConditions,
+	getIdx,
+	getOrder,
+	sanityFetch,
+	unequal
+} from '$lib/sanity';
+import type { Query } from '$lib/schema';
+import { describe, it, expect, vi } from 'vitest';
 
 describe('equal', () => {
 	it('returns correct GROQ query string for string comparison', () => {
@@ -39,11 +50,11 @@ describe('getConditions', () => {
 	});
 
 	it('returns multiple strings separated by spaces', () =>
-		expect(getConditions(['hello', 'world'])).toBe('hello world'));
+		expect(getConditions(['hello', 'world'])).toBe('hello && world'));
 
 	it('returns an arbitrary, typical GROQ query condition string', () =>
-		expect(getConditions(["&& fieldName != 'value'", "&& slug.current == 'nothing'"])).toBe(
-			"&& fieldName != 'value' && slug.current == 'nothing'"
+		expect(getConditions(["fieldName != 'value'", "slug.current == 'nothing'"])).toBe(
+			"fieldName != 'value' && slug.current == 'nothing'"
 		));
 });
 
@@ -70,4 +81,50 @@ describe('getAttrs', () => {
 
 describe('getOrder', () => {
 	it('returns an order string', () => expect(getOrder('date desc')).toBe('| order(date desc)'));
+});
+
+describe('buildSanityQuery', () => {
+	it('returns a correct GROQ query string when given Query object', () => {
+		const result = buildSanityQuery({
+			type: 'article',
+			conditions: [equal('fieldName', 'value'), unequal('isActive', true)],
+			attributes: ['title', 'subtitle', 'media'],
+			customAttrs: ['category->{name}', 'authors[]->{name}'],
+			idx: [1, 2],
+			order: 'date desc'
+		});
+		expect(result).toBe(
+			"*[_type == 'article' && fieldName == 'value' && isActive != true] | order(date desc) {title,subtitle,media,category->{name},authors[]->{name}} [1..2]"
+		);
+	});
+
+	it('returns a correct GROQ query string when given Query object with empty array attributes', () => {
+		const query: Query = {
+			type: 'article',
+			conditions: [equal('fieldName', 'value'), unequal('isActive', true)],
+			attributes: [],
+			customAttrs: ['category->{name}', 'authors[]->{name}'],
+			idx: [1, 2],
+			order: 'date desc'
+		};
+		const result = buildSanityQuery(query);
+		expect(result).toBe(
+			"*[_type == 'article' && fieldName == 'value' && isActive != true] | order(date desc) {category->{name},authors[]->{name}} [1..2]"
+		);
+	});
+
+	it('returns a correct GROQ query string when given Query object with empty array customAttrs', () => {
+		const query: Query = {
+			type: 'article',
+			conditions: [equal('fieldName', 'value'), unequal('isActive', true)],
+			attributes: ['title', 'subtitle', 'media'],
+			customAttrs: [],
+			idx: [1, 2],
+			order: 'date desc'
+		};
+		const result = buildSanityQuery(query);
+		expect(result).toBe(
+			"*[_type == 'article' && fieldName == 'value' && isActive != true] | order(date desc) {title,subtitle,media} [1..2]"
+		);
+	});
 });
