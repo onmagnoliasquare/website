@@ -102,7 +102,7 @@ export function unequal(leftSide: string, rightSide: string | boolean): string {
  * @returns a serialized query string.
  */
 export function buildSanityQuery(sq: Query): string {
-	const type = sq.type;
+	const type = sq.type ? `_type == '${sq.type}'` : '';
 	const conditions = sq.conditions ? getConditions(sq.conditions) : '';
 
 	const idx = sq.idx ? getIdx(sq.idx) : '';
@@ -115,7 +115,10 @@ export function buildSanityQuery(sq: Query): string {
 
 	const order = sq.order ? getOrder(sq.order) : '';
 
-	let query = `*[_type == '${type}' ${conditions}] ${order} {${allAttrs}} ${idx}`;
+	// `${[type, conditions].join(' && ')}` combines the type and
+	// condition variables into a single string separated by the boolean
+	// `and` operator.
+	let query = `*[${conditions !== '' ? [type, conditions].join(' && ') : type}] ${order} {${allAttrs}} ${idx}`;
 
 	return query;
 }
@@ -132,7 +135,7 @@ export function getConditions(conditions: string[]): string {
 		return c.trim();
 	});
 
-	return newConditions.join(' ');
+	return newConditions.join(' && ');
 }
 
 /**
