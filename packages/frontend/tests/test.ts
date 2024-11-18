@@ -2,12 +2,12 @@
 
 import { test, expect } from '@playwright/test';
 
-test('Homepage has expected h2', async ({ page }) => {
+test('Homepage has "Latest Articles" heading', async ({ page }) => {
 	await page.goto('/');
 	await expect(page.getByRole('heading', { name: 'Latest Articles', exact: true })).toBeVisible();
 });
 
-test('About page has expected h1', async ({ page }) => {
+test('About page has title', async ({ page }) => {
 	await page.goto('/about');
 	await expect(page.getByRole('heading', { name: 'About' })).toBeVisible();
 });
@@ -22,37 +22,47 @@ test('Staff page is accessible via About page', async ({ page }) => {
 	await expect(page.getByRole('heading', { name: 'Staff' })).toBeVisible();
 });
 
-test('Neo Alabastro page has expected h1', async ({ page }) => {
+test('Neo Alabastro page has name displayed on page', async ({ page }) => {
 	await page.goto('/about/staff/neo-alabastro');
 	await expect(page.getByRole('heading', { name: 'Neo Alabastro' })).toBeVisible();
 });
 
-test('News category page has expected h1', async ({ page }) => {
+test('Neo Alabastro page has BIO', async ({ page }) => {
+	await page.goto('/about/staff/neo-alabastro');
+	await expect(page.getByRole('heading', { name: 'BIO', exact: true })).toBeVisible();
+});
+
+test('Neo Alabastro page has IN COMMITTEE', async ({ page }) => {
+	await page.goto('/about/staff/neo-alabastro');
+	await expect(page.getByRole('heading', { name: 'IN COMMITTEE', exact: true })).toBeVisible();
+});
+
+test('News category page has title', async ({ page }) => {
 	await page.goto('/category/news');
 	await expect(page.getByRole('heading', { name: 'News' })).toBeVisible();
 });
 
-test('People category page has expected h1', async ({ page }) => {
+test('People category page has title', async ({ page }) => {
 	await page.goto('/category/people');
 	await expect(page.getByRole('heading', { name: 'People', exact: true })).toBeVisible();
 });
 
-test('Opinion page has expected h1', async ({ page }) => {
+test('Opinion page has title', async ({ page }) => {
 	await page.goto('/category/opinion');
 	await expect(page.getByRole('heading', { name: 'Opinion' })).toBeVisible();
 });
 
-test('Culture page has expected h1', async ({ page }) => {
+test('Culture page has title', async ({ page }) => {
 	await page.goto('/category/culture');
 	await expect(page.getByRole('heading', { name: 'Culture' })).toBeVisible();
 });
 
-test('Series page has expected h1', async ({ page }) => {
+test('Series page has title', async ({ page }) => {
 	await page.goto('/series');
 	await expect(page.getByRole('heading', { name: 'Series' })).toBeVisible();
 });
 
-test('Archive page has expected h1', async ({ page }) => {
+test('Archive page has title', async ({ page }) => {
 	await page.goto('/archive');
 	await expect(page.getByRole('heading', { name: 'Archive' })).toBeVisible();
 });

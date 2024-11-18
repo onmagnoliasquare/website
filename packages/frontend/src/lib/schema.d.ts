@@ -19,6 +19,7 @@ export interface Member {
 	portrait?: CustomImageAsset;
 	slug: Slug;
 	from: From;
+	committee?: Committee;
 	handles: Handles;
 	metaInfo: MetaInfo;
 }
@@ -68,6 +69,15 @@ export interface Category {
 	metaInfo: MetaInfo;
 }
 
+export interface Committee {
+	_type: 'committee';
+	_createdAt: string;
+	name: string;
+	slug: Slug;
+	description: string;
+	useCustomCss?: boolean;
+	metaInfo: MetaInfo;
+}
 export interface Article {
 	_type: 'article';
 	_createdAt: string;

@@ -26,7 +26,8 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 			type: 'member',
 			conditions: [`${equal('slug.current', name as string)}`],
 			idx: [0],
-			attributes: ['name', 'year', 'bio', 'handles', 'portrait', 'from']
+			attributes: ['name', 'year', 'bio', 'handles', 'portrait', 'from'],
+			customAttrs: ['committee->{name}']
 		});
 
 		member = await sanityFetch(sanityQuery);
