@@ -1,9 +1,8 @@
 import { type ClientConfig, createClient, SanityClient } from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
-import groq from 'groq';
 
 // Environment variables, found in ".env". Check ".env.example" for explanation.
-import type { Article, Category, Member, Series, Tag } from './schema';
+import type { Query } from './schema';
 
 // if (!SANITY_PROJECT_ID || !SANITY_DATASET) {
 // 	throw new Error('Did you forget to run yarn run -T sanity init --env?');
@@ -21,12 +20,6 @@ const config: ClientConfig = {
 	useCdn: true,
 	apiVersion: '2024-09-20'
 };
-// const config: ClientConfig = {
-// 	projectId: SANITY_PROJECT_ID,
-// 	dataset: SANITY_DATASET,
-// 	useCdn: true,
-// 	apiVersion: SANITY_API_VERSION
-// };
 
 // Get runtime from Vite's prescribed environment.
 // See: https://vitejs.dev/guide/env-and-mode
@@ -52,468 +45,139 @@ export function urlFor(source: any) {
 }
 
 /**
- * getArticles, that is "Article" with an "s" for plural, returns all articles.
- * This is probably only for testing purposes. This is effectively equivalent
- * to detonating a nuke on the API.
- * @returns `Promise<Article[]>`
- * @async
+ * Makes a request to the Sanity API with the given GROQ query string.
+ * This wraps the `client.fetch()` function provided by Sanity, and
+ * omits the need for a parameter. This is a pure function, and so it returns
+ * rejected promises. This function **DOES NOT** catch errors like the
+ * non-existence of something from the dataset. Instead, it catches
+ * on the network/fetch/API level. The caller deals with the null/not found
+ * error cases.
+ * @param q The GROQ query string to run against the Sanity API.
+ * @returns The result of the query as a JSON object.
  */
-export async function getArticles(): Promise<Article[]> {
-	return await client.fetch(
-		groq`*[_type == "article"]{ title,
-		category->{name}, slug } | order(_createdAt desc)`
-	);
-}
-
-export async function getHomepageArticles(): Promise<Article[]> {
-	return await client.fetch(
-		groq`*[_type == "article" && wasDeleted != true && isDraft != true] | order(date desc){
-  			title,
-  			subtitle,
-  			date,
-			category->{name},
-			authors[]->{name},
-			slug,
-			media,
-		}[0...10]`
-	);
-}
-
-/**
- * getArticlesFrom retrieves articles from a certain top-level route, such as a
- * category, series, or tag, and by "what" distinction, whether it be the category
- * name, series name, or tag name.
- * @param where top-level route.
- * @param what what to retrieve from the top-level route route.
- * @returns `Promise<Article[]>`
- * @async
- */
-export async function getArticlesFrom(where: string, what: string): Promise<Article[]> {
-	return await client.fetch(
-		groq`*[_type == "article" && $where->slug.current == $what]{
-			title,
-			subtitle,
-			date,
-			authors[]->{name},
-			slug,
-			media
-		}`,
-		{
-			where,
-			what
+export async function sanityFetch(q: string): Promise<any> {
+	try {
+		return client.fetch(q);
+	} catch (err: unknown) {
+		if (err instanceof Error) {
+			return Promise.reject(new Error(`Query failed, review query: ${q} - ${err.message}`));
 		}
-	);
-}
 
-export async function getArticlesFromTag(tagSlugName: string): Promise<Article[]> {
-	return await client.fetch(
-		groq`*[_type == "article" && references(*[_type == "tag" && slug.current == $tagSlugName]._id)] {
-			title,
-			subtitle,
-			date,
-			authors[]->{name},
-			slug,
-			category->,
-			media
-		}`,
-		{
-			tagSlugName
-		}
-	);
-}
-
-/**
- * getTagName from a slug. Not exactly the most efficient
- * solution to getting the name of a Tag, but for now,
- * this will do.
- * @param slug string for query
- * @returns `Promise<Tag>`
- */
-export async function getTag(tagSlugName: string): Promise<Tag> {
-	return await client.fetch(
-		groq`*[_type == "tag" && slug.current == $tagSlugName][0]{
-			name,
-			slug,
-			description,
-			metaInfo
-	}`,
-		{
-			tagSlugName
-		}
-	);
-}
-
-export async function getCategory(c: string): Promise<Category> {
-	return await client.fetch(
-		groq`*[_type == "category" && slug.current == $c][0]{
-		name,
-		description,
-		slug,
-		useCustomCss,
-		metaInfo
-	}`,
-		{
-			c
-		}
-	);
-}
-
-/**
- * getArticlesFromCategory from a certain category.
- * @param name category name.
- * @param n number of articles to query for.
- * @returns `Promise<Article[]>`
- * @async
- */
-export async function getArticlesFromCategory(
-	name: string,
-	n?: number,
-	lastDate?: string,
-	lastID?: string
-): Promise<Article[]> {
-	if (!n) {
-		return await client.fetch(
-			groq`*[_type == "article" && category->slug.current == $name] | order(date desc){
-				title,
-				subtitle,
-				date,
-				authors[]->{name},
-				slug,
-				category->{name},
-				media
-			}`,
-			{
-				name
-			}
-		);
-	} else {
-		return await client.fetch(
-			groq`*[_type == "article" && category->slug.current == $name && (date > $lastDate || (date == $lastDate && _id > $lastID))] | order(date) [0...$n] {
-				title,
-				subtitle,
-				date,
-				authors[]->{name},
-				slug
-			}`,
-			{
-				name,
-				lastDate,
-				lastID,
-				n
-			}
-		);
+		return Promise.reject(new Error(`Query failed, review query: ${q} - Unknown error`));
 	}
 }
 
 /**
- * Retrieves the number of documents in a certain category. This helps
- * to determine the number of pages there should be to paginate.
- * @param category name of the category to retrieve
- * @returns `Promise<string>`
+ * Constructs a GROQ query string which checks if `leftSide` equals `rightSide`.
+ * @param leftSide The left side of the equality operator.
+ * @param rightSide The right side of the equality operator.
+ * @returns A GROQ query string of the form `leftSide == rightSide`.
  */
-export async function getCountOfCategory(category: string): Promise<string> {
-	return await client.fetch(
-		groq`count(*[_type == "article" && category->slug.current == $category])`,
-		{ category }
-	);
-}
-
-/**
- * getSeriesList retrieves a list of series.
- * @param n number of series to retrieve.
- * @returns `Promise<Series[]>`
- * @async
- */
-export async function getSeriesList(n?: number): Promise<Series[]> {
-	if (!n) {
-		return await client.fetch(
-			groq`*[_type == "series"]{
-				name,
-				description,
-				date,
-				authors[]->{name},
-				slug,
-			}`
-		);
-	} else {
-		// run n-based, paginated query here.
-		return await client.fetch(
-			groq`*[_type == "series"]{
-				title,
-				subtitle,
-				date,
-				authors[]->{name},
-				slug
-			}`,
-			{
-				n
-			}
-		);
+export function equal(leftSide: string, rightSide: string | boolean): string {
+	if (typeof rightSide === 'boolean') {
+		return `${leftSide} == ${rightSide}`;
 	}
+
+	return `${leftSide} == "${rightSide}"`;
 }
 
 /**
- * getArticlesFromSeries from a certain series.
- * @param name series name.
- * @param n number of articles to query for.
- * @returns `Promise<Article[]>`
- * @async
+ * Constructs a GROQ query string which checks if `leftSide` does not equal `rightSide`.
+ * @param leftSide The left side of the inequality operator.
+ * @param rightSide The right side of the inequality operator.
+ * @returns A GROQ query string of the form `leftSide != rightSide`.
  */
-export async function getArticlesFromSeries(name: string, n?: number): Promise<Article[]> {
-	if (!n) {
-		return await client.fetch(
-			groq`*[_type == "article" && series->slug.current == $name]|order(date desc){
-				title,
-				subtitle,
-				date,
-				authors[]->{name},
-				category->{name},
-				slug,
-				series->,
-				media
-			}`,
-			{
-				name
-			}
-		);
-	} else {
-		// run n-based, paginated query here.
-		return await client.fetch(
-			groq`*[_type == "article" && series->slug.current == $name]{
-				title,
-				subtitle,
-				date,
-				authors[]->{name},
-				slug
-			}`,
-			{
-				name,
-				n
-			}
-		);
+export function unequal(leftSide: string, rightSide: string | boolean): string {
+	if (typeof rightSide === 'boolean') {
+		return `${leftSide} != ${rightSide}`;
 	}
-}
 
-export async function getSeries(s: string): Promise<Series> {
-	return await client.fetch(
-		groq`*[_type == "series" && slug.current == $s][0]{
-		name,
-		description,
-		metaInfo,
-	}`,
-		{
-			s
-		}
-	);
+	return `${leftSide} != "${rightSide}"`;
 }
 
 /**
- * getOneArticleFrom uses a top-level route and a unique slug to retrieve a single article.
- * @param where top-level route.
- * @param what what to retrieve from the top-level route.
- * @returns `Promise<Article>`
- * @async
+ * buildSanityQuery constructs a sanity query string which is passed
+ * to `sanity` fetch functions.
+ * @param sq The sanity query to execute.
+ * @returns a serialized query string.
  */
-export async function getOneArticleFrom(where: string, what: string): Promise<Article> {
-	return await client.fetch(
-		groq`*[_type == "article" && $where->slug.current == $where && slug.current == $what][0]{
-			title,
-			subtitle,
-			date,
-			content,
-			authors[]->{name},
-			tags[]->{name}
-		}`,
-		{
-			where,
-			what
-		}
-	);
-}
+export function buildSanityQuery(sq: Query): string {
+	const type = sq.type ? `_type == "${sq.type}"` : '';
+	const conditions = sq.conditions ? getConditions(sq.conditions) : '';
 
-export async function getOneArticleFromCategory(where: string, what: string): Promise<Article> {
-	return await client.fetch(
-		groq`*[_type == "article" && category->slug.current == $where && slug.current == $what][0]{
-			title,
-			subtitle,
-			date,
-			content[]{
-				_type == "image" => {
-					title,
-					alt,
-					description,
-					"attrs": asset->{
-						metadata,
-						creditLine
-					},
-				},
-				...
-			},
-			authors[]->{name, slug},
-			tags[]->{name, slug},
-			media,
-			updatedDate,
-			category->{name, slug},
-			"headerImage": media.asset->{creditLine},
-			metaInfo,
-		}`,
-		{
-			where,
-			what
-		}
-	);
-}
+	const idx = sq.idx ? getIdx(sq.idx) : '';
 
-export async function getOneArticleFromSeries(where: string, what: string): Promise<Article> {
-	return await client.fetch(
-		groq`*[_type == "article" && series->slug.current == $where && slug.current == $what][0]{
-			title,
-			subtitle,
-			date,
-			content,
-			authors[]->{name},
-			tags[]->{name}
-		}`,
-		{
-			where,
-			what
-		}
-	);
+	// Combine both attributes and customAttributes.
+	const allAttrs = getAttrs([
+		...(sq.attributes ? sq.attributes : []),
+		...(sq.customAttrs ? sq.customAttrs : [])
+	]);
+
+	const order = sq.order ? getOrder(sq.order) : '';
+
+	// `${[type, conditions].join(' && ')}` combines the type and
+	// condition variables into a single string separated by the boolean
+	// `and` operator.
+	let query = `*[${conditions !== '' ? [type, conditions].join(' && ') : type}] ${order} {${allAttrs}} ${idx}`;
+
+	return query;
 }
 
 /**
- * getArticle retrieves a single article from a single slug query.
- * @param slug URL slug for an article.
- * @async uses a Sanity Client to fetch data.
+ * getConditions takes an array of conditions (strings) and combines them into
+ * a single string. Whitespace is trimmed from each string before
+ * they are combined.
+ * @param conditions The array of string conditions to combine.
+ * @returns A single string containing all the conditions.
  */
-export async function getArticle(slug: string): Promise<Article> {
-	return await client.fetch(
-		groq`*[_type == "article" && slug.current == $slug][0]{
-			title,
-			subtitle,
-			date,
-			content,
-			// The arrow is a dereferencing operator. It is used to follow references. In this case,
-			// we are following the author reference and only retrieving the name field from it.
-			// See https://medium.com/@imvinojanv/understanding-groq-how-queries-work-9ea37dee749a.
-			authors[]->{name},
-			category->{name},
-			tags->{name},
-			media,
-		}`,
-		{
-			slug
-		}
-	);
-}
+export function getConditions(conditions: string[]): string {
+	let newConditions = conditions.map((c) => {
+		return c.trim();
+	});
 
-export async function getArticleToValidate(slug: string): Promise<Article> {
-	return await client.fetch(
-		groq`*[_type == "article" && slug.current == $slug][0]{
-			category->{slug},
-			series->{slug},
-			tags[]->{slug}
-		}`,
-		{
-			slug
-		}
-	);
+	return newConditions.join(' && ');
 }
 
 /**
- * getTags gets multiple tags from the database.
- * TODO sort alphabetically on retrieval.
- * @param n integer for the amount of tags to retrieve.
- * @async uses a Sanity Client to fetch data.
+ * `getIdx` should receive an array of two numbers. This array is then
+ * used to generate a string containing the indexes to retrieve from the
+ * Sanity backend.
+ * @param values One to two element array.
+ * @returns A formatted array string.
  */
-// export async function getTags(n?: number): Promise<Tag[]> {
-// 	if (!n) {
-// 		return await client.fetch(
-// 			groq`*[_type == "tag"]{
-// 			  name,
-// 	    	  slug
-// 			}`
-// 		);
-// 	} else {
-// 		// run n-based, paginated query here.
-// 		return await client.fetch(
-// 			groq`*[_type == "tag"]{
-// 			  name,
-// 			  slug
-// 			}`,
-// 			{
-// 				n
-// 			}
-// 		);
-// 	}
-// }
-export async function getTags(): Promise<Tag[]> {
-	return await client.fetch(groq`*[_type == "tag"] { name, slug } | order(lower(name))`);
+export function getIdx(values: Number[]): string {
+	let start, end: Number;
+
+	start = values[0];
+
+	if (values[1]) {
+		end = values[1];
+		return `[${start}..${end}]`;
+	}
+
+	return `[${start}]`;
 }
 
-export async function getOneTag(what: string): Promise<Tag> {
-	return await client.fetch(
-		groq`*[_type == "tag" && slug.current == $what][0]{
-			name,
-			slug
-		}`,
-		{
-			what
-		}
-	);
+/**
+ * `getAttrs` takes an array of attributes (strings) and trims each string
+ * before joining them into a single string separated by commas.
+ * @param attrs An array of strings to be joined.
+ * @returns A single string containing all the attributes.
+ */
+export function getAttrs(attrs: string[]): string {
+	let newAttrs = attrs.map((a) => {
+		return a.trim();
+	});
+
+	return newAttrs.join(',');
 }
 
-export async function getArticleTags(slug: string): Promise<Article> {
-	return await client.fetch(
-		groq`*[_type == "article" && slug.current == $slug][0]{
-			tags->{slug}
-		}`,
-		{
-			slug
-		}
-	);
-}
-
-export async function getAllMembers(): Promise<Member[]> {
-	return await client.fetch(
-		groq`*[_type == "member"] {
-			name,
-			bio,
-			slug,
-			portrait
-		} | order(lower(name))`
-	);
-}
-
-export async function getArticlesOfMember(slug: string): Promise<Article[]> {
-	return await client.fetch(
-		groq`*[_type == "article" && references(*[_type == "member" && slug.current == $slug]._id)] | order(date desc) {
-			title,
-			subtitle,
-			date,
-			authors[]->{name},
-			slug,
-			category->,
-			media
-		}`,
-		{
-			slug
-		}
-	);
-}
-
-export async function getMember(slug: string): Promise<Member> {
-	return await client.fetch(
-		groq`*[_type == "member" && slug.current == $slug][0]{
-	  		name,
-			year,
-			bio,
-			handles,
-			portrait,
-			from
-		}`,
-		{
-			slug
-		}
-	);
+/**
+ * `getOrder` takes a string and returns a string containing the order
+ * argument that is properly formatted for the Sanity backend.
+ * @param order The string to be formatted.
+ * @returns A string containing the order argument.
+ */
+export function getOrder(order: string): string {
+	return `| order(${order})`;
 }

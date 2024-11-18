@@ -7,9 +7,6 @@ const config = {
 	// for more information about preprocessors
 	preprocess: vitePreprocess(),
 	kit: {
-		// env: {
-		// 	dir: '.'
-		// },
 		// We're using Cloudflare's adapter, as we'll be on Cloudflare pages
 		// for the time being...
 		// See: https://kit.svelte.dev/docs/adapter-cloudflare

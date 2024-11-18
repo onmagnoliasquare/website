@@ -5,8 +5,10 @@
     "fieldsets",
     "groq",
     "netid",
+    "oncenturyavenue",
     "onmagnoliasquare",
     "Parens",
-    "portabletext"
+    "portabletext",
+    "whitespaces"
   ]
 }

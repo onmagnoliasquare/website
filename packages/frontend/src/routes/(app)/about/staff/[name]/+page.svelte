@@ -18,7 +18,7 @@
 	let location = data.member.from;
 	let articles = data.articles;
 
-	let hasArticles = articles.length > 0;
+	let hasArticles = articles ? articles.length > 0 : false;
 </script>
 
 <div class="flex flex-column flex-row-ns mw9 mw8-l center mt4">
@@ -51,6 +51,14 @@
 				{/if}
 			</p>
 		</div>
+		{#if member.committee}
+			<div class="mb4 db">
+				<div class="mb2">
+					<h2 class="fw6 tracked f7 sans gray">IN COMMITTEE</h2>
+					<p class="tracked-02 pa0 ma0 hyphenate f6">{member.committee.name}</p>
+				</div>
+			</div>
+		{/if}
 		{#if location}
 			<div class="mb4 db">
 				<div class="mb2">
