@@ -78,7 +78,7 @@ export function equal(leftSide: string, rightSide: string | boolean): string {
 		return `${leftSide} == ${rightSide}`;
 	}
 
-	return `${leftSide} == '${rightSide}'`;
+	return `${leftSide} == "${rightSide}"`;
 }
 
 /**
@@ -92,7 +92,7 @@ export function unequal(leftSide: string, rightSide: string | boolean): string {
 		return `${leftSide} != ${rightSide}`;
 	}
 
-	return `${leftSide} != '${rightSide}'`;
+	return `${leftSide} != "${rightSide}"`;
 }
 
 /**
@@ -102,7 +102,7 @@ export function unequal(leftSide: string, rightSide: string | boolean): string {
  * @returns a serialized query string.
  */
 export function buildSanityQuery(sq: Query): string {
-	const type = sq.type ? `_type == '${sq.type}'` : '';
+	const type = sq.type ? `_type == "${sq.type}"` : '';
 	const conditions = sq.conditions ? getConditions(sq.conditions) : '';
 
 	const idx = sq.idx ? getIdx(sq.idx) : '';
