@@ -18,7 +18,7 @@
 	let location = data.member.from;
 	let articles = data.articles;
 
-	let hasArticles = articles.length > 0;
+	let hasArticles = articles ? articles.length > 0 : false;
 </script>
 
 <div class="flex flex-column flex-row-ns mw9 mw8-l center mt4">

@@ -1,34 +1,58 @@
 import { error } from '@sveltejs/kit';
-import { getTags } from '$lib/sanity';
+import { buildSanityQuery, sanityFetch } from '$lib/sanity';
 import type { PageServerLoad } from './$types';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import { site } from '$lib/variables';
 import type { Tag } from '$lib/schema';
 
 export const load: PageServerLoad = (async () => {
-	const tags: Tag[] = await getTags();
+	let sanityQuery: string;
+	let tags: Tag[] | undefined;
 
-	let ogTitle = `The archives at ${site.title}`;
-	let ogDescription = `Browse our articles, tags, and content.`;
+	/**
+	 * Retrieve all tags.
+	 */
 
-	const pageMetaTags = Object.freeze({
-		title: ogTitle,
-		description: ogDescription,
-		openGraph: {
-			title: ogTitle,
-			description: ogDescription
-		},
-		twitter: {
-			title: ogTitle,
-			description: ogDescription
-		}
-	}) satisfies MetaTagsProps;
+	try {
+		sanityQuery = buildSanityQuery({
+			type: 'tag',
+			attributes: ['name', 'slug'],
+			order: 'lower(name)'
+		});
+
+		tags = await sanityFetch(sanityQuery);
+	} catch (err) {
+		console.log(err);
+		throw error(500, 'Server network error...');
+	}
+
+	/**
+	 * Build page information.
+	 */
 
 	if (tags) {
-		return {
-			tags,
-			pageMetaTags
-		};
+		let ogTitle = `The archives at ${site.title}`;
+		let ogDescription = `Browse our articles, tags, and content.`;
+
+		const pageMetaTags = Object.freeze({
+			title: ogTitle,
+			description: ogDescription,
+			openGraph: {
+				title: ogTitle,
+				description: ogDescription
+			},
+			twitter: {
+				title: ogTitle,
+				description: ogDescription
+			}
+		}) satisfies MetaTagsProps;
+
+		if (tags) {
+			return {
+				tags,
+				pageMetaTags
+			};
+		}
 	}
 
 	throw error(404, 'Not found');
