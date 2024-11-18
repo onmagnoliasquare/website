@@ -1,85 +1,85 @@
 # Build and test the frontend package.
 
-name: "Frontend"
+name: 'Frontend'
 
 on:
   pull_request:
-    branches: ["main", "staging", "dev"]
+    branches: ['main', 'staging', 'dev']
     paths-ignore:
       # Ignore changes in documentation.
-      - "docs/**"
-      - "README.md"
+      - 'docs/**'
+      - 'README.md'
 
       # Ignore package.json changes.
-      - "package.json"
+      - 'package.json'
 
       # Ignore changes in root directory.
-      - ".gitattributes"
-      - ".gitignore"
-      - ".markdownlint.json"
-      - ".yarnrc.yml"
-      - "LICENSE"
-      - "yarn.lock"
-      - ".yarn"
-      - ".vscode"
+      - '.gitattributes'
+      - '.gitignore'
+      - '.markdownlint.json'
+      - '.yarnrc.yml'
+      - 'LICENSE'
+      - 'yarn.lock'
+      - '.yarn'
+      - '.vscode'
 
       # Ignore changes in .github directory.
-      - ".github/ISSUE_TEMPLATE/**"
-      - ".github/pull_request_template.*"
+      - '.github/ISSUE_TEMPLATE/**'
+      - '.github/pull_request_template.*'
 
       # Ignore build related files.
-      - ".env.example"
+      - '.env.example'
 
       # Ignore changes in backend.
-      - ".github/workflows/backend.yml"
-      - "packages/backend/**"
+      - '.github/workflows/backend.yml'
+      - 'packages/backend/**'
 
       # Ignore frontend package specific paths.
-      - "packages/frontend/static/**"
-      - "packages/frontend/.eslintignore"
-      - "packages/frontend/.eslintrc.cjs"
-      - "packages/frontend/.prettierrc"
-      - "packages/frontend/styles/**"
-      - "packages/frontend/svelte.config.js"
+      - 'packages/frontend/static/**'
+      - 'packages/frontend/.eslintignore'
+      - 'packages/frontend/.eslintrc.cjs'
+      - 'packages/frontend/.prettierrc'
+      - 'packages/frontend/styles/**'
+      - 'packages/frontend/svelte.config.js'
 
   push:
-    branches: ["main", "staging", "dev"]
+    branches: ['main', 'staging', 'dev']
     paths-ignore:
       # Ignore changes in documentation.
-      - "docs/**"
-      - "README.md"
+      - 'docs/**'
+      - 'README.md'
 
       # Ignore package.json changes.
-      - "package.json"
+      - 'package.json'
 
       # Ignore changes in root directory.
-      - ".gitattributes"
-      - ".gitignore"
-      - ".markdownlint.json"
-      - ".yarnrc.yml"
-      - "LICENSE"
-      - "yarn.lock"
-      - ".yarn"
-      - ".vscode"
+      - '.gitattributes'
+      - '.gitignore'
+      - '.markdownlint.json'
+      - '.yarnrc.yml'
+      - 'LICENSE'
+      - 'yarn.lock'
+      - '.yarn'
+      - '.vscode'
 
       # Ignore changes in .github directory.
-      - ".github/ISSUE_TEMPLATE/**"
-      - ".github/pull_request_template.*"
+      - '.github/ISSUE_TEMPLATE/**'
+      - '.github/pull_request_template.*'
 
       # Ignore build related files.
-      - ".env.example"
+      - '.env.example'
 
       # Ignore changes in backend package.
-      - ".github/workflows/backend.yml"
-      - "packages/backend/**"
+      - '.github/workflows/backend.yml'
+      - 'packages/backend/**'
 
       # Ignore frontend package specific paths.
-      - "packages/frontend/static/**"
-      - "packages/frontend/.eslintignore"
-      - "packages/frontend/.eslintrc.cjs"
-      - "packages/frontend/.prettierrc"
-      - "packages/frontend/styles/**"
-      - "packages/frontend/svelte.config.js"
+      - 'packages/frontend/static/**'
+      - 'packages/frontend/.eslintignore'
+      - 'packages/frontend/.eslintrc.cjs'
+      - 'packages/frontend/.prettierrc'
+      - 'packages/frontend/styles/**'
+      - 'packages/frontend/svelte.config.js'
 
 jobs:
   # Sets the environment.
@@ -147,6 +147,9 @@ jobs:
 
       - name: Install dependencies
         run: yarn --immutable
+
+      - name: Install playwright
+        run: yarn playwright install
 
         # Cache dependencies.
         # Retrieved from: https://github.com/actions/cache/blob/main/examples.md#node---yarn
@@ -288,6 +291,6 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: website
-          directory: ".svelte-kit/output"
+          directory: '.svelte-kit/output'
           workingDirectory: packages/frontend
-          wranglerVersion: "3"
+          wranglerVersion: '3'

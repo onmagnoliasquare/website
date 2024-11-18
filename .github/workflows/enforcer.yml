@@ -3,7 +3,7 @@
 # pushing and merging are forbidden.
 # Code source: https://stackoverflow.com/questions/71120146/allowing-only-certain-branches-to-pr-merge-to-mainmaster-branch
 
-name: "Enforce Branch Merge Pipeline"
+name: 'Enforce Branch Merge Pipeline'
 
 on:
   pull_request:
