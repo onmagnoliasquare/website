@@ -32,7 +32,7 @@ if (isDevEnv) {
 	config.useCdn = false;
 }
 
-config.dataset = 'production';
+// config.dataset = 'production';
 
 export const client: SanityClient = createClient(config);
 
