@@ -14,7 +14,8 @@
     "check:front": "yarn workspace frontend check",
     "dev:front": "yarn workspace frontend dev",
     "dev:back": "yarn workspace backend dev",
-    "test-ci:front": "yarn workspace frontend test:ci-no-pool",
+    "test:front": "yarn workspace frontend test:ci-no-pool && yarn workspace frontend test:integration",
+    "test-ci:front": "yarn workspace frontend test:ci-no-pool && yarn workspace frontend test:integration",
     "test-ci:back": "yarn workspace backend test:ci-no-pool",
     "test-coverage": "yarn vitest run --coverage"
   },
