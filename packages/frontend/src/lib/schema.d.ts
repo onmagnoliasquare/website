@@ -69,7 +69,7 @@ export interface Category {
 }
 
 export interface Article {
-	_type: 'post';
+	_type: 'article';
 	_createdAt: string;
 
 	// This is for when the author gets to choose
@@ -142,3 +142,75 @@ export interface Image {
 	description?: string;
 	alt: string;
 }
+
+type operators = '==' | '!==';
+
+type equatable = {
+	leftSide: string;
+	rightSide: string;
+	operator: operators;
+};
+
+type validQueryableTypes = {
+	article: (keyof Article)[];
+	member: (keyof Member)[];
+	category: (keyof Category)[];
+	series: (keyof Series)[];
+	tag: (keyof Tag)[];
+};
+
+export type SanityQuery<T extends keyof validQueryableTypes> = {
+	/**
+	 * `type` defines a custom schema type to query for. This is optional
+	 * because we may need to construct a query which returns an entire
+	 * dataset, like `*[]`, which has no `_type` required.
+	 */
+	type?: T;
+
+	/**
+	 * `attributes` are the default attributes on our
+	 * schema types.
+	 */
+	attributes?: validQueryableTypes[T];
+
+	/**
+	 * `customAttrs` are non-default schema attributes. This allows custom
+	 * sub-querying or reference following. **DO NOT** put default attributes
+	 * in this field.
+	 */
+	customAttrs?: string[];
+
+	/**
+	 * `conditions` are boolean expressions slotted into the initial square
+	 * brackets of a query. These filter the dataset according to the
+	 * expressions.
+	 */
+	conditions?: string[];
+
+	/**
+	 * `idx` is to access the index of the returned data from a query. Sanity
+	 * queries are returned in array format. The first two elements of the array
+	 * are the only valid elements. More elements are ignored.
+	 *
+	 * The first element is the start of a range. The second element is the
+	 * end of a range. The first element is required.
+	 */
+	idx?: Number[];
+
+	/**
+	 * `order` defines the order in which to receive the data. This is a groq
+	 * feature.
+	 */
+	order?: string;
+};
+
+/**
+ * Query represents a valid Sanity query according to our schema defined
+ * in `schema.d.ts`.
+ */
+export type Query =
+	| SanityQuery<'article'>
+	| SanityQuery<'member'>
+	| SanityQuery<'category'>
+	| SanityQuery<'series'>
+	| SanityQuery<'tag'>;

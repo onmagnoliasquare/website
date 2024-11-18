@@ -1,30 +1,45 @@
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getAllMembers } from '$lib/sanity';
+import { buildSanityQuery, sanityFetch } from '$lib/sanity';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import { site } from '$lib/variables';
+import type { Member } from '$lib/schema';
 
 export const load: PageServerLoad = (async () => {
-	const title = 'Staff';
-	const members = await getAllMembers();
+	let sanityQuery: string;
+	let members: Member[] | undefined;
 
-	const ogTitle = `${title} at ${site.name}`;
-	const ogDescription = `Our staff and contributors at ${site.name}`;
+	try {
+		sanityQuery = buildSanityQuery({
+			type: 'member',
+			attributes: ['name', 'bio', 'slug', 'portrait'],
+			order: 'lower(name)'
+		});
 
-	const pageMetaTags = Object.freeze({
-		title: ogTitle,
-		description: ogDescription,
-		openGraph: {
-			title: ogTitle,
-			description: ogDescription
-		},
-		twitter: {
-			title: ogTitle,
-			description: ogDescription
-		}
-	}) satisfies MetaTagsProps;
+		members = await sanityFetch(sanityQuery);
+	} catch (err) {
+		console.error(err);
+		throw error(500, 'Server network error...');
+	}
 
 	if (members) {
+		const title = 'Staff';
+
+		const ogTitle = `${title} at ${site.name}`;
+		const ogDescription = `Our staff and contributors at ${site.name}`;
+
+		const pageMetaTags = Object.freeze({
+			title: ogTitle,
+			description: ogDescription,
+			openGraph: {
+				title: ogTitle,
+				description: ogDescription
+			},
+			twitter: {
+				title: ogTitle,
+				description: ogDescription
+			}
+		}) satisfies MetaTagsProps;
 		return {
 			title,
 			members,

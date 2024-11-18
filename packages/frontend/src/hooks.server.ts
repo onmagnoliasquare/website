@@ -22,7 +22,7 @@
  */
 
 import { hasUppercase } from '$lib/helpers';
-import { getArticleToValidate } from '$lib/sanity';
+import { buildSanityQuery, equal, sanityFetch } from '$lib/sanity';
 import { redirect, type Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 import { isDevEnv } from './lib/sanity';
@@ -69,7 +69,15 @@ const redirectTag: Handle = async ({ event, resolve }) => {
 		const pathArticleSlug = path[1];
 
 		// Get article from its name. This object will contain its tags, category, and series.
-		const article: Article = await getArticleToValidate(pathArticleSlug);
+
+		const sanityQuery = buildSanityQuery({
+			type: 'article',
+			conditions: [`&& ${equal('slug.current', pathArticleSlug)}`],
+			idx: [0],
+			customAttrs: ['category->{slug}', 'series->{slug}', 'tags[]->{slug}']
+		});
+
+		const article: Article = await sanityFetch(sanityQuery);
 
 		// Check if article actually exists.
 		if (article === null) {
@@ -131,7 +139,7 @@ const redirectCaps: Handle = async ({ event, resolve }) => {
  * @returns `Response`
  */
 const logSpeed: Handle = async ({ event, resolve }) => {
-	if (import.meta.env.PUBLIC_SANITY_DATASET !== 'production') {
+	if (import.meta.env.DEV) {
 		const route = event.url;
 
 		const start = performance.now();

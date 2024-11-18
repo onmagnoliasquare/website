@@ -16,7 +16,7 @@
 	<ul class="list pa0 mt4">
 		{#each data.tags as tag}
 			<li class="db ma1 w-auto">
-				<a href={`/archive/tags/${tag.slug.current}`}>
+				<a href={`/archive/tags/${tag.slug.current}`} title={tag.name}>
 					<Tag tagName={tag.name} />
 				</a>
 			</li>
