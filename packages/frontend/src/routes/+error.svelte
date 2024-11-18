@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-	<title>404 Page Not Found | On Magnolia Square</title>
+	<title>{status} {msg} | On Magnolia Square</title>
 </svelte:head>
 
 <!-- TODO center this message! -->
