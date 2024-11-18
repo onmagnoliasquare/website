@@ -511,7 +511,8 @@ export async function getMember(slug: string): Promise<Member> {
 			bio,
 			handles,
 			portrait,
-			from
+			from,
+			committee->{name}
 		}`,
 		{
 			slug
