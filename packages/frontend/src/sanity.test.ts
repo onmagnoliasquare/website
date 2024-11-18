@@ -1,6 +1,5 @@
 import {
 	buildSanityQuery,
-	client,
 	equal,
 	getAttrs,
 	getConditions,
@@ -17,7 +16,7 @@ describe('equal', () => {
 		const leftSide = 'fieldName';
 		const rightSide = 'value';
 		const result = equal(leftSide, rightSide);
-		expect(result).toBe("fieldName == 'value'");
+		expect(result).toBe('fieldName == "value"');
 	});
 
 	it('returns correct GROQ query string for boolean comparison', () => {
@@ -33,7 +32,7 @@ describe('unequal', () => {
 		const leftSide = 'fieldName';
 		const rightSide = 'value';
 		const result = unequal(leftSide, rightSide);
-		expect(result).toBe("fieldName != 'value'");
+		expect(result).toBe('fieldName != "value"');
 	});
 
 	it('returns correct GROQ query string for boolean comparison', () => {
@@ -53,8 +52,8 @@ describe('getConditions', () => {
 		expect(getConditions(['hello', 'world'])).toBe('hello && world'));
 
 	it('returns an arbitrary, typical GROQ query condition string', () =>
-		expect(getConditions(["fieldName != 'value'", "slug.current == 'nothing'"])).toBe(
-			"fieldName != 'value' && slug.current == 'nothing'"
+		expect(getConditions(['fieldName != "value"', 'slug.current == "nothing"'])).toBe(
+			'fieldName != "value" && slug.current == "nothing"'
 		));
 });
 
@@ -94,7 +93,7 @@ describe('buildSanityQuery', () => {
 			order: 'date desc'
 		});
 		expect(result).toBe(
-			"*[_type == 'article' && fieldName == 'value' && isActive != true] | order(date desc) {title,subtitle,media,category->{name},authors[]->{name}} [1..2]"
+			`*[_type == "article" && fieldName == "value" && isActive != true] | order(date desc) {title,subtitle,media,category->{name},authors[]->{name}} [1..2]`
 		);
 	});
 
@@ -109,7 +108,7 @@ describe('buildSanityQuery', () => {
 		};
 		const result = buildSanityQuery(query);
 		expect(result).toBe(
-			"*[_type == 'article' && fieldName == 'value' && isActive != true] | order(date desc) {category->{name},authors[]->{name}} [1..2]"
+			`*[_type == "article" && fieldName == "value" && isActive != true] | order(date desc) {category->{name},authors[]->{name}} [1..2]`
 		);
 	});
 
@@ -124,7 +123,7 @@ describe('buildSanityQuery', () => {
 		};
 		const result = buildSanityQuery(query);
 		expect(result).toBe(
-			"*[_type == 'article' && fieldName == 'value' && isActive != true] | order(date desc) {title,subtitle,media} [1..2]"
+			`*[_type == "article" && fieldName == "value" && isActive != true] | order(date desc) {title,subtitle,media} [1..2]`
 		);
 	});
 });
