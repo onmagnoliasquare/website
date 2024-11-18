@@ -2,6 +2,7 @@
 	import type { PageData } from './$types';
 	import NormalCentering from '$components/NormalCentering.svelte';
 	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
+	import type { Article } from '$lib/schema';
 
 	interface Props {
 		data: PageData;
@@ -31,7 +32,7 @@
 	</header>
 
 	<ul class="list pa1">
-		{#each data.articles as article}
+		{#each data.articles as Article[] as article}
 			<ArticleBoxC {article} />
 		{/each}
 	</ul>
