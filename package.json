@@ -39,6 +39,7 @@
     "styled-components": "^6.1.13"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.10.1",
     "@playwright/test": "^1.48.2",
     "@sanity/cli": "^3.64.0",
     "@sanity/eslint-config-studio": "^4.0.0",
