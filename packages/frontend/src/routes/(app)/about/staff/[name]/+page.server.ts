@@ -4,6 +4,7 @@ import { buildSanityQuery, equal, sanityFetch } from '$lib/sanity';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import { filler, site } from '$lib/variables';
 import type { Article, Member } from '$lib/schema';
+import { createSiteTitle } from '$lib/helpers';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	let sanityQuery: string;
@@ -62,7 +63,7 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 
 		const title = member.name;
 
-		let ogTitle = `About ${title} at ${site.title}`;
+		let ogTitle = createSiteTitle(site.name, `About ${member.name}`);
 		let ogDescription = member.bio ? member.bio : `${title} ${filler.memberDescription}.`;
 
 		if (member.metaInfo) {
@@ -80,7 +81,7 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 		}
 
 		const pageMetaTags = Object.freeze({
-			title: `About ${member.name} at ${site.title}`,
+			title: createSiteTitle(`About ${member.name}`),
 			description: ogDescription,
 			openGraph: {
 				type: 'profile',

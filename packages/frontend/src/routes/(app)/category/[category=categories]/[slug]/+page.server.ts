@@ -3,7 +3,7 @@ import type { PageServerLoad } from './$types';
 import { buildSanityQuery, equal, sanityFetch } from '$lib/sanity';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import { site } from '$lib/variables';
-import { createAuthorString } from '$lib/helpers';
+import { createAuthorLink, createAuthorString } from '$lib/helpers';
 import type { Article } from '$lib/schema';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
@@ -98,12 +98,11 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 		// Create an array of links to author's profile pages.
 		const ogAuthorLinks = [
 			...article.authors.map((n) => {
-				return `${site.url}/about/staff/${n.slug.current}`;
+				return createAuthorLink(site.url, n.slug.current);
 			})
 		];
 
 		const pageMetaTags = Object.freeze({
-			title: ogTitle,
 			description: ogDescription,
 			openGraph: {
 				title: ogTitle,

@@ -4,6 +4,7 @@ import { buildSanityQuery, sanityFetch } from '$lib/sanity';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import { site } from '$lib/variables';
 import type { Member } from '$lib/schema';
+import { createSiteTitle } from '$lib/helpers';
 
 export const load: PageServerLoad = (async () => {
 	let sanityQuery: string;
@@ -25,7 +26,7 @@ export const load: PageServerLoad = (async () => {
 	if (members) {
 		const title = 'Staff';
 
-		const ogTitle = `${title} at ${site.name}`;
+		const ogTitle = createSiteTitle(site.name, title);
 		const ogDescription = `Our staff and contributors at ${site.name}`;
 
 		const pageMetaTags = Object.freeze({

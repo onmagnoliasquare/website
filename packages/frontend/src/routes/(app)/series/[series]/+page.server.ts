@@ -4,6 +4,7 @@ import type { PageServerLoad } from './$types';
 import { site } from '$lib/variables';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import type { Article, Series } from '$lib/schema';
+import { createSiteTitle } from '$lib/helpers';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	let sanityQuery: string;
@@ -41,8 +42,12 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 
 		const title = seriesPage.name;
 
-		let ogTitle = `${title} series at ${site.title}`;
-		let ogDescription = `${title} series`;
+		let ogTitle = createSiteTitle(site.title, title);
+
+		// The description is expected to end in a punctuation, like a period
+		// exclamation point, or a comma. Therefore, there is none in
+		// the string below.
+		let ogDescription = `${seriesPage.description} Read more at ${site.title}`;
 		if (seriesPage.metaInfo) {
 			if (seriesPage.metaInfo.ogTitle) {
 				ogTitle = seriesPage.metaInfo.ogTitle;
@@ -58,7 +63,6 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 		}
 
 		const pageMetaTags = Object.freeze({
-			title: ogTitle,
 			description: ogDescription,
 			openGraph: {
 				title: ogTitle,

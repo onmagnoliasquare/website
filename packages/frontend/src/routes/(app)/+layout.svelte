@@ -4,8 +4,9 @@
 	 * */
 	import { Header } from '$lib';
 	import { page } from '$app/stores';
-	import createSiteTitle from '$lib/createSiteTitle';
 	import type { Snippet } from 'svelte';
+	import { createSiteTitle } from '$lib/helpers';
+	import { site } from '$lib/variables';
 
 	/**
 	 * This documentation discusses $page.data and how to access it
@@ -21,7 +22,7 @@
 </script>
 
 <svelte:head>
-	<title>{createSiteTitle($page.data.title)}</title>
+	<title>{createSiteTitle(site.title, $page.data.title)}</title>
 </svelte:head>
 
 <!-- This is the main layout for the entire website. -->
