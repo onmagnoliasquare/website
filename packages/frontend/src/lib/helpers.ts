@@ -1,3 +1,8 @@
+/**
+ * PLEASE KEEP THE FUNCTIONS IN THIS FILE PURE!!!
+ * NO SIDE EFFECTS PLEASE.
+ */
+
 import type { Member } from './schema';
 
 /**
@@ -77,6 +82,16 @@ export const createAuthorString = (a: Member[]): string => {
  */
 export const createAuthorLink = (url: string, slug: string): string => {
 	return `${url}/about/staff/${slug}`;
+};
+
+export const createSiteTitle = (name: string, title?: string): string => {
+	if (title) {
+		// The dash below is an EN-DASH (U+2013)
+		// More: https://www.fileformat.info/info/unicode/char/2013/index.htm
+		return `${title} – ${name}`;
+	}
+
+	return name;
 };
 
 /**
