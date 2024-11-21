@@ -1,7 +1,13 @@
 import { dateFormatter, hasUppercase } from '$lib';
 import { describe, it, expect, test } from 'vitest';
-import createSiteTitle from '$lib/createSiteTitle';
-import { domainFromUrl, parseEmbedLink } from '$lib/helpers';
+import {
+	createAuthorLink,
+	createSiteTitle,
+	domainFromUrl,
+	getFlagEmoji,
+	parseEmbedLink
+} from '$lib/helpers';
+import { site } from '$lib/variables';
 
 describe('domainFromUrl', () => {
 	it('strips http', () => {
@@ -72,24 +78,90 @@ describe('hasUppercase', () => {
 });
 
 describe('createSiteTitle', () => {
-	it('is "On Magnolia Square" when no argument provided', () => {
-		expect(createSiteTitle()).toBe('On Magnolia Square');
+	const currentSiteTitle = site.title;
+
+	it(`is our site title ${currentSiteTitle} when no additional argument provided`, () => {
+		expect(createSiteTitle(currentSiteTitle)).toBe(currentSiteTitle);
 	});
 
 	it('is the argument passed with OMS title appended', () => {
-		expect(createSiteTitle('Random News Story')).toBe('Random News Story – On Magnolia Square');
+		expect(createSiteTitle(site.title, 'Random News Story')).toBe(
+			`Random News Story – ${currentSiteTitle}`
+		);
 	});
 
 	it('outputs with random numbers', () => {
-		expect(createSiteTitle('1234567890 Cup Conundrum')).toBe(
-			'1234567890 Cup Conundrum – On Magnolia Square'
+		expect(createSiteTitle(site.title, '1234567890 Cup Conundrum')).toBe(
+			`1234567890 Cup Conundrum – ${currentSiteTitle}`
 		);
 	});
 
 	it('outputs with non-alphanumeric characters', () => {
-		expect(createSiteTitle('100% of students need to read our newspaper!')).toBe(
-			'100% of students need to read our newspaper! – On Magnolia Square'
+		expect(createSiteTitle(site.title, '100% of students need to read our newspaper!')).toBe(
+			`100% of students need to read our newspaper! – ${currentSiteTitle}`
 		);
+	});
+});
+
+describe('createAuthorLink', () => {
+	it('generates a correct URL for arbitrary author and website', () => {
+		const url = 'https://noogle.com';
+		const slug = 'ron-faux';
+		expect(createAuthorLink(url, slug)).toBe('https://noogle.com/about/staff/ron-faux');
+	});
+
+	it('generates a correct URL for our website and author', () => {
+		const url = site.url;
+		const slug = 'neo-alabastro';
+		expect(createAuthorLink(url, slug)).toBe(
+			'https://onmagnoliasquare.com/about/staff/neo-alabastro'
+		);
+	});
+});
+
+describe('getFlagEmoji', () => {
+	it('handles lowercase input by returning the correct emoji', () => {
+		expect(getFlagEmoji('us')).toBe('🇺🇸');
+	});
+
+	it('returns 🇺🇸 for country code "US"', () => {
+		expect(getFlagEmoji('US')).toBe('🇺🇸');
+	});
+
+	it('returns 🇨🇦 for country code "CA"', () => {
+		expect(getFlagEmoji('CA')).toBe('🇨🇦');
+	});
+
+	it('returns 🇬🇧 for country code "GB"', () => {
+		expect(getFlagEmoji('GB')).toBe('🇬🇧');
+	});
+
+	it('returns 🇯🇵 for country code "JP"', () => {
+		expect(getFlagEmoji('JP')).toBe('🇯🇵');
+	});
+
+	it('returns 🇨🇳 for country code "CN"', () => {
+		expect(getFlagEmoji('CN')).toBe('🇨🇳');
+	});
+
+	it('returns 🇰🇪 for country code "KE"', () => {
+		expect(getFlagEmoji('KE')).toBe('🇰🇪');
+	});
+
+	it('returns 🇳🇬 for country code "NG"', () => {
+		expect(getFlagEmoji('NG')).toBe('🇳🇬');
+	});
+
+	it('returns 🇿🇦 for country code "ZA"', () => {
+		expect(getFlagEmoji('ZA')).toBe('🇿🇦');
+	});
+
+	it('returns 🇹🇼 for country code "TW"', () => {
+		expect(getFlagEmoji('TW')).toBe('🇹🇼');
+	});
+
+	it('returns 🇮🇳 for country code "IN"', () => {
+		expect(getFlagEmoji('IN')).toBe('🇮🇳');
 	});
 });
 
