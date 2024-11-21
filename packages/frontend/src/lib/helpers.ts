@@ -70,6 +70,16 @@ export const createAuthorString = (a: Member[]): string => {
 };
 
 /**
+ * createAuthorLink generates a URL to an author's profile page.
+ * @param url The base URL of the website, often `site` from `variables.ts`
+ * @param slug The author's unique slug string from Sanity
+ * @returns A string representing the full URL to the author's profile page
+ */
+export const createAuthorLink = (url: string, slug: string): string => {
+	return `${url}/about/staff/${slug}`;
+};
+
+/**
  * getFlagEmoji retrieves the flag emoji of a specified
  * country using code points and `.replace`.
  * Modified from:
