@@ -1,13 +1,13 @@
-const createSiteTitle = (t?: string): string => {
-	const omsDefault = 'On Magnolia Square';
+import { site } from './variables';
 
+const createSiteTitle = (t?: string): string => {
 	if (t) {
 		// The dash below is an EN-DASH (U+2013)
 		// More: https://www.fileformat.info/info/unicode/char/2013/index.htm
-		return `${t} – ${omsDefault}`;
+		return `${t} – ${site.title}`;
 	}
 
-	return omsDefault;
+	return site.title;
 };
 
 export default createSiteTitle;
