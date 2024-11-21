@@ -4,6 +4,7 @@ import type { PageServerLoad } from './$types';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import { site } from '$lib/variables';
 import type { Article, Tag } from '$lib/schema';
+import { createSiteTitle } from '$lib/helpers';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	let sanityQuery: string;
@@ -44,9 +45,9 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 
 		articles = await sanityFetch(sanityQuery);
 
-		const title = tagName as string;
+		const title = createSiteTitle(site.title, `#${tagName as string}`);
 
-		let ogTitle = `#${title} at ${site.name}`;
+		let ogTitle = title;
 		let ogDescription = `Browse the #${title} archives at ${site.name}`;
 
 		if (tag.metaInfo) {
@@ -84,13 +85,15 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 			return {
 				articles,
 				tag,
-				pageMetaTags
+				pageMetaTags,
+				title
 			};
 		}
 
 		return {
 			tag,
-			pageMetaTags
+			pageMetaTags,
+			title
 		};
 	}
 

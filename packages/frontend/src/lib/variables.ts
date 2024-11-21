@@ -9,6 +9,7 @@ export const semVer = '0.5.2';
  * all that needs to happen is a manipulation of these variables!
  */
 export const site = {
+	// The URL should not contain a trailing slash `/`.
 	url: 'https://onmagnoliasquare.com',
 	locale: 'en-US',
 	name: 'On Magnolia Square',

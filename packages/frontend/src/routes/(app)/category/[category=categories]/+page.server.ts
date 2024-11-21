@@ -2,7 +2,6 @@ import { error, type ServerLoadEvent } from '@sveltejs/kit';
 import { buildSanityQuery, sanityFetch } from '$lib/sanity';
 import type { PageServerLoad } from './$types';
 import type { MetaTagsProps } from 'svelte-meta-tags';
-import { site } from '$lib/variables';
 import type { Article, Category } from '$lib/schema';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
@@ -48,7 +47,7 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 
 	if (articles) {
 		let title = cat.name;
-		let ogTitle = `${title} at ${site.name}`;
+		let ogTitle = title;
 		let ogDescription = cat.description;
 
 		if (cat.metaInfo) {
@@ -66,7 +65,6 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 		}
 
 		const pageMetaTags = Object.freeze({
-			title: ogTitle,
 			description: ogDescription,
 			openGraph: {
 				title: ogTitle,

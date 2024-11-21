@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { site } from '$lib/variables';
 	export const msg = $page.error!.message;
 	export const status = $page.status;
 </script>
 
 <svelte:head>
-	<title>{status} {msg} | On Magnolia Square</title>
+	<title>{site.title} – {status} Error</title>
 </svelte:head>
 
 <!-- TODO center this message! -->

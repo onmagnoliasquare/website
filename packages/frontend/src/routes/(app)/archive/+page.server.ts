@@ -4,6 +4,7 @@ import type { PageServerLoad } from './$types';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import { site } from '$lib/variables';
 import type { Tag } from '$lib/schema';
+import { createSiteTitle } from '$lib/helpers';
 
 export const load: PageServerLoad = (async () => {
 	let sanityQuery: string;
@@ -31,11 +32,12 @@ export const load: PageServerLoad = (async () => {
 	 */
 
 	if (tags) {
-		let ogTitle = `The archives at ${site.title}`;
+		const title = createSiteTitle(site.title, 'Archive');
+
+		let ogTitle = title;
 		let ogDescription = `Browse our articles, tags, and content.`;
 
 		const pageMetaTags = Object.freeze({
-			title: ogTitle,
 			description: ogDescription,
 			openGraph: {
 				title: ogTitle,
@@ -50,7 +52,8 @@ export const load: PageServerLoad = (async () => {
 		if (tags) {
 			return {
 				tags,
-				pageMetaTags
+				pageMetaTags,
+				title
 			};
 		}
 	}
