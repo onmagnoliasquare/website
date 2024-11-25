@@ -18,9 +18,9 @@ export interface Member {
 	bio?: string;
 	portrait?: CustomImageAsset;
 	slug: Slug;
-	from: From;
+	from?: From;
 	committee?: Committee;
-	handles: Handles;
+	handles?: Handles;
 	metaInfo: MetaInfo;
 }
 
@@ -96,11 +96,11 @@ export interface Article {
 	abstract?: string;
 	date: string;
 	slug: Slug;
-	series: Series;
+	series?: Series;
 	category: Category;
 	tags: Tag[];
 	authors: Member[];
-	content: PortableTextBlock[];
+	content?: PortableTextBlock[];
 	// content: PortableTextComponents[];
 
 	// headerImage and media both refer to the topmost
@@ -112,7 +112,7 @@ export interface Article {
 	// takes the `media` attribute in the function
 	// signature, and the `altText` is retrieved from
 	// the headerImage attribute.
-	media: Image;
+	media?: Image;
 
 	/**
 	 * HeaderImage exists because ImageAsset, for some reason,
@@ -120,7 +120,7 @@ export interface Article {
 	 * the future, it receives one. For now, this must be
 	 * implemented.
 	 */
-	headerImage: CustomImageAsset;
+	headerImage?: CustomImageAsset;
 
 	metaInfo: MetaInfo;
 }
