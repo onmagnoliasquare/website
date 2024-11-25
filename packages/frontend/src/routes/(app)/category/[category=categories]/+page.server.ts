@@ -1,8 +1,8 @@
 import { error, type ServerLoadEvent } from '@sveltejs/kit';
 import { buildSanityQuery, sanityFetch } from '$lib/sanity';
-import type { PageServerLoad } from './$types';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import type { Article, Category } from '$lib/schema';
+import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	let sanityQuery: string;

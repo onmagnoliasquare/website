@@ -49,11 +49,11 @@
 						src={urlFor(data.article.media).format('webp').fit('max').url()}
 						alt={data.article.media.alt}
 					/>
-					{#if data.article.headerImage.creditLine}
+					{#if data.article.headerImage!.creditLine}
 						<figcaption class="fw5 f6 gray ph1">
 							<div class="mt1">
 								<p class="pa0 ma0 i o-40">
-									Photo credit: {data.article.headerImage.creditLine}
+									Photo credit: {data.article.headerImage!.creditLine}
 								</p>
 							</div>
 						</figcaption>

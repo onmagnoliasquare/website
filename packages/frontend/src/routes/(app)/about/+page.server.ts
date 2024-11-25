@@ -1,7 +1,11 @@
+import { dev } from '$app/environment';
+
+export const csr = dev;
+
 import { site } from '$lib/variables';
 import type { MetaTagsProps } from 'svelte-meta-tags';
-import type { PageServerLoad } from './$types';
 import { createSiteTitle } from '$lib/helpers';
+import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = (async () => {
 	const title = 'About';

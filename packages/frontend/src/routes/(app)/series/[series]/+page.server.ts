@@ -45,6 +45,7 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 		const articles: Article[] = await sanityFetch(sanityQuery);
 
 		const title = seriesPage.name;
+		const description = seriesPage.description;
 
 		let ogTitle = createSiteTitle(site.title, title);
 
@@ -81,6 +82,7 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 		return {
 			articles,
 			title,
+			description,
 			pageMetaTags
 		};
 	}
