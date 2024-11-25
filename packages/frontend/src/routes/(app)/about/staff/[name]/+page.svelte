@@ -84,7 +84,7 @@
 						<li>
 							<ContactIcons
 								icon="/icons/instagram.svg"
-								title={`@${handles.instagram}`}
+								title={`${handles.instagram}`}
 								link={`https://instagram.com/${handles.instagram}`}
 							/>
 						</li>
