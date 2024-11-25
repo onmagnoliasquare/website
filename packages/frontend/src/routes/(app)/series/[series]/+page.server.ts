@@ -11,38 +11,16 @@ import type { Article, Series } from '$lib/schema';
 import { createSiteTitle } from '$lib/helpers';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
-	let sanityQuery: string;
-	let seriesPage: Series | undefined;
-
 	// Retrieve the name of series from the URL.
 	const { series } = event.params;
 
-	try {
-		// Get series information.
-		sanityQuery = buildSanityQuery({
-			type: 'series',
-			idx: [0],
-			conditions: [`slug.current == '${series as string}'`],
-			attributes: ['name', 'description', 'metaInfo']
-		});
+	const req = await event.fetch(`/api/series/${series}`);
+	const seriesPage: Series | undefined = await req.json();
 
-		seriesPage = await sanityFetch(sanityQuery);
-	} catch (err) {
-		console.error(err);
-		throw error(500, 'Server network error...');
-	}
-
-	if (seriesPage) {
+	if (seriesPage && series) {
 		// Get articles from the series.
-		sanityQuery = buildSanityQuery({
-			type: 'article',
-			conditions: [`${equal('series->slug.current', series as string)}`],
-			attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
-			customAttrs: ['authors[]->{name}', 'category->{name}', 'series->'],
-			order: 'date desc'
-		});
-
-		const articles: Article[] = await sanityFetch(sanityQuery);
+		const req = await event.fetch(`/api/series/${series}?articles=true`);
+		const articles: Article[] = await req.json();
 
 		const title = seriesPage.name;
 		const description = seriesPage.description;

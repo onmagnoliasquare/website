@@ -1,6 +1,6 @@
 import { dev } from '$app/environment';
 
-export const csr = dev;
+export const csr = false;
 
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
@@ -31,7 +31,7 @@ export const load: PageServerLoad = (async () => {
 		const title = 'Staff';
 
 		const ogTitle = createSiteTitle(site.name, title);
-		const ogDescription = `Our staff and contributors at ${site.name}`;
+		const ogDescription = `Staff and contributors at ${site.name}.`;
 
 		const pageMetaTags = Object.freeze({
 			title: ogTitle,

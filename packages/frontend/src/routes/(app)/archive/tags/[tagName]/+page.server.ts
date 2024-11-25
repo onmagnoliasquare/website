@@ -7,45 +7,22 @@ import type { Article, Tag } from '$lib/schema';
 import { createSiteTitle } from '$lib/helpers';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
-	let sanityQuery: string;
-	let tag: Tag | undefined;
-	let articles: Article[] | undefined;
-
 	// Get tagName from URL.
 	const { tagName } = event.params;
 
-	try {
-		sanityQuery = buildSanityQuery({
-			type: 'tag',
-			conditions: [`${equal('slug.current', tagName as string)}`],
-			idx: [0],
-			attributes: ['name', 'slug', 'description', 'metaInfo']
-		});
-
-		tag = await sanityFetch(sanityQuery);
-	} catch (err) {
-		console.error(err);
-		throw error(500, 'Server network error...');
-	}
+	const req = await event.fetch(`/api/tag/${tagName}`);
+	const tag: Tag | undefined = await req.json();
 
 	/**
 	 * Build page information.
 	 */
 
 	if (tag) {
-		sanityQuery = buildSanityQuery({
-			type: 'article',
-			conditions: [
-				`references((*[${equal('_type', 'tag')}`,
-				`${equal('slug.current', tagName as string)}]._id))`
-			],
-			attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
-			customAttrs: ['authors[]->{name}', 'category->']
-		});
+		// Get articles from the series.
+		const req = await event.fetch(`/api/tag/${tagName}?articles=true`);
+		const articles: Article[] = await req.json();
 
-		articles = await sanityFetch(sanityQuery);
-
-		const title = createSiteTitle(site.title, `#${tagName as string}`);
+		const title = createSiteTitle(site.title, `#${tagName}`);
 
 		let ogTitle = title;
 		let ogDescription = `Browse the #${title} archives at ${site.name}`;

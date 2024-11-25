@@ -11,10 +11,6 @@ import type { Article, Member } from '$lib/schema';
 import { createSiteTitle } from '$lib/helpers';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
-	let sanityQuery: string;
-	let member: Member | undefined;
-	let articles: Article[] | undefined;
-
 	// Get name from URL.
 	const { name } = event.params;
 
@@ -26,20 +22,8 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	 * figured this out yet, though.
 	 */
 
-	try {
-		sanityQuery = buildSanityQuery({
-			type: 'member',
-			conditions: [`${equal('slug.current', name as string)}`],
-			idx: [0],
-			attributes: ['name', 'year', 'bio', 'handles', 'portrait', 'from'],
-			customAttrs: ['committee->{name}']
-		});
-
-		member = await sanityFetch(sanityQuery);
-	} catch (err) {
-		console.error(err);
-		throw error(500, 'Network error...');
-	}
+	const req = await event.fetch(`/api/member/${name}`);
+	const member: Member | undefined = await req.json();
 
 	/**
 	 * Build page information.
@@ -47,23 +31,8 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 
 	if (member) {
 		// Attempt to retrieve the member's articles.
-		try {
-			sanityQuery = buildSanityQuery({
-				type: 'article',
-				conditions: [
-					`references(*[${equal('_type', 'member')}`,
-					`${equal('slug.current', name as string)}]._id)`
-				],
-				attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
-				customAttrs: ['authors[]->{name}', 'category->'],
-				order: 'date desc'
-			});
-
-			articles = await sanityFetch(sanityQuery);
-		} catch (err) {
-			console.error(err);
-			throw error(500, 'Network error...');
-		}
+		const req = await event.fetch(`/api/member/${name}?articles=true`);
+		const articles: Article[] = await req.json();
 
 		const title = member.name;
 
