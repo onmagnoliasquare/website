@@ -84,6 +84,14 @@ export const createAuthorLink = (url: string, slug: string): string => {
 	return `${url}/about/staff/${slug}`;
 };
 
+/**
+ * createSiteTitle creates a formatted site title by appending
+ * a provided title to the site's name with an EN-DASH in between.
+ * If no title is provided, it returns the site's name.
+ * @param name - The name of the site
+ * @param title - An optional title to append
+ * @returns A formatted string representing the complete site title
+ */
 export const createSiteTitle = (name: string, title?: string): string => {
 	if (title) {
 		// The dash below is an EN-DASH (U+2013)
