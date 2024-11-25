@@ -22,8 +22,8 @@ export const GET: RequestHandler = async ({ url }) => {
 			type: 'article',
 			idx: [0],
 			conditions: [
-				`${equal('category->slug.current', (category as string).toLowerCase())}`,
-				`${equal('slug.current', slug as string)}`
+				equal('category->slug.current', (category as string).toLowerCase()),
+				equal('slug.current', slug as string)
 			],
 			attributes: ['title', 'subtitle', 'date', 'media', 'updatedDate', 'metaInfo'],
 			customAttrs: [
