@@ -1,55 +1,19 @@
 import { error, type ServerLoadEvent } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
-import { buildSanityQuery, equal, sanityFetch } from '$lib/sanity';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import { site } from '$lib/variables';
 import { createAuthorLink, createAuthorString } from '$lib/helpers';
 import type { Article } from '$lib/schema';
+import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
-	let sanityQuery: string;
-	let article: Article | undefined;
-
 	const { category, slug } = event.params;
 
 	/**
 	 * Retrieve article information.
 	 */
 
-	try {
-		sanityQuery = buildSanityQuery({
-			type: 'article',
-			idx: [0],
-			conditions: [
-				`${equal('category->slug.current', (category as string).toLowerCase())}`,
-				`${equal('slug.current', slug as string)}`
-			],
-			attributes: ['title', 'subtitle', 'date', 'media', 'updatedDate', 'metaInfo'],
-			customAttrs: [
-				`content[]{
-					_type == "image" => {
-						title,
-						alt,
-						description,
-						"attrs": asset-> {
-							metadata,
-							creditLine,
-						}
-					},
-					...
-				}`,
-				'authors[]->{name, slug}',
-				'tags[]->{name, slug}',
-				'category->{name, slug}',
-				`"headerImage": media.asset->{creditLine}`
-			]
-		});
-
-		article = await sanityFetch(sanityQuery);
-	} catch (err) {
-		console.error(err);
-		throw error(500, 'Server network error...');
-	}
+	const req = await event.fetch(`/api/article?category=${category}&slug=${slug}`);
+	const article: Article | undefined = await req.json();
 
 	/**
 	 * Build article information.
@@ -134,5 +98,5 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 		};
 	}
 
-	throw error(404, 'Article not found...');
+	throw error(req.status, 'Article not found...');
 }) satisfies PageServerLoad;
