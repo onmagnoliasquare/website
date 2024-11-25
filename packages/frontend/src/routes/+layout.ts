@@ -14,13 +14,16 @@ export const load: LayoutLoad = async ({ url, data }) => {
 			? data.acceptedLanguage
 			: site.locale;
 
+	const newUrl = new URL(url.pathname, site.url).href;
+
 	const baseMetaTags = Object.freeze({
 		title: createSiteTitle(site.title),
 		description: site.description,
-		canonical: new URL(url.pathname, url.origin).href,
+		canonical: newUrl,
 		openGraph: {
 			type: 'website',
-			url: new URL(url.pathname, url.origin).href,
+			// url: new URL(url.pathname, url.origin).href,
+			url: newUrl,
 			locale: site.locale,
 			title: site.title,
 			description: site.description,
