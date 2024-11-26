@@ -61,7 +61,8 @@ test('Category on by line accessible via article page', async ({ page }) => {
 	).toBeVisible();
 
 	// Click Category link on the ByLine.
-	await page.getByRole('main').getByRole('link', { name: 'News' }).click();
+	await page.getByRole('article').getByRole('link', { name: 'News' }).click();
+	// await page.getByRole('main').getByRole('link', { name: 'News' }).click();
 
 	await expect(page.getByRole('main').getByRole('heading', { name: 'News' })).toBeVisible();
 });
