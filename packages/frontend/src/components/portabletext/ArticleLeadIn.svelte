@@ -10,9 +10,3 @@
 </script>
 
 <span class="tracked-02 serif f4 fw7">{@render children?.()}</span>
-
-<style>
-	.smallCaps {
-		font-variant: small-caps;
-	}
-</style>
