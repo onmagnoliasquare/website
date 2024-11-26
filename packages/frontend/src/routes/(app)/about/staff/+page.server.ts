@@ -45,6 +45,7 @@ export const load: PageServerLoad = (async () => {
 				description: ogDescription
 			}
 		}) satisfies MetaTagsProps;
+
 		return {
 			title,
 			members,

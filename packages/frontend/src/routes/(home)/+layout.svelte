@@ -6,6 +6,4 @@
 <!-- Header is duplicated here for special customization -->
 <Header />
 
-<main>
-	{@render children()}
-</main>
+{@render children()}

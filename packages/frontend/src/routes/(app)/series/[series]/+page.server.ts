@@ -30,7 +30,7 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 		// The description is expected to end in a punctuation, like a period
 		// exclamation point, or a comma. Therefore, there is none in
 		// the string below.
-		let ogDescription = `${seriesPage.description} Read more at ${site.title}`;
+		let ogDescription = `${seriesPage.description} Read more at ${site.title}.`;
 		if (seriesPage.metaInfo) {
 			if (seriesPage.metaInfo.ogTitle) {
 				ogTitle = seriesPage.metaInfo.ogTitle;

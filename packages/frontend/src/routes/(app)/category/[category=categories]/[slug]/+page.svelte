@@ -121,15 +121,17 @@
 	{#if data.article.tags}
 		<div data-sveltekit-preload-data="false" class="mt5">
 			<a href="/archive" class="dib no-underline">
-				<h4 class="sans-serif fw7 ma0">Tags</h4>
+				<h3 class="sans-serif fw7 ma0">Tags</h3>
 			</a>
 			<!-- `<ul>` for accessibility -->
 			<ul class="list pa0 flex flex-wrap items-center justify-left">
 				{#each data.article.tags as tag}
 					<li class="pa0 ma0 pr1">
-						<a href={`/archive/tags/${tag.slug.current}`}>
-							<Tag tagName={tag.name} />
-						</a>
+						<div>
+							<a href={`/archive/tags/${tag.slug.current}`}>
+								<Tag tagName={tag.name} />
+							</a>
+						</div>
 					</li>
 				{/each}
 			</ul>

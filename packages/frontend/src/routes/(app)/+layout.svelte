@@ -28,6 +28,6 @@
 <!-- This is the main layout for the entire website. -->
 <Header />
 
-<main class="pb4 pb7-ns">
+<div class="pb4 pb7-ns">
 	{@render children()}
-</main>
+</div>
