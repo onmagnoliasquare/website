@@ -1,3 +1,7 @@
+import { dev } from '$app/environment';
+
+export const csr = false;
+
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { buildSanityQuery, sanityFetch } from '$lib/sanity';
@@ -27,7 +31,7 @@ export const load: PageServerLoad = (async () => {
 		const title = 'Staff';
 
 		const ogTitle = createSiteTitle(site.name, title);
-		const ogDescription = `Our staff and contributors at ${site.name}`;
+		const ogDescription = `Staff and contributors at ${site.name}.`;
 
 		const pageMetaTags = Object.freeze({
 			title: ogTitle,
@@ -41,6 +45,7 @@ export const load: PageServerLoad = (async () => {
 				description: ogDescription
 			}
 		}) satisfies MetaTagsProps;
+
 		return {
 			title,
 			members,

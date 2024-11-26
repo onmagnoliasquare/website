@@ -11,11 +11,13 @@
 
 	let { data }: Props = $props();
 	let articles: Article[] = data.articles;
+	let title: string = data.title;
+	let description: string = data.description;
 </script>
 
 <NormalCentering>
-	<PageHeader>{articles[0].series.name}</PageHeader>
-	<p class="tracked-02 pa1">{articles[0].series.description}</p>
+	<PageHeader>{title}</PageHeader>
+	<p class="tracked-02 pa1">{description}</p>
 	<ol class="list pa0 ma0">
 		{#each articles as article}
 			<li class="ma0 pa0">

@@ -8,7 +8,8 @@ export default defineConfig({
 	//@ts-ignore ts(2769)
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}'],
-		environment: 'jsdom',
-		setupFiles: ['./vitest-setup.js']
+		environment: 'node',
+		setupFiles: ['./vitest-setup.js'],
+		restoreMocks: true
 	}
 });
