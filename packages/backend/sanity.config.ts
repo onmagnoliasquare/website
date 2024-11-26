@@ -31,6 +31,10 @@ export default defineConfig([
     schema: {
       types: schemaTypes,
     },
+
+    announcements: {
+      enabled: false,
+    },
   },
   {
     name: 'development',
@@ -55,6 +59,10 @@ export default defineConfig([
 
     schema: {
       types: schemaTypes,
+    },
+
+    announcements: {
+      enabled: false,
     },
   },
 ])
