@@ -142,7 +142,9 @@
 					{#each articles as article}
 						<!-- #key is a fix for https://github.com/onmagnoliasquare/website/issues/96  -->
 						{#key article}
-							<ArticleBoxC {article} locale={data.userLocale} />
+							<li class="ma0 pa0">
+								<ArticleBoxC {article} locale={data.userLocale} />
+							</li>
 						{/key}
 					{/each}
 				</ul>
