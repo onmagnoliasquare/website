@@ -19,11 +19,11 @@
 	</div>
 </div>
 
-<style>
+<!-- <style>
 	.parent {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
 		grid-template-rows: repeat(1, 1fr);
 		gap: 8px;
 	}
-</style>
+</style> -->

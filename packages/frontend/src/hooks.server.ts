@@ -164,7 +164,19 @@ const logSpeed: Handle = async ({ event, resolve }) => {
 	return response;
 };
 
-export const handle = sequence(redirectCaps, redirectTag, redirectHome, logSpeed);
+/**
+ * preflightOptions returns a 200-ok response for OPTIONS requests.
+ * This is a default hook that allows SvelteKit to function as a backend API.
+ * See: https://www.jefmeijvis.com/blog/006-sveltekit-api-endpoints
+ * @returns `Response`
+ */
+export const preflightOptions: Handle = async ({ event, resolve }) => {
+	if (event.request.method !== 'OPTIONS') return await resolve(event);
+
+	return new Response(new Blob(), { status: 200 });
+};
+
+export const handle = sequence(redirectCaps, redirectTag, redirectHome, preflightOptions, logSpeed);
 
 // MAYBE:
 // Maybe also add a HTTP rewriter?

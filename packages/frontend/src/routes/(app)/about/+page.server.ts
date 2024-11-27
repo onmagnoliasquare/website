@@ -1,11 +1,16 @@
+import { dev } from '$app/environment';
+
+export const csr = dev;
+
 import { site } from '$lib/variables';
 import type { MetaTagsProps } from 'svelte-meta-tags';
+import { createSiteTitle } from '$lib/helpers';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = (async () => {
 	const title = 'About';
 
-	const ogTitle = `${title} ${site.title}`;
+	const ogTitle = createSiteTitle(site.title, title);
 	const ogDescription = `Who is ${site.title}?`;
 
 	const pageMetaTags = Object.freeze({

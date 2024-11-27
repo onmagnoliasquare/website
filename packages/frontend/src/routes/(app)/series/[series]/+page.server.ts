@@ -1,48 +1,36 @@
+import { dev } from '$app/environment';
+
+export const csr = dev;
+
 import { error, type ServerLoadEvent } from '@sveltejs/kit';
 import { buildSanityQuery, equal, sanityFetch } from '$lib/sanity';
 import type { PageServerLoad } from './$types';
 import { site } from '$lib/variables';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import type { Article, Series } from '$lib/schema';
+import { createSiteTitle } from '$lib/helpers';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
-	let sanityQuery: string;
-	let seriesPage: Series | undefined;
-
 	// Retrieve the name of series from the URL.
 	const { series } = event.params;
 
-	try {
-		// Get series information.
-		sanityQuery = buildSanityQuery({
-			type: 'series',
-			idx: [0],
-			conditions: [`slug.current == '${series as string}'`],
-			attributes: ['name', 'description', 'metaInfo']
-		});
+	const req = await event.fetch(`/api/series/${series}`);
+	const seriesPage: Series | undefined = await req.json();
 
-		seriesPage = await sanityFetch(sanityQuery);
-	} catch (err) {
-		console.error(err);
-		throw error(500, 'Server network error...');
-	}
-
-	if (seriesPage) {
+	if (seriesPage && series) {
 		// Get articles from the series.
-		sanityQuery = buildSanityQuery({
-			type: 'article',
-			conditions: [`${equal('series->slug.current', series as string)}`],
-			attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
-			customAttrs: ['authors[]->{name}', 'category->{name}', 'series->'],
-			order: 'date desc'
-		});
-
-		const articles: Article[] = await sanityFetch(sanityQuery);
+		const req = await event.fetch(`/api/series/${series}?articles=true`);
+		const articles: Article[] = await req.json();
 
 		const title = seriesPage.name;
+		const description = seriesPage.description;
 
-		let ogTitle = `${title} series at ${site.title}`;
-		let ogDescription = `${title} series`;
+		let ogTitle = createSiteTitle(site.title, title);
+
+		// The description is expected to end in a punctuation, like a period
+		// exclamation point, or a comma. Therefore, there is none in
+		// the string below.
+		let ogDescription = `${seriesPage.description} Read more at ${site.title}.`;
 		if (seriesPage.metaInfo) {
 			if (seriesPage.metaInfo.ogTitle) {
 				ogTitle = seriesPage.metaInfo.ogTitle;
@@ -58,7 +46,6 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 		}
 
 		const pageMetaTags = Object.freeze({
-			title: ogTitle,
 			description: ogDescription,
 			openGraph: {
 				title: ogTitle,
@@ -73,6 +60,7 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 		return {
 			articles,
 			title,
+			description,
 			pageMetaTags
 		};
 	}

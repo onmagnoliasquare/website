@@ -44,16 +44,16 @@
 				<p class="serif fw2 i f2 lh-title" id="subtitle">{data.article.subtitle}</p>
 			{/if}
 			{#if data.article.media}
-				<figure class="ma0 mb4 mw6 center">
+				<figure role="group" class="ma0 mb4 mw6 center">
 					<img
 						src={urlFor(data.article.media).format('webp').fit('max').url()}
 						alt={data.article.media.alt}
 					/>
-					{#if data.article.headerImage.creditLine}
+					{#if data.article.headerImage!.creditLine}
 						<figcaption class="fw5 f6 gray ph1">
 							<div class="mt1">
 								<p class="pa0 ma0 i o-40">
-									Photo credit: {data.article.headerImage.creditLine}
+									Photo credit: {data.article.headerImage!.creditLine}
 								</p>
 							</div>
 						</figcaption>
@@ -121,15 +121,17 @@
 	{#if data.article.tags}
 		<div data-sveltekit-preload-data="false" class="mt5">
 			<a href="/archive" class="dib no-underline">
-				<h4 class="sans-serif fw7 ma0">Tags</h4>
+				<h3 class="sans-serif fw7 ma0">Tags</h3>
 			</a>
 			<!-- `<ul>` for accessibility -->
 			<ul class="list pa0 flex flex-wrap items-center justify-left">
 				{#each data.article.tags as tag}
 					<li class="pa0 ma0 pr1">
-						<a href={`/archive/tags/${tag.slug.current}`}>
-							<Tag tagName={tag.name} />
-						</a>
+						<div>
+							<a href={`/archive/tags/${tag.slug.current}`}>
+								<Tag tagName={tag.name} />
+							</a>
+						</div>
 					</li>
 				{/each}
 			</ul>

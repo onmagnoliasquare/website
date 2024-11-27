@@ -4,6 +4,17 @@
 
 Run `yarn dev` in this directory to start a development server.
 
+## Get Started
+
+To ascertain this codebase, start at the most top level `+layout.server.ts` which is in `src/routes/`. This is the first file that runs when a web page request is received. The data in that file is passed to `+layout.ts`. This runs on both client and server side. The data from that file is then passed to `+layout.svelte`.
+
+```bash
+# The flow of data
+request -> +layout.server.ts -> +layout.ts -> +layout.svelte
+```
+
+`+layout.svelte` is the main layout for the entire website. Any HTML element defined in `+layout.svelte` propagates downward. They may be overridden in child folders, though.
+
 ## Building
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
@@ -28,7 +39,7 @@ A post can be labeled under a category and have a tag, but it will always redire
 
 A post can be labeled under a category, have a tag, and have a series, but it will always redirect to the `series` slug.
 
-A post that has a category or a series accessed from a URL using the `tag/[name]` format will redirect to the category or series slug. *this will need to be added soon!*
+A post that has a category or a series accessed from a URL using the `tag/[name]` format will redirect to the category or series slug. _this will need to be added soon!_
 
 ## Testing
 

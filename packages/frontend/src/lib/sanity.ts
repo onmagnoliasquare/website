@@ -97,7 +97,13 @@ export function unequal(leftSide: string, rightSide: string | boolean): string {
 
 /**
  * buildSanityQuery constructs a sanity query string which is passed
- * to `sanity` fetch functions.
+ * to `sanity` fetch functions. Keep in mind, there is a library for this:
+ * https://github.com/FormidableLabs/groqd/tree/main/packages/groq-builder.
+ * However, it would be unnecessary to include, because:
+ *
+ * - Our queries aren't too complex.
+ * - It would require learning a new library.
+ *
  * @param sq The sanity query to execute.
  * @returns a serialized query string.
  */
