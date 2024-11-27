@@ -77,6 +77,7 @@
 								icon="/icons/linkedin.svg"
 								title={member.name}
 								link={`https://linkedin.com/in/${handles.linkedin}`}
+								alt="Visit Contributor's LinkedIn"
 							/>
 						</li>
 					{/if}
@@ -86,6 +87,7 @@
 								icon="/icons/instagram.svg"
 								title={`${handles.instagram}`}
 								link={`https://instagram.com/${handles.instagram}`}
+								alt="Visit Contributor's Instagram"
 							/>
 						</li>
 					{/if}
@@ -95,6 +97,7 @@
 								icon="/icons/twitter.svg"
 								title={handles.twitter}
 								link={`https://twitter.com/${handles.twitter}`}
+								alt="Visit Contributor's Twitter"
 							/>
 						</li>
 					{/if}
@@ -104,6 +107,7 @@
 								icon="/icons/facebook.svg"
 								title={handles.facebook}
 								link={`https://facebook.com/${handles.facebook}`}
+								alt="Visit Contributor's Facebook"
 							/>
 						</li>
 					{/if}
@@ -113,6 +117,7 @@
 								icon="/icons/github.svg"
 								title={handles.github}
 								link={`https://github.com/${handles.github}`}
+								alt="Visit Contributor's GitHub"
 							/>
 						</li>
 					{/if}
@@ -122,6 +127,7 @@
 								icon="/icons/www.svg"
 								title={domainFromUrl(handles.website)}
 								link={`${handles.website}`}
+								alt="Visit Contributor's Website"
 							/>
 						</li>
 					{/if}
