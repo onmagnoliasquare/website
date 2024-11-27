@@ -1,4 +1,5 @@
-import adapter from '@sveltejs/adapter-cloudflare';
+import adapterCloudflare from '@sveltejs/adapter-cloudflare';
+import adapterAuto from '@sveltejs/adapter-auto';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -7,15 +8,20 @@ const config = {
 	// for more information about preprocessors
 	preprocess: vitePreprocess(),
 	kit: {
-		// We're using Cloudflare's adapter, as we'll be on Cloudflare pages
-		// for the time being...
-		// See: https://kit.svelte.dev/docs/adapter-cloudflare
-		adapter: adapter({
-			routes: {
-				include: ['/*'],
-				exclude: ['<all>']
-			}
-		}),
+		adapter:
+			/**
+			 * If we're in CI or DEV environments, use auto adapter.
+			 * Else, build for cloudflare.
+			 */
+			process.env.CI
+				? adapterAuto()
+				: // See: https://kit.svelte.dev/docs/adapter-cloudflare
+					adapterCloudflare({
+						// routes: {
+						// 	include: ['/*'],
+						// 	exclude: ['<all>']
+						// }
+					}),
 		alias: {
 			$components: 'src/components/*'
 		}
