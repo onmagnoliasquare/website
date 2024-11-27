@@ -6,6 +6,9 @@ import type { Article } from '$lib/schema';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
+	let sanityQuery: string;
+	let article: Article | undefined;
+
 	const { category, slug } = event.params;
 
 	/**
