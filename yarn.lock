@@ -1568,6 +1568,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@eirikk/portabletext-2-svelte-5@npm:^0.1.0-alpha.2, @portabletext/svelte@npm:@eirikk/portabletext-2-svelte-5@0.1.0-alpha.2":
+  version: 0.1.0-alpha.2
+  resolution: "@eirikk/portabletext-2-svelte-5@npm:0.1.0-alpha.2"
+  dependencies:
+    "@portabletext/toolkit": "npm:^2.0.15"
+  peerDependencies:
+    svelte: ^5.0.0
+  checksum: 10c0/0add7034cdf6021e5e7067f2a8066f5466e44dd65ce03188e5ec71e13db40679950ef590f70ac9af9166aadc6c873269ba04d4e586f17ef1054da4697478ca3a
+  languageName: node
+  linkType: hard
+
 "@emotion/babel-plugin@npm:^11.13.5":
   version: 11.13.5
   resolution: "@emotion/babel-plugin@npm:11.13.5"
@@ -2817,17 +2828,6 @@ __metadata:
   peerDependencies:
     react: ^17 || ^18 || >=19.0.0-rc
   checksum: 10c0/52d03a97dc70d90285798f662c0a9b35c965bc62a9e228cfd0de34cc21b22f16c9fdb0196d433f0da71faaefb76ba4a75f134ae7d7b82fa055317037119e3981
-  languageName: node
-  linkType: hard
-
-"@portabletext/svelte@npm:^2.1.11":
-  version: 2.1.11
-  resolution: "@portabletext/svelte@npm:2.1.11"
-  dependencies:
-    "@portabletext/toolkit": "npm:^2.0.15"
-  peerDependencies:
-    svelte: ">=3.47.0 <5.0.0"
-  checksum: 10c0/0cde8d6edfb3e5b444fe54cf654db87cc73592ba6db370e8b3d189116b2f6d3a0bcc90ac6d925de1879de9cba3801c85c6ac4a0199c9f4d9f4ca7b5ea9f71f91
   languageName: node
   linkType: hard
 
@@ -14134,8 +14134,9 @@ __metadata:
   resolution: "website@workspace:."
   dependencies:
     "@axe-core/playwright": "npm:^4.10.1"
+    "@eirikk/portabletext-2-svelte-5": "npm:^0.1.0-alpha.2"
     "@playwright/test": "npm:^1.49.0"
-    "@portabletext/svelte": "npm:^2.1.11"
+    "@portabletext/svelte": "npm:^2"
     "@sanity/cli": "npm:^3.64.3"
     "@sanity/client": "npm:^6.22.5"
     "@sanity/eslint-config-studio": "npm:^4.0.0"

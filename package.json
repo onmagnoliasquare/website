@@ -25,7 +25,8 @@
     "*.{html,css,json,svelte}": ["yarn prettier --write"]
   },
   "dependencies": {
-    "@portabletext/svelte": "^2.1.11",
+    "@eirikk/portabletext-2-svelte-5": "^0.1.0-alpha.2",
+    "@portabletext/svelte": "^2",
     "@sanity/client": "^6.22.5",
     "@sanity/icons": "^3.4.0",
     "@sanity/image-url": "^1.1.0",
@@ -74,5 +75,8 @@
     "vite": "^5.4.11",
     "vitest": "^2.1.5",
     "wrangler": "^3.90.0"
+  },
+  "resolutions": {
+    "@portabletext/svelte": "npm:@eirikk/portabletext-2-svelte-5@0.1.0-alpha.2"
   }
 }
