@@ -5,6 +5,15 @@ test('Neo Alabastro page has name displayed on page', async ({ page }) => {
 	await expect(page.getByRole('heading', { name: 'Neo Alabastro' })).toBeVisible();
 });
 
+test('Neo Alabastro page has alt text for profile image', async ({ page }) => {
+	await page.goto('/about/staff/neo-alabastro');
+
+	// "name" is the alt text.
+	await expect(
+		page.getByRole('img', { name: "Neo Alabastro's profile image", exact: true })
+	).toBeVisible();
+});
+
 test('Neo Alabastro page has BIO', async ({ page }) => {
 	await page.goto('/about/staff/neo-alabastro');
 	await expect(page.getByRole('heading', { name: 'BIO', exact: true })).toBeVisible();
