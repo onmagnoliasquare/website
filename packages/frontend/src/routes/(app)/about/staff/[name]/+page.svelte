@@ -33,7 +33,7 @@
 					height={250}
 					fit={'crop'}
 					quality={90}
-					altText={member.portrait.alt}
+					altText={`${member.name}'s profile image`}
 					className={`w-100 h-100`}
 				/>
 			</div>
