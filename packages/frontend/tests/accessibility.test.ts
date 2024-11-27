@@ -12,6 +12,7 @@ import AxeBuilder from '@axe-core/playwright'; // 1
  */
 
 const articleUrl = `/category/news/this-year's-changes-in-cost-of-attendance-and-financial-aid`;
+const authorUrl = `/about/staff/neo-alabastro`;
 
 test('Homepage has no accessibility issues', async ({ page }) => {
 	await page.goto('/');
@@ -115,6 +116,16 @@ test('Archive page has no accessibility issues', async ({ page }) => {
 
 test('Article page has no accessibility issues', async ({ page }) => {
 	await page.goto(articleUrl);
+
+	const accessibilityScanResults = await new AxeBuilder({ page })
+		.disableRules(['color-contrast'])
+		.analyze();
+
+	expect(accessibilityScanResults.violations).toHaveLength(0);
+});
+
+test('Author page has no accessibility issues', async ({ page }) => {
+	await page.goto(authorUrl);
 
 	const accessibilityScanResults = await new AxeBuilder({ page })
 		.disableRules(['color-contrast'])
