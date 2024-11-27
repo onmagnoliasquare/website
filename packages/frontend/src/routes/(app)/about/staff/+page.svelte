@@ -1,6 +1,5 @@
 <script lang="ts">
 	import StaffGrid from '$components/about/StaffGrid.svelte';
-	import NormalCentering from '$components/NormalCentering.svelte';
 	import PageHeader from '$components/PageHeader.svelte';
 	import type { PageData } from './$types';
 

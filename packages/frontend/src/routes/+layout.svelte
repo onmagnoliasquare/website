@@ -27,26 +27,31 @@
 
 <MetaTags {...metaTags} />
 
-{#if isDevEnv}
-	<div class="w-100 ma0 pa0 bg-red">
+<header>
+	{#if isDevEnv}
+		<div class="w-100 ma0 pa0 bg-red">
+			<div class="mw9 center ma0 pa0">
+				<div class="flex flex-flow items-center justify-center">
+					<p class="ttu sans-serif fw4 tracked-02 f5 fw8 pa0 ma0 white">
+						⚠️ This is a development Environment - Do not touch production dataset ️⚠️
+					</p>
+				</div>
+			</div>
+		</div>
+	{/if}
+	<div class="w-100 ma0 pa1">
 		<div class="mw9 center ma0 pa0">
-			<div class="flex flex-flow items-center justify-center">
-				<p class="ttu sans-serif fw4 tracked-02 f5 fw8 pa0 ma0 white">
-					⚠️ This is a development Environment - Do not touch production dataset ️⚠️
-				</p>
+			<div class="flex flex-row-reverse items-center justify-left">
+				<VersionLabel />
 			</div>
 		</div>
 	</div>
-{/if}
-<div class="w-100 ma0 pa1">
-	<div class="mw9 center ma0 pa0">
-		<div class="flex flex-row-reverse items-center justify-left">
-			<VersionLabel />
-		</div>
+</header>
+
+<main>
+	<div class="mw9 w-100 center pa1 pa3-l">
+		{@render children()}
 	</div>
-</div>
-<div class="mw9 w-100 center pa1 pa3-l">
-	{@render children()}
-</div>
+</main>
 
 <Footer />

@@ -36,7 +36,9 @@
 		{#each articles as article}
 			<!-- #key is a fix for https://github.com/onmagnoliasquare/website/issues/96  -->
 			{#key article}
-				<ArticleBoxC {article} />
+				<li>
+					<ArticleBoxC {article} />
+				</li>
 			{/key}
 		{/each}
 	</ul>

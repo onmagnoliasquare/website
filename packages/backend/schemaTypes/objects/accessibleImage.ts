@@ -23,6 +23,9 @@ export default defineType({
           type: requiredFormattedString.name,
           title: 'Alt text',
           hidden: ({parent}) => !parent?.asset,
+          // See: https://www.wcag.com/blog/good-alt-text-bad-alt-text-making-your-content-perceivable/
+          validation: (rule) =>
+            rule.max(125).warning('Try to keep alt text less than 125 characters.'),
         },
         {
           name: 'description',

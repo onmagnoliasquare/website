@@ -1,32 +1,20 @@
 import { error, type ServerLoadEvent } from '@sveltejs/kit';
 import { buildSanityQuery, sanityFetch } from '$lib/sanity';
-import type { PageServerLoad } from './$types';
 import type { MetaTagsProps } from 'svelte-meta-tags';
-import { site } from '$lib/variables';
 import type { Article, Category } from '$lib/schema';
+import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	let sanityQuery: string;
-	let cat: Category | undefined;
 	let articles: Article[] | undefined;
 
 	// Retrieve the name of the category from the URL.
 	const { category } = event.params!;
 
 	// Get category information.
-	try {
-		sanityQuery = buildSanityQuery({
-			type: 'category',
-			conditions: [`slug.current == '${category as string}'`],
-			idx: [0],
-			attributes: ['name', 'description', 'slug', 'useCustomCss', 'metaInfo']
-		});
 
-		cat = await sanityFetch(sanityQuery);
-	} catch (err) {
-		console.error(err);
-		throw error(500, 'Server network error...');
-	}
+	const req = await event.fetch(`/api/category/${category}`);
+	const cat: Category | undefined = await req.json();
 
 	if (!cat) throw error(404, "That category doesn't exist...");
 
@@ -48,7 +36,7 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 
 	if (articles) {
 		let title = cat.name;
-		let ogTitle = `${title} at ${site.name}`;
+		let ogTitle = title;
 		let ogDescription = cat.description;
 
 		if (cat.metaInfo) {
@@ -66,7 +54,6 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 		}
 
 		const pageMetaTags = Object.freeze({
-			title: ogTitle,
 			description: ogDescription,
 			openGraph: {
 				title: ogTitle,

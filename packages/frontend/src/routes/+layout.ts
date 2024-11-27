@@ -1,6 +1,7 @@
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import type { LayoutLoad } from './$types';
 import { site } from '$lib/variables';
+import { createSiteTitle } from '$lib/helpers';
 
 // https://svelte.dev/docs/kit/load#Universal-vs-server-When-to-use-which
 // Also, modified from: https://github.com/oekazuma/svelte-meta-tags/blob/main/example/src/routes/%2Blayout.ts
@@ -13,14 +14,16 @@ export const load: LayoutLoad = async ({ url, data }) => {
 			? data.acceptedLanguage
 			: site.locale;
 
+	const newUrl = new URL(url.pathname, site.url).href;
+
 	const baseMetaTags = Object.freeze({
-		title: 'Normal',
-		titleTemplate: `%s – ${site.title}`,
+		title: createSiteTitle(site.title),
 		description: site.description,
-		canonical: new URL(url.pathname, url.origin).href,
+		canonical: newUrl,
 		openGraph: {
 			type: 'website',
-			url: new URL(url.pathname, url.origin).href,
+			// url: new URL(url.pathname, url.origin).href,
+			url: newUrl,
 			locale: site.locale,
 			title: site.title,
 			description: site.description,

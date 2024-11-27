@@ -119,14 +119,7 @@ export default defineType({
         hotspot: true,
       },
       description:
-        'Optional profile image, cropped to 1:1 dimensions when displayed on the website.',
-      fields: [
-        {
-          title: 'Alt Text',
-          name: 'alt',
-          type: requiredFormattedString.name,
-        },
-      ],
+        "Optional profile image, cropped to 1:1 dimensions when displayed on the website. Alt text not needed; it is computed on the frontend using the member's name.",
     }),
 
     defineField({

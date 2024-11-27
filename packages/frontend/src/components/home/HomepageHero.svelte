@@ -15,7 +15,7 @@
 <a
 	data-sveltekit-preload-data="hover"
 	data-sveltekit-preload-code="eager"
-	href={`/category/${article.category.name}/${article.slug.current}`}
+	href={`/category/${article.category.name.toLowerCase()}/${article.slug.current}`}
 	class="no-underline"
 >
 	<article>
