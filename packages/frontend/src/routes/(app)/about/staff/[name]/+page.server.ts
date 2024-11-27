@@ -4,7 +4,6 @@ export const csr = dev;
 
 import { error, type ServerLoadEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { buildSanityQuery, equal, sanityFetch } from '$lib/sanity';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import { filler, site } from '$lib/variables';
 import type { Article, Member } from '$lib/schema';

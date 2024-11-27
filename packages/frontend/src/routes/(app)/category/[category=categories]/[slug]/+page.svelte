@@ -44,7 +44,7 @@
 				<p class="serif fw2 i f2 lh-title" id="subtitle">{data.article.subtitle}</p>
 			{/if}
 			{#if data.article.media}
-				<figure class="ma0 mb4 mw6 center">
+				<figure role="group" class="ma0 mb4 mw6 center">
 					<img
 						src={urlFor(data.article.media).format('webp').fit('max').url()}
 						alt={data.article.media.alt}

@@ -161,6 +161,8 @@ export default defineType({
           name: 'alt',
           type: requiredFormattedString.name,
           hidden: ({parent}) => !parent?.asset,
+          validation: (rule) =>
+            rule.max(125).warning('Try to keep alt text less than 125 characters.'),
         },
       ],
       group: ContentGroup.name,
