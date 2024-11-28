@@ -1,13 +1,6 @@
 import { site } from '$lib/variables';
 import { test, expect } from '@playwright/test';
-
-/**
- * PT = Portable Text
- */
-const v05TestArticleUrl = `/category/news/v05-article-feature-set--what-a-blast`;
-const v05DummyDataPath = '../dummyData/v5/data.json';
-const v05Category = 'news';
-const v05Slug = 'v05-article-feature-set--what-a-blast';
+import { v05Category, v05DummyDataPath, v05Slug, v05TestArticleUrl } from '../testVariables';
 
 test('Article has title', async ({ page }) => {
 	await page.route(`*/**/api/article?category=${v05Category}&slug=${v05Slug}`, async (route) => {

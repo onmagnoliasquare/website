@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright'; // 1
+import { v05TestArticleUrl } from '../testVariables';
 
 /**
  * We'll disable color contrast for now. This will be fixed
@@ -11,7 +12,6 @@ import AxeBuilder from '@axe-core/playwright'; // 1
  *   - 'color-contrast'
  */
 
-const articleUrl = `/category/news/this-year's-changes-in-cost-of-attendance-and-financial-aid`;
 const authorUrl = `/about/staff/neo-alabastro`;
 
 test('Homepage has no accessibility issues', async ({ page }) => {
@@ -115,7 +115,7 @@ test('Archive page has no accessibility issues', async ({ page }) => {
 });
 
 test('Article page has no accessibility issues', async ({ page }) => {
-	await page.goto(articleUrl);
+	await page.goto(v05TestArticleUrl);
 
 	const accessibilityScanResults = await new AxeBuilder({ page })
 		.disableRules(['color-contrast'])
