@@ -22,7 +22,7 @@ export const load: PageServerLoad = (async () => {
 		members = await sanityFetch(sanityQuery);
 	} catch (err) {
 		console.error(err);
-		throw error(500, 'Server network error...');
+		error(500, 'Server network error...');
 	}
 
 	if (members) {
@@ -51,5 +51,5 @@ export const load: PageServerLoad = (async () => {
 		};
 	}
 
-	throw error(404, 'Not found');
+	error(404, 'Not found');
 }) satisfies PageServerLoad;

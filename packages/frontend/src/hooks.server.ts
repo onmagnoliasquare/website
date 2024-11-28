@@ -38,7 +38,8 @@ const redirectHome: Handle = async ({ event, resolve }) => {
 		if (isDevEnv) {
 			console.log('redirecting /home to /');
 		}
-		throw redirect(301, '/');
+
+		redirect(301, '/');
 	}
 
 	const response = await resolve(event);
@@ -62,7 +63,7 @@ const redirectTag: Handle = async ({ event, resolve }) => {
 		 * /{tag-name}/{post-name}
 		 */
 		if (path.length >= 3) {
-			throw redirect(302, '/tags');
+			redirect(302, '/tags');
 		}
 
 		const pathTag = path[0];
@@ -81,7 +82,7 @@ const redirectTag: Handle = async ({ event, resolve }) => {
 
 		// Check if article actually exists.
 		if (article === null) {
-			throw redirect(302, '/tags');
+			redirect(302, '/archive');
 		}
 
 		const articleHasTag: boolean = article.tags.some((t) => t.slug.current == pathTag);
@@ -90,7 +91,7 @@ const redirectTag: Handle = async ({ event, resolve }) => {
 		if (articleHasTag === false) {
 			// If the article isn't found, return user to /tags/{tag-name}
 			// perhaps also show modal - no tag found!
-			throw redirect(302, '/tags');
+			redirect(302, '/archive');
 		}
 
 		// Respond with a category redirect.
@@ -103,7 +104,7 @@ const redirectTag: Handle = async ({ event, resolve }) => {
 			console.log(out);
 		}
 
-		throw redirect(302, categoryPath);
+		redirect(302, categoryPath);
 	}
 
 	const response = await resolve(event);
@@ -124,7 +125,7 @@ const redirectTag: Handle = async ({ event, resolve }) => {
 const redirectCaps: Handle = async ({ event, resolve }) => {
 	const uppercase: boolean = hasUppercase(event.url.pathname);
 	if (uppercase) {
-		throw redirect(307, event.url.pathname.toLowerCase());
+		redirect(307, event.url.pathname.toLowerCase());
 	}
 
 	const response = await resolve(event);
