@@ -15,9 +15,19 @@ export default defineConfig({
 		isolate: false,
 		fileParallelism: false,
 		threads: false,
+		poolOptions: {
+			forks: {
+				singleFork: true
+			}
+		},
 		coverage: {
 			enabled: false
 		},
-		reporters: process.env.GITHUB_ACTIONS ? ['verbose', 'github-actions'] : ['verbose']
+		reporters: process.env.GITHUB_ACTIONS ? ['verbose', 'github-actions'] : ['verbose'],
+		resolve: process.env.VITEST
+			? {
+					conditions: ['browser']
+				}
+			: undefined
 	}
 });
