@@ -413,3 +413,27 @@ test('Article page loads SEO correctly', async ({ page }) => {
 		`${site.name} logo`
 	);
 });
+
+/**
+ * Checks if there are any blank <p> elements. This is a regression test for
+ * https://github.com/onmagnoliasquare/website/issues/194
+ */
+test('No blank <p> elements in the article', async ({ page }) => {
+	await page.route(`*/**/api/article?category=${v05Category}&slug=${v05Slug}`, async (route) => {
+		await route.fulfill({ path: v05DummyDataPath });
+	});
+
+	await page.goto(v05TestArticleUrl);
+
+	// Locate all <p> elements within the <article>
+	const paragraphs = page.locator('article p');
+
+	// Get the count of <p> elements
+	const paragraphCount = await paragraphs.count();
+
+	// Iterate through each <p> and check if it has text
+	for (let i = 0; i < paragraphCount; i++) {
+		const paragraphText = await paragraphs.nth(i).innerText();
+		expect(paragraphText.trim()).not.toBe(''); // Ensure the <p> is not blank
+	}
+});
