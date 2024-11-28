@@ -6,7 +6,7 @@
 		portableText: MarkComponentProps;
 		children?: Snippet;
 	}
-	let { portableText, children }: Props = $props();
+	let { children }: Props = $props();
 </script>
 
 <span class="tracked-02 serif f4 fw7">{@render children?.()}</span>

@@ -1,5 +1,4 @@
 import { error, type ServerLoadEvent } from '@sveltejs/kit';
-import { buildSanityQuery, equal, sanityFetch } from '$lib/sanity';
 import type { PageServerLoad } from './$types';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import { site } from '$lib/variables';

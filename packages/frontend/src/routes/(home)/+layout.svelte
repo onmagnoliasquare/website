@@ -1,5 +1,5 @@
 <script>
-	import { Footer, Header, Navbar } from '$lib';
+	import { Header } from '$lib';
 	let { children } = $props();
 </script>
 
