@@ -152,6 +152,18 @@ Below are VS Code extensions used in this project.
 
 ## Development
 
+### Useful Commands
+
+#### Convert `.ndjson` to `.json`
+
+Required software: `jq`
+
+```bash
+jq --slurp '.' in.json > out.json
+```
+
+Retrieved from: <https://stackoverflow.com/questions/45456414/convert-json-lines-to-json-array-using-jq>
+
 ### Route Enforcement
 
 To enforce categories and routes, we are using `src/params` to enforce only
@@ -169,12 +181,7 @@ of SvelteKit.
 CI requires unit tests and perhaps integration tests if you could secure a
 development key. This comes with managing the secret on GitHub, though.
 
-We are either using Cloudflare Pages or Vercel to deploy the frontend. The
-backend is deployed via the Sanity CLI deploy command. The frontend requires the
-environment variables to be injected at build time in order to build and deploy
-successfully. These can be accessed in either Cloudflare page's or Vercel's
-appropriate deploy configuration settings. Make sure all of the .env.example
-fields are used in the deployment environment.
+The frontend is deployed to Cloudflare pages. The backend is deployed via the Sanity CLI deploy command. The frontend requires the environment variables to be injected at build time in order to build and deploy successfully. These can be accessed in either Cloudflare page's or Vercel's appropriate deploy configuration settings. Make sure all of the .env.example fields are used in the deployment environment.
 
 ## Useful Links
 
