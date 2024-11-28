@@ -1,4 +1,5 @@
 <script>
+	import { site } from '$lib/variables';
 	import Navbar from './general/Navbar.svelte';
 
 	import SiteTitle from './SiteTitle.svelte';
@@ -8,7 +9,7 @@
 	<a href="/" class="center">
 		<div class="w-100 flex flex-wrap items-center ma0 pa0">
 			<div class="mw3 mw4-ns">
-				<img src="/favicon.svg" alt="On Magnolia Square logo" class="mw-100" />
+				<img src="/favicon.svg" alt={`${site.name} logo`} class="mw-100" />
 			</div>
 			<div>
 				<SiteTitle />
