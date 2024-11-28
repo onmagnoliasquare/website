@@ -8,15 +8,10 @@
 	import ArticleLink from '$components/portabletext/ArticleLink.svelte';
 	import NormalCentering from '$components/NormalCentering.svelte';
 	import { urlFor } from '$lib/sanity';
-	import {
-		PortableText,
-		ArticleSingleArticleBlock,
-		ArticleImage,
-		ArticleBodyMarks,
-		Tag
-	} from '$lib';
+	import { ArticleSingleArticleBlock, ArticleImage, ArticleBodyMarks, Tag } from '$lib';
 	import { fly } from 'svelte/transition';
 	import ArticleLeadIn from '$components/portabletext/ArticleLeadIn.svelte';
+	import { PortableText } from '@portabletext/svelte';
 
 	interface Props {
 		data: PageData;
@@ -111,7 +106,6 @@
 				}}
 			/>
 		</div>
-		<!-- <NormalCentering></NormalCentering> -->
 	</section>
 </article>
 

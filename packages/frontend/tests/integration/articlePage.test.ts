@@ -1,3 +1,4 @@
+import { site } from '$lib/variables';
 import { test, expect } from '@playwright/test';
 
 const articleUrl = `/category/news/this-year's-changes-in-cost-of-attendance-and-financial-aid`;
@@ -29,6 +30,15 @@ test('Article page has tags', async ({ page }) => {
 	await expect(
 		page.getByRole('heading', {
 			name: 'Tags'
+		})
+	).toBeVisible();
+});
+
+test('Article page has category on ByLine', async ({ page }) => {
+	await page.goto(articleUrl);
+	await expect(
+		page.getByRole('heading', {
+			name: "This Year's Changes in Cost of Attendance and Financial Aid"
 		})
 	).toBeVisible();
 });
@@ -86,6 +96,7 @@ test('Article page loads SEO correctly', async ({ page }) => {
 		'content',
 		'2014-02-01T00:00:00Z'
 	);
+
 	await expect(page.locator('head meta[property="article:modified_time"]')).toHaveAttribute(
 		'content',
 		'2024-11-25T00:00:00Z'
@@ -100,7 +111,7 @@ test('Article page loads SEO correctly', async ({ page }) => {
 
 	await expect(page.locator('head meta[property="og:site_name"]')).toHaveAttribute(
 		'content',
-		'On Magnolia Square'
+		site.name
 	);
 
 	await expect(page.locator('head meta[property="og:locale"]')).toHaveAttribute('content', 'en-US');
@@ -112,5 +123,20 @@ test('Article page loads SEO correctly', async ({ page }) => {
 	await expect(page.locator('head meta[name="twitter:description"]')).toHaveAttribute(
 		'content',
 		description
+	);
+
+	await expect(page.locator('head meta[name="twitter:card"]')).toHaveAttribute(
+		'content',
+		'summary_large_image'
+	);
+
+	await expect(page.locator('head meta[name="twitter:image"]')).toHaveAttribute(
+		'content',
+		`${site.url}/og-default-preview.png`
+	);
+
+	await expect(page.locator('head meta[name="twitter:image:alt"]')).toHaveAttribute(
+		'content',
+		`${site.name} logo`
 	);
 });
