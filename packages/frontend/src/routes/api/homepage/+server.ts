@@ -29,12 +29,6 @@ export const GET: RequestHandler = async ({}) => {
 			{ status: 500 }
 		);
 	}
-	// console.log(JSON.stringify(articles, null, 2));
-
-	// console.log(JSON.stringify(articles));
-	// return JSON.stringify(articles);
-
-	// console.log(await json(articles).json());
 
 	return json(articles, {
 		headers: {
