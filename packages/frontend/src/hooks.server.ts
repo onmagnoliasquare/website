@@ -177,22 +177,3 @@ export const preflightOptions: Handle = async ({ event, resolve }) => {
 };
 
 export const handle = sequence(redirectCaps, redirectTag, redirectHome, preflightOptions, logSpeed);
-
-// MAYBE:
-// Maybe also add a HTTP rewriter?
-// export async function handleFetch({ request, fetch }) {
-// 	if (request.url.startsWith('http')) {
-// 		const url = request.url.replace('http', 'https');
-// 		request = new Request(url, request);
-
-// 		console.log(request.url); // https://joyofcode.xyz/ 👍
-
-// 		// you can set the request headers
-// 		request.headers.set('x-secure', 'Blessed');
-
-// 		// you can pass cookies for cross-origin requests
-// 		request.headers.set('cookie', event.request.headers.get('cookie'));
-// 	}
-
-// 	return fetch(request);
-// }
