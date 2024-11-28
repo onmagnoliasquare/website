@@ -10,6 +10,14 @@ export default defineConfig({
 		include: ['src/**/*.{test,spec}.{js,ts}'],
 		environment: 'node',
 		setupFiles: ['./vitest-setup.js'],
-		restoreMocks: true
+		restoreMocks: true,
+		pool: 'forks',
+		isolate: false,
+		fileParallelism: false,
+		threads: false,
+		coverage: {
+			enabled: false
+		},
+		reporters: process.env.GITHUB_ACTIONS ? ['verbose', 'github-actions'] : ['verbose']
 	}
 });
