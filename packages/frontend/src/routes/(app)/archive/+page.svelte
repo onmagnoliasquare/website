@@ -2,7 +2,6 @@
 	import type { PageData } from './$types';
 	import PageHeader from '$components/PageHeader.svelte';
 	import NormalCentering from '$components/NormalCentering.svelte';
-	import { Tag } from '$lib';
 
 	interface Props {
 		data: PageData;
@@ -17,7 +16,7 @@
 		{#each data.tags as tag}
 			<li class="db ma1 w-auto">
 				<a href={`/archive/tags/${tag.slug.current}`} title={tag.name}>
-					<Tag tagName={tag.name} />
+					<data.Tag tagName={tag.name} />
 				</a>
 			</li>
 		{/each}
