@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import AxeBuilder from '@axe-core/playwright'; // 1
+import AxeBuilder from '@axe-core/playwright';
 import { v05TestArticleUrl } from '../testVariables';
 
 /**
