@@ -4,7 +4,6 @@
 	 * */
 
 	import { Footer, VersionLabel } from '$lib';
-	import { isDevEnv } from '$lib/sanity';
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
 
@@ -14,6 +13,7 @@
 	// CSS styling
 	import '../styles/onmagnoliasquare.css';
 	import '../styles/typography.css';
+	import { dev } from '$app/environment';
 
 	interface Props {
 		data: LayoutData;
@@ -28,7 +28,7 @@
 <MetaTags {...metaTags} />
 
 <header>
-	{#if isDevEnv}
+	{#if dev}
 		<div class="w-100 ma0 pa0 bg-red">
 			<div class="mw9 center ma0 pa0">
 				<div class="flex flex-flow items-center justify-center">

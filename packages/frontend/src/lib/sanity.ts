@@ -3,6 +3,7 @@ import imageUrlBuilder from '@sanity/image-url';
 
 // Environment variables, found in ".env". Check ".env.example" for explanation.
 import type { Query } from './schema';
+import { dev } from '$app/environment';
 
 // if (!SANITY_PROJECT_ID || !SANITY_DATASET) {
 // 	throw new Error('Did you forget to run yarn run -T sanity init --env?');
@@ -21,13 +22,8 @@ const config: ClientConfig = {
 	apiVersion: '2024-09-20'
 };
 
-// Get runtime from Vite's prescribed environment.
-// See: https://vitejs.dev/guide/env-and-mode
-export const isDevEnv: boolean = import.meta.env.DEV;
-
 // Change the dataset if it is a development environment.
-if (isDevEnv) {
-	// config.token = SANITY_DEVELOPER_TOKEN;
+if (dev) {
 	config.dataset = 'development';
 	config.useCdn = false;
 }

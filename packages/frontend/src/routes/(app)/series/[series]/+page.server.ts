@@ -1,7 +1,3 @@
-import { dev } from '$app/environment';
-
-export const csr = dev;
-
 import { error, type ServerLoadEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { site } from '$lib/variables';
