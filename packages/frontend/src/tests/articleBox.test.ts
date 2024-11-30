@@ -1,8 +1,3 @@
-/**
- * Currently non-functional. See:
- * https://github.com/onmagnoliasquare/website/issues/166#issuecomment-2496564881
- */
-
 // @vitest-environment jsdom
 import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
 import { render, screen } from '@testing-library/svelte';
