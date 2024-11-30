@@ -9,8 +9,10 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
-		"moduleResolution": "node",
-		"noUnusedLocals": true
+		"moduleResolution": "bundler",
+		"module": "preserve",
+		"noUnusedLocals": true,
+		"allowImportingTsExtensions": true
 	},
 	"include": ["./**/*"],
 	"exclude": ["node_modules", ".vscode", "dist", ".svelte-kit", "coverage"]
