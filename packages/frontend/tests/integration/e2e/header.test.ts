@@ -8,15 +8,15 @@ test('Homepage to a category', async ({ page }) => {
 });
 
 test('News -> Opinion categories', async ({ page }) => {
-	await page.goto('/news');
-	await page.getByRole('link', { name: 'Opinion' }).click();
+	await page.goto('/category/news');
+	await page.locator('#indexNav').getByRole('link', { name: 'Opinion' }).click();
 
 	await expect(page.getByRole('heading', { name: 'Opinion', exact: true })).toBeVisible();
 });
 
 test('News -> Opinion -> People -> Culture -> Multimedia categories', async ({ page }) => {
-	await page.goto('/news');
-	await page.getByRole('link', { name: 'Opinion' }).click();
+	await page.goto('/category/news');
+	await page.locator('#indexNav').getByRole('link', { name: 'Opinion' }).click();
 
 	await expect(page.getByRole('heading', { name: 'Opinion', exact: true })).toBeVisible();
 
