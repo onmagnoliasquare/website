@@ -13140,15 +13140,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sveltekit-embed@npm:^0.0.18":
-  version: 0.0.18
-  resolution: "sveltekit-embed@npm:0.0.18"
-  peerDependencies:
-    svelte: ^4.0.0 || ^5.0.0
-  checksum: 10c0/9bd73b2d2fbff82b52fb92ed2d579ea30c144bf7fbf05c379984e1c37e4f6fc0834f2c7624d5607798e12ed661c546706a622473ce97e54a44834cfb906ce039
-  languageName: node
-  linkType: hard
-
 "symbol-tree@npm:^3.2.4":
   version: 3.2.4
   resolution: "symbol-tree@npm:3.2.4"
@@ -14231,7 +14222,6 @@ __metadata:
     svelte: "npm:^5.2.10"
     svelte-check: "npm:^4.1.0"
     svelte-meta-tags: "npm:^4.0.4"
-    sveltekit-embed: "npm:^0.0.18"
     tslib: "npm:^2.8.1"
     typescript: "npm:^5.7.2"
     vite: "npm:^6.0.1"
