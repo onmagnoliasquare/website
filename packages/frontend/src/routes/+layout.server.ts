@@ -1,3 +1,5 @@
+// export const csr = false;
+
 import type { LayoutServerLoad } from './$types';
 
 // Retrieved from: https://poly-i18n.vercel.app/en/kitbook/docs/3-use-with-sveltekit

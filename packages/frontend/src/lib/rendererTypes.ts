@@ -7,7 +7,7 @@ import type {
 	ArbitraryTypedObject,
 	PortableTextBlock,
 	PortableTextBlockStyle,
-	PortableTextListItemType,
+	// PortableTextListItemType,
 	PortableTextMarkDefinition
 } from '@portabletext/types';
 import type { SvelteComponent } from 'svelte';
@@ -242,16 +242,16 @@ type MarkComponent =
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	| typeof SvelteComponent<any>;
 
-type ListComponent =
-	| SvelteComponent<{
-			portableText: ListComponentProps;
-	  }>
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	| typeof SvelteComponent<any>;
+// type ListComponent =
+// 	| SvelteComponent<{
+// 			portableText: ListComponentProps;
+// 	  }>
+// 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// 	| typeof SvelteComponent<any>;
 
-type ListItemComponent =
-	| SvelteComponent<{
-			portableText: ListItemComponentProps;
-	  }>
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	| typeof SvelteComponent<any>;
+// type ListItemComponent =
+// 	| SvelteComponent<{
+// 			portableText: ListItemComponentProps;
+// 	  }>
+// 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// 	| typeof SvelteComponent<any>;

@@ -4,7 +4,7 @@
 	import defaultComponents from '../defaultComponents/defaultComponents';
 	import { mergeComponents } from '../defaultComponents/mergeComponents';
 	import type { InputValue, PortableTextSvelteContext } from '../ptTypes';
-	import type { MissingComponentHandler, NodeType, PortableTextComponents } from '../rendererTypes';
+	import type { MissingComponentHandler, NodeType } from '../rendererTypes';
 	import RenderNode from '../RenderNode.svelte';
 	import { getWarningMessage, printWarning } from '../warnings';
 

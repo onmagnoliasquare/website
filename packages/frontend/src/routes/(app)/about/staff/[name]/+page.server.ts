@@ -93,6 +93,5 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 		};
 	}
 
-	throw error(404, 'Member not found...');
-	throw error(404, 'Member not found...');
+	error(404, 'Member not found...');
 }) satisfies PageServerLoad;

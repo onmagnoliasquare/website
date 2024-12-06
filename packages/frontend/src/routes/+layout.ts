@@ -34,12 +34,12 @@ export const load: LayoutLoad = async ({ url, data }) => {
 			description: site.description,
 			cardType: 'summary_large_image' as 'summary_large_image',
 			image: `${site.url}/og-default-preview.png`,
-			imageAlt: `Photo of text`
+			imageAlt: `${site.name} logo`
 		},
 		images: [
 			{
 				url: `${site.url}/og-default-preview.png`,
-				alt: `Photo of text`,
+				alt: `${site.name} logo`,
 				width: 1280,
 				height: 720,
 				secureUrl: `${site.url}/og-default-preview.png`,

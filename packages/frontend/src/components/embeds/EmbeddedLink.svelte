@@ -11,7 +11,7 @@
 	let link = parseEmbedLink(portableText.value.contentUrl);
 </script>
 
-<div class="mb4">
+<div class="mv4">
 	{#if link.name == 'spotify'}
 		<SpotifyEmbed spotifyPath={link.path!} />
 	{/if}

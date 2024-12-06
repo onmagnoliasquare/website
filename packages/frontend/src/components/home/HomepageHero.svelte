@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Image from '$components/Image.svelte';
-	import { createAuthorString, dateFormatter } from '$lib/helpers';
+	import { createAuthorString } from '$lib/helpers';
 	import type { Article } from '$lib/schema';
 	import DateLine from './DateLine.svelte';
 

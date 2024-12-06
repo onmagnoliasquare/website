@@ -1,7 +1,3 @@
-import { dev } from '$app/environment';
-
-export const csr = dev;
-
 import { error } from '@sveltejs/kit';
 import { buildSanityQuery, sanityFetch } from '$lib/sanity';
 import type { PageServerLoad } from './$types';
@@ -26,7 +22,7 @@ export const load: PageServerLoad = (async () => {
 		series = await sanityFetch(sanityQuery);
 	} catch (err) {
 		console.error(err);
-		throw error(500, 'Server network error...');
+		error(500, 'Server network error...');
 	}
 
 	if (series) {
@@ -54,5 +50,5 @@ export const load: PageServerLoad = (async () => {
 		};
 	}
 
-	throw error(404, 'Not found');
+	error(404, 'Not found');
 }) satisfies PageServerLoad;

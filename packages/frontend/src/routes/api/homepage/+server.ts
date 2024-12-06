@@ -1,4 +1,4 @@
-import { error, json } from '@sveltejs/kit';
+import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { buildSanityQuery, sanityFetch, unequal } from '$lib/sanity';
 import type { Article } from '$lib/schema';
@@ -29,12 +29,6 @@ export const GET: RequestHandler = async ({}) => {
 			{ status: 500 }
 		);
 	}
-	// console.log(JSON.stringify(articles, null, 2));
-
-	// console.log(JSON.stringify(articles));
-	// return JSON.stringify(articles);
-
-	// console.log(await json(articles).json());
 
 	return json(articles, {
 		headers: {

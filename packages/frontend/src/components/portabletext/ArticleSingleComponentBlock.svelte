@@ -32,10 +32,13 @@
 {:else if style === 'blockquote'}
 	<blockquote>{@render children?.()}</blockquote>
 {:else if style === 'normal'}
-	<!-- add class `db` to display as block, rather than inline <p> -->
-	<p class="lh-copy f5 f4-l tracked-02 fw4 pa0 mt0 mb4 tl hyphenate db w-100">
-		{@render children?.()}
-	</p>
+	{#if value.children.length === 1 && value.children[0].text === ''}
+		<br />
+	{:else}
+		<p class="lh-copy f5 f4-l tracked-02 fw3 pa0 pb0 mt0 mb2 tl hyphenate w-100 db">
+			{@render children?.()}
+		</p>
+	{/if}
 {:else}
 	{@render children?.()}
 {/if}
