@@ -16,7 +16,7 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	const req = await event.fetch(`/api/category/${category}`);
 	const cat: Category | undefined = await req.json();
 
-	if (!cat) throw error(404, "That category doesn't exist...");
+	if (!cat) error(404, "That category doesn't exist...");
 
 	// Get articles from the category in question.
 	try {
@@ -31,7 +31,7 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 		articles = await sanityFetch(sanityQuery);
 	} catch (err) {
 		console.error(err);
-		throw error(500, 'Server network error...');
+		error(500, 'Server network error...');
 	}
 
 	if (articles) {
@@ -43,22 +43,11 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 			if (cat.metaInfo.ogTitle) {
 				ogTitle = cat.metaInfo.ogTitle;
 			}
-			if (cat.metaInfo) {
-				if (cat.metaInfo.ogTitle) {
-					ogTitle = cat.metaInfo.ogTitle;
-				}
 
-				if (cat.metaInfo.ogDescription) {
-					ogDescription = cat.metaInfo.ogDescription;
-				}
-				if (cat.metaInfo.ogDescription) {
-					ogDescription = cat.metaInfo.ogDescription;
-				}
-
-				if (cat.metaInfo.ogImage) {
-					// TODO
-				}
+			if (cat.metaInfo.ogDescription) {
+				ogDescription = cat.metaInfo.ogDescription;
 			}
+
 			if (cat.metaInfo.ogImage) {
 				// TODO
 			}
@@ -84,6 +73,5 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 		};
 	}
 
-	throw error(404, "That category doesn't exist...");
-	throw error(404, "That category doesn't exist...");
+	error(404, "That category doesn't exist...");
 }) satisfies PageServerLoad;

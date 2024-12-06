@@ -42,22 +42,11 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 			if (member.metaInfo.ogTitle) {
 				ogTitle = member.metaInfo.ogTitle;
 			}
-			if (member.metaInfo) {
-				if (member.metaInfo.ogTitle) {
-					ogTitle = member.metaInfo.ogTitle;
-				}
 
-				if (member.metaInfo.ogDescription) {
-					ogDescription = member.metaInfo.ogDescription;
-				}
-				if (member.metaInfo.ogDescription) {
-					ogDescription = member.metaInfo.ogDescription;
-				}
-
-				if (member.metaInfo.ogImage) {
-					// TODO
-				}
+			if (member.metaInfo.ogDescription) {
+				ogDescription = member.metaInfo.ogDescription;
 			}
+
 			if (member.metaInfo.ogImage) {
 				// TODO
 			}
@@ -81,10 +70,6 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 		 * Return page data.
 		 */
 
-		/**
-		 * Return page data.
-		 */
-
 		return {
 			title,
 			member,
@@ -93,6 +78,5 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 		};
 	}
 
-	throw error(404, 'Member not found...');
-	throw error(404, 'Member not found...');
+	error(404, 'Member not found...');
 }) satisfies PageServerLoad;

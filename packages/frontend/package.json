@@ -14,7 +14,7 @@
 		"test:unit": "run -T vitest",
 		"test:ci": "run -T vitest run",
 		"test:ci-no-pool": "run -T vitest run --pool forks --poolOptions.forks.singleFork",
-		"test:ui": "run -T vitest --ui && run -T playwright test --ui",
+		"test:ui": "run -T playwright test --ui",
 		"coverage": "run -T vitest run --coverage"
 	},
 	"type": "module"

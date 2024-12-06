@@ -1,0 +1,777 @@
+[
+	{
+		"_createdAt": "2024-11-27T16:51:05Z",
+		"_id": "a85e2576-3bdd-4125-ac20-ba9a2cfd17d1",
+		"_rev": "g8rMT4wS3e0qQeeye5GDG6",
+		"_type": "article",
+		"_updatedAt": "2024-11-27T17:15:43Z",
+		"authors": [
+			{
+				"_key": "58412301ef6f",
+				"_ref": "d2326d9c-9adc-4bf9-8709-867ee13d2185",
+				"_type": "author"
+			},
+			{
+				"_key": "9fa08a4aec6d",
+				"_ref": "8eeaf8a4-09c6-4fe1-9e41-87554488e5e5",
+				"_type": "author"
+			}
+		],
+		"category": {
+			"_ref": "4edba030-a87c-4b27-b1e5-0250cff2e565",
+			"_type": "reference"
+		},
+		"content": [
+			{
+				"_key": "088a92c83ada",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "4b60977fcf1e",
+						"_type": "span",
+						"marks": [],
+						"text": "Here are the features of release v0.5.4:"
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "9af48bc3a728",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "b68b69a66972",
+						"_type": "span",
+						"marks": [],
+						"text": ""
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "e4e9b701186a",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "3bc8cd150a1f",
+						"_type": "span",
+						"marks": [],
+						"text": "Line breaks are first. Good to break up text in paragraphs. This is a basic feature."
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "3a8442e41ee9",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "0bbfb0e48fc0",
+						"_type": "span",
+						"marks": [],
+						"text": ""
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "e4bdd745aa3c",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "3d843778d552",
+						"_type": "span",
+						"marks": [],
+						"text": "Also you can have more than one line break in succession. It gives writers options. Here's three for good measure:"
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "94f328b73b53",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "81d81b6383c6",
+						"_type": "span",
+						"marks": [],
+						"text": ""
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "cdc057b4feca",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "26d96910b34e",
+						"_type": "span",
+						"marks": [],
+						"text": ""
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "be52db81625b",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "da08c4cf3ba4",
+						"_type": "span",
+						"marks": [],
+						"text": ""
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "d8e5c0e14a50",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "7d55d9e0a3f4",
+						"_type": "span",
+						"marks": [],
+						"text": "Header 1"
+					}
+				],
+				"markDefs": [],
+				"style": "h2"
+			},
+			{
+				"_key": "412c051abf28",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "0819cedf8110",
+						"_type": "span",
+						"marks": [],
+						"text": "Make those topics big and proud. Line breaks aren't needed after headers."
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "75a5dce89fae",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "b6ff95f8f01f",
+						"_type": "span",
+						"marks": [],
+						"text": "Header 2"
+					}
+				],
+				"markDefs": [],
+				"style": "h3"
+			},
+			{
+				"_key": "586ad3c78548",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "159d1248f097",
+						"_type": "span",
+						"marks": [],
+						"text": "Different sizes!"
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "2020863163f0",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "73833a7870fb",
+						"_type": "span",
+						"marks": [],
+						"text": "Header 3"
+					}
+				],
+				"markDefs": [],
+				"style": "h4"
+			},
+			{
+				"_key": "da0797633f9a",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "af706bfbed4c",
+						"_type": "span",
+						"marks": [],
+						"text": "So small."
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "94770a1687a9",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "d67f67a4884e",
+						"_type": "span",
+						"marks": [],
+						"text": ""
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "55ea07e7309c",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "64add825b1db",
+						"_type": "span",
+						"marks": [],
+						"text": "Lists"
+					}
+				],
+				"markDefs": [],
+				"style": "h2"
+			},
+			{
+				"_key": "2f5572754e59",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "05b1e0a353a7",
+						"_type": "span",
+						"marks": [],
+						"text": "Here's bullets"
+					}
+				],
+				"level": 1,
+				"listItem": "bullet",
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "29499a3b7c3e",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "4808b2568319",
+						"_type": "span",
+						"marks": [],
+						"text": "Bang bang"
+					}
+				],
+				"level": 1,
+				"listItem": "bullet",
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "972168c72f24",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "c1a01bc6a8d5",
+						"_type": "span",
+						"marks": [],
+						"text": "Woo hoo!"
+					}
+				],
+				"level": 1,
+				"listItem": "bullet",
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "f40485edf9d6",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "60332d4c577d",
+						"_type": "span",
+						"marks": [],
+						"text": ""
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "1a84fffdd97e",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "7941aa337cee",
+						"_type": "span",
+						"marks": [],
+						"text": "Banana"
+					}
+				],
+				"level": 1,
+				"listItem": "number",
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "3e9fff27d3be",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "aa015ee8ab53",
+						"_type": "span",
+						"marks": [],
+						"text": "Apple"
+					}
+				],
+				"level": 1,
+				"listItem": "number",
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "844ad6bb85f2",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "93145f8f6ed3",
+						"_type": "span",
+						"marks": [],
+						"text": "Rhombus"
+					}
+				],
+				"level": 1,
+				"listItem": "number",
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "3b566ff5cb37",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "3f529a335a68",
+						"_type": "span",
+						"marks": ["strong"],
+						"text": ""
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "8fff67ace633",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "3f61085e0fcf",
+						"_type": "span",
+						"marks": [],
+						"text": "Markup"
+					}
+				],
+				"markDefs": [],
+				"style": "h2"
+			},
+			{
+				"_key": "016e0ca25ed3",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "9b826323981c",
+						"_type": "span",
+						"marks": ["strong"],
+						"text": "Bold text"
+					},
+					{
+						"_key": "72fe16aad848",
+						"_type": "span",
+						"marks": [],
+						"text": ", who doesn't love that?"
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "a112c0294c99",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "db08b8025f53",
+						"_type": "span",
+						"marks": [],
+						"text": ""
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "beabb433e2de",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "b0fe8097df8c",
+						"_type": "span",
+						"marks": [],
+						"text": "Then what about this "
+					},
+					{
+						"_key": "5e7d33e51b1c",
+						"_type": "span",
+						"marks": ["em"],
+						"text": "italic"
+					},
+					{
+						"_key": "87980d87c0ce",
+						"_type": "span",
+						"marks": [],
+						"text": " text."
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "3fb0c1d68c11",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "93dfcf68187c",
+						"_type": "span",
+						"marks": [],
+						"text": ""
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "f328133bef04",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "a4ec4e8dce29",
+						"_type": "span",
+						"marks": [],
+						"text": "Stack them too, either "
+					},
+					{
+						"_key": "6015249250ba",
+						"_type": "span",
+						"marks": ["em", "strong"],
+						"text": "italic first"
+					},
+					{
+						"_key": "d4d5f680cacd",
+						"_type": "span",
+						"marks": [],
+						"text": " or "
+					},
+					{
+						"_key": "5f9731751609",
+						"_type": "span",
+						"marks": ["strong", "em"],
+						"text": "bold first"
+					},
+					{
+						"_key": "0be63291f3b7",
+						"_type": "span",
+						"marks": [],
+						"text": ". You choose. It don't matter."
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "732ac2093f90",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "d856af1bdb9a",
+						"_type": "span",
+						"marks": [],
+						"text": ""
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "5856aedbb4c0",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "9f39c20c0792",
+						"_type": "span",
+						"marks": [],
+						"text": "Links"
+					}
+				],
+				"markDefs": [],
+				"style": "h2"
+			},
+			{
+				"_key": "17637fdad29d",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "ed6d45a864ae",
+						"_type": "span",
+						"marks": [],
+						"text": "Here's a link to our website: "
+					},
+					{
+						"_key": "09546c9e9f76",
+						"_type": "span",
+						"marks": ["c64b9c6eda38"],
+						"text": "https://onmagnoliasquare.com/"
+					},
+					{
+						"_key": "dfe765630e84",
+						"_type": "span",
+						"marks": [],
+						"text": ". Then here's the same link "
+					},
+					{
+						"_key": "2f2b4bcfce55",
+						"_type": "span",
+						"marks": ["e3155ce6c1e7"],
+						"text": "in alias format"
+					},
+					{
+						"_key": "a4fdadcf758e",
+						"_type": "span",
+						"marks": [],
+						"text": "."
+					}
+				],
+				"markDefs": [
+					{
+						"_key": "e3155ce6c1e7",
+						"_type": "link",
+						"href": "https://onmagnoliasquare.com/"
+					},
+					{
+						"_key": "c64b9c6eda38",
+						"_type": "link",
+						"href": "https://onmagnoliasquare.com/"
+					}
+				],
+				"style": "normal"
+			},
+			{
+				"_key": "0990ce496e2a",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "16f698ef5b08",
+						"_type": "span",
+						"marks": [],
+						"text": ""
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "69b0aa8385f4",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "b17ffead7cdd",
+						"_type": "span",
+						"marks": [],
+						"text": "Embedded Links"
+					}
+				],
+				"markDefs": [],
+				"style": "h3"
+			},
+			{
+				"_key": "bdad8d6de557",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "03eb0743da65",
+						"_type": "span",
+						"marks": [],
+						"text": "You can embed things inline. Here are the supported sites so far:"
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "e7e643308280",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "0bcdabb06d33",
+						"_type": "span",
+						"marks": [],
+						"text": ""
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "c163b42db2b0",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "ae4a09b2ea72",
+						"_type": "span",
+						"marks": [],
+						"text": "Spotify"
+					}
+				],
+				"markDefs": [],
+				"style": "h4"
+			},
+			{
+				"_key": "6a9adc21ae4b",
+				"_type": "embeddedLink",
+				"contentUrl": "https://open.spotify.com/album/621OhgnZJ7Pz8iUazct1In"
+			},
+			{
+				"_key": "196254b0ff8f",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "f8e39ecd7fb1",
+						"_type": "span",
+						"marks": [],
+						"text": ""
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "c02cbc03868b",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "9b6e1730b5aa",
+						"_type": "span",
+						"marks": [],
+						"text": "Pictures"
+					}
+				],
+				"markDefs": [],
+				"style": "h2"
+			},
+			{
+				"_key": "7ce300ce541a",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "48bd812ee756",
+						"_type": "span",
+						"marks": [],
+						"text": "Inline pictures, to decorate the place a little."
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "fe855c013006",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "1975805b9587",
+						"_type": "span",
+						"marks": [],
+						"text": ""
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_sanityAsset": "image@file://./images/38c9f328ab66e69cf2fb78965ffccee4506fc67d-3024x4032.jpg",
+				"_key": "a7183611b6c1",
+				"_type": "image",
+				"alt": "The blue sky with clouds, foliage in the background",
+				"description": "I'm from Hawai'i.",
+				"title": "Neo's hometown"
+			},
+			{
+				"_key": "f4fc456361de",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "6c759730c100",
+						"_type": "span",
+						"marks": [],
+						"text": ""
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "7c6a8cef1947",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "4b7bb4d83b53",
+						"_type": "span",
+						"marks": [],
+						"text": "Hawai'i is beautiful."
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			}
+		],
+		"date": "2024-11-27",
+		"media": {
+			"_sanityAsset": "image@file://./images/de76b6fee8bdd25de145ac7eb88d7e03b9a86fd1-1706x1279.jpg",
+			"_type": "image",
+			"alt": "Neo takes a picture of a street cat"
+		},
+		"metaInfo": {
+			"_type": "metaInfo",
+			"ogDescription": "Come and read about our current article capabilities. For reals.",
+			"ogTags": ["really cool stuff", "hawaii"],
+			"ogTitle": "View On Magnolia Square website release v0.5!"
+		},
+		"slug": {
+			"_type": "slug",
+			"current": "v05-article-feature-set--what-a-blast"
+		},
+		"subtitle": "Here's what's good, here's what's fresh.",
+		"tags": [
+			{
+				"_key": "745be457165e",
+				"_ref": "38d12e37-9667-443a-acfb-fbfeb833ca44",
+				"_type": "tag"
+			},
+			{
+				"_key": "f32254fd9ea5",
+				"_ref": "76767d50-2358-4bda-869f-caf2ad19d22a",
+				"_type": "tag"
+			}
+		],
+		"title": "v0.5 Article Feature Set: What a blast!",
+		"updatedDate": "2024-11-28",
+		"useCustomCss": false
+	}
+]

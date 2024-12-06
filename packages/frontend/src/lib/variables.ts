@@ -1,5 +1,5 @@
 // Release version.
-export const semVer = '0.5.3';
+export const semVer = '0.5.4';
 
 /**
  * `site` is an object used in various components and server

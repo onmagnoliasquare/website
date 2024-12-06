@@ -5,11 +5,15 @@ import {
 	getConditions,
 	getIdx,
 	getOrder,
-	sanityFetch,
 	unequal
 } from '$lib/sanity';
 import type { Query } from '$lib/schema';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
+
+/**
+ * Sanity helper function tests, not related to the terminology
+ * of "sanity tests".
+ */
 
 describe('equal', () => {
 	it('returns correct GROQ query string for string comparison', () => {

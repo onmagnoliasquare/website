@@ -1,5 +1,5 @@
 import { buildSanityQuery, equal, sanityFetch } from '$lib/sanity';
-import type { Article, Tag } from '$lib/schema';
+import type { Tag } from '$lib/schema';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ url, params }) => {

@@ -102,5 +102,5 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 		};
 	}
 
-	throw error(404, 'Article not found...');
+	error(404, 'Article not found...');
 }) satisfies PageServerLoad;

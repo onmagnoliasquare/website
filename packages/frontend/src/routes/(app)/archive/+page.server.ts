@@ -24,7 +24,7 @@ export const load: PageServerLoad = (async () => {
 		tags = await sanityFetch(sanityQuery);
 	} catch (err) {
 		console.log(err);
-		throw error(500, 'Server network error...');
+		error(500, 'Server network error...');
 	}
 
 	/**
@@ -58,5 +58,5 @@ export const load: PageServerLoad = (async () => {
 		}
 	}
 
-	throw error(404, 'Not found');
+	error(404, 'Not found');
 }) satisfies PageServerLoad;

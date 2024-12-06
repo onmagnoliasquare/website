@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createAuthorLink, createAuthorString } from '$lib/helpers';
+	import { createAuthorLink } from '$lib/helpers';
 	import type { Member } from '$lib/schema';
 
 	interface Props {
@@ -7,7 +7,6 @@
 	}
 
 	let { authors }: Props = $props();
-	let authorString = createAuthorString(authors);
 </script>
 
 <div>
