@@ -1472,13 +1472,13 @@ __metadata:
   linkType: hard
 
 "@codemirror/view@npm:^6.0.0, @codemirror/view@npm:^6.1.1, @codemirror/view@npm:^6.17.0, @codemirror/view@npm:^6.23.0, @codemirror/view@npm:^6.27.0, @codemirror/view@npm:^6.35.0":
-  version: 6.35.0
-  resolution: "@codemirror/view@npm:6.35.0"
+  version: 6.35.1
+  resolution: "@codemirror/view@npm:6.35.1"
   dependencies:
     "@codemirror/state": "npm:^6.4.0"
     style-mod: "npm:^4.1.0"
     w3c-keyname: "npm:^2.2.4"
-  checksum: 10c0/39b85e3ac266cb30a28c98a9ecf1cde34cdd160c243fe54a673b744990d72bb7758c1f557b7df25153c84e03ed9e989d7392a00e776533a731cb79fb0dca894e
+  checksum: 10c0/0c412c39c849101c73d01fc2905fb0c42f97393610bcc5033c05659c36493b5728bd9304903fc107a994c7752bf930d0a451d15650d9fb4327e20d9441458f6c
   languageName: node
   linkType: hard
 
@@ -13288,8 +13288,8 @@ __metadata:
   linkType: hard
 
 "svelte@npm:^5.7.1":
-  version: 5.7.1
-  resolution: "svelte@npm:5.7.1"
+  version: 5.8.0
+  resolution: "svelte@npm:5.8.0"
   dependencies:
     "@ampproject/remapping": "npm:^2.3.0"
     "@jridgewell/sourcemap-codec": "npm:^1.5.0"
@@ -13304,7 +13304,7 @@ __metadata:
     locate-character: "npm:^3.0.0"
     magic-string: "npm:^0.30.11"
     zimmerframe: "npm:^1.1.2"
-  checksum: 10c0/4091035ddcc108f9f2608a0231c5138d1568190815eccf6137b22643caf249a76e202671f94fa884eb3354ad7ec2f1082e508453db25ab938d9f37de6cbdad9e
+  checksum: 10c0/9cb9b834c2d00ddb5043753faff32413ceb6dfef0f3c1a8e699aee0e7e028d68c720eec1a77c5463ebc093248579537448de6447b7c62eece4c328d8204c7754
   languageName: node
   linkType: hard
 

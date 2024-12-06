@@ -1,3 +1,7 @@
+import { dev } from '$app/environment';
+
+export const csr = dev;
+
 import { error } from '@sveltejs/kit';
 import { buildSanityQuery, sanityFetch } from '$lib/sanity';
 import type { PageServerLoad } from './$types';

@@ -42,22 +42,11 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 			if (member.metaInfo.ogTitle) {
 				ogTitle = member.metaInfo.ogTitle;
 			}
-			if (member.metaInfo) {
-				if (member.metaInfo.ogTitle) {
-					ogTitle = member.metaInfo.ogTitle;
-				}
 
-				if (member.metaInfo.ogDescription) {
-					ogDescription = member.metaInfo.ogDescription;
-				}
-				if (member.metaInfo.ogDescription) {
-					ogDescription = member.metaInfo.ogDescription;
-				}
-
-				if (member.metaInfo.ogImage) {
-					// TODO
-				}
+			if (member.metaInfo.ogDescription) {
+				ogDescription = member.metaInfo.ogDescription;
 			}
+
 			if (member.metaInfo.ogImage) {
 				// TODO
 			}
@@ -76,10 +65,6 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 				description: ogDescription
 			}
 		}) satisfies MetaTagsProps;
-
-		/**
-		 * Return page data.
-		 */
 
 		/**
 		 * Return page data.
