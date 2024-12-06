@@ -43,11 +43,22 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 			if (cat.metaInfo.ogTitle) {
 				ogTitle = cat.metaInfo.ogTitle;
 			}
+			if (cat.metaInfo) {
+				if (cat.metaInfo.ogTitle) {
+					ogTitle = cat.metaInfo.ogTitle;
+				}
 
-			if (cat.metaInfo.ogDescription) {
-				ogDescription = cat.metaInfo.ogDescription;
+				if (cat.metaInfo.ogDescription) {
+					ogDescription = cat.metaInfo.ogDescription;
+				}
+				if (cat.metaInfo.ogDescription) {
+					ogDescription = cat.metaInfo.ogDescription;
+				}
+
+				if (cat.metaInfo.ogImage) {
+					// TODO
+				}
 			}
-
 			if (cat.metaInfo.ogImage) {
 				// TODO
 			}
