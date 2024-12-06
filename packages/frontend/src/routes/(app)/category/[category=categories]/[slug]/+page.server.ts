@@ -58,6 +58,9 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 				// TODO
 			}
 		}
+		if (article.metaInfo.ogImage) {
+			// TODO
+		}
 
 		// Create an array of links to author's profile pages.
 		const ogAuthorLinks = [
@@ -86,6 +89,10 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 				description: ogDescription
 			}
 		}) satisfies MetaTagsProps;
+
+		/**
+		 * Return page data.
+		 */
 
 		/**
 		 * Return page data.
