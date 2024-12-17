@@ -103,7 +103,8 @@ jobs:
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     outputs:
       yarn_version: ${{ steps.set_yarn_version.outputs.yarn_version }}
-    environment: ${{ needs.set-environment.outputs.current_env }}
+    # environment: ${{ needs.set-environment.outputs.current_env }}
+    environment: staging
     needs: [set-environment]
     steps:
       - uses: actions/checkout@v4
@@ -168,7 +169,8 @@ jobs:
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     # Maybe can also use:
     # https://github.com/orgs/community/discussions/56123#discussioncomment-5968189
-    environment: ${{ needs.set-environment.outputs.current_env }}
+    # environment: ${{ needs.set-environment.outputs.current_env }}
+    environment: staging
     needs: setup
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
@@ -375,7 +377,8 @@ jobs:
     name: Publish Staging
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
     needs: [set-environment, setup, all-green]
-    environment: ${{ needs.set-environment.outputs.current_env }}
+    # environment: ${{ needs.set-environment.outputs.current_env }}
+    environment: staging
     if: ${{ needs.all-green.result == 'success' && github.ref_name == 'dev' }}
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
@@ -389,6 +392,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Node setup
+        uses: ./.github/actions/setup
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          yarn-version: ${{ env.YARN_VERSION  }}
+          yarn-run-install: false
+          yarn-restore-cache: false # We restore the build from actions/cache
+          yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
       - name: Restore build
         uses: actions/cache@v4
