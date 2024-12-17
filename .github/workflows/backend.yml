@@ -34,6 +34,8 @@ on:
       - '.github/workflows/frontend.yml'
       - 'packages/frontend/**'
 
+      - '.github/**'
+
       # Ignore frontend package specific paths.
       - 'packages/backend/static/**'
       - 'packages/backend/.eslintrc'

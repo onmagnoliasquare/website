@@ -73,6 +73,8 @@ on:
       - '.github/workflows/backend.yml'
       - 'packages/backend/**'
 
+      - '.github/**'
+
       # Ignore frontend package specific paths.
       - 'packages/frontend/static/**'
       - 'packages/frontend/.eslintignore'
