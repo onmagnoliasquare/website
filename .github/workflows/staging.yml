@@ -420,3 +420,26 @@ jobs:
   #         directory: '.svelte-kit/output'
   #         workingDirectory: packages/frontend
   #         wranglerVersion: '3'
+
+  all-green:
+    name: All Green
+    if: always()
+    runs-on: ubuntu-24.04
+    needs: [setup, test-unit]
+
+    steps:
+      - if: ${{ always() && (contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')) }}
+        run: exit 1
+
+  publish-staging:
+    name: Publish Staging
+    runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
+    environment: ${{ needs.set-environment.outputs.current_env }}
+    if: ${{ needs.all-green.result == 'success' && github.ref_name == 'main' && needs.set-environment.outputs.current_env == 'staging' }}
+    needs: all-green
+
+    steps:
+      # debug github.ref output
+      - run: |
+          echo github.ref: ${{ github.ref }}
+          echo isV3: ${{ github.ref == 'refs/heads/main' }}
