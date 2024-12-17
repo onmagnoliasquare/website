@@ -13,7 +13,7 @@ export const GET: RequestHandler = async ({ url }) => {
 	if (!category && !slug) {
 		return json({ error: 'Missing category and slug parameter' }, { status: 400 });
 	} else if (!category && slug) {
-		// Request for a single article by it's slug is requested.
+		// Request for a single article by its slug is requested.
 		try {
 			sanityQuery = buildSanityQuery({
 				type: 'article',
