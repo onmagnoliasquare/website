@@ -66,12 +66,18 @@ jobs:
               - 'packages/**'
               - 'yarn.lock'
               - 'package.json'
+            needs_frontend_tests:
+              - 'packages/frontend/**'
+            needs_backend_tests:
+              - 'packages/backend/**'
       - name: Log all filter results
         run: |
           echo "needs_build: ${{ steps.filter.outputs.needs_build }}"
           echo "needs_tests: ${{ steps.filter.outputs.needs_tests }}"
+          echo "needs_frontend_tests: ${{ steps.filter.outputs.needs_tests }}"
 
   set-environment:
+    name: Set CI Environment
     # Should be same as Cloudflare Page's build system version.
     # https://github.com/actions/runner-images
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
@@ -93,6 +99,7 @@ jobs:
   # Setup and build the yarn cache for the rest of the jobs.
   # Also exports yarn version from package.json.
   setup:
+    name: Setup and Build
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     outputs:
       yarn_version: ${{ steps.set_yarn_version.outputs.yarn_version }}
@@ -119,7 +126,7 @@ jobs:
           yarn-version: ${{ steps.set_yarn_version.outputs.yarn_version }}
           yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
-        # Check if there are any errors in the SvelteKit code.
+      # Check if there are any errors in the SvelteKit code.
       - name: Run SvelteKit Check
         run: yarn check:front
 
@@ -157,6 +164,7 @@ jobs:
 
   # Run unit, component, and E2E tests.
   test-unit:
+    name: Unit Tests
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     # Maybe can also use:
     # https://github.com/orgs/community/discussions/56123#discussioncomment-5968189
@@ -353,74 +361,6 @@ jobs:
   #     - name: Run frontend tests
   #       run: yarn test-ci:front
 
-  # deploy:
-  #   runs-on: ubuntu-${{vars.RUNNER_VERSION}}
-  #   permissions:
-  #     contents: read
-  #     deployments: write
-
-  #   if: ${{ needs.set-environment.outputs.current_env }} == 'staging'
-  #   environment: ${{ needs.set-environment.outputs.current_env }}
-  #   needs: [test-unit, test-functional, test-e2e, test-int]
-  #   env:
-  #     SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
-  #     SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
-  #     SANITY_DATASET: ${{ vars.SANITY_DATASET }}
-  #     SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
-  #     YARN_VERSION: ${{ needs.setup.outputs.yarn_version }}
-
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Use Node.js
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: ${{ vars.NODE_VERSION }}
-
-  #       # Use corepack
-  #     - name: Enable corepack
-  #       run: corepack enable
-
-  #     - name: Install yarn
-  #       run: corepack install --global ${{ env.YARN_VERSION }}
-
-  #     - name: Set yarn version
-  #       run: corepack use  ${{ env.YARN_VERSION }}
-
-  #       # ================================================ #
-  #       #  Retrieve cached dependencies from previous job  #
-  #       # ================================================ #
-
-  #     - name: Get yarn cache directory path
-  #       id: yarn-cache-dir-path
-  #       run: echo "dir=$(yarn config get cacheFolder)" >> "$GITHUB_OUTPUT"
-
-  #     - uses: actions/cache@v4
-  #       id: yarn-cache
-  #       with:
-  #         path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-  #         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-  #         restore-keys: |
-  #           ${{ runner.os }}-yarn-
-
-  #       # ============================================== #
-  #       # ############################################## #
-  #       # ============================================== #
-
-  #     - name: Build website
-  #       run: yarn build:front
-
-  #     # Deploy using wrangler CLI
-  #     - name: Publish to Cloudflare Pages
-  #       uses: cloudflare/pages-action@v1
-  #       with:
-  #         branch: ${{ github.ref_name }}
-  #         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-  #         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-  #         projectName: website
-  #         directory: '.svelte-kit/output'
-  #         workingDirectory: packages/frontend
-  #         wranglerVersion: '3'
-
   all-green:
     name: All Green
     if: always()
@@ -435,11 +375,41 @@ jobs:
     name: Publish Staging
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
     environment: ${{ needs.set-environment.outputs.current_env }}
-    if: ${{ needs.all-green.result == 'success' && github.ref_name == 'main' && needs.set-environment.outputs.current_env == 'staging' }}
+    if: ${{ needs.all-green.result == 'success' && github.ref_name == 'dev' && needs.set-environment.outputs.current_env == 'staging' }}
     needs: all-green
+    env:
+      SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+      SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
+      SANITY_DATASET: ${{ vars.SANITY_DATASET }}
+      SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
+      YARN_VERSION: ${{ needs.setup.outputs.yarn_version }}
+    permissions:
+      contents: read
+      deployments: write
 
     steps:
-      # debug github.ref output
-      - run: |
-          echo github.ref: ${{ github.ref }}
-          echo isV3: ${{ github.ref == 'refs/heads/main' }}
+      - uses: actions/checkout@v4
+
+      - name: Node setup
+        uses: ./.github/actions/setup
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          yarn-version: ${{ env.YARN_VERSION  }}
+          yarn-run-install: false
+          yarn-restore-cache: false # We restore the build from actions/cache
+          yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Restore build
+        uses: actions/cache@v4
+        with:
+          path: ./*
+          key: ${{ github.sha }}-${{ github.run_number }}
+
+      # Deploy using wrangler CLI
+      # See: https://github.com/cloudflare/wrangler-action?tab=readme-ov-file#deploy-your-pages-site-production--preview
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy packages/frontend/.svelte-kit/output --project-name=website
