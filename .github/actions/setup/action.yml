@@ -74,9 +74,11 @@ runs:
 
     - name: Install dependencies
       if: ${{ inputs.yarn-run-install == 'true' }}
+      shell: bash
       run: yarn --immutable
 
-    - run: |
+    - shell: bash
+      run: |
         echo "yarn-install-cache-key=${{ inputs.yarn-install-cache-key }}" >> "$GITHUB_ENV"
 
     # Cache dependencies.
