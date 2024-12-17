@@ -42,34 +42,34 @@ on:
     #   - 'packages/frontend/svelte.config.js'
 
 jobs:
-  changes:
-    runs-on: ubuntu-${{vars.RUNNER_VERSION}}
-    permissions:
-      pull-requests: read
-    outputs:
-      needs_build: ${{ steps.filter.outputs.needs_build }}
-      needs_tests: ${{ steps.filter.outputs.needs_tests }}
-      templates: ${{ steps.filter.outputs.templates }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dorny/paths-filter@v3
-        id: filter
-        with:
-          filters: |
-            needs_build:
-              - '.github/workflows/**'
-              - 'packages/**'
-              - 'yarn.lock'
-              - 'package.json'
-            needs_tests:
-              - '.github/workflows/**'
-              - 'packages/**'
-              - 'yarn.lock'
-              - 'package.json'
-      - name: Log all filter results
-        run: |
-          echo "needs_build: ${{ steps.filter.outputs.needs_build }}"
-          echo "needs_tests: ${{ steps.filter.outputs.needs_tests }}"
+  # changes:
+  #   runs-on: ubuntu-${{vars.RUNNER_VERSION}}
+  #   permissions:
+  #     pull-requests: read
+  #   outputs:
+  #     needs_build: ${{ steps.filter.outputs.needs_build }}
+  #     needs_tests: ${{ steps.filter.outputs.needs_tests }}
+  #     templates: ${{ steps.filter.outputs.templates }}
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: dorny/paths-filter@v3
+  #       id: filter
+  #       with:
+  #         filters: |
+  #           needs_build:
+  #             - '.github/workflows/**'
+  #             - 'packages/**'
+  #             - 'yarn.lock'
+  #             - 'package.json'
+  #           needs_tests:
+  #             - '.github/workflows/**'
+  #             - 'packages/**'
+  #             - 'yarn.lock'
+  #             - 'package.json'
+  #     - name: Log all filter results
+  #       run: |
+  #         echo "needs_build: ${{ steps.filter.outputs.needs_build }}"
+  #         echo "needs_tests: ${{ steps.filter.outputs.needs_tests }}"
 
   set-environment:
     # Should be same as Cloudflare Page's build system version.
@@ -97,7 +97,7 @@ jobs:
     outputs:
       yarn_version: ${{ steps.set_yarn_version.outputs.yarn_version }}
     environment: ${{ needs.set-environment.outputs.current_env }}
-    needs: [set-environment, changes]
+    needs: [set-environment]
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
