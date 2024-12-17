@@ -374,9 +374,9 @@ jobs:
   publish-staging:
     name: Publish Staging
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
+    needs: [set-environment, setup, all-green]
     environment: ${{ needs.set-environment.outputs.current_env }}
-    needs: [setup, set-environment, all-green]
-    if: ${{ needs.all-green.result == 'success' && github.ref_name == 'dev' && needs.set-environment.outputs.current_env == 'staging' }}
+    if: ${{ needs.all-green.result == 'success' && github.ref_name == 'dev' }}
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
