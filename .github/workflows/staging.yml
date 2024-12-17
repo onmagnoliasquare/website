@@ -100,10 +100,6 @@ jobs:
     needs: [set-environment]
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ vars.NODE_VERSION }}
 
       # Retrieve yarn version from package.json
       - name: Get yarn version from package.json
@@ -120,7 +116,7 @@ jobs:
         uses: ./.github/actions/setup
         with:
           node-version: ${{ vars.NODE_VERSION }}
-          yarn-version: ${{env.YARN_VERSION }}
+          yarn-version: ${{ steps.set_yarn_version.outputs.yarn_version }}
           yarn-run-install: 'true'
           yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
