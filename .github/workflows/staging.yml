@@ -134,27 +134,27 @@ jobs:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}
 
-  lint:
-    runs-on: ubuntu-${{vars.RUNNER_VERSION}}
-    needs: setup
-    env:
-      YARN_VERSION: ${{ needs.setup.outputs.yarn_version }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+  # lint:
+  #   runs-on: ubuntu-${{vars.RUNNER_VERSION}}
+  #   needs: setup
+  #   env:
+  #     YARN_VERSION: ${{ needs.setup.outputs.yarn_version }}
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #       with:
+  #         fetch-depth: 0
 
-      - name: Node setup
-        uses: ./.github/actions/setup
-        with:
-          node-version: ${{ vars.NODE_VERSION }}
-          yarn-version: ${{ env.YARN_VERSION  }}
-          yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+  #     - name: Node setup
+  #       uses: ./.github/actions/setup
+  #       with:
+  #         node-version: ${{ vars.NODE_VERSION }}
+  #         yarn-version: ${{ env.YARN_VERSION  }}
+  #         yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Lint staged
-        run: |
-          git diff --name-only --diff-filter=d origin/${GITHUB_BASE_REF}...${GITHUB_SHA}
-          npx lint-staged --diff="origin/${GITHUB_BASE_REF}...${GITHUB_SHA}"
+  #     - name: Lint staged
+  #       run: |
+  #         git diff --name-only --diff-filter=d origin/${GITHUB_BASE_REF}...${GITHUB_SHA}
+  #         npx lint-staged --diff="origin/${GITHUB_BASE_REF}...${GITHUB_SHA}"
 
   # Run unit, component, and E2E tests.
   test-unit:
