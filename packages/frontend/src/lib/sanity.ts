@@ -1,4 +1,4 @@
-import { type ClientConfig, createClient, SanityClient } from '@sanity/client';
+import { type ClientConfig, createClient } from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
 
 // Environment variables, found in ".env". Check ".env.example" for explanation.
@@ -30,7 +30,7 @@ if (dev) {
 
 // config.dataset = 'production';
 
-export const client: SanityClient = createClient(config);
+export const client = createClient(config);
 
 // Helps transform images from Sanity.
 // See: https://www.sanity.io/docs/presenting-images#mY9Be3Ph
