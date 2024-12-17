@@ -390,15 +390,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Node setup
-        uses: ./.github/actions/setup
-        with:
-          node-version: ${{ vars.NODE_VERSION }}
-          yarn-version: ${{ env.YARN_VERSION  }}
-          yarn-run-install: false
-          yarn-restore-cache: false # We restore the build from actions/cache
-          yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-
       - name: Restore build
         uses: actions/cache@v4
         with:
