@@ -97,7 +97,7 @@ jobs:
     outputs:
       yarn_version: ${{ steps.set_yarn_version.outputs.yarn_version }}
     environment: ${{ needs.set-environment.outputs.current_env }}
-    needs: [set-environment, changes]
+    needs: [set-environment]
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
@@ -121,6 +121,7 @@ jobs:
         with:
           node-version: ${{ vars.NODE_VERSION }}
           yarn-version: ${{env.YARN_VERSION }}
+          yarn-run-install: 'true'
           yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
         # Check if there are any errors in the SvelteKit code.
