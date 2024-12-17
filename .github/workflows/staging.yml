@@ -117,7 +117,6 @@ jobs:
         with:
           node-version: ${{ vars.NODE_VERSION }}
           yarn-version: ${{ steps.set_yarn_version.outputs.yarn_version }}
-          yarn-run-install: 'true'
           yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
         # Check if there are any errors in the SvelteKit code.
@@ -189,8 +188,8 @@ jobs:
           key: ${{ github.sha }}-${{ github.run_number }}
 
       # Run unit tests.
-      - name: Run frontend tests
-        run: yarn test-ci:front
+      - name: Run frontend unit tests
+        run: yarn workspace frontend test:ci-no-pool
 
   # test-functional:
   #   runs-on: ubuntu-${{vars.RUNNER_VERSION}}
