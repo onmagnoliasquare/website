@@ -1,0 +1,32 @@
+name: 'Deploy Staging'
+
+on:
+  push:
+    branches: ['dev']
+
+jobs:
+  deploy-staging:
+    name: Deploy Staging
+    runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
+    environment: staging
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download frontend build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend
+
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy frontend --project-name=website
+
+      - name: Delete artifact
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: frontend
+          failOnError: false

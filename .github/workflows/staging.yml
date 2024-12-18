@@ -1,45 +1,45 @@
 name: 'Staging'
 
 on:
-  push:
+  pull_request:
     branches: ['dev']
-    # paths-ignore:
-    #   # Ignore changes in documentation.
-    #   - 'docs/**'
-    #   - 'README.md'
+    paths-ignore:
+      # Ignore changes in documentation.
+      - 'docs/**'
+      - 'README.md'
 
-    #   # Ignore package.json changes.
-    #   - 'package.json'
+      # Ignore package.json changes.
+      - 'package.json'
 
-    #   # Ignore changes in root directory.
-    #   - '.gitattributes'
-    #   - '.gitignore'
-    #   - '.markdownlint.json'
-    #   - '.yarnrc.yml'
-    #   - 'LICENSE'
-    #   # Changes to yarn.lock means something was updated...
-    #   # - 'yarn.lock'
-    #   - '.yarn'
-    #   - '.vscode'
+      # Ignore changes in root directory.
+      - '.gitattributes'
+      - '.gitignore'
+      - '.markdownlint.json'
+      - '.yarnrc.yml'
+      - 'LICENSE'
+      # Changes to yarn.lock means something was updated...
+      # - 'yarn.lock'
+      - '.yarn'
+      - '.vscode'
 
-    #   # Ignore changes in .github directory.
-    #   - '.github/ISSUE_TEMPLATE/**'
-    #   - '.github/pull_request_template.*'
+      # Ignore changes in .github directory.
+      - '.github/ISSUE_TEMPLATE/**'
+      - '.github/pull_request_template.*'
 
-    #   # Ignore build related files.
-    #   - '.env.example'
+      # Ignore build related files.
+      - '.env.example'
 
-    #   # Ignore changes in backend package.
-    #   - '.github/workflows/backend.yml'
-    #   - 'packages/backend/**'
+      # Ignore changes in backend package.
+      - '.github/workflows/backend.yml'
+      - 'packages/backend/**'
 
-    #   # Ignore frontend package specific paths.
-    #   - 'packages/frontend/static/**'
-    #   - 'packages/frontend/.eslintignore'
-    #   - 'packages/frontend/.eslintrc.cjs'
-    #   - 'packages/frontend/.prettierrc'
-    #   - 'packages/frontend/styles/**'
-    #   - 'packages/frontend/svelte.config.js'
+      # Ignore frontend package specific paths.
+      - 'packages/frontend/static/**'
+      - 'packages/frontend/.eslintignore'
+      - 'packages/frontend/.eslintrc.cjs'
+      - 'packages/frontend/.prettierrc'
+      - 'packages/frontend/styles/**'
+      - 'packages/frontend/svelte.config.js'
 
 jobs:
   changes:
@@ -104,7 +104,6 @@ jobs:
     outputs:
       yarn_version: ${{ steps.set_yarn_version.outputs.yarn_version }}
     # environment: ${{ needs.set-environment.outputs.current_env }}
-    environment: staging
     needs: [set-environment]
     steps:
       - uses: actions/checkout@v4
@@ -170,7 +169,6 @@ jobs:
     # Maybe can also use:
     # https://github.com/orgs/community/discussions/56123#discussioncomment-5968189
     # environment: ${{ needs.set-environment.outputs.current_env }}
-    environment: staging
     needs: setup
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
@@ -366,30 +364,17 @@ jobs:
   all-green:
     name: All Green
     if: always()
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
     needs: [setup, test-unit]
 
     steps:
       - if: ${{ always() && (contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')) }}
         run: exit 1
 
-  publish-staging:
-    name: Publish Staging
+  upload-artifacts:
+    name: Upload Artifacts
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
-    needs: [set-environment, setup, all-green]
-    # environment: ${{ needs.set-environment.outputs.current_env }}
-    environment: staging
-    if: ${{ needs.all-green.result == 'success' && github.ref_name == 'dev' }}
-    env:
-      SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
-      SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
-      SANITY_DATASET: ${{ vars.SANITY_DATASET }}
-      SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
-      YARN_VERSION: ${{ needs.setup.outputs.yarn_version }}
-    permissions:
-      contents: read
-      deployments: write
-
+    needs: all-green
     steps:
       - uses: actions/checkout@v4
 
@@ -408,11 +393,52 @@ jobs:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}
 
-      # Deploy using wrangler CLI
-      # See: https://github.com/cloudflare/wrangler-action?tab=readme-ov-file#deploy-your-pages-site-production--preview
-      - name: Publish to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
+      - name: Archive frontend build artifact
+        uses: actions/upload-artifact@v4
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy packages/frontend/.svelte-kit/cloudflare --project-name=website
+          name: frontend
+          path: packages/frontend/.svelte-kit/cloudflare
+
+  # publish-staging:
+  #   name: Publish Staging
+  #   runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
+  #   needs: [set-environment, setup, all-green]
+  #   # environment: ${{ needs.set-environment.outputs.current_env }}
+  #   environment: staging
+  #   if: ${{ needs.all-green.result == 'success' && github.ref_name == 'dev' }}
+  #   env:
+  #     SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+  #     SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
+  #     SANITY_DATASET: ${{ vars.SANITY_DATASET }}
+  #     SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
+  #     YARN_VERSION: ${{ needs.setup.outputs.yarn_version }}
+  #   permissions:
+  #     contents: read
+  #     deployments: write
+
+  #   steps:
+  #     - uses: actions/checkout@v4
+
+  #     - name: Node setup
+  #       uses: ./.github/actions/setup
+  #       with:
+  #         node-version: ${{ vars.NODE_VERSION }}
+  #         yarn-version: ${{ env.YARN_VERSION  }}
+  #         yarn-run-install: false
+  #         yarn-restore-cache: false # We restore the build from actions/cache
+  #         yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+  #     - name: Restore build
+  #       uses: actions/cache@v4
+  #       with:
+  #         path: ./*
+  #         key: ${{ github.sha }}-${{ github.run_number }}
+
+  #     # Deploy using wrangler CLI
+  #     # See: https://github.com/cloudflare/wrangler-action?tab=readme-ov-file#deploy-your-pages-site-production--preview
+  #     - name: Publish to Cloudflare Pages
+  #       uses: cloudflare/wrangler-action@v3
+  #       with:
+  #         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  #         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+  #         command: pages deploy packages/frontend/.svelte-kit/cloudflare --project-name=website
