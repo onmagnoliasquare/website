@@ -116,10 +116,6 @@ jobs:
         if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: yarn workspace frontend build
 
-      - name: Install playwright
-        if: ${{ needs.changes.outputs.frontend == 'true' }}
-        run: yarn playwright install
-
       - name: Build backend
         if: ${{ needs.changes.outputs.backend == 'true' }}
         run: yarn workspace backend build
@@ -258,6 +254,10 @@ jobs:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}
 
+      - name: Install playwright
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        run: yarn playwright install --with-deps
+
       - name: Run frontend integration tests
         if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: yarn workspace frontend test-ci:integration
@@ -292,6 +292,10 @@ jobs:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}
 
+      - name: Install playwright
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        run: yarn playwright install --with-deps
+
       - name: Run frontend functional tests
         if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: yarn workspace frontend test-ci:functional
@@ -325,6 +329,10 @@ jobs:
         with:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}
+
+      - name: Install playwright
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        run: yarn playwright install --with-deps
 
       - name: Run frontend E2E tests
         if: ${{ needs.changes.outputs.frontend == 'true' }}
