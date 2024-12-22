@@ -64,7 +64,8 @@ jobs:
       - uses: dorny/paths-filter@v3
         id: filter
         with:
-          base: dev
+          # base: dev
+          base: ${{ github.ref_name }}
           list-files: csv
           filters: |
             frontend:
