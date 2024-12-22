@@ -60,7 +60,7 @@ jobs:
       needs_frontend_tests: ${{ steps.filter.outputs.needs_frontend_tests }}
       templates: ${{ steps.filter.outputs.templates }}
     steps:
-      # - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
       - uses: dorny/paths-filter@v3
         id: filter
         with:
