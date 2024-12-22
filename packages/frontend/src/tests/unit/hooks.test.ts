@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { preflightOptions } from '../hooks.server';
+import { preflightOptions } from '../../hooks.server';
 
 describe('preflightOptions', () => {
 	it('should return 200 OK for OPTIONS requests', async () => {

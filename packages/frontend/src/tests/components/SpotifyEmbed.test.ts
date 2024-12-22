@@ -1,8 +1,8 @@
 // @vitest-environment jsdom
 
-import SpotifyEmbed from './SpotifyEmbed.svelte';
 import { cleanup, render } from '@testing-library/svelte/svelte5';
 import { afterEach, describe, expect, it } from 'vitest';
+import SpotifyEmbed from '$components/embeds/SpotifyEmbed.svelte';
 
 describe('Spotify', () => {
 	afterEach(cleanup);
