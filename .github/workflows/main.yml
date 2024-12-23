@@ -77,6 +77,19 @@ jobs:
           echo "frontend: ${{ steps.filter.outputs.frontend }}"
           echo "backend: ${{ steps.filter.outputs.backend }}"
 
+  lint:
+    name: Lint
+    runs-on: ubuntu-${{vars.RUNNER_VERSION}}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Lint staged
+        run: |
+          git diff --name-only --diff-filter=d origin/${GITHUB_BASE_REF}...${GITHUB_SHA}
+          npx lint-staged --diff="origin/${GITHUB_BASE_REF}...${GITHUB_SHA}"
+
   # Setup and build the yarn cache for the rest of the jobs.
   # Also exports yarn version from package.json.
   setup:
@@ -84,7 +97,7 @@ jobs:
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     outputs:
       yarn_version: ${{ steps.set_yarn_version.outputs.yarn_version }}
-    needs: changes
+    needs: [changes, lint]
     if: ${{ needs.changes.outputs.backend == 'true' || needs.changes.outputs.frontend == 'true' }}
     steps:
       - uses: actions/checkout@v4
@@ -127,28 +140,6 @@ jobs:
         with:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}
-
-  # lint:
-  #   runs-on: ubuntu-${{vars.RUNNER_VERSION}}
-  #   needs: setup
-  #   env:
-  #     YARN_VERSION: ${{ needs.setup.outputs.yarn_version }}
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: 0
-
-  #     - name: Node setup
-  #       uses: ./.github/actions/setup
-  #       with:
-  #         node-version: ${{ vars.NODE_VERSION }}
-  #         yarn-version: ${{ env.YARN_VERSION  }}
-  #         yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-
-  #     - name: Lint staged
-  #       run: |
-  #         git diff --name-only --diff-filter=d origin/${GITHUB_BASE_REF}...${GITHUB_SHA}
-  #         npx lint-staged --diff="origin/${GITHUB_BASE_REF}...${GITHUB_SHA}"
 
   test-unit:
     name: Unit tests
