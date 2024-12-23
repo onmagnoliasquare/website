@@ -98,50 +98,6 @@ jobs:
           echo "frontend: ${{ steps.filter.outputs.frontend }}"
           echo "backend: ${{ steps.filter.outputs.backend }}"
 
-  # lint:
-  #   name: Lint
-  #   runs-on: ubuntu-${{vars.RUNNER_VERSION}}
-  #   if: ${{ github.event_name == 'pull_request' }}
-  #   needs: [setup-yarn]
-  #   env:
-  #     YARN_VERSION: ${{ needs.setup-yarn.outputs.yarn_version }}
-  #   steps:
-  #     # https://stackoverflow.com/a/78750049/20087581
-  #     - name: Get base depth
-  #       id: base-depth
-  #       run: echo "base-depth=$(expr ${{ github.event.pull_request.commits }} + 1)" >> $GITHUB_OUTPUT
-
-  #     - uses: actions/checkout@v4
-  #       with:
-  #         ref: ${{ github.event.pull_request.head.sha }}
-  #         fetch-depth: ${{ steps.base-depth.outputs.base-depth }}
-
-  #     - name: Node setup
-  #       uses: ./.github/actions/setup
-  #       with:
-  #         node-version: ${{ vars.NODE_VERSION }}
-  #         yarn-version: ${{ env.YARN_VERSION  }}
-  #         yarn-run-install: false
-  #         yarn-restore-cache: false # We restore the build from actions/cache
-  #         yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-
-  #     - name: Restore build
-  #       uses: actions/cache@v4
-  #       with:
-  #         path: ./*
-  #         key: ${{ github.sha }}-${{ github.run_number }}
-
-  #     - name: Lint staged
-  #       run: |
-  #         git diff --name-only --diff-filter=d origin/${GITHUB_BASE_REF}...${GITHUB_SHA}
-  #         npx lint-staged --diff="origin/${GITHUB_BASE_REF}...${GITHUB_SHA}"
-
-  #     - name: Cache build
-  #       uses: actions/cache@v4
-  #       with:
-  #         path: ./*
-  #         key: ${{ github.sha }}-${{ github.run_number }}
-
   # Builds for staging
   build:
     name: Set yarn and build artifacts
