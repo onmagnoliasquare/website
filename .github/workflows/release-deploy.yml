@@ -1,0 +1,147 @@
+# Deploys the frontend website on a new release
+name: Production
+
+on:
+  push:
+    branches: ['main']
+  release:
+    types:
+      - published # Trigger only when a release is published
+
+jobs:
+  merge-dev-to-main:
+    name: Fast-Forward Merge Dev to Main
+    if: ${{ github.event_name == 'release' }}
+    runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Ensure full history is fetched for merging
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Fast-Forward Merge
+        run: |
+          git checkout main
+          git merge --ff-only origin/dev || {
+            echo "Fast-forward merge failed. Ensure dev branch is up-to-date.";
+            exit 1;
+          }
+          git push origin main
+
+  changes:
+    name: Check changes
+    if: ${{ github.event_name == 'push' }}
+    runs-on: ubuntu-${{vars.RUNNER_VERSION}}
+    permissions:
+      pull-requests: read
+    outputs:
+      frontend: ${{ steps.filter.outputs.frontend }}
+      backend: ${{ steps.filter.outputs.backend }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          base: main
+          list-files: csv
+          filters: |
+            frontend:
+              - 'packages/frontend/**'
+            backend:
+              - 'packages/backend/**'
+      - name: Log all filter results
+        run: |
+          echo "frontend: ${{ steps.filter.outputs.frontend }}"
+          echo "backend: ${{ steps.filter.outputs.backend }}"
+
+  build:
+    name: Set yarn and build artifacts
+    needs: changes
+    if: ${{ (needs.changes.outputs.backend == 'true' || needs.changes.outputs.frontend == 'true') && github.event_name == 'push' }}
+    runs-on: ubuntu-${{vars.RUNNER_VERSION}}
+    outputs:
+      yarn_version: ${{ steps.set_yarn_version.outputs.yarn_version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get yarn version from package.json
+        run: |
+          grep 'packageManager' package.json | awk -F: '{gsub(/[", ]/, "", $2); print $2}' | xargs -I {} echo "YARN_VERSION="{} >> "$GITHUB_ENV"
+
+      - name: Append yarn version to $GITHUB_OUTPUT
+        id: set_yarn_version
+        run: |
+          echo "yarn_version=${{ env.YARN_VERSION }}" >> "$GITHUB_OUTPUT"
+
+      - name: Node setup
+        uses: ./.github/actions/setup
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          yarn-version: ${{ steps.set_yarn_version.outputs.yarn_version }}
+          yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Build frontend for production
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        run: yarn workspace frontend build:production
+
+      - name: Build backend for production
+        if: ${{ needs.changes.outputs.backend == 'true' }}
+        run: yarn workspace backend build
+
+      # Cache the build after all is said and done.
+      # This build will be used in the following jobs.
+      - name: Cache build
+        uses: actions/cache@v4
+        with:
+          path: ./*
+          key: ${{ github.sha }}-${{ github.run_number }}
+
+  deploy:
+    name: Deploy to production environment
+    needs: [changes, build]
+    runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
+    environment: staging
+    env:
+      SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+      SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
+      SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
+      SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
+      YARN_VERSION: ${{ needs.setup.outputs.yarn_version }}
+    permissions:
+      contents: read
+      deployments: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Node setup
+        uses: ./.github/actions/setup
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          yarn-version: ${{ env.YARN_VERSION  }}
+          yarn-run-install: false
+          yarn-restore-cache: false # We restore the build from actions/cache
+          yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Restore build
+        uses: actions/cache@v4
+        with:
+          path: ./*
+          key: ${{ github.sha }}-${{ github.run_number }}
+
+      # Deploy using wrangler CLI
+      # See: https://github.com/cloudflare/wrangler-action?tab=readme-ov-file#deploy-your-pages-site-production--preview
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy packages/frontend/.svelte-kit/cloudflare --project-name=website
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
