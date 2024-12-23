@@ -74,28 +74,12 @@ jobs:
           echo "frontend: ${{ steps.filter.outputs.frontend }}"
           echo "backend: ${{ steps.filter.outputs.backend }}"
 
-  lint:
-    name: Lint
-    runs-on: ubuntu-${{vars.RUNNER_VERSION}}
-    if: ${{ github.event_name == 'pull_request' }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Lint staged
-        run: |
-          git diff --name-only --diff-filter=d origin/${GITHUB_BASE_REF}...${GITHUB_SHA}
-          npx lint-staged --diff="origin/${GITHUB_BASE_REF}...${GITHUB_SHA}"
-
-  # Setup and build the yarn cache for the rest of the jobs.
-  # Also exports yarn version from package.json.
-  setup:
-    name: Setup and Build
+  setup-yarn:
+    name: Setup Yarn
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     outputs:
       yarn_version: ${{ steps.set_yarn_version.outputs.yarn_version }}
-    needs: [changes, lint]
+    needs: [changes]
     if: ${{ needs.changes.outputs.backend == 'true' || needs.changes.outputs.frontend == 'true' }}
     steps:
       - uses: actions/checkout@v4
@@ -117,6 +101,77 @@ jobs:
           node-version: ${{ vars.NODE_VERSION }}
           yarn-version: ${{ steps.set_yarn_version.outputs.yarn_version }}
           yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      # Cache yarn for succeeding jobs.
+      - name: Cache build
+        uses: actions/cache@v4
+        with:
+          path: ./*
+          key: ${{ github.sha }}-${{ github.run_number }}
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-${{vars.RUNNER_VERSION}}
+    if: ${{ github.event_name == 'pull_request' }}
+    needs: [setup-yarn]
+    env:
+      YARN_VERSION: ${{ needs.setup-yarn.outputs.yarn_version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Node setup
+        uses: ./.github/actions/setup
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          yarn-version: ${{ env.YARN_VERSION  }}
+          yarn-run-install: false
+          yarn-restore-cache: false # We restore the build from actions/cache
+          yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Restore build
+        uses: actions/cache@v4
+        with:
+          path: ./*
+          key: ${{ github.sha }}-${{ github.run_number }}
+
+      - name: Lint staged
+        run: |
+          git diff --name-only --diff-filter=d origin/${GITHUB_BASE_REF}...${GITHUB_SHA}
+          npx lint-staged --diff="origin/${GITHUB_BASE_REF}...${GITHUB_SHA}"
+
+      - name: Cache build
+        uses: actions/cache@v4
+        with:
+          path: ./*
+          key: ${{ github.sha }}-${{ github.run_number }}
+
+  # Builds for staging
+  build:
+    name: Build artifacts
+    runs-on: ubuntu-${{vars.RUNNER_VERSION}}
+    env:
+      YARN_VERSION: ${{ needs.setup-yarn.outputs.yarn_version }}
+    needs: [changes, lint, setup-yarn]
+    if: ${{ needs.changes.outputs.backend == 'true' || needs.changes.outputs.frontend == 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Node setup
+        uses: ./.github/actions/setup
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          yarn-version: ${{ env.YARN_VERSION  }}
+          yarn-run-install: false
+          yarn-restore-cache: false # We restore the build from actions/cache
+          yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Restore build
+        uses: actions/cache@v4
+        with:
+          path: ./*
+          key: ${{ github.sha }}-${{ github.run_number }}
 
       # Check if there are any errors in the SvelteKit code.
       - name: SvelteKit check
@@ -142,13 +197,13 @@ jobs:
   test-unit:
     name: Unit tests
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
-    needs: [changes, setup]
+    needs: [changes, setup-yarn]
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_PROJECT_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
-      YARN_VERSION: ${{ needs.setup.outputs.yarn_version }}
+      YARN_VERSION: ${{ needs.setup-yarn.outputs.yarn_version }}
 
     steps:
       - uses: actions/checkout@v4
@@ -179,13 +234,13 @@ jobs:
   test-comp:
     name: Component tests
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
-    needs: [changes, setup]
+    needs: [changes, setup-yarn]
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
-      YARN_VERSION: ${{ needs.setup.outputs.yarn_version }}
+      YARN_VERSION: ${{ needs.setup-yarn.outputs.yarn_version }}
 
     steps:
       - uses: actions/checkout@v4
@@ -217,13 +272,13 @@ jobs:
     name: Integration tests
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     if: ${{ needs.changes.outputs.frontend == 'true' }}
-    needs: [changes, setup]
+    needs: [changes, setup-yarn]
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
-      YARN_VERSION: ${{ needs.setup.outputs.yarn_version }}
+      YARN_VERSION: ${{ needs.setup-yarn.outputs.yarn_version }}
 
     steps:
       - uses: actions/checkout@v4
@@ -255,13 +310,13 @@ jobs:
     name: Functional tests
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     if: ${{ needs.changes.outputs.frontend == 'true' }}
-    needs: [changes, setup]
+    needs: [changes, setup-yarn]
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
-      YARN_VERSION: ${{ needs.setup.outputs.yarn_version }}
+      YARN_VERSION: ${{ needs.setup-yarn.outputs.yarn_version }}
 
     steps:
       - uses: actions/checkout@v4
@@ -293,13 +348,13 @@ jobs:
     name: E2E tests
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     if: ${{ needs.changes.outputs.frontend == 'true' }}
-    needs: [changes, setup]
+    needs: [changes, setup-yarn]
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
-      YARN_VERSION: ${{ needs.setup.outputs.yarn_version }}
+      YARN_VERSION: ${{ needs.setup-yarn.outputs.yarn_version }}
 
     steps:
       - uses: actions/checkout@v4
@@ -330,7 +385,7 @@ jobs:
   upload-artifacts:
     name: Upload Artifacts
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
-    needs: [changes, setup, test-unit, test-comp, test-int, test-func, test-e2e]
+    needs: [changes, build, test-unit, test-comp, test-int, test-func, test-e2e]
     steps:
       - uses: actions/checkout@v4
 
