@@ -22,7 +22,7 @@ const config: PlaywrightTestConfig = {
 	// reporter: 'html'
 
 	use: {
-		baseURL: 'http://localhost:5173/'
+		baseURL: process.env.CI ? 'http://localhost:8788' : 'http://localhost:5173/'
 	},
 
 	// Configurations for the webServer playwright starts and uses.
