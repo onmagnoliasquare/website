@@ -339,38 +339,83 @@ jobs:
       - if: ${{ always() && (contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')) }}
         run: exit 1
 
-  # upload-artifacts:
-  #   name: Upload Artifacts
-  #   runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
-  #   needs: [all-green, changes]
-  #   steps:
-  #     - uses: actions/checkout@v4
+  upload-artifacts:
+    name: Upload Artifacts
+    runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
+    needs: [all-green, changes]
+    steps:
+      - uses: actions/checkout@v4
 
-  #     - name: Restore build
-  #       uses: actions/cache@v4
-  #       with:
-  #         path: ./*
-  #         key: ${{ github.sha }}-${{ github.run_number }}
+      - name: Restore build
+        uses: actions/cache@v4
+        with:
+          path: ./*
+          key: ${{ github.sha }}-${{ github.run_number }}
 
-  #     - name: Archive frontend build artifact
-  #       if: ${{ needs.changes.outputs.frontend == 'true' }}
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: frontend
-  #         path: packages/frontend/.svelte-kit/cloudflare
+      - name: Archive frontend build artifact
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend
+          path: packages/frontend/.svelte-kit/cloudflare
 
-  #     - name: Archive backend build artifact
-  #       if: ${{ needs.changes.outputs.backend == 'true' }}
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: backend
-  #         path: packages/backend/dist
+      - name: Archive backend build artifact
+        if: ${{ needs.changes.outputs.backend == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend
+          path: packages/backend/dist
+
+  deploy-staging:
+    name: Deploy Staging
+    needs: [upload-artifacts, changes]
+    if: ${{ github.ref_name == 'dev' }}
+    runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
+    environment: staging
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download frontend build artifact
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend
+
+      - name: Publish to Cloudflare Pages
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy frontend --project-name=website
+
+      - name: Delete frontend artifact
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: frontend
+          failOnError: false
+
+      - name: Download backend build artifact
+        if: ${{ needs.changes.outputs.backend == 'true' }}
+        uses: actions/download-artifact@v4
+        with:
+          name: backend
+
+      # Deploy backend artifact
+
+      - name: Delete backend artifact
+        if: ${{ needs.changes.outputs.backend == 'true' }}
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: backend
+          failOnError: false
 
   # publish-staging:
-  #   name: Publish Staging
+  #   name: Publish to Staging Environment
   #   runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
-  #   needs: [set-environment, setup, all-green]
-  #   # environment: ${{ needs.set-environment.outputs.current_env }}
+  #   needs: [all-green]
   #   environment: staging
   #   if: ${{ needs.all-green.result == 'success' && github.ref_name == 'dev' }}
   #   env:
