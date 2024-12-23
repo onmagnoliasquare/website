@@ -22,8 +22,8 @@
     "front:test:ui": "yarn workspace frontend test:ui"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": ["yarn prettier --write"],
-    "*.{html,css,json,svelte}": ["yarn prettier --write"]
+    "*.{js,jsx,ts,tsx,svelte}": ["yarn prettier --write", "yarn eslint"],
+    "*.{html,css,json}": ["yarn prettier --write"]
   },
   "dependencies": {
     "@eirikk/portabletext-2-svelte-5": "^0.1.0-alpha.2",
@@ -64,6 +64,7 @@
     "eslint": "^9.17.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-svelte": "^2.46.1",
+    "globals": "^15.14.0",
     "husky": "^9.1.7",
     "jsdom": "^25.0.1",
     "lint-staged": "^15.2.11",
