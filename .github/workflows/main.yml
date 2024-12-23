@@ -153,9 +153,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Get yarn version
+      # Retrieve yarn version from package.json
+      - name: Get yarn version from package.json
+        run: |
+          grep 'packageManager' package.json | awk -F: '{gsub(/[", ]/, "", $2); print $2}' | xargs -I {} echo "YARN_VERSION="{} >> "$GITHUB_ENV"
+
+      # Set the yarn version by exporting to env var and output
+      - name: Append yarn version to $GITHUB_OUTPUT
         id: set_yarn_version
-        uses: ./.github/actions/get-yarn-version
+        run: |
+          echo "yarn_version=${{ env.YARN_VERSION }}" >> "$GITHUB_OUTPUT"
 
       - name: Node setup
         uses: ./.github/actions/setup
