@@ -74,41 +74,6 @@ jobs:
           echo "frontend: ${{ steps.filter.outputs.frontend }}"
           echo "backend: ${{ steps.filter.outputs.backend }}"
 
-  setup-yarn:
-    name: Setup yarn
-    runs-on: ubuntu-${{vars.RUNNER_VERSION}}
-    outputs:
-      yarn_version: ${{ steps.set_yarn_version.outputs.yarn_version }}
-    needs: [changes]
-    if: ${{ needs.changes.outputs.backend == 'true' || needs.changes.outputs.frontend == 'true' }}
-    steps:
-      - uses: actions/checkout@v4
-
-      # Retrieve yarn version from package.json
-      - name: Get yarn version from package.json
-        run: |
-          grep 'packageManager' package.json | awk -F: '{gsub(/[", ]/, "", $2); print $2}' | xargs -I {} echo "YARN_VERSION="{} >> "$GITHUB_ENV"
-
-      # Set the yarn version by exporting to env var and output
-      - name: Append yarn version to $GITHUB_OUTPUT
-        id: set_yarn_version
-        run: |
-          echo "yarn_version=${{ env.YARN_VERSION }}" >> "$GITHUB_OUTPUT"
-
-      - name: Node setup
-        uses: ./.github/actions/setup
-        with:
-          node-version: ${{ vars.NODE_VERSION }}
-          yarn-version: ${{ steps.set_yarn_version.outputs.yarn_version }}
-          yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-
-      # Cache yarn for succeeding jobs.
-      - name: Cache build
-        uses: actions/cache@v4
-        with:
-          path: ./*
-          key: ${{ github.sha }}-${{ github.run_number }}
-
   # lint:
   #   name: Lint
   #   runs-on: ubuntu-${{vars.RUNNER_VERSION}}
@@ -155,29 +120,32 @@ jobs:
 
   # Builds for staging
   build:
-    name: Build artifacts
+    name: Set yarn and Build artifacts
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
-    env:
-      YARN_VERSION: ${{ needs.setup-yarn.outputs.yarn_version }}
-    needs: [changes, setup-yarn]
+    outputs:
+      yarn_version: ${{ steps.set_yarn_version.outputs.yarn_version }}
+    needs: [changes]
     if: ${{ needs.changes.outputs.backend == 'true' || needs.changes.outputs.frontend == 'true' }}
     steps:
       - uses: actions/checkout@v4
+
+      # Retrieve yarn version from package.json
+      - name: Get yarn version from package.json
+        run: |
+          grep 'packageManager' package.json | awk -F: '{gsub(/[", ]/, "", $2); print $2}' | xargs -I {} echo "YARN_VERSION="{} >> "$GITHUB_ENV"
+
+      # Set the yarn version by exporting to env var and output
+      - name: Append yarn version to $GITHUB_OUTPUT
+        id: set_yarn_version
+        run: |
+          echo "yarn_version=${{ env.YARN_VERSION }}" >> "$GITHUB_OUTPUT"
 
       - name: Node setup
         uses: ./.github/actions/setup
         with:
           node-version: ${{ vars.NODE_VERSION }}
-          yarn-version: ${{ env.YARN_VERSION  }}
-          yarn-run-install: false
-          yarn-restore-cache: false # We restore the build from actions/cache
+          yarn-version: ${{ steps.set_yarn_version.outputs.yarn_version }}
           yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-
-      - name: Restore build
-        uses: actions/cache@v4
-        with:
-          path: ./*
-          key: ${{ github.sha }}-${{ github.run_number }}
 
       # Check if there are any errors in the SvelteKit code.
       - name: SvelteKit check
@@ -203,13 +171,13 @@ jobs:
   test-unit:
     name: Unit tests
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
-    needs: [changes, setup-yarn, build]
+    needs: [changes, build]
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_PROJECT_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
-      YARN_VERSION: ${{ needs.setup-yarn.outputs.yarn_version }}
+      YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
 
     steps:
       - uses: actions/checkout@v4
@@ -240,13 +208,13 @@ jobs:
   test-comp:
     name: Component tests
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
-    needs: [changes, setup-yarn, build]
+    needs: [changes, build]
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
-      YARN_VERSION: ${{ needs.setup-yarn.outputs.yarn_version }}
+      YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
 
     steps:
       - uses: actions/checkout@v4
@@ -278,13 +246,13 @@ jobs:
     name: Integration tests
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     if: ${{ needs.changes.outputs.frontend == 'true' }}
-    needs: [changes, setup-yarn, build]
+    needs: [changes, build]
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
-      YARN_VERSION: ${{ needs.setup-yarn.outputs.yarn_version }}
+      YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
 
     steps:
       - uses: actions/checkout@v4
@@ -306,7 +274,7 @@ jobs:
 
       - name: Install playwright
         if: ${{ needs.changes.outputs.frontend == 'true' }}
-        run: yarn playwright install --with-deps
+        run: yarn playwright install
 
       - name: Run frontend integration tests
         if: ${{ needs.changes.outputs.frontend == 'true' }}
@@ -316,13 +284,13 @@ jobs:
     name: Functional tests
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     if: ${{ needs.changes.outputs.frontend == 'true' }}
-    needs: [changes, setup-yarn, build]
+    needs: [changes, build]
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
-      YARN_VERSION: ${{ needs.setup-yarn.outputs.yarn_version }}
+      YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
 
     steps:
       - uses: actions/checkout@v4
@@ -344,7 +312,7 @@ jobs:
 
       - name: Install playwright
         if: ${{ needs.changes.outputs.frontend == 'true' }}
-        run: yarn playwright install --with-deps
+        run: yarn playwright install
 
       - name: Run frontend functional tests
         if: ${{ needs.changes.outputs.frontend == 'true' }}
@@ -354,13 +322,13 @@ jobs:
     name: E2E tests
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     if: ${{ needs.changes.outputs.frontend == 'true' }}
-    needs: [changes, setup-yarn, build]
+    needs: [changes, build]
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
-      YARN_VERSION: ${{ needs.setup-yarn.outputs.yarn_version }}
+      YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
 
     steps:
       - uses: actions/checkout@v4
@@ -382,16 +350,26 @@ jobs:
 
       - name: Install playwright
         if: ${{ needs.changes.outputs.frontend == 'true' }}
-        run: yarn playwright install --with-deps
+        run: yarn playwright install
 
       - name: Run frontend E2E tests
         if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: yarn workspace frontend test-ci:e2e
 
+  all-green:
+    name: All Green
+    if: always()
+    runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
+    needs: [test-unit, test-comp, test-int, test-func, test-e2e]
+
+    steps:
+      - if: ${{ always() && (contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')) }}
+        run: exit 1
+
   upload-artifacts:
     name: Upload artifacts
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
-    needs: [changes, test-unit, test-comp, test-int, test-func, test-e2e]
+    needs: [changes, all-green]
     steps:
       - uses: actions/checkout@v4
 
@@ -415,20 +393,10 @@ jobs:
           name: backend
           path: packages/backend/dist
 
-  all-green:
-    name: All Green
-    if: always()
-    runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
-    needs: [upload-artifacts]
-
-    steps:
-      - if: ${{ always() && (contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')) }}
-        run: exit 1
-
   deploy-staging:
     name: Deploy to Staging
-    needs: [upload-artifacts, changes, all-green]
-    if: ${{ github.event_name == 'push' && github.ref_name == 'dev' && needs.all-green.result == 'success' }}
+    needs: [upload-artifacts, changes]
+    if: ${{ github.event_name == 'push' && github.ref_name == 'dev' }}
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
     environment: staging
 

@@ -28,7 +28,7 @@ const config: PlaywrightTestConfig = {
 	// Configurations for the webServer playwright starts and uses.
 	webServer: {
 		command: process.env.CI
-			? 'yarn workspace frontend build:development : yarn workspace frontend preview'
+			? 'yarn workspace frontend build:development && yarn workspace frontend preview'
 			: 'yarn dev:front',
 
 		// URL must use 'localhost'!!! Otherwise, playwright
