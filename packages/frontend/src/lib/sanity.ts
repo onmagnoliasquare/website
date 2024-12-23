@@ -23,7 +23,7 @@ const config: ClientConfig = {
 };
 
 // Change the dataset if it is a development environment.
-if (dev) {
+if (dev || import.meta.env.MODE === 'development') {
 	config.dataset = 'development';
 	config.useCdn = false;
 }

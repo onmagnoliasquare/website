@@ -3,8 +3,10 @@
 	"scripts": {
 		"dev": "run -T vite dev",
 		"build": "run -T vite build",
+		"build:development": "run -T vite build --mode development",
 		"build:staging": "run -T vite build --mode staging",
-		"preview": "run -T vite preview",
+		"build:production": "run -T vite build --mode production",
+		"preview": "run -T wrangler pages dev .svelte-kit/cloudflare",
 		"test": "yarn test:integration && yarn test:unit",
 		"check": "run -T svelte-kit sync && run -T svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "run -T svelte-kit sync && run -T svelte-check --tsconfig ./tsconfig.json --watch",
