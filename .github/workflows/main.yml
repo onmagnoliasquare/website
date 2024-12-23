@@ -3,6 +3,46 @@ name: 'Staging'
 on:
   push:
     branches: ['dev']
+    paths-ignore:
+      # Ignore changes in documentation.
+      - '**/*.md'
+
+      # Ignore changes in root directory.
+      - '.gitattributes'
+      - '.gitignore'
+      - '.markdownlint.json'
+      - '.yarnrc.yml'
+      - 'LICENSE'
+      - '.yarn'
+      - '.vscode'
+      - '.prettierignore'
+      - '.prettierrc'
+      - 'LICENSE'
+      - 'tsconfig.json'
+      - 'eslint.config.mjs'
+
+      # Ignore changes in .github directory.
+      - '.github/ISSUE_TEMPLATE/**'
+      - '.github/pull_request_template.*'
+
+      # Ignore build related files.
+      - '.env.example'
+
+      # Ignore changes in backend package.
+      - '.github/workflows/backend.yml'
+      - 'packages/backend/**'
+
+      # Ignore frontend package specific paths.
+      - 'packages/frontend/static/**'
+      - 'packages/frontend/.eslintignore'
+      - 'packages/frontend/.eslintrc.cjs'
+      - 'packages/frontend/.prettierrc'
+      - 'packages/frontend/svelte.config.js'
+
+      # Ignore backend package specific paths.
+      - 'packages/backend/static/**'
+      - 'packages/backend/.eslintrc'
+
   pull_request:
     branches: ['dev']
     paths-ignore:
@@ -44,8 +84,6 @@ on:
       # Ignore backend package specific paths.
       - 'packages/backend/static/**'
       - 'packages/backend/.eslintrc'
-      # - 'packages/backend/sanity.cli.ts'
-      # - 'packages/backend/sanity.config.ts'
 
 jobs:
   changes:
@@ -120,7 +158,7 @@ jobs:
 
   # Builds for staging
   build:
-    name: Set yarn and Build artifacts
+    name: Set yarn and build artifacts
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     outputs:
       yarn_version: ${{ steps.set_yarn_version.outputs.yarn_version }}
@@ -129,16 +167,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Retrieve yarn version from package.json
-      - name: Get yarn version from package.json
-        run: |
-          grep 'packageManager' package.json | awk -F: '{gsub(/[", ]/, "", $2); print $2}' | xargs -I {} echo "YARN_VERSION="{} >> "$GITHUB_ENV"
-
-      # Set the yarn version by exporting to env var and output
-      - name: Append yarn version to $GITHUB_OUTPUT
-        id: set_yarn_version
-        run: |
-          echo "yarn_version=${{ env.YARN_VERSION }}" >> "$GITHUB_OUTPUT"
+      - name: Get yarn version
+        uses: ./.github/actions/get-yarn-version
 
       - name: Node setup
         uses: ./.github/actions/setup
@@ -152,11 +182,11 @@ jobs:
         if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: yarn workspace frontend check
 
-      - name: Build frontend
+      - name: Build frontend for staging
         if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: yarn workspace frontend build:staging
 
-      - name: Build backend
+      - name: Build backend for staging
         if: ${{ needs.changes.outputs.backend == 'true' }}
         run: yarn workspace backend build
 
@@ -360,7 +390,7 @@ jobs:
     name: All Green
     if: always()
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
-    needs: [test-unit, test-comp, test-int, test-func, test-e2e]
+    needs: [build, test-unit, test-comp, test-int, test-func, test-e2e]
 
     steps:
       - if: ${{ always() && (contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')) }}
@@ -416,6 +446,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy frontend --project-name=website
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Delete frontend artifact
         if: ${{ needs.changes.outputs.frontend == 'true' }}

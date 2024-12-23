@@ -1,0 +1,29 @@
+name: Get yarn version
+description: |
+  Retrieve Yarn version from package.json and set it as an environment variable and output
+
+inputs:
+  package_json_path:
+    description: Path to the package.json file
+    required: false
+    default: './package.json'
+
+outputs:
+  yarn_version:
+    description: Yarn version extracted from package.json
+
+runs:
+  using: "composite"
+  steps:
+    - name: Read yarn version from package.json
+      shell: bash
+      id: get-version
+      run: |
+        if [ ! -f "${{ inputs.package_json_path }}" ]; then
+          echo "Error: package.json not found at ${{ inputs.package_json_path }}"
+          exit 1
+        fi
+        version=$(grep 'packageManager' "${{ inputs.package_json_path }}" | awk -F: '{gsub(/[", ]/, "", $2); print $2}')
+        echo "Yarn version found: $version"
+        echo "yarn_version=$version" >> $GITHUB_ENV
+        echo "yarn_version=$version" >> $GITHUB_OUTPUT
