@@ -3,7 +3,7 @@ import * as svelteParser from 'svelte-eslint-parser'
 import * as typescriptParser from '@typescript-eslint/parser'
 import svelteConfig from './packages/frontend/svelte.config.js'
 import globals from 'globals'
-// import sanityEslintConfig from '@sanity/eslint-config-studio'
+import sanityEslintConfig from '@sanity/eslint-config-studio'
 import js from '@eslint/js'
 
 export default [
@@ -25,6 +25,10 @@ export default [
       },
     },
   },
+  {
+    files: ['packages/backend/**/*'],
+  },
+  ...sanityEslintConfig,
   {
     ignores: [
       '.DS_Store',
