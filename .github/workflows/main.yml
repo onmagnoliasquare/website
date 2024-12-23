@@ -21,6 +21,7 @@ on:
       - '.prettierrc'
       - 'LICENSE'
       - 'tsconfig.json'
+      - 'eslint.config.mjs'
 
       # Ignore changes in .github directory.
       - '.github/ISSUE_TEMPLATE/**'
@@ -55,10 +56,6 @@ jobs:
     outputs:
       frontend: ${{ steps.filter.outputs.frontend }}
       backend: ${{ steps.filter.outputs.backend }}
-      needs_build: ${{ steps.filter.outputs.needs_build }}
-      needs_tests: ${{ steps.filter.outputs.needs_tests }}
-      needs_frontend_tests: ${{ steps.filter.outputs.needs_frontend_tests }}
-      templates: ${{ steps.filter.outputs.templates }}
     steps:
       - uses: actions/checkout@v4
       - uses: dorny/paths-filter@v3
@@ -80,6 +77,7 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
+    if: ${{ github.event_name == 'pull_request' }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -127,7 +125,7 @@ jobs:
 
       - name: Build frontend
         if: ${{ needs.changes.outputs.frontend == 'true' }}
-        run: yarn workspace frontend build
+        run: yarn workspace frontend build:staging
 
       - name: Build backend
         if: ${{ needs.changes.outputs.backend == 'true' }}
@@ -148,7 +146,7 @@ jobs:
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
-      SANITY_DATASET: ${{ vars.SANITY_DATASET }}
+      SANITY_DATASET: ${{ vars.SANITY_PROJECT_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
       YARN_VERSION: ${{ needs.setup.outputs.yarn_version }}
 
@@ -329,20 +327,10 @@ jobs:
         if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: yarn workspace frontend test-ci:e2e
 
-  all-green:
-    name: All Green
-    if: always()
-    runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
-    needs: [setup, test-unit, test-comp, test-int, test-func, test-e2e]
-
-    steps:
-      - if: ${{ always() && (contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')) }}
-        run: exit 1
-
   upload-artifacts:
     name: Upload Artifacts
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
-    needs: [all-green, changes]
+    needs: [changes, setup, test-unit, test-comp, test-int, test-func, test-e2e]
     steps:
       - uses: actions/checkout@v4
 
@@ -366,10 +354,20 @@ jobs:
           name: backend
           path: packages/backend/dist
 
+  all-green:
+    name: All Green
+    if: always()
+    runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
+    needs: [upload-artifacts]
+
+    steps:
+      - if: ${{ always() && (contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')) }}
+        run: exit 1
+
   deploy-staging:
-    name: Deploy Staging
-    needs: [upload-artifacts, changes]
-    if: ${{ github.ref_name == 'dev' }}
+    name: Deploy to Staging
+    needs: [upload-artifacts, changes, all-green]
+    if: ${{ github.event_name == 'push' && github.ref_name == 'dev' && needs.all-green.result == 'success' }}
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
     environment: staging
 
