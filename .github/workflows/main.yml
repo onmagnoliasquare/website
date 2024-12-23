@@ -49,7 +49,7 @@ on:
 
 jobs:
   changes:
-    name: Check Changes
+    name: Check changes
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     permissions:
       pull-requests: read
@@ -75,7 +75,7 @@ jobs:
           echo "backend: ${{ steps.filter.outputs.backend }}"
 
   setup-yarn:
-    name: Setup Yarn
+    name: Setup yarn
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     outputs:
       yarn_version: ${{ steps.set_yarn_version.outputs.yarn_version }}
@@ -197,7 +197,7 @@ jobs:
   test-unit:
     name: Unit tests
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
-    needs: [changes, setup-yarn]
+    needs: [changes, setup-yarn, build]
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
@@ -234,7 +234,7 @@ jobs:
   test-comp:
     name: Component tests
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
-    needs: [changes, setup-yarn]
+    needs: [changes, setup-yarn, build]
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
@@ -272,7 +272,7 @@ jobs:
     name: Integration tests
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     if: ${{ needs.changes.outputs.frontend == 'true' }}
-    needs: [changes, setup-yarn]
+    needs: [changes, setup-yarn, build]
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
@@ -310,7 +310,7 @@ jobs:
     name: Functional tests
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     if: ${{ needs.changes.outputs.frontend == 'true' }}
-    needs: [changes, setup-yarn]
+    needs: [changes, setup-yarn, build]
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
@@ -348,7 +348,7 @@ jobs:
     name: E2E tests
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     if: ${{ needs.changes.outputs.frontend == 'true' }}
-    needs: [changes, setup-yarn]
+    needs: [changes, setup-yarn, build]
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
