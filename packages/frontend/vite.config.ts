@@ -1,9 +1,8 @@
 import { sveltekit } from '@sveltejs/kit/vite';
-import { defineConfig } from 'vite';
 import { svelteTesting } from '@testing-library/svelte/vite';
+import { defineProject } from 'vitest/config';
 
-// TODO Change to project
-export default defineConfig({
+export default defineProject({
 	//@ts-ignore ts(2741)
 	plugins: [sveltekit(), svelteTesting()],
 	//@ts-ignore ts(2769)
@@ -14,21 +13,10 @@ export default defineConfig({
 		restoreMocks: true,
 		pool: 'forks',
 		isolate: false,
-		fileParallelism: false,
-		threads: false,
 		poolOptions: {
 			forks: {
 				singleFork: true
 			}
-		},
-		coverage: {
-			enabled: false
-		},
-		reporters: process.env.GITHUB_ACTIONS ? ['verbose', 'github-actions'] : ['verbose'],
-		resolve: process.env.VITEST
-			? {
-					conditions: ['browser']
-				}
-			: undefined
+		}
 	}
 });

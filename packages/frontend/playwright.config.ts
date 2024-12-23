@@ -22,19 +22,19 @@ const config: PlaywrightTestConfig = {
 	// reporter: 'html'
 
 	use: {
-		baseURL: 'http://localhost:5173/'
+		baseURL: process.env.CI ? 'http://localhost:8788' : 'http://localhost:5173/'
 	},
 
 	// Configurations for the webServer playwright starts and uses.
 	webServer: {
-		// command: 'yarn build:front && yarn workspace frontend preview',
-		// url: 'http://localhost:4173',
-		command: 'yarn dev:front',
+		command: process.env.CI
+			? 'yarn workspace frontend build:development && yarn workspace frontend preview'
+			: 'yarn dev:front',
 
-		// URL must use 'localhost'!!!
+		// URL must use 'localhost'!!! Otherwise, playwright
+		// will boot the server but hang in the process.
 		// See: https://github.com/microsoft/playwright/issues/16834#issuecomment-1699124292
-		// Playwright boots the server but hangs in the process.
-		url: 'http://localhost:5173',
+		url: 'http://localhost:8788',
 		reuseExistingServer: !process.env.CI,
 		stdout: 'ignore',
 		stderr: 'pipe'

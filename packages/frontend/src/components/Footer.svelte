@@ -1,6 +1,3 @@
-<!-- <footer>
-	<div class="w-100 black"></div>
-</footer> -->
 <script lang="ts">
 	import { routes } from '$lib/navRoutes';
 	let listOfRoutes = routes;

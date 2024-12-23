@@ -2,8 +2,7 @@
 
 import { cleanup, render } from '@testing-library/svelte/svelte5';
 import { afterEach, describe, expect, it } from 'vitest';
-
-import GeneralObserver from './GeneralObserver.svelte';
+import GeneralObserver from '$components/embeds/GeneralObserver.svelte';
 
 describe('General Observer', () => {
 	afterEach(() => cleanup());

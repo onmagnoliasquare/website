@@ -1,0 +1,464 @@
+name: 'Staging'
+
+on:
+  push:
+    branches: ['dev']
+    paths-ignore:
+      # Ignore changes in documentation.
+      - '**/*.md'
+
+      # Ignore changes in root directory.
+      - '.gitattributes'
+      - '.gitignore'
+      - '.markdownlint.json'
+      - '.yarnrc.yml'
+      - 'LICENSE'
+      - '.yarn'
+      - '.vscode'
+      - '.prettierignore'
+      - '.prettierrc'
+      - 'LICENSE'
+      - 'tsconfig.json'
+      - 'eslint.config.mjs'
+
+      # Ignore changes in .github directory.
+      - '.github/ISSUE_TEMPLATE/**'
+      - '.github/pull_request_template.*'
+
+      # Ignore build related files.
+      - '.env.example'
+
+      # Ignore frontend package specific paths.
+      - 'packages/frontend/static/**'
+      - 'packages/frontend/.prettierrc'
+      - 'packages/frontend/svelte.config.js'
+
+      # Ignore backend package specific paths.
+      - 'packages/backend/static/**'
+
+  pull_request:
+    branches: ['dev']
+    paths-ignore:
+      # Ignore changes in documentation.
+      - '**/*.md'
+
+      # Ignore changes in root directory.
+      - '.gitattributes'
+      - '.gitignore'
+      - '.markdownlint.json'
+      - '.yarnrc.yml'
+      - 'LICENSE'
+      - '.yarn'
+      - '.vscode'
+      - '.prettierignore'
+      - '.prettierrc'
+      - 'LICENSE'
+      - 'tsconfig.json'
+      - 'eslint.config.mjs'
+
+      # Ignore changes in .github directory.
+      - '.github/ISSUE_TEMPLATE/**'
+      - '.github/pull_request_template.*'
+
+      # Ignore build related files.
+      - '.env.example'
+
+      # Ignore frontend package specific paths.
+      - 'packages/frontend/static/**'
+      - 'packages/frontend/.prettierrc'
+      - 'packages/frontend/svelte.config.js'
+
+      # Ignore backend package specific paths.
+      - 'packages/backend/static/**'
+
+jobs:
+  changes:
+    name: Check changes
+    runs-on: ubuntu-${{vars.RUNNER_VERSION}}
+    permissions:
+      pull-requests: read
+    outputs:
+      frontend: ${{ steps.filter.outputs.frontend }}
+      backend: ${{ steps.filter.outputs.backend }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          base: dev
+          # base: ${{ github.ref_name }}
+          list-files: csv
+          filters: |
+            frontend:
+              - 'packages/frontend/**'
+            backend:
+              - 'packages/backend/**'
+      - name: Log all filter results
+        run: |
+          echo "frontend: ${{ steps.filter.outputs.frontend }}"
+          echo "backend: ${{ steps.filter.outputs.backend }}"
+
+  # Builds for staging
+  build:
+    name: Set yarn and build artifacts
+    runs-on: ubuntu-${{vars.RUNNER_VERSION}}
+    outputs:
+      yarn_version: ${{ steps.set_yarn_version.outputs.yarn_version }}
+    needs: [changes]
+    if: ${{ needs.changes.outputs.backend == 'true' || needs.changes.outputs.frontend == 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Retrieve yarn version from package.json
+      - name: Get yarn version from package.json
+        run: |
+          grep 'packageManager' package.json | awk -F: '{gsub(/[", ]/, "", $2); print $2}' | xargs -I {} echo "YARN_VERSION="{} >> "$GITHUB_ENV"
+
+      # Set the yarn version by exporting to env var and output
+      - name: Append yarn version to $GITHUB_OUTPUT
+        id: set_yarn_version
+        run: |
+          echo "yarn_version=${{ env.YARN_VERSION }}" >> "$GITHUB_OUTPUT"
+
+      - name: Node setup
+        uses: ./.github/actions/setup
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          yarn-version: ${{ steps.set_yarn_version.outputs.yarn_version }}
+          yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      # Check if there are any errors in the SvelteKit code.
+      - name: SvelteKit check
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        run: yarn workspace frontend check
+
+      - name: Build frontend for staging
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        run: yarn workspace frontend build:staging
+
+      - name: Build backend for staging
+        if: ${{ needs.changes.outputs.backend == 'true' }}
+        run: yarn workspace backend build
+
+      # Cache the build after all is said and done.
+      # This build will be used in the following jobs.
+      - name: Cache build
+        uses: actions/cache@v4
+        with:
+          path: ./*
+          key: ${{ github.sha }}-${{ github.run_number }}
+
+  test-unit:
+    name: Unit tests
+    runs-on: ubuntu-${{vars.RUNNER_VERSION}}
+    needs: [changes, build]
+    env:
+      SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+      SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
+      SANITY_DATASET: ${{ vars.SANITY_PROJECT_DATASET }}
+      SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
+      YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Node setup
+        uses: ./.github/actions/setup
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          yarn-version: ${{ env.YARN_VERSION  }}
+          yarn-run-install: false
+          yarn-restore-cache: false # We restore the build from actions/cache
+          yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Restore build
+        uses: actions/cache@v4
+        with:
+          path: ./*
+          key: ${{ github.sha }}-${{ github.run_number }}
+
+      - name: Run frontend unit tests
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        run: yarn workspace frontend test-ci:unit
+
+      - name: Run backend unit tests
+        if: ${{ needs.changes.outputs.backend == 'true' }}
+        run: yarn workspace backend test-ci:unit
+
+  test-comp:
+    name: Component tests
+    runs-on: ubuntu-${{vars.RUNNER_VERSION}}
+    needs: [changes, build]
+    env:
+      SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+      SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
+      SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
+      SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
+      YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Node setup
+        uses: ./.github/actions/setup
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          yarn-version: ${{ env.YARN_VERSION  }}
+          yarn-run-install: false
+          yarn-restore-cache: false # We restore the build from actions/cache
+          yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Restore build
+        uses: actions/cache@v4
+        with:
+          path: ./*
+          key: ${{ github.sha }}-${{ github.run_number }}
+
+      - name: Run frontend component tests
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        run: yarn workspace frontend test-ci:components
+
+      # - name: Run backend unit tests
+      #   if: ${{ needs.changes.outputs.backend == 'true' }}
+      #   run: yarn workspace backend test-ci:unit
+
+  test-int:
+    name: Integration tests
+    runs-on: ubuntu-${{vars.RUNNER_VERSION}}
+    if: ${{ needs.changes.outputs.frontend == 'true' }}
+    needs: [changes, build]
+    env:
+      SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+      SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
+      SANITY_DATASET: ${{ vars.SANITY_DATASET }}
+      SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
+      YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Node setup
+        uses: ./.github/actions/setup
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          yarn-version: ${{ env.YARN_VERSION  }}
+          yarn-run-install: false
+          yarn-restore-cache: false # We restore the build from actions/cache
+          yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Restore build
+        uses: actions/cache@v4
+        with:
+          path: ./*
+          key: ${{ github.sha }}-${{ github.run_number }}
+
+      - name: Install playwright
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        run: yarn playwright install
+
+      - name: Run frontend integration tests
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        run: yarn workspace frontend test-ci:integration
+
+  test-func:
+    name: Functional tests
+    runs-on: ubuntu-${{vars.RUNNER_VERSION}}
+    if: ${{ needs.changes.outputs.frontend == 'true' }}
+    needs: [changes, build]
+    env:
+      SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+      SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
+      SANITY_DATASET: ${{ vars.SANITY_DATASET }}
+      SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
+      YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Node setup
+        uses: ./.github/actions/setup
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          yarn-version: ${{ env.YARN_VERSION  }}
+          yarn-run-install: false
+          yarn-restore-cache: false # We restore the build from actions/cache
+          yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Restore build
+        uses: actions/cache@v4
+        with:
+          path: ./*
+          key: ${{ github.sha }}-${{ github.run_number }}
+
+      - name: Install playwright
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        run: yarn playwright install
+
+      - name: Run frontend functional tests
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        run: yarn workspace frontend test-ci:functional
+
+  test-e2e:
+    name: E2E tests
+    runs-on: ubuntu-${{vars.RUNNER_VERSION}}
+    if: ${{ needs.changes.outputs.frontend == 'true' }}
+    needs: [changes, build]
+    env:
+      SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+      SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
+      SANITY_DATASET: ${{ vars.SANITY_DATASET }}
+      SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
+      YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Node setup
+        uses: ./.github/actions/setup
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          yarn-version: ${{ env.YARN_VERSION  }}
+          yarn-run-install: false
+          yarn-restore-cache: false # We restore the build from actions/cache
+          yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Restore build
+        uses: actions/cache@v4
+        with:
+          path: ./*
+          key: ${{ github.sha }}-${{ github.run_number }}
+
+      - name: Install playwright
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        run: yarn playwright install
+
+      - name: Run frontend E2E tests
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        run: yarn workspace frontend test-ci:e2e
+
+  all-green:
+    name: All Green
+    if: always()
+    runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
+    needs: [build, test-unit, test-comp, test-int, test-func, test-e2e]
+
+    steps:
+      - if: ${{ always() && (contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')) }}
+        run: exit 1
+
+  upload-artifacts:
+    name: Upload artifacts
+    runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
+    needs: [changes, all-green]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore build
+        uses: actions/cache@v4
+        with:
+          path: ./*
+          key: ${{ github.sha }}-${{ github.run_number }}
+
+      - name: Archive frontend build artifact
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend
+          path: packages/frontend/.svelte-kit/cloudflare
+
+      - name: Archive backend build artifact
+        if: ${{ needs.changes.outputs.backend == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend
+          path: packages/backend/dist
+
+  deploy-staging:
+    name: Deploy to Staging
+    needs: [upload-artifacts, changes]
+    if: ${{ github.event_name == 'push' && github.ref_name == 'dev' }}
+    runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
+    environment: staging
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download frontend build artifact
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend
+
+      - name: Publish to Cloudflare Pages
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy frontend --project-name=website
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Delete frontend artifact
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: frontend
+          failOnError: false
+
+      - name: Download backend build artifact
+        if: ${{ needs.changes.outputs.backend == 'true' }}
+        uses: actions/download-artifact@v4
+        with:
+          name: backend
+
+      # Deploy backend artifact
+
+      - name: Delete backend artifact
+        if: ${{ needs.changes.outputs.backend == 'true' }}
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: backend
+          failOnError: false
+
+  # publish-staging:
+  #   name: Publish to Staging Environment
+  #   runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
+  #   needs: [all-green]
+  #   environment: staging
+  #   if: ${{ needs.all-green.result == 'success' && github.ref_name == 'dev' }}
+  #   env:
+  #     SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+  #     SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
+  #     SANITY_DATASET: ${{ vars.SANITY_DATASET }}
+  #     SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
+  #     YARN_VERSION: ${{ needs.setup.outputs.yarn_version }}
+  #   permissions:
+  #     contents: read
+  #     deployments: write
+
+  #   steps:
+  #     - uses: actions/checkout@v4
+
+  #     - name: Node setup
+  #       uses: ./.github/actions/setup
+  #       with:
+  #         node-version: ${{ vars.NODE_VERSION }}
+  #         yarn-version: ${{ env.YARN_VERSION  }}
+  #         yarn-run-install: false
+  #         yarn-restore-cache: false # We restore the build from actions/cache
+  #         yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+  #     - name: Restore build
+  #       uses: actions/cache@v4
+  #       with:
+  #         path: ./*
+  #         key: ${{ github.sha }}-${{ github.run_number }}
+
+  #     # Deploy using wrangler CLI
+  #     # See: https://github.com/cloudflare/wrangler-action?tab=readme-ov-file#deploy-your-pages-site-production--preview
+  #     - name: Publish to Cloudflare Pages
+  #       uses: cloudflare/wrangler-action@v3
+  #       with:
+  #         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  #         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+  #         command: pages deploy packages/frontend/.svelte-kit/cloudflare --project-name=website
