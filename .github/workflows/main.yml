@@ -117,9 +117,15 @@ jobs:
     env:
       YARN_VERSION: ${{ needs.setup-yarn.outputs.yarn_version }}
     steps:
+      # https://stackoverflow.com/a/78750049/20087581
+      - name: Get base depth
+        id: base-depth
+        run: echo "base-depth=$(expr ${{ github.event.pull_request.commits }} + 1)" >> $GITHUB_OUTPUT
+
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: ${{ steps.base-depth.outputs.base-depth }}
 
       - name: Node setup
         uses: ./.github/actions/setup
@@ -383,9 +389,9 @@ jobs:
         run: yarn workspace frontend test-ci:e2e
 
   upload-artifacts:
-    name: Upload Artifacts
+    name: Upload artifacts
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
-    needs: [changes, build, test-unit, test-comp, test-int, test-func, test-e2e]
+    needs: [changes, test-unit, test-comp, test-int, test-func, test-e2e]
     steps:
       - uses: actions/checkout@v4
 
