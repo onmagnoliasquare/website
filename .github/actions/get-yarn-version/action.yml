@@ -15,15 +15,16 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Read yarn version from package.json
+    # Retrieve yarn version from package.json
+    - name: Get yarn version from package.json
       shell: bash
-      id: get-version
       run: |
-        if [ ! -f "${{ inputs.package_json_path }}" ]; then
-          echo "Error: package.json not found at ${{ inputs.package_json_path }}"
-          exit 1
-        fi
-        version=$(grep 'packageManager' "${{ inputs.package_json_path }}" | awk -F: '{gsub(/[", ]/, "", $2); print $2}')
-        echo "Yarn version found: $version"
-        echo "yarn_version=$version" >> $GITHUB_ENV
-        echo "yarn_version=$version" >> $GITHUB_OUTPUT
+        grep 'packageManager' package.json | awk -F: '{gsub(/[", ]/, "", $2); print $2}' | xargs -I {} echo "YARN_VERSION="{} >> "$GITHUB_ENV"
+
+    # Set the yarn version by exporting to env var and output
+    - name: Append yarn version to $GITHUB_OUTPUT
+      shell: bash
+      id: set_yarn_version
+      run: |
+        echo "yarn_version=${{ env.YARN_VERSION }}" >> "$GITHUB_OUTPUT"
+
