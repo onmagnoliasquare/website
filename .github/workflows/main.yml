@@ -28,20 +28,13 @@ on:
       # Ignore build related files.
       - '.env.example'
 
-      # Ignore changes in backend package.
-      - '.github/workflows/backend.yml'
-      - 'packages/backend/**'
-
       # Ignore frontend package specific paths.
       - 'packages/frontend/static/**'
-      - 'packages/frontend/.eslintignore'
-      - 'packages/frontend/.eslintrc.cjs'
       - 'packages/frontend/.prettierrc'
       - 'packages/frontend/svelte.config.js'
 
       # Ignore backend package specific paths.
       - 'packages/backend/static/**'
-      - 'packages/backend/.eslintrc'
 
   pull_request:
     branches: ['dev']
@@ -70,20 +63,13 @@ on:
       # Ignore build related files.
       - '.env.example'
 
-      # Ignore changes in backend package.
-      - '.github/workflows/backend.yml'
-      - 'packages/backend/**'
-
       # Ignore frontend package specific paths.
       - 'packages/frontend/static/**'
-      - 'packages/frontend/.eslintignore'
-      - 'packages/frontend/.eslintrc.cjs'
       - 'packages/frontend/.prettierrc'
       - 'packages/frontend/svelte.config.js'
 
       # Ignore backend package specific paths.
       - 'packages/backend/static/**'
-      - 'packages/backend/.eslintrc'
 
 jobs:
   changes:
@@ -168,6 +154,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Get yarn version
+        id: set_yarn_version
         uses: ./.github/actions/get-yarn-version
 
       - name: Node setup
