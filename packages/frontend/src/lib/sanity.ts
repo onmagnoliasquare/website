@@ -28,8 +28,6 @@ if (dev || import.meta.env.MODE === 'development') {
 	config.useCdn = false;
 }
 
-// config.dataset = 'production';
-
 export const client = createClient(config);
 
 // Helps transform images from Sanity.
