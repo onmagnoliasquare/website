@@ -4,7 +4,6 @@ import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import type { Article } from '$lib/schema';
 
-// https://kit.svelte.dev/docs/load#page-data
 export const load: PageServerLoad = (async ({ fetch }) => {
 	const req = await fetch(`/api/homepage`);
 

@@ -98,13 +98,13 @@ jobs:
           echo "frontend: ${{ steps.filter.outputs.frontend }}"
           echo "backend: ${{ steps.filter.outputs.backend }}"
 
-  # Builds for staging
   build:
     name: Set yarn and build artifacts
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     outputs:
       yarn_version: ${{ steps.set_yarn_version.outputs.yarn_version }}
     needs: [changes]
+    environment: development
     if: ${{ needs.changes.outputs.backend == 'true' || needs.changes.outputs.frontend == 'true' }}
     steps:
       - uses: actions/checkout@v4
@@ -134,7 +134,7 @@ jobs:
 
       - name: Build frontend for staging
         if: ${{ needs.changes.outputs.frontend == 'true' }}
-        run: yarn workspace frontend build:staging
+        run: yarn workspace frontend build:development
 
       - name: Build backend for staging
         if: ${{ needs.changes.outputs.backend == 'true' }}
@@ -153,10 +153,11 @@ jobs:
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     needs: [changes, build]
     if: ${{ github.event_name == 'pull_request' }}
+    environment: development
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
-      SANITY_DATASET: ${{ vars.SANITY_PROJECT_DATASET }}
+      SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
       YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
 
@@ -190,6 +191,7 @@ jobs:
     name: Component tests
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     needs: [changes, build]
+    environment: development
     if: ${{ github.event_name == 'pull_request' }}
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
@@ -227,12 +229,13 @@ jobs:
   test-int:
     name: Integration tests
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
+    environment: development
     if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
     needs: [changes, build]
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
-      SANITY_DATASET: ${{ vars.SANITY_DATASET }}
+      SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
       YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
 
@@ -264,13 +267,14 @@ jobs:
 
   test-func:
     name: Functional tests
+    environment: development
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
     needs: [changes, build]
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
-      SANITY_DATASET: ${{ vars.SANITY_DATASET }}
+      SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
       YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
 
@@ -302,13 +306,14 @@ jobs:
 
   test-e2e:
     name: E2E tests
+    environment: development
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
     needs: [changes, build]
     env:
       SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
-      SANITY_DATASET: ${{ vars.SANITY_DATASET }}
+      SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
       YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
 
@@ -338,42 +343,14 @@ jobs:
         if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: yarn workspace frontend test-ci:e2e
 
-  upload-artifacts:
-    name: Upload artifacts
-    runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
-    if: ${{ github.event_name == 'pull_request' }}
-    needs: [build, test-unit, test-comp, test-int, test-func, test-e2e]
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Restore build
-        uses: actions/cache@v4
-        with:
-          path: ./*
-          key: ${{ github.sha }}-${{ github.run_number }}
-
-      - name: Archive frontend build artifact
-        if: ${{ needs.changes.outputs.frontend == 'true' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: frontend
-          path: packages/frontend/.svelte-kit/cloudflare
-
-      - name: Archive backend build artifact
-        if: ${{ needs.changes.outputs.backend == 'true' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: backend
-          path: packages/backend/dist
-
-  deploy-staging:
-    name: Deploy to Staging
-    needs: [build, changes]
+  deploy-development:
+    name: Deploy to development environment
     if: ${{ github.event_name == 'push' && github.ref_name == 'dev' }}
     env:
       YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
-    environment: staging
+    environment: development
+    needs: [changes, build, test-unit, test-comp, test-int, test-func, test-e2e]
 
     steps:
       - uses: actions/checkout@v4
@@ -404,10 +381,36 @@ jobs:
 
       # Deploy backend artifact
 
+  merge-dev-to-staging:
+    name: Fast-Forward Merge dev to staging
+    if: ${{ github.event_name == 'push' && github.ref_name == 'dev' }}
+    runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Ensure full history is fetched for merging
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Fast-Forward Merge
+        run: |
+          git checkout staging
+          git merge --ff-only origin/dev || {
+            echo "Fast-forward merge failed. Ensure dev branch is up-to-date.";
+            exit 1;
+          }
+          git push origin staging
+
   all-green:
     name: All Green
     if: always()
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
+    environment: development
     needs:
       [
         build,
@@ -416,8 +419,8 @@ jobs:
         test-int,
         test-func,
         test-e2e,
-        upload-artifacts,
-        deploy-staging,
+        deploy-development,
+        merge-dev-to-staging,
       ]
 
     steps:
