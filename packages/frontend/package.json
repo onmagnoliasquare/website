@@ -17,7 +17,7 @@
 		"test:unit": "run -T vitest unit",
 		"test-ci:integration": "playwright test integration",
 		"test-ci:e2e": "playwright test e2e",
-		"test-ci:functional": "run -T playwright test functional",
+		"test-ci:functional": "playwright test functional",
 		"test-ci:unit": "run -T vitest run --pool forks --poolOptions.forks.singleFork unit",
 		"test-ci:components": "run -T vitest run --pool forks --poolOptions.forks.singleFork components",
 		"test:ci": "run -T vitest run",
