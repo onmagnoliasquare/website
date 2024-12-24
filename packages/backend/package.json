@@ -2,13 +2,13 @@
   "name": "backend",
   "main": "package.json",
   "scripts": {
-    "dev": "run -T sanity dev",
-    "start": "run -T sanity start",
-    "build": "run -T sanity build",
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build",
     "test": "run -T vitest",
     "test-ci:unit": "run -T vitest run --pool forks --poolOptions.forks.singleFork",
-    "deploy": "run -T sanity deploy",
-    "deploy-graphql": "run -T sanity graphql deploy",
+    "deploy": "sanity deploy",
+    "deploy-graphql": "sanity graphql deploy",
     "copy-prod-to-dev": "npx sanity dataset export production ./prod_data.tar.gz && npx sanity dataset delete development && npx sanity dataset create development && npx sanity dataset import ./prod_data.tar.gz development --replace "
   },
   "prettier": {
