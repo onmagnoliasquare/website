@@ -1,9 +1,10 @@
 import {defineCliConfig} from 'sanity/cli'
+import {studioDataset, studioProjectId} from './lib/environment'
 
 export default defineCliConfig({
   api: {
-    projectId: '1ah7xxlt',
-    dataset: 'development',
+    projectId: studioProjectId,
+    dataset: studioDataset,
   },
   studioHost: 'onmagnoliasquare',
 })

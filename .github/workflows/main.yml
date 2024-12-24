@@ -132,11 +132,11 @@ jobs:
         if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
         run: yarn workspace frontend check
 
-      - name: Build frontend for staging
+      - name: Build frontend for development
         if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: yarn workspace frontend build:development
 
-      - name: Build backend for staging
+      - name: Build backend for development
         if: ${{ needs.changes.outputs.backend == 'true' }}
         run: yarn workspace backend build
 
@@ -370,7 +370,7 @@ jobs:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}
 
-      - name: Publish to Cloudflare Pages
+      - name: Publish frontend to Cloudflare Pages
         if: ${{ needs.changes.outputs.frontend == 'true' }}
         uses: cloudflare/wrangler-action@v3
         with:
@@ -380,6 +380,14 @@ jobs:
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
       # Deploy backend artifact
+      - name: Publish backend to Cloudflare Pages
+        if: ${{ needs.changes.outputs.backend == 'true' }}
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy packages/backend/dist --project-name=backend
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
   merge-dev-to-staging:
     name: Fast-Forward Merge dev to staging
