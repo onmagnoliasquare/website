@@ -11,7 +11,7 @@
 	import { ArticleSingleArticleBlock, ArticleImage, ArticleBodyMarks, Tag } from '$lib';
 	import { fly } from 'svelte/transition';
 	import ArticleLeadIn from '$components/portabletext/ArticleLeadIn.svelte';
-	import { PortableText } from '@portabletext/svelte';
+	import { PortableText } from '@eirikk/portabletext-2-svelte-5';
 
 	interface Props {
 		data: PageData;

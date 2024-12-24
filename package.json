@@ -4,7 +4,9 @@
   "version": "0.2.0",
   "license": "MIT",
   "private": true,
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "postinstall": "husky",
     "format": "yarn lint-staged",
@@ -22,8 +24,13 @@
     "front:test:ui": "yarn workspace frontend test:ui"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,svelte}": ["yarn prettier --write", "yarn eslint"],
-    "*.{html,css,json}": ["yarn prettier --write"]
+    "*.{js,jsx,ts,tsx,svelte}": [
+      "yarn prettier --write",
+      "yarn eslint"
+    ],
+    "*.{html,css,json}": [
+      "yarn prettier --write"
+    ]
   },
   "dependencies": {
     "styled-components": "^6.1.13"
