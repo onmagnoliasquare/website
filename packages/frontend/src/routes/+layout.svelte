@@ -33,7 +33,7 @@
 			<div class="mw9 center ma0 pa0">
 				<div class="flex flex-flow items-center justify-center">
 					<p class="ttu sans-serif fw4 tracked-02 f5 fw8 pa0 ma0 white">
-						⚠️ This is a development Environment - Do not touch production dataset ️⚠️
+						⚠️ This is a development environment ️⚠️
 					</p>
 				</div>
 			</div>

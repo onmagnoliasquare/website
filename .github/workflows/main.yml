@@ -129,15 +129,15 @@ jobs:
 
       # Check if there are any errors in the SvelteKit code.
       - name: SvelteKit check
-        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
         run: yarn workspace frontend check
 
       - name: Build frontend for staging
-        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
         run: yarn workspace frontend build:staging
 
       - name: Build backend for staging
-        if: ${{ needs.changes.outputs.backend == 'true' }}
+        if: ${{ needs.changes.outputs.backend == 'true' && github.event_name == 'pull_request' }}
         run: yarn workspace backend build
 
       # Cache the build after all is said and done.
@@ -378,7 +378,7 @@ jobs:
 
   deploy-staging:
     name: Deploy to Staging
-    needs: [build, upload-artifacts, changes]
+    needs: [build, changes]
     if: ${{ github.event_name == 'push' && github.ref_name == 'dev' }}
     env:
       YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
