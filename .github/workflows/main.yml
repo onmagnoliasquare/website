@@ -384,6 +384,7 @@ jobs:
   merge-dev-to-staging:
     name: Fast-Forward Merge dev to staging
     if: ${{ github.event_name == 'push' && github.ref_name == 'dev' }}
+    needs: deploy-development
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
 
     steps:
