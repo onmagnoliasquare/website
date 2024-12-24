@@ -387,6 +387,12 @@ jobs:
           yarn-restore-cache: false # We restore the build from actions/cache
           yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
+      - name: Restore build
+        uses: actions/cache@v4
+        with:
+          path: ./*
+          key: ${{ github.sha }}-${{ github.run_number }}
+
       - name: Publish to Cloudflare Pages
         if: ${{ needs.changes.outputs.frontend == 'true' }}
         uses: cloudflare/wrangler-action@v3
