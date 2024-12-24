@@ -4,7 +4,6 @@ interface route {
 }
 
 const routes: route[] = [
-	// { path: '/', name: 'Home' },
 	{ path: '/category/news', name: 'News' },
 	{ path: '/category/opinion', name: 'Opinion' },
 	{ path: '/category/people', name: 'People' },
