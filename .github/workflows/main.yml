@@ -387,12 +387,6 @@ jobs:
           yarn-restore-cache: false # We restore the build from actions/cache
           yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Download frontend build artifact
-        if: ${{ needs.changes.outputs.frontend == 'true' }}
-        uses: actions/download-artifact@v4
-        with:
-          name: frontend
-
       - name: Publish to Cloudflare Pages
         if: ${{ needs.changes.outputs.frontend == 'true' }}
         uses: cloudflare/wrangler-action@v3
@@ -401,19 +395,6 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy frontend --project-name=website
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Delete frontend artifact
-        if: ${{ needs.changes.outputs.frontend == 'true' }}
-        uses: geekyeggo/delete-artifact@v5
-        with:
-          name: frontend
-          failOnError: false
-
-      - name: Download backend build artifact
-        if: ${{ needs.changes.outputs.backend == 'true' }}
-        uses: actions/download-artifact@v4
-        with:
-          name: backend
 
       # Deploy backend artifact
 
