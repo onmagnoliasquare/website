@@ -2,14 +2,13 @@
   "name": "backend",
   "main": "package.json",
   "scripts": {
-    "dev": "run -T sanity dev",
-    "start": "run -T sanity start",
-    "build": "run -T sanity build",
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build",
     "test": "run -T vitest",
-    "test:ci": "run -T vitest run",
-    "test:ci-no-pool": "run -T vitest run --pool forks --poolOptions.forks.singleFork",
-    "deploy": "run -T sanity deploy",
-    "deploy-graphql": "run -T sanity graphql deploy",
+    "test-ci:unit": "run -T vitest run --pool forks --poolOptions.forks.singleFork",
+    "deploy": "sanity deploy",
+    "deploy-graphql": "sanity graphql deploy",
     "copy-prod-to-dev": "npx sanity dataset export production ./prod_data.tar.gz && npx sanity dataset delete development && npx sanity dataset create development && npx sanity dataset import ./prod_data.tar.gz development --replace "
   },
   "prettier": {
@@ -19,8 +18,20 @@
     "singleQuote": true
   },
   "dependencies": {
+    "@sanity/icons": "^3.5.6",
+    "@sanity/vision": "^3.68.3",
+    "@superside-oss/sanity-plugin-copy-paste": "^1.0.3",
+    "archiver-utils": "^5.0.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-is": "^19.0.0",
+    "sanity": "^3.68.3",
+    "sanity-plugin-media": "^2.3.2",
     "styled-components": "^6.1.13"
+  },
+  "devDependencies": {
+    "@sanity/cli": "^3.68.3",
+    "@sanity/eslint-config-studio": "^5.0.1",
+    "@types/react": "^19.0.2"
   }
 }

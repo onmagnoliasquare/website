@@ -8,16 +8,16 @@
 		"build:production": "run -T vite build --mode production",
 		"preview": "run -T wrangler pages dev .svelte-kit/cloudflare",
 		"test": "yarn test:integration && yarn test:unit",
-		"check": "run -T svelte-kit sync && run -T svelte-check --tsconfig ./tsconfig.json",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "run -T svelte-kit sync && run -T svelte-check --tsconfig ./tsconfig.json --watch",
-		"check:no-sync": "run -T svelte-check --tsconfig ./tsconfig.json",
-		"lint": "run -T prettier --check . && eslint .",
+		"check:no-sync": "svelte-check --tsconfig ./tsconfig.json",
+		"lint": "run -T prettier --check . && run -T eslint .",
 		"format": "run -T prettier --write .",
-		"test:integration": "run -T playwright test",
+		"test:integration": "playwright test",
 		"test:unit": "run -T vitest unit",
-		"test-ci:integration": "run -T playwright test integration",
-		"test-ci:e2e": "run -T playwright test e2e",
-		"test-ci:functional": "run -T playwright test functional",
+		"test-ci:integration": "playwright test integration",
+		"test-ci:e2e": "playwright test e2e",
+		"test-ci:functional": "playwright test functional",
 		"test-ci:unit": "run -T vitest run --pool forks --poolOptions.forks.singleFork unit",
 		"test-ci:components": "run -T vitest run --pool forks --poolOptions.forks.singleFork components",
 		"test:ci": "run -T vitest run",
@@ -25,5 +25,32 @@
 		"test:ui": "run -T playwright test --ui",
 		"coverage": "run -T vitest run --coverage"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@eirikk/portabletext-2-svelte-5": "^0.1.0-alpha.2",
+		"@portabletext/svelte": "^2.1.11",
+		"@sanity/client": "^6.24.1",
+		"@sanity/image-url": "^1.1.0"
+	},
+	"devDependencies": {
+		"@axe-core/playwright": "^4.10.1",
+		"@playwright/test": "^1.49.1",
+		"@sveltejs/adapter-auto": "^3.3.1",
+		"@sveltejs/adapter-cloudflare": "^4.9.0",
+		"@sveltejs/kit": "^2.15.0",
+		"@sveltejs/vite-plugin-svelte": "^5.0.3",
+		"@tailwindcss/postcss": "^4.0.0-beta.8",
+		"@tailwindcss/vite": "^4.0.0-beta.8",
+		"@testing-library/jest-dom": "^6.6.3",
+		"@testing-library/svelte": "^5.2.6",
+		"eslint-plugin-svelte": "^2.46.1",
+		"prettier-plugin-svelte": "^3.3.2",
+		"svelte": "^5.15.0",
+		"svelte-check": "^4.1.1",
+		"svelte-meta-tags": "^4.0.4",
+		"tailwindcss": "^4.0.0-beta.8"
+	},
+	"resolutions": {
+		"@portabletext/svelte": "npm:@eirikk/portabletext-2-svelte-5@0.1.0-alpha.2"
+	}
 }
