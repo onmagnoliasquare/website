@@ -350,7 +350,7 @@ jobs:
       YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
     environment: development
-    needs: [changes, build, test-unit, test-comp, test-int, test-func, test-e2e]
+    needs: [changes, build]
 
     steps:
       - uses: actions/checkout@v4
