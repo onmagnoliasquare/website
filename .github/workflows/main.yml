@@ -393,17 +393,10 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy frontend --project-name=website
+          command: pages deploy packages/frontend/.svelte-kit/cloudflare --project-name=website
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
       # Deploy backend artifact
-
-      - name: Delete backend artifact
-        if: ${{ needs.changes.outputs.backend == 'true' }}
-        uses: geekyeggo/delete-artifact@v5
-        with:
-          name: backend
-          failOnError: false
 
   all-green:
     name: All Green
