@@ -8,12 +8,6 @@
 	import { createSiteTitle } from '$lib/helpers';
 	import { site } from '$lib/variables';
 
-	/**
-	 * This documentation discusses $page.data and how to access it
-	 * from the layout.
-	 * https://kit.svelte.dev/docs/load#$page-data
-	 * */
-
 	interface Props {
 		children: Snippet;
 	}
