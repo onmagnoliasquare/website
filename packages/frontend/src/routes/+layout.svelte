@@ -42,10 +42,16 @@
 	<div class="w-100 ma0 pa1">
 		<div class="mw9 center ma0 pa0">
 			<div class="flex flex-row-reverse items-center justify-left">
-				{#if dev}
+				{#if dev || import.meta.env.MODE === 'development'}
 					<div class="ph3">
 						<a href={`https://github.com/onmagnoliasquare/website`} target="_blank">
 							<p class="f6 pa0 ma0 font-monospace tracked-tight">dev</p>
+						</a>
+					</div>
+				{:else if import.meta.env.MODE === 'staging'}
+					<div class="ph3">
+						<a href={`https://github.com/onmagnoliasquare/website`} target="_blank">
+							<p class="f6 pa0 ma0 font-monospace tracked-tight">staging</p>
 						</a>
 					</div>
 				{:else}
