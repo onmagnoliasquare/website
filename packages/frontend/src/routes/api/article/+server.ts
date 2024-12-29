@@ -57,7 +57,8 @@ export const GET: RequestHandler = async ({ url }) => {
 					'authors[]->{name, slug}',
 					'tags[]->{name, slug}',
 					'category->{name, slug}',
-					`"headerImage": media.asset->{creditLine}`
+					`"headerImage": media.asset->{creditLine}`,
+					'series->{name, slug}'
 				]
 			});
 
