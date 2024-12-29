@@ -8550,6 +8550,7 @@ __metadata:
     svelte: "npm:^5.15.0"
     svelte-check: "npm:^4.1.1"
     svelte-meta-tags: "npm:^4.0.4"
+    tailwind-merge: "npm:^2.6.0"
     tailwindcss: "npm:^4.0.0-beta.8"
   languageName: unknown
   linkType: soft
@@ -14565,6 +14566,13 @@ __metadata:
   version: 3.2.4
   resolution: "symbol-tree@npm:3.2.4"
   checksum: 10c0/dfbe201ae09ac6053d163578778c53aa860a784147ecf95705de0cd23f42c851e1be7889241495e95c37cabb058edb1052f141387bef68f705afc8f9dd358509
+  languageName: node
+  linkType: hard
+
+"tailwind-merge@npm:^2.6.0":
+  version: 2.6.0
+  resolution: "tailwind-merge@npm:2.6.0"
+  checksum: 10c0/fc8a5535524de9f4dacf1c16ab298581c7bb757d68a95faaf28942b1c555a619bba9d4c6726fe83986e44973b315410c1a5226e5354c30ba82353bd6d2288fa5
   languageName: node
   linkType: hard
 

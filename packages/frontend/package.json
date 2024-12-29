@@ -30,7 +30,8 @@
 		"@eirikk/portabletext-2-svelte-5": "^0.1.0-alpha.2",
 		"@portabletext/svelte": "^2.1.11",
 		"@sanity/client": "^6.24.1",
-		"@sanity/image-url": "^1.1.0"
+		"@sanity/image-url": "^1.1.0",
+		"tailwind-merge": "^2.6.0"
 	},
 	"devDependencies": {
 		"@axe-core/playwright": "^4.10.1",
