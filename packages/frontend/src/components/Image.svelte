@@ -10,7 +10,7 @@
 	import type { ImageUrlBuilder } from 'sanity';
 
 	interface Props {
-		className?: string;
+		class?: string;
 		altText?: string;
 		media: any;
 		format?: ImageFormat;
@@ -22,7 +22,7 @@
 	}
 
 	let {
-		className = 'db',
+		class: className = '',
 		altText = '',
 		media,
 		format = 'webp',

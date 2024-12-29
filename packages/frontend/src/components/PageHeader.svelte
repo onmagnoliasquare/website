@@ -13,8 +13,8 @@
 	 * */
 </script>
 
-<header class="mt4 mb4-l mb2">
-	<h1 class="f1 f-5-l fw5 tracked-tight tracked-tight-2-ns tracked-tight-4-l ma0">
+<header class="mb-4">
+	<h1 class="font-block text-5xl">
 		{@render children?.()}
 	</h1>
 </header>

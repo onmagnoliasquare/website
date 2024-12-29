@@ -8,4 +8,4 @@
 	let { children }: Props = $props();
 </script>
 
-<div class="measure-wide center">{@render children?.()}</div>
+<div class="center">{@render children?.()}</div>

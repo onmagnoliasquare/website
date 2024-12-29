@@ -11,6 +11,6 @@
 	let authorString = createAuthorString(authors);
 </script>
 
-<P class="text-sm">
+<P class="text-left font-bold text-slate-600">
 	{authorString}
 </P>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import P from '$components/defaults/P.svelte';
 	import { createAuthorLink } from '$lib/helpers';
 	import type { Member } from '$lib/schema';
 
@@ -9,32 +10,31 @@
 	let { authors }: Props = $props();
 </script>
 
-<div>
+<div class="font-bold">
 	{#if authors.length == 1}
-		<a href={createAuthorLink('', authors[0].slug.current)} class="pa0 ma0 di">
-			<p class="pa0 ma0 lh-copy tracked-02 fw6 f6">{authors[0].name}</p>
+		<a href={createAuthorLink('', authors[0].slug.current)}>
+			<P class="text-sm">{authors[0].name}</P>
 		</a>
 	{:else if authors.length == 2}
-		<a href={createAuthorLink('', authors[0].slug.current)} class="pa0 ma0 di">
-			<p class="pa0 ma0 lh-copy tracked-02 fw6 f6">{authors[0].name}</p>
+		<a href={createAuthorLink('', authors[0].slug.current)}>
+			<P class="text-sm inline">{authors[0].name}</P>
 		</a>
-		<p class="pa0 ma0 lh-copy tracked-02 fw6 f6">&</p>
-		<a href={createAuthorLink('', authors[1].slug.current)} class="pa0 ma0 di">
-			<p class="pa0 ma0 lh-copy tracked-02 fw6 f6">{authors[1].name}</p>
+		<P class="text-sm inline">&</P>
+		<a href={createAuthorLink('', authors[1].slug.current)}>
+			<P class="text-sm inline">{authors[1].name}</P>
 		</a>
 	{:else}
-		<ul class="list ma0 pa0 di">
+		<ul>
 			{#each authors.slice(0, authors.length - 1) as author}
-				<li class="ma0 pa0">
-					<a href={createAuthorLink('', author.slug.current)} class="pa0 ma0">
-						<p class="di pa0 ma0 lh-copy tracked-02 fw6 f6">{author.name}</p>
+				<li class="">
+					<a href={createAuthorLink('', author.slug.current)}>
+						<P class="text-sm inline">{author.name}</P>
 					</a>
-					<!-- https://github.com/sveltejs/svelte/issues/3080#issuecomment-2030815987 -->
 				</li>
 			{/each}
 			<li>
-				<a href={createAuthorLink('', authors[authors.length - 1].slug.current)} class="pa0 ma0 di">
-					<p class="pa0 ma0 lh-copy tracked-02 fw6 f6">{authors[authors.length - 1].name}</p>
+				<a href={createAuthorLink('', authors[authors.length - 1].slug.current)}>
+					<P class="text-sm inline">{authors[authors.length - 1].name}</P>
 				</a>
 			</li>
 		</ul>
@@ -48,7 +48,6 @@
 	}
 
 	a:hover {
-		/* background-color: var(--gold); */
 		text-decoration: underline;
 	}
 </style>
