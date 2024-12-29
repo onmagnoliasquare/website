@@ -1,8 +1,9 @@
 <script lang="ts">
-	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
-	import NormalCentering from '$components/NormalCentering.svelte';
+	import P from '$components/defaults/P.svelte';
+	// import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
 	import PageHeader from '$components/PageHeader.svelte';
 	import type { PageData } from './$types';
+	import LatestArticleBox from '$components/categories/LatestArticleBox.svelte';
 
 	interface Props {
 		data: PageData;
@@ -23,23 +24,24 @@
 	let articles = $derived(data.articles);
 </script>
 
-<NormalCentering>
-	<!--https://svelte.dev/docs/logic-blocks#key -->
-	<!--Not sure if this is needed... -->
-	{#key category}
-		<PageHeader>
-			{category.name.charAt(0).toUpperCase() + category.name.slice(1)}
-		</PageHeader>
-	{/key}
-	<p class="tracked-02 f5 f4-l pa2">{category.description}</p>
-	<ul class="list pa1">
+<!--https://svelte.dev/docs/logic-blocks#key -->
+<!--Not sure if this is needed... -->
+{#key category}
+	<PageHeader>
+		{category.name.charAt(0).toUpperCase() + category.name.slice(1)}
+	</PageHeader>
+	<P>{category.description}</P>
+{/key}
+<section>
+	<ul class="list-none divide-y-1 divide-slate-400">
 		{#each articles as article}
 			<!-- #key is a fix for https://github.com/onmagnoliasquare/website/issues/96  -->
 			{#key article}
-				<li>
-					<ArticleBoxC {article} />
+				<li class="w-fit m-4">
+					<LatestArticleBox {article} titleClass="font-display" />
+					<!-- <ArticleBoxC {article} /> -->
 				</li>
 			{/key}
 		{/each}
 	</ul>
-</NormalCentering>
+</section>

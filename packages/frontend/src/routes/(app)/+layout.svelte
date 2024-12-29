@@ -2,7 +2,6 @@
 	/**
 	 * ======== MAIN LAYOUT ========
 	 * */
-	import { Header } from '$lib';
 	import { page } from '$app/stores';
 	import type { Snippet } from 'svelte';
 	import { createSiteTitle } from '$lib/helpers';
@@ -20,8 +19,5 @@
 </svelte:head>
 
 <!-- This is the main layout for the entire website. -->
-<Header />
 
-<div class="pb4 pb7-ns">
-	{@render children()}
-</div>
+{@render children()}

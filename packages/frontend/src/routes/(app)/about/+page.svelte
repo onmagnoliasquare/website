@@ -2,9 +2,9 @@
 	import { CardLink, CodeOfEthics } from '$lib';
 </script>
 
-<div class="mw9 center mt4">
+<div class="max-w-4xl center mt4">
 	<h1 class="ma0 tc f-4 f-5-l fw5 tracked-tight-4">About</h1>
-	<div class="flex justify-center items-center">
+	<div class="flex flex-col justify-center items-center">
 		<div class="mv2 mv4-l">
 			<p class="serif f4 fw4 tracked-tight-1 measure pa0 lh-title">
 				On Magnolia Square, or OMS, is a student journalism organization maintaining an active
@@ -12,11 +12,7 @@
 			</p>
 		</div>
 	</div>
-	<!-- <div class="grid1">
-		<div class="div1 flex justify-center"></div>
-		<div class="div2"></div>
-	</div> -->
-	<section class="mw9 center flex flex-column mt2 mt4-l">
+	<section class="max-w-4xl center flex flex-col mt2 mt4-l">
 		<div class="flex flex-wrap items-left justify-center mb4">
 			<div class="mw6 pa2">
 				<h2 class="f2 f1-l ma0 pa0 fw6 tracked-tight-2">Mission Statement</h2>

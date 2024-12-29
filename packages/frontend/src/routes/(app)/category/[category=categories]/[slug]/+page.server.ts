@@ -91,10 +91,6 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 		 * Return page data.
 		 */
 
-		/**
-		 * Return page data.
-		 */
-
 		return {
 			article,
 			title,
