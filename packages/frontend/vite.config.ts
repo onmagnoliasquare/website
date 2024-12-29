@@ -1,10 +1,11 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { svelteTesting } from '@testing-library/svelte/vite';
 import { defineProject } from 'vitest/config';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineProject({
 	//@ts-ignore ts(2741)
-	plugins: [sveltekit(), svelteTesting()],
+	plugins: [sveltekit(), svelteTesting(), tailwindcss()],
 	//@ts-ignore ts(2769)
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}'],

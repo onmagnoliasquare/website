@@ -11,8 +11,9 @@
 	import { MetaTags, deepMerge } from 'svelte-meta-tags';
 
 	// CSS styling
-	import '../styles/onmagnoliasquare.css';
-	import '../styles/typography.css';
+	import '../app.css';
+	// import '../styles/onmagnoliasquare.css';
+	// import '../styles/typography.css';
 	import { dev } from '$app/environment';
 
 	interface Props {

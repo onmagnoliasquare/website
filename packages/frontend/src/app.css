@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+@import 'tailwindcss';
+
+@theme {
+	--font-display: 'Noto Serif', 'serif';
+	--font-serif: 'Noto Serif', 'serif';
+	--font-block: 'Archivo Black';
+	--font-sans: 'Archivo', 'sans';
+	--font-mono: 'Space Mono', 'monospace';
+
+	--tracking-wide: 0.0225rem;
+
+	--color-nyu-purple-100: oklch(0.6705 0.1062 311.67);
+	--color-nyu-purple-400: oklch(0.4315 0.1816 296.89);
+}
+
+.hyp {
+	/* Retrieved from: https://clagnut.com/blog/2395 */
+
+	/*-webkit-hyphenate-limit-before: 3;*/
+	/*-webkit-hyphenate-limit-after: 3;*/
+	/*-webkit-hyphenate-limit-chars: 6 3 3;*/
+	/*-webkit-hyphenate-limit-lines: 2;*/
+	/*-webkit-hyphenate-limit-last: always;*/
+	/*-webkit-hyphenate-limit-zone: 8%;*/
+
+	/*hyphenate-limit-lines: 2;*/
+	/*hyphenate-limit-last: always;*/
+	/*hyphenate-limit-zone: 8%;*/
+
+	hyphenate-limit-chars: 6 3 3;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	-ms-hyphens: auto;
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	hyphens: auto;
+}
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+}
