@@ -3839,7 +3839,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sanity/block-tools@npm:3.68.3, @sanity/block-tools@npm:^3.68.3":
+"@sanity/block-tools@npm:3.68.3":
   version: 3.68.3
   resolution: "@sanity/block-tools@npm:3.68.3"
   dependencies:
@@ -4070,6 +4070,15 @@ __metadata:
   peerDependencies:
     react: ^18.3 || ^19.0.0-0
   checksum: 10c0/9531d92c9d605c55023d1fbb6e5f5fe6abd5b42906473272050becef887afd5de41a36f03941ab90dd59b7a9a04f8802d81c3621ad468588ca51884162324491
+  languageName: node
+  linkType: hard
+
+"@sanity/icons@npm:^3.5.7":
+  version: 3.5.7
+  resolution: "@sanity/icons@npm:3.5.7"
+  peerDependencies:
+    react: ^18.3 || ^19.0.0-0
+  checksum: 10c0/177437e2895ea5d3e02d6f9464fbc3f38e6cd1307d5fef06be065f08c07201f047f722176c3c922d2338e7ca7f6e912e8bff21502e3124599bf7abd13787a155
   languageName: node
   linkType: hard
 
@@ -6232,10 +6241,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "backend@workspace:packages/backend"
   dependencies:
-    "@sanity/block-tools": "npm:^3.68.3"
     "@sanity/cli": "npm:^3.68.3"
     "@sanity/eslint-config-studio": "npm:^5.0.1"
-    "@sanity/icons": "npm:^3.5.6"
+    "@sanity/icons": "npm:^3.5.7"
     "@sanity/ui": "npm:^2.10.14"
     "@sanity/vision": "npm:^3.68.3"
     "@superside-oss/sanity-plugin-copy-paste": "npm:^1.0.3"
@@ -9147,7 +9155,7 @@ __metadata:
     "@testing-library/svelte": "npm:^5.2.6"
     eslint-plugin-svelte: "npm:^2.46.1"
     prettier-plugin-svelte: "npm:^3.3.2"
-    svelte: "npm:^5.16.0"
+    svelte: "npm:^5.16.1"
     svelte-check: "npm:^4.1.1"
     svelte-meta-tags: "npm:^4.0.4"
     tailwind-merge: "npm:^2.6.0"
@@ -15294,9 +15302,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"svelte@npm:^5.16.0":
-  version: 5.16.0
-  resolution: "svelte@npm:5.16.0"
+"svelte@npm:^5.16.1":
+  version: 5.16.1
+  resolution: "svelte@npm:5.16.1"
   dependencies:
     "@ampproject/remapping": "npm:^2.3.0"
     "@jridgewell/sourcemap-codec": "npm:^1.5.0"
@@ -15312,7 +15320,7 @@ __metadata:
     locate-character: "npm:^3.0.0"
     magic-string: "npm:^0.30.11"
     zimmerframe: "npm:^1.1.2"
-  checksum: 10c0/ce8cbde908684bbac6a8b560982c5a2aaf532c295f43f5cd7ee6912f600030a9e610876aa064c8def608d11997e01adb749161226bb9ecd00705803b06ecdd34
+  checksum: 10c0/87b65aaf324d84f6c391eadb20a6b71601b78542294bc2ef8f569081a70bec69e91196613d4dccc86a1deeda9bdc4a50ead3ebe4ed926bf44609eb44f690bb8b
   languageName: node
   linkType: hard
 
@@ -16281,9 +16289,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^6.0.6":
-  version: 6.0.6
-  resolution: "vite@npm:6.0.6"
+"vite@npm:^6.0.7":
+  version: 6.0.7
+  resolution: "vite@npm:6.0.7"
   dependencies:
     esbuild: "npm:^0.24.2"
     fsevents: "npm:~2.3.3"
@@ -16329,7 +16337,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10c0/144c3f80a7920a4b2fa14f00f99b58ece246455ca9313561a67a227b45dadac3343e406d3c1dbfafa79992ac88f54cb2b040b229997e432daf47594fe8cacec2
+  checksum: 10c0/ae81047b4290a7206b9394a39a782d509e9610462e7946422ba22d5bc615b5a322c07e33d7bf9dd0b3312ec3f5c63353b725913d1519324bfdf539b4f1e03f52
   languageName: node
   linkType: hard
 
@@ -16455,7 +16463,7 @@ __metadata:
     styled-components: "npm:^6.1.13"
     tslib: "npm:^2.8.1"
     typescript: "npm:^5.7.2"
-    vite: "npm:^6.0.6"
+    vite: "npm:^6.0.7"
     vitest: "npm:^2.1.8"
     wrangler: "npm:^3.99.0"
   languageName: unknown
