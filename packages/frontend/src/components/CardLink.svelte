@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import P from './defaults/P.svelte';
 
 	interface Props {
 		title: string;
@@ -8,32 +9,16 @@
 		children: Snippet;
 	}
 
-	let { title, link, bgColor = 'purple', children }: Props = $props();
+	let { title, link, children }: Props = $props();
 </script>
 
-<div class="mw6 ba border-color w-100 ma2" id={`${bgColor}`}>
-	<a data-sveltekit-preload-data="tap" href={link} class="ma0 pa0">
-		<div class="flex flex-column">
-			<div class="pl4 pt4 pb4">
-				<p class="pa0 ma0 f1 serif fw5">{title}</p>
+<a data-sveltekit-preload-data="tap" href={link}>
+	<div class="hover:bg-amber-100 w-sm h-40 outline outline-dashed">
+		<section>
+			<div class="p-4">
+				<h3 class="font-serif font-semibold text-3xl mb-4">{title}</h3>
+				<P class="opacity-70">{@render children?.()}</P>
 			</div>
-			<div class="pl4 pb4">
-				<p class="pa0 ma0 f6 tracked-02">{@render children?.()}</p>
-			</div>
-		</div>
-	</a>
-</div>
-
-<style>
-	a {
-		text-decoration: none;
-	}
-
-	#green:hover {
-		background-color: var(--light-green);
-	}
-
-	#purple:hover {
-		background-color: var(--light-purple);
-	}
-</style>
+		</section>
+	</div>
+</a>
