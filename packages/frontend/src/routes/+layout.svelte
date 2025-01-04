@@ -3,7 +3,7 @@
 	 * ======== ROOT LAYOUT ========
 	 * */
 
-	import { Header, Footer, VersionLabel } from '$lib';
+	import { Header, Footer } from '$lib';
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
 
@@ -29,48 +29,21 @@
 
 <MetaTags {...metaTags} />
 
-<header>
+<div class="flex flex-col grow min-h-screen">
+	<Header />
+	<main class="w-full flex grow overflow-y-clip mb-auto">
+		<div class="w-full max-w-7xl border-x-1 border-dotted center">
+			{@render children()}
+		</div>
+	</main>
+	<Footer />
 	{#if dev}
-		<div class="w-full m-0 p-0 bg-red-200">
-			<div class="mw9 center ma0 pa0">
-				<div class="flex flex-flow items-center justify-center">
-					<p class="ttu fw4 tracked-02 f5 fw8 pa0 ma0 white">
-						⚠️ This is a LOCAL development environment ️⚠️
-					</p>
-				</div>
+		<div class="fixed bottom-0 right-0 w-fit select-none">
+			<div
+				class="rounded-md bg-red-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-red-700 focus:shadow-none active:bg-red-700 hover:bg-red-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none m-2"
+			>
+				<p class=" p-1 font-mono">development build</p>
 			</div>
 		</div>
 	{/if}
-	<div class="w-full">
-		<div class="flex flex-row-reverse items-center justify-left p-1">
-			{#if dev || import.meta.env.MODE === 'development'}
-				<div class="py-2">
-					<a href={`https://github.com/onmagnoliasquare/website`} target="_blank">
-						<p class="font-mono text-sm">dev</p>
-					</a>
-				</div>
-			{:else if import.meta.env.MODE === 'staging'}
-				<div class="py-2">
-					<a href={`https://github.com/onmagnoliasquare/website`} target="_blank">
-						<p class="font-mono text-sm">staging</p>
-					</a>
-				</div>
-			{:else}
-				<VersionLabel />
-			{/if}
-		</div>
-	</div>
-	<Header />
-</header>
-
-<main>
-	<div
-		class="flex flex-flow overflow-y-clip justify-center items-center mx-4 my-4 sm:mx-10 sm:my-10"
-	>
-		<div class="w-full sm:max-w-7xl">
-			{@render children()}
-		</div>
-	</div>
-</main>
-
-<Footer />
+</div>
