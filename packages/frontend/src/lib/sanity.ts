@@ -101,7 +101,7 @@ export function unequal(leftSide: string, rightSide: string | boolean): string {
  * @param sq The sanity query to execute.
  * @returns a serialized query string.
  */
-export function buildSanityQuery(sq: Query): string {
+export function buildSanityQuery(sq: Query, resultsNum?: Number[]): string {
 	const type = sq.type ? `_type == "${sq.type}"` : '';
 	const conditions = sq.conditions ? getConditions(sq.conditions) : '';
 
@@ -115,10 +115,12 @@ export function buildSanityQuery(sq: Query): string {
 
 	const order = sq.order ? getOrder(sq.order) : '';
 
+	const results = resultsNum ? `[${resultsNum[0]}...${resultsNum[1]}]` : '';
+
 	// `${[type, conditions].join(' && ')}` combines the type and
 	// condition variables into a single string separated by the boolean
 	// `and` operator.
-	let query = `*[${conditions !== '' ? [type, conditions].join(' && ') : type}] ${order} {${allAttrs}} ${idx}`;
+	let query = `*[${conditions !== '' ? [type, conditions].join(' && ') : type}] ${order} ${results} {${allAttrs}} ${idx}`;
 
 	return query;
 }
