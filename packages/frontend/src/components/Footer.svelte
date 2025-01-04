@@ -1,11 +1,14 @@
 <script lang="ts">
+	import { dev } from '$app/environment';
 	import { routes } from '$lib/navRoutes';
+	import P from './defaults/P.svelte';
+	import VersionLabel from './general/VersionLabel.svelte';
 	let listOfRoutes = routes;
 </script>
 
-<footer id="f-bg" class="pv4">
-	<small class="f6 db tc white o-70 serif fw7 tracked-02">On Magnolia Square</small>
-	<div class="tc mt4 tracked-02 sans o-60">
+<footer class="border-t-1">
+	<P class="inline">OMS</P>
+	<div class="inline">
 		{#each listOfRoutes as route}
 			<a
 				href={route.path}
@@ -17,19 +20,26 @@
 			</a>
 		{/each}
 	</div>
-	<small class="f6 db tc white o-50 mt4 tracked-02 sans">Contact: onmagnoliasquare@gmail.com</small>
+	<P class="inline">
+		<small class="">Contact: onmagnoliasquare@gmail.com</small>
+	</P>
+	<div class="inline w-full max-w-6xl center">
+		<div class="flex flex-row-reverse items-center justify-left">
+			{#if dev || import.meta.env.MODE === 'development'}
+				<div class="">
+					<a href={`https://github.com/onmagnoliasquare/website`} target="_blank">
+						<p class="font-mono text-sm">dev</p>
+					</a>
+				</div>
+			{:else if import.meta.env.MODE === 'staging'}
+				<div class="">
+					<a href={`https://github.com/onmagnoliasquare/website`} target="_blank">
+						<p class="font-mono text-sm">staging</p>
+					</a>
+				</div>
+			{:else}
+				<VersionLabel />
+			{/if}
+		</div>
+	</div>
 </footer>
-
-<style>
-	#f-bg {
-		background-color: var(--black);
-	}
-
-	a {
-		text-decoration: none;
-	}
-
-	a:hover {
-		text-decoration: underline;
-	}
-</style>

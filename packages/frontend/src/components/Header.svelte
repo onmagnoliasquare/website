@@ -1,28 +1,20 @@
 <script>
-	import { site } from '$lib/variables';
+	// import { site } from '$lib/variables';
 	import Navbar from './general/Navbar.svelte';
 
 	import SiteTitle from './SiteTitle.svelte';
 </script>
 
-<div class="max-w-4xl flex flex-col items-center ml-auto mr-auto">
-	<a href="/" class="text-center">
-		<div class="w-full flex flex-wrap items-center">
-			<div class="max-w-30">
-				<img src="/favicon.svg" alt={`${site.name} logo`} class="max-w-full" />
-			</div>
-			<div>
+<header>
+	<div class="w-full max-w-7xl center border-x-1 border-dotted pt-4">
+		<div class="p-2">
+			<a href="/">
+				<!-- <div class="max-w-30">
+						<img src="/favicon.svg" alt={`${site.name} logo`} class="max-w-full" />
+					</div> -->
 				<SiteTitle />
-			</div>
+			</a>
 		</div>
-	</a>
-	<div class="">
 		<Navbar />
 	</div>
-</div>
-
-<style>
-	a {
-		text-decoration: none;
-	}
-</style>
+</header>

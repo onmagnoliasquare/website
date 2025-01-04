@@ -11,7 +11,7 @@
 	let { locale = 'en-US', date, updated = false }: Props = $props();
 </script>
 
-<P class="text-sm">
+<P class="text-sm font-bold">
 	{#if updated}
 		updated
 	{/if}
