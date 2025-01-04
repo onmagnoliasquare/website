@@ -20,4 +20,6 @@
 
 <!-- This is the main layout for the entire website. -->
 
-{@render children()}
+<div class="p-4">
+	{@render children()}
+</div>
