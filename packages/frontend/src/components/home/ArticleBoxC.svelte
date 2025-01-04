@@ -18,12 +18,12 @@
 	href={`/category/${article.category.name.toLowerCase()}/${article.slug.current}`}
 >
 	<article
-		class="w-full md:w-2xl h-full md:h-44 grid grid-cols-3 items-center gap-2 border-y-zinc-300"
+		class="w-full md:w-2xl h-full md:h-44 grid grid-cols-3 items-center gap-2 border-y-zinc-300 mb-4"
 	>
 		{#if article.media}
 			<div class="col-span-2">
 				<div class="p-6 pr-4 pl-0">
-					<h1 class="font-display font-bold tracking-tight text-2xl mb-2">
+					<h1 class="font-display font-bold tracking-tight text-3xl mb-2">
 						{article.title}
 					</h1>
 					<!-- {#if article.subtitle}
@@ -54,7 +54,7 @@
 		{:else}
 			<div class="col-span-3">
 				<div class="p-6 pl-0">
-					<h1 class="font-display font-bold tracking-tight text-2xl mb-2">
+					<h1 class="font-display font-bold tracking-tight text-4xl mb-2">
 						{article.title}
 					</h1>
 					<!-- {#if article.subtitle}
