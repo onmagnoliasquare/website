@@ -13,8 +13,14 @@
 	 * */
 </script>
 
-<header class="mb-4">
-	<h1 class="font-block text-5xl">
+<header class="mb-8">
+	<h1 class="font-display font-black text-8xl tracking-tight p-1">
 		{@render children?.()}
 	</h1>
 </header>
+
+<style>
+	h1 {
+		font-stretch: 75%;
+	}
+</style>
