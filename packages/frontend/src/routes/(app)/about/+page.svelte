@@ -1,50 +1,43 @@
 <script>
+	import P from '$components/defaults/P.svelte';
+	import PageHeader from '$components/PageHeader.svelte';
 	import { CardLink, CodeOfEthics } from '$lib';
 </script>
 
-<div class="max-w-4xl center mt4">
-	<h1 class="ma0 tc f-4 f-5-l fw5 tracked-tight-4">About</h1>
-	<div class="flex flex-col justify-center items-center">
-		<div class="mv2 mv4-l">
-			<p class="serif f4 fw4 tracked-tight-1 measure pa0 lh-title">
-				On Magnolia Square, or OMS, is a student journalism organization maintaining an active
-				archive and living record of student life at NYU Shanghai. We keep time.
-			</p>
-		</div>
+<PageHeader>Who are we? 我们是谁？</PageHeader>
+<div class="p-4 mb-10 center w-fit">
+	<div class="flex flex-col w-fit max-w-2xl mb-8">
+		<P class="">
+			Founded in 2014, On Magnolia Square, or OMS, is a student journalism organization maintaining
+			an active archive and living record of student life at NYU Shanghai. <em
+				class="font-bold font-serif">We keep time.</em
+			>
+			Learn about <a class="text-nyu-purple-400 hover:underline" href="/about/staff">our staff</a>.
+		</P>
 	</div>
-	<section class="max-w-4xl center flex flex-col mt2 mt4-l">
-		<div class="flex flex-wrap items-left justify-center mb4">
-			<div class="mw6 pa2">
-				<h2 class="f2 f1-l ma0 pa0 fw6 tracked-tight-2">Mission Statement</h2>
-				<p class="serif fw3 i f3 f2-l lh-title">
-					On Magnolia Square produces truthful, balanced, timely, and engaging news and information
-					to better serve the community at NYU Shanghai.
-				</p>
-			</div>
-			<CodeOfEthics />
-		</div>
-		<div class="flex flex-wrap items-center justify-around">
+	<div>
+		<h2 class="text-3xl mb-4 font-display font-semibold tracking-normal">Mission Statement</h2>
+		<P class="text-7xl leading-20 tracking-normal font-display font-extralight mb-8 max-w-6xl">
+			On Magnolia Square produces truthful, balanced, timely, and engaging news and information to
+			better serve the community at <a
+				href="https://shanghai.nyu.edu"
+				class="text-nyu-purple-400 hover:underline">NYU Shanghai</a
+			>.
+		</P>
+	</div>
+</div>
+<div class="center w-fit mb-20">
+	<CodeOfEthics />
+</div>
+<div class="center w-fit">
+	<ul class="m-4 flex grow space-x-4">
+		<li>
 			<CardLink title="Staff" link="/about/staff">Learn more about our staff</CardLink>
+		</li>
+		<li>
 			<CardLink title="Transition" link="/about/transition" bgColor="green"
 				>Learn more about our transition from OCA to OMS</CardLink
 			>
-		</div>
-	</section>
+		</li>
+	</ul>
 </div>
-
-<style>
-	/* .grid1 {
-		display: grid;
-		grid-template-columns: 1fr 2fr;
-		grid-template-rows: 1fr;
-		column-gap: 0px;
-		row-gap: 0px;
-	}
-
-	.div1 {
-		grid-area: 1 / 1 / 2 / 2;
-	}
-	.div2 {
-		grid-area: 1 / 2 / 2 / 3;
-	} */
-</style>
