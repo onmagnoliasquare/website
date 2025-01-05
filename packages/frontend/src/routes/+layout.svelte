@@ -3,7 +3,7 @@
 	 * ======== ROOT LAYOUT ========
 	 * */
 
-	import { Header, Footer } from '$lib';
+	import { Footer } from '$lib';
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
 
@@ -29,13 +29,8 @@
 
 <MetaTags {...metaTags} />
 
-<div class="flex flex-col grow min-h-screen">
-	<Header />
-	<main class="w-full flex grow overflow-y-clip mb-auto">
-		<div class="w-full max-w-7xl border-x-1 border-dotted center">
-			{@render children()}
-		</div>
-	</main>
+<div class="flex flex-col grow min-h-screen antialiased">
+	{@render children()}
 	<Footer />
 	{#if dev}
 		<div class="fixed bottom-0 right-0 w-fit select-none">
