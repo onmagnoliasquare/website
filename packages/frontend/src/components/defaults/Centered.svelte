@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { baseText } from '$lib/variables';
 	import type { Snippet } from 'svelte';
 	import { twMerge } from 'tailwind-merge';
 
@@ -11,6 +10,10 @@
 	let { class: classList, children }: Props = $props();
 </script>
 
-<p class={twMerge(baseText, classList)}>
-	{@render children()}
-</p>
+<div class="w-full flex grow overflow-y-clip mb-auto">
+	<div class="w-full max-w-7xl border-0 lg:border-x-1 lg:border-dotted center">
+		<div class={twMerge('p-4', classList)}>
+			{@render children()}
+		</div>
+	</div>
+</div>
