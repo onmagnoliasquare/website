@@ -1,1 +1,7 @@
-<h1 class="font-display text-3xl font-black tracking-tight leading-1">On Magnolia Square</h1>
+<script>
+	import { site } from '$lib/variables';
+</script>
+
+<h1 class="font-display text-3xl font-black font-stretch-condensed tracking-tight leading-1">
+	{site.title}
+</h1>
