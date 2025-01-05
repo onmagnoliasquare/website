@@ -44,96 +44,98 @@
 				</div>
 			{/if}
 			<div class="p-1 tracking-wide">
-				<h1 class="font-display text-3xl mb-4 tracking-tight">
+				<h1 class="font-display text-3xl italic mb-2 tracking-tight">
 					{member.name}
 				</h1>
-				<div class="w-full mb-8">
-					<p class="tracking-wide">
-						{#if member.bio}
-							{member.bio.trim()}
-						{:else}
-							{member.name.trim()} {filler.memberDescription}.
-						{/if}
-					</p>
-				</div>
-				{#if member.committee}
-					<div class="mb-8">
-						<div class="mb2">
-							<p>{member.committee.name} committee</p>
+				<div class="border-t-1 border-dotted p-1">
+					<div class="w-full mb-4 mt-2 pb-4">
+						<p class="tracking-wide">
+							{#if member.bio}
+								{member.bio.trim()}
+							{:else}
+								{member.name.trim()} {filler.memberDescription}.
+							{/if}
+						</p>
+					</div>
+					{#if member.committee}
+						<div class="mb-8">
+							<div class="mb2">
+								<p>{member.committee.name} committee</p>
+							</div>
 						</div>
-					</div>
-				{/if}
-				{#if location}
-					<div class="mb-8">
-						<Location {location} locale={data.userLocale} />
-					</div>
-				{/if}
-				{#if handles}
-					<div class="">
-						<ul class="list w-fit opacity-50" id="contactList">
-							{#if handles.linkedin}
-								<li class="mb-1">
-									<ContactIcons
-										icon="/icons/linkedin.svg"
-										title={member.name}
-										link={`https://linkedin.com/in/${handles.linkedin}`}
-										alt="Visit Contributor's LinkedIn"
-									/>
-								</li>
-							{/if}
-							{#if handles.instagram}
-								<li class="mb-1">
-									<ContactIcons
-										icon="/icons/instagram.svg"
-										title={`${handles.instagram}`}
-										link={`https://instagram.com/${handles.instagram}`}
-										alt="Visit Contributor's Instagram"
-									/>
-								</li>
-							{/if}
-							{#if handles.twitter}
-								<li class="mb-1">
-									<ContactIcons
-										icon="/icons/twitter.svg"
-										title={handles.twitter}
-										link={`https://twitter.com/${handles.twitter}`}
-										alt="Visit Contributor's Twitter"
-									/>
-								</li>
-							{/if}
-							{#if handles.facebook}
-								<li class="mb-1">
-									<ContactIcons
-										icon="/icons/facebook.svg"
-										title={handles.facebook}
-										link={`https://facebook.com/${handles.facebook}`}
-										alt="Visit Contributor's Facebook"
-									/>
-								</li>
-							{/if}
-							{#if handles.github}
-								<li class="mb-1">
-									<ContactIcons
-										icon="/icons/github.svg"
-										title={handles.github}
-										link={`https://github.com/${handles.github}`}
-										alt="Visit Contributor's GitHub"
-									/>
-								</li>
-							{/if}
-							{#if handles.website}
-								<li class="mb-1">
-									<ContactIcons
-										icon="/icons/www.svg"
-										title={domainFromUrl(handles.website)}
-										link={`${handles.website}`}
-										alt="Visit Contributor's Website"
-									/>
-								</li>
-							{/if}
-						</ul>
-					</div>
-				{/if}
+					{/if}
+					{#if location}
+						<div class="mb-8">
+							<Location {location} locale={data.userLocale} />
+						</div>
+					{/if}
+					{#if handles}
+						<div class="">
+							<ul class="list w-fit opacity-50" id="contactList">
+								{#if handles.linkedin}
+									<li class="mb-1">
+										<ContactIcons
+											icon="/icons/linkedin.svg"
+											title={member.name}
+											link={`https://linkedin.com/in/${handles.linkedin}`}
+											alt="Visit Contributor's LinkedIn"
+										/>
+									</li>
+								{/if}
+								{#if handles.instagram}
+									<li class="mb-1">
+										<ContactIcons
+											icon="/icons/instagram.svg"
+											title={`${handles.instagram}`}
+											link={`https://instagram.com/${handles.instagram}`}
+											alt="Visit Contributor's Instagram"
+										/>
+									</li>
+								{/if}
+								{#if handles.twitter}
+									<li class="mb-1">
+										<ContactIcons
+											icon="/icons/twitter.svg"
+											title={handles.twitter}
+											link={`https://twitter.com/${handles.twitter}`}
+											alt="Visit Contributor's Twitter"
+										/>
+									</li>
+								{/if}
+								{#if handles.facebook}
+									<li class="mb-1">
+										<ContactIcons
+											icon="/icons/facebook.svg"
+											title={handles.facebook}
+											link={`https://facebook.com/${handles.facebook}`}
+											alt="Visit Contributor's Facebook"
+										/>
+									</li>
+								{/if}
+								{#if handles.github}
+									<li class="mb-1">
+										<ContactIcons
+											icon="/icons/github.svg"
+											title={handles.github}
+											link={`https://github.com/${handles.github}`}
+											alt="Visit Contributor's GitHub"
+										/>
+									</li>
+								{/if}
+								{#if handles.website}
+									<li class="mb-1">
+										<ContactIcons
+											icon="/icons/www.svg"
+											title={domainFromUrl(handles.website)}
+											link={`${handles.website}`}
+											alt="Visit Contributor's Website"
+										/>
+									</li>
+								{/if}
+							</ul>
+						</div>
+					{/if}
+				</div>
 			</div>
 		</header>
 	</div>
