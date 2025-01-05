@@ -31,7 +31,9 @@
 {:else if style === 'h6'}
 	<h6>{@render children?.()}</h6>
 {:else if style === 'blockquote'}
-	<blockquote>{@render children?.()}</blockquote>
+	<blockquote class="tracking-wide font-serif text-3xl italic max-w-xl m-4 p-4">
+		“{@render children?.()}”
+	</blockquote>
 {:else if style === 'normal'}
 	{#if value.children.length === 1 && value.children[0].text === ''}
 		<br />
