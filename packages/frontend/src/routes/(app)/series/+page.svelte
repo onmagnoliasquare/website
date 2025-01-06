@@ -9,10 +9,15 @@
 	}
 
 	let { data }: Props = $props();
-	let series: Series[] = data.series;
+	let series: Series[] = $derived(data.series);
 </script>
 
-<PageHeader>Series</PageHeader>
+<div class="flex flex-row">
+	<span id="mini" class="inline text-2xl font-display font-light italic">The</span>
+	<div class="inline">
+		<PageHeader>Series</PageHeader>
+	</div>
+</div>
 <ul class="list">
 	{#each series as s}
 		<li>

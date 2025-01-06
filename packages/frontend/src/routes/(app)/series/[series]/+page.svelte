@@ -14,6 +14,7 @@
 	let description: string = data.description;
 </script>
 
+<span id="mini" class="inline text-2xl font-display italic">Series</span>
 <PageHeader>{title}</PageHeader>
 <p class="tracked-02 pa1">{description}</p>
 <ol class="list pa0 ma0">
