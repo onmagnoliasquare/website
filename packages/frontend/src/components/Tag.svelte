@@ -6,24 +6,12 @@
 	let { tagName }: Props = $props();
 </script>
 
-<div class="dib">
-	{#if tagName == 'on century avenue'}
-		<div class="bg-purple br-pill pa0 pa1-ns ph2">
-			<p class="f7 f6-ns ma0 pa0 pb1 pb0-ns tracked-02 fw6 ph1-ns">
-				# {tagName}
-			</p>
-		</div>
+<span class="tracking-wide hover:underline">
+	{#if tagName === 'on century avenue' || tagName === 'oca'}
+		<span class=" text-nyu-purple-400 font-bold">
+			# {tagName}
+		</span>
 	{:else}
-		<div class="bg-green br-pill pa0 pa1-ns ph2">
-			<p class="f7 f6-ns ma0 pa0 pb1 pb0-ns tracked-02 fw6 ph1-ns">
-				# {tagName}
-			</p>
-		</div>
+		# {tagName}
 	{/if}
-</div>
-
-<style>
-	p {
-		color: var(--white);
-	}
-</style>
+</span>
