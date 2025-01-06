@@ -10,10 +10,15 @@
 	let { data }: Props = $props();
 </script>
 
-<PageHeader>Archive</PageHeader>
-<ul class="grid grid-cols-6">
+<div class="flex flex-row">
+	<span id="mini" class="inline text-2xl font-display font-light italic">The</span>
+	<div class="inline">
+		<PageHeader>Archive</PageHeader>
+	</div>
+</div>
+<ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
 	{#each data.tags as tag}
-		<li class="db ma1 w-auto">
+		<li class="ml-1">
 			<a
 				data-sveltekit-preload-code="viewport"
 				data-sveltekit-preload-data="tap"
