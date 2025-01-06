@@ -13,7 +13,7 @@
 	let authorString = createAuthorString(article.authors);
 </script>
 
-<div class="px-2 md:p-0 md:m-0 mb-2 py-2 border-y-1 sm:border-y-0 bg-amber-200 sm:bg-transparent">
+<!-- <div class="px-2 md:p-0 md:m-0 mb-2 py-2 border-y-1 sm:border-y-0 bg-amber-200 sm:bg-transparent">
 	<p class="font-serif text-xl md:text-lg xl:text-xl tracking-tight inline">
 		<span class="italic">The latest scoop as of</span>
 		<b><time datetime={article.date}>{dateFormatter(article.date, locale)}</time></b>
@@ -21,7 +21,7 @@
 
 		<b>{authorString}</b>:
 	</p>
-</div>
+</div> -->
 <div class="p-1 sm:p-0">
 	<a
 		data-sveltekit-preload-data="hover"

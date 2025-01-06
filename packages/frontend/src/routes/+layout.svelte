@@ -33,7 +33,7 @@
 	{@render children()}
 	<Footer />
 	{#if dev}
-		<div class="fixed bottom-0 right-0 w-fit select-none">
+		<div class="fixed bottom-0 right-0 w-fit select-none z-100">
 			<div
 				class="rounded-md bg-red-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-red-700 focus:shadow-none active:bg-red-700 hover:bg-red-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none m-2"
 			>
