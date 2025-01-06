@@ -27,8 +27,8 @@
 <PageHeader>
 	{member.name}
 </PageHeader>
-<div class="grid grid-cols-7 grid-flow-row gap-4 center">
-	<div class="col-span-2 h-fit sticky top-3 p-1">
+<div class="flex flex-col md:grid md:grid-cols-7 grid-flow-row gap-4 center mt-2 pt-2">
+	<div class="col-span-2 h-fit md:sticky top-3 p-1">
 		<header>
 			{#if member.portrait}
 				<div class="p-2">
@@ -39,12 +39,12 @@
 						fit={'crop'}
 						quality={90}
 						altText={`${member.name}'s profile image`}
-						class={`w-full h-full mb-4`}
+						class={`center max-w-xl md:w-full md:h-full mb-4`}
 					/>
 				</div>
 			{/if}
 			<div class="p-1 tracking-wide">
-				<h1 class="font-display text-3xl italic mb-2 tracking-tight">
+				<h1 class="font-display text-2xl italic mb-2 tracking-tight">
 					{member.name}
 				</h1>
 				<div class="border-t-1 border-dotted p-1">
@@ -140,10 +140,10 @@
 		</header>
 	</div>
 	{#if articles}
-		<div class="col-span-5 m-2">
+		<div class="col-span-5 md:m-2 mt-4 pt-4 md:mt-1 md:pt-1">
 			<section>
-				<h1 class="font-display text-3xl mb-2 pl-2">Works</h1>
-				<ol class="list border-t-1 border-dotted p-1">
+				<h1 class="font-display text-2xl mb-2 pl-2">Works</h1>
+				<ol class="list border-t-1 border-dotted sm:p-1">
 					{#each articles as article}
 						<!-- #key is a fix for https://github.com/onmagnoliasquare/website/issues/96  -->
 						{#key article}
@@ -154,20 +154,18 @@
 										data-sveltekit-preload-data="tap"
 										href={`/category/${article.category.slug.current}/${article.slug.current}`}
 									>
-										<div class="hover:bg-amber-100">
-											<HoverDim>
-												<article class="p-3">
-													<h1 class="text-2xl font-display font-bold mb-1 pb-1">
-														{article.title}
-													</h1>
-													<P class="text-sm">
-														<time datetime={article.date}
-															>{dateFormatter(article.date, data.userLocale)}</time
-														>
-													</P>
-												</article>
-											</HoverDim>
-										</div>
+										<HoverDim>
+											<article class="p-1 md:m-1 md:p-2">
+												<h1 class="text-2xl font-display font-bold mb-1 pb-1 hover:underline">
+													{article.title}
+												</h1>
+												<P class="text-sm">
+													<time datetime={article.date}
+														>{dateFormatter(article.date, data.userLocale)}</time
+													>
+												</P>
+											</article>
+										</HoverDim>
 									</a>
 								</li>
 							{/if}

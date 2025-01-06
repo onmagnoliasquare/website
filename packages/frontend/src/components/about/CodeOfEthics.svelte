@@ -14,12 +14,12 @@
 	];
 </script>
 
-<div class="m-4 w-4xl border-1 p-6">
+<div class=" w-full p-6">
 	<section>
-		<h2 class="text-3xl font-serif font-semibold mb-2 p-2">Code of Ethics</h2>
-		<ol class="list-decimal list-inside">
+		<h2 class="text-2xl sm:text-3xl font-serif font-semibold mb-2 pb-2">✑ Code of Ethics</h2>
+		<ol class="list-decimal m-1 p-1">
 			{#each ethicsText as text}
-				<li class="p-2 tracking-wide text-lg">
+				<li class="p-2 tracking-wide sm:text-xl">
 					{text}
 				</li>
 			{/each}
