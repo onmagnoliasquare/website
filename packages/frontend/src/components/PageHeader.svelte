@@ -13,8 +13,8 @@
 	 * */
 </script>
 
-<header class="mb-8">
-	<h1 class="font-display font-black text-8xl tracking-tight p-1">
+<header class="mb-4 pb-4 w-full">
+	<h1 class="font-display font-black text-6xl lg:text-8xl tracking-tight p-1 select-none">
 		{@render children?.()}
 	</h1>
 </header>
