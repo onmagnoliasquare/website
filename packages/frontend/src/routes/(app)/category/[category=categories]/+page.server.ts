@@ -20,13 +20,16 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 
 	// Get articles from the category in question.
 	try {
-		sanityQuery = buildSanityQuery({
-			type: 'article',
-			attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
-			customAttrs: ['authors[]->{name}', 'category->{name}'],
-			conditions: [`category->slug.current == '${cat.slug.current as string}'`],
-			order: 'date desc'
-		});
+		sanityQuery = buildSanityQuery(
+			{
+				type: 'article',
+				attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
+				customAttrs: ['authors[]->{name}', 'category->{name}'],
+				conditions: [`category->slug.current == '${cat.slug.current as string}'`],
+				order: 'date desc'
+			},
+			[0, 20]
+		);
 
 		articles = await sanityFetch(sanityQuery);
 	} catch (err) {
