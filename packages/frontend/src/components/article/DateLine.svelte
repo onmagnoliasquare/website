@@ -15,5 +15,5 @@
 	{#if updated}
 		updated
 	{/if}
-	<time datetime={date}>{dateFormatter(date, locale)} UTC</time>
+	<time datetime={date}>{dateFormatter(date, locale)}</time>
 </P>
