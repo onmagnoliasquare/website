@@ -1,34 +1,56 @@
 <script lang="ts">
 	import type { PageData } from '../(home)/$types';
-	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
 	import HomepageHero from '$components/home/HomepageHero.svelte';
+	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
+	import ArticleBoxB from '$components/home/ArticleBoxB.svelte';
 	let { data }: { data: PageData } = $props();
 </script>
 
-<div class="flex flex-column">
-	<section class="ma4 fade-in-hero">
-		<HomepageHero article={data.articles[0]} />
-	</section>
-
-	<section class="mw9 center mv4-l mt2">
-		<h2 class="ph3 ph0-l tc">Latest Articles</h2>
-		<div class="flex flex-column flex-row-l">
-			<div class="pa4-ns w-100 w-50-l">
-				{#each data.articles.slice(1, 5) as article}
-					<ArticleBoxC {article} locale={data.userLocale} />
-				{/each}
+<div>
+	<div id="fade-in-hero" class="relative mb-2 pb-2">
+		<HomepageHero article={data.articles[0]} locale={data.userLocale} />
+	</div>
+	<h2 class="font-serif italic text-lg sm:text-xl font-bold tracking-tight">
+		The latest articles:
+	</h2>
+	<div class="m-2 p-2">
+		<div class="w-full">
+			<div class="flex flex-col sm:grid sm:grid-cols-2 space-y-4 space-x-4">
+				<ArticleBoxB article={data.articles[1]} locale={data.userLocale} />
+				<ArticleBoxB article={data.articles[2]} locale={data.userLocale} />
 			</div>
-			<div class="pa4-ns w-100 w-50-l">
-				{#each data.articles.slice(5, 10) as article}
-					<ArticleBoxC {article} locale={data.userLocale} />
-				{/each}
+			<div class="flex flex-row max-w-full space-x-2 space-y-2">
+				<div class="flex flex-col md:grid md:grid-cols-2 items-top space-y-4 w-5/4">
+					<ol class="list">
+						{#each data.articles.slice(3, 8) as article}
+							<li class="">
+								<ArticleBoxC {article} locale={data.userLocale} />
+							</li>
+						{/each}
+					</ol>
+					<ol class="list">
+						{#each data.articles.slice(8, 14) as article}
+							<li class="">
+								<ArticleBoxC {article} locale={data.userLocale} />
+							</li>
+						{/each}
+					</ol>
+				</div>
 			</div>
+			<!-- Will add this later when have multimedia article type -->
+			<!-- <div class="w-full">
+				<section>
+					<header>
+						<h2 class="font-block text-4xl">Multimedia</h2>
+					</header>
+				</section>
+			</div> -->
 		</div>
-	</section>
+	</div>
 </div>
 
 <style>
-	.fade-in-hero {
+	#fade-in-hero {
 		animation: fadeIn 1s;
 		-webkit-animation: fadeIn 1s;
 		-moz-animation: fadeIn 1s;
