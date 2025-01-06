@@ -10,6 +10,6 @@
 	let { class: classList, children }: Props = $props();
 </script>
 
-<div class={twMerge('hover:opacity-50', classList)}>
+<span class={twMerge('hover:opacity-50', classList)}>
 	{@render children()}
-</div>
+</span>
