@@ -23,8 +23,8 @@
 <!-- This is the main layout for the entire website. -->
 
 <Header />
-<main>
-	<Centered>
+<Centered>
+	<main>
 		{@render children()}
-	</Centered>
-</main>
+	</main>
+</Centered>

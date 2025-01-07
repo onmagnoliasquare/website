@@ -10,8 +10,6 @@
 	let { class: classList, children }: Props = $props();
 </script>
 
-<p
-	class={twMerge(`text-md sm:text-lg tracking-wide antialiased sm:subpixel-antialiased`, classList)}
->
+<p class={twMerge('sm:text-lg tracking-wide antialiased sm:subpixel-antialiased', classList)}>
 	{@render children()}
 </p>
