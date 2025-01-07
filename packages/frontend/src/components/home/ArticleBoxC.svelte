@@ -33,11 +33,9 @@
 		{article.title}
 	</h1>
 	{#if subtitle}
-		<div class="max-w-md">
-			<P class="leading-6 text-gray-700">
-				{article.subtitle}
-			</P>
-		</div>
+		<P class=" text-gray-600 tracking-wide">
+			{article.subtitle}
+		</P>
 	{/if}
 {/snippet}
 
@@ -51,9 +49,11 @@
 			<div class="flow flow-col lg:grid lg:grid-cols-3 items-center gap-2 mb-4">
 				{#if article.media && showImage}
 					<div class="col-span-1 lg:col-span-2">
-						<div class="p-6 pr-4 pl-0">
+						<div class="p-6 pr-1 pl-0">
 							{@render TitleAndSubtitle(showSubtitle)}
-							{@render ByAndDate()}
+							<footer>
+								{@render ByAndDate()}
+							</footer>
 						</div>
 					</div>
 					<div class="col-span-1">
@@ -72,8 +72,10 @@
 					<div class="col-span-3">
 						<div class="p-6 pl-0">
 							{@render TitleAndSubtitle(showSubtitle)}
-							{@render ByAndDate()}
 						</div>
+						<footer>
+							{@render ByAndDate()}
+						</footer>
 					</div>
 				{/if}
 			</div>

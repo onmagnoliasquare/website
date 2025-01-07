@@ -15,8 +15,6 @@
 	// import '../styles/onmagnoliasquare.css';
 	// import '../styles/typography.css';
 
-	import { dev } from '$app/environment';
-
 	interface Props {
 		data: LayoutData;
 		children: Snippet;
@@ -32,7 +30,7 @@
 <div class="flex flex-col grow min-h-screen antialiased">
 	{@render children()}
 	<Footer />
-	{#if dev}
+	<!-- {#if dev}
 		<aside>
 			<div role="none" class="fixed bottom-0 right-0 w-fit select-none z-100">
 				<div
@@ -42,5 +40,5 @@
 				</div>
 			</div>
 		</aside>
-	{/if}
+	{/if} -->
 </div>
