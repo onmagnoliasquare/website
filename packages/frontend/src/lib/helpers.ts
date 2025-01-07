@@ -14,7 +14,11 @@ import type { Member } from './schema';
  * @param locale locale language code, such as 'en-US', or an array of multiple. Check out documentation on documentation on the [locale argument](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locales_argument). If locale is undefined, the browser's default locale is used.
  * @returns `string` formatted date
  */
-export const dateFormatter = (date: string, locale?: Intl.LocalesArgument): string => {
+export const dateFormatter = (
+	date: string,
+	locale?: Intl.LocalesArgument,
+	options?: Intl.DateTimeFormatOptions
+): string => {
 	const splitted: string[] = date.split('-');
 
 	// Subtract 1 from monthIndex because monthIndex is indexed 0 through 11.
@@ -23,16 +27,18 @@ export const dateFormatter = (date: string, locale?: Intl.LocalesArgument): stri
 	const month: number = parseInt(splitted[1]) - 1;
 	const day: number = parseInt(splitted[2]);
 
-	const utcDate = new Date(Date.UTC(year, month, day));
+	const utcDate = new Date(Date.UTC(year, month, day, 0, 0, 0));
 
 	// Using options.
 	// See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_options
-	const options: Intl.DateTimeFormatOptions = {
-		weekday: 'short',
-		year: 'numeric',
-		month: 'long',
-		day: 'numeric'
-	};
+	if (!options) {
+		options = {
+			weekday: 'short',
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric'
+		};
+	}
 
 	let localeDate: Intl.DateTimeFormat;
 
@@ -190,6 +196,7 @@ export const parseEmbedLink = (url: string): EmbeddedLinkAttributes => {
 		 * TikTok requires the extraction of the `webid`, which
 		 * is just a query in the URL. The very last part.
 		 */
+		// eslint-disable-next-line no-fallthrough
 		case 'tiktok':
 		case 'toot':
 		case 'tweet':
