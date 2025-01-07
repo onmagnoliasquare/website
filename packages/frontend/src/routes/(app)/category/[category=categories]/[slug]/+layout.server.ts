@@ -3,9 +3,9 @@ import type { MetaTagsProps } from 'svelte-meta-tags';
 import { site } from '$lib/variables';
 import { createAuthorLink, createAuthorString } from '$lib/helpers';
 import type { Article } from '$lib/schema';
-import type { PageServerLoad } from './$types';
+import type { LayoutServerLoad } from './$types';
 
-export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
+export const load: LayoutServerLoad = (async (event: ServerLoadEvent) => {
 	const { category, slug } = event.params;
 
 	/**
@@ -99,4 +99,4 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	}
 
 	error(404, 'Article not found...');
-}) satisfies PageServerLoad;
+}) satisfies LayoutServerLoad;

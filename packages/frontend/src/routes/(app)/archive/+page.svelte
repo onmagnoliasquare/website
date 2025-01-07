@@ -16,9 +16,9 @@
 		<PageHeader>Archive</PageHeader>
 	</div>
 </div>
-<ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
+<ul class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-6">
 	{#each data.tags as tag}
-		<li class="ml-1">
+		<li>
 			<a
 				data-sveltekit-preload-code="viewport"
 				data-sveltekit-preload-data="tap"

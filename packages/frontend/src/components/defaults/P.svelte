@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { baseText } from '$lib/variables';
 	import type { Snippet } from 'svelte';
 	import { twMerge } from 'tailwind-merge';
 
@@ -11,6 +10,6 @@
 	let { class: classList, children }: Props = $props();
 </script>
 
-<p class={twMerge(baseText, classList)}>
+<p class={twMerge('sm:text-lg tracking-wide antialiased sm:subpixel-antialiased', classList)}>
 	{@render children()}
 </p>

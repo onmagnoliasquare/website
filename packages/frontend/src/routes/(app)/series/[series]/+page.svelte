@@ -1,4 +1,5 @@
 <script lang="ts">
+	import P from '$components/defaults/P.svelte';
 	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
 	import PageHeader from '$components/PageHeader.svelte';
 	import type { Article } from '$lib/schema';
@@ -14,12 +15,14 @@
 	let description: string = data.description;
 </script>
 
-<span id="mini" class="inline text-2xl font-display italic">Series</span>
+<span class="inline text-2xl font-display italic font-stretch-condensed">Series</span>
 <PageHeader>{title}</PageHeader>
-<p class="tracked-02 pa1">{description}</p>
-<ol class="list pa0 ma0">
+<div class="m-1 p-1">
+	<P>{description}</P>
+</div>
+<ol class="list-none">
 	{#each articles as article}
-		<li class="ma0 pa0">
+		<li>
 			<ArticleBoxC {article} />
 		</li>
 	{/each}

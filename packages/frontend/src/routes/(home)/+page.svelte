@@ -8,9 +8,9 @@
 </script>
 
 <div>
-	<div class=" bg-amber-200 border-y-1 sm:border-y-0">
-		<nav class="sm:hidden flex flex-wrap justify-around space-x-2 m-1 p-1">
-			<ul class="list-none">
+	<div class="bg-amber-200 border-y-1 sm:border-y-0">
+		<nav class="sm:hidden">
+			<ul class="list-none flex flex-wrap justify-around m-1 p-1">
 				{#each routes as route}
 					<li class="inline p-1 text-sm w-fit">
 						<a

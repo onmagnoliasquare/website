@@ -34,7 +34,7 @@ const config: PlaywrightTestConfig = {
 		// URL must use 'localhost'!!! Otherwise, playwright
 		// will boot the server but hang in the process.
 		// See: https://github.com/microsoft/playwright/issues/16834#issuecomment-1699124292
-		url: 'http://localhost:8788',
+		url: process.env.CI ? 'http://localhost:8788' : 'http://localhost:5173/',
 		reuseExistingServer: !process.env.CI,
 		stdout: 'ignore',
 		stderr: 'pipe'

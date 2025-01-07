@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { baseText } from '$lib/variables';
+	import P from '$components/defaults/P.svelte';
 	import type { Snippet } from 'svelte';
-	import { twMerge } from 'tailwind-merge';
 
 	interface Props {
 		children: Snippet;
@@ -10,8 +9,8 @@
 	let { children }: Props = $props();
 </script>
 
-<li class="m-1 p-1">
-	<span class={twMerge(baseText, 'inline')}>
+<li class="mb-1 pb-1">
+	<P class="leading-6 sm:leading-7 inline">
 		{@render children?.()}
-	</span>
+	</P>
 </li>
