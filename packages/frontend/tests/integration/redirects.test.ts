@@ -37,7 +37,7 @@ test('Uppercase slugs redirect to lowercase', async ({ page }) => {
 	/**
 	 * Redirects through a valid slug.
 	 */
-	await page.goto(`/tags/Advice/${v05Slug}`);
+	await page.goto(`/tags/advice/${v05Slug}`);
 	await page.waitForURL(v05TestArticleUrl);
 
 	/**

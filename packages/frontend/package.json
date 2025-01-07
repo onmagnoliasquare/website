@@ -22,7 +22,7 @@
 		"test-ci:components": "run -T vitest run --pool forks --poolOptions.forks.singleFork components",
 		"test:ci": "run -T vitest run",
 		"test:ci-no-pool": "run -T vitest run --pool forks --poolOptions.forks.singleFork",
-		"test:ui": "run -T playwright test --ui",
+		"test:ui": "playwright test --ui",
 		"coverage": "run -T vitest run --coverage"
 	},
 	"type": "module",

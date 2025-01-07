@@ -34,7 +34,7 @@ test('INTEGRATION Functional By Line', async ({ page }) => {
 
 	// Check if the category is on the line.
 	await expect(
-		page.getByText('Neo Alabastro & Jonathan Zhai ~ News', { exact: true })
+		page.getByText('Neo Alabastro & Jonathan Zhai ✍ News', { exact: true })
 	).toBeVisible();
 
 	// Check if there are author links on the By Line.
@@ -60,8 +60,8 @@ test('INTEGRATION Functional By Line', async ({ page }) => {
 test('INTEGRATION Functional Date Line', async ({ page }) => {
 	await page.goto(v05TestArticleUrl);
 
-	await expect(page.getByText('Wed, November 27, 2024 UTC', { exact: true })).toBeVisible();
-	await expect(page.getByText('updated Thu, November 28, 2024 UTC', { exact: true })).toBeVisible();
+	await expect(page.getByText('Wed, November 27, 2024', { exact: true })).toBeVisible();
+	await expect(page.getByText('updated Thu, November 28, 2024', { exact: true })).toBeVisible();
 });
 
 test('INTEGRATION Header 1 <h2> visible', async ({ page }) => {
@@ -197,7 +197,7 @@ test('INTEGRATION Header image has correct attributes', async ({ page }) => {
 	await page.goto(v05TestArticleUrl);
 
 	// Check if credit line is visible.
-	await expect(page.getByText('Photo credit: Sophia Johnson', { exact: true })).toBeVisible();
+	await expect(page.getByText('Photo by Sophia Johnson', { exact: true })).toBeVisible();
 
 	// Check if image has alt text.
 	await expect(page.getByAltText('Neo takes a picture of a street cat')).toBeVisible();
@@ -213,7 +213,7 @@ test('INTEGRATION Inline image has correct attributes', async ({ page }) => {
 	await expect(page.getByText("I'm from Hawai'i.", { exact: true })).toBeVisible();
 
 	// Check if credit line is visible.
-	await expect(page.getByText('Photo credit: Neo Alabastro', { exact: true })).toBeVisible();
+	await expect(page.getByText('Photo by Neo Alabastro', { exact: true })).toBeVisible();
 
 	// Check if image has alt text.
 	await expect(
