@@ -14,13 +14,9 @@
 </script>
 
 <header class="mb-4 pb-4 w-full">
-	<h1 class="font-display font-black text-6xl lg:text-8xl tracking-tight p-1 select-none">
+	<h1
+		class="font-display font-black text-6xl lg:text-8xl tracking-tight p-1 select-none font-stretch-condensed"
+	>
 		{@render children?.()}
 	</h1>
 </header>
-
-<style>
-	h1 {
-		font-stretch: 75%;
-	}
-</style>
