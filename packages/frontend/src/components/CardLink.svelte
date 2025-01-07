@@ -16,7 +16,7 @@
 	<div class="hover:bg-amber-100 w-xs sm:w-sm h-40 border-1 border-dotted hover:border-double">
 		<section>
 			<div class="p-4">
-				<h3 class="font-serif font-semibold text-3xl sm:text-4xl mb-4">{title}</h3>
+				<h3 class="font-serif font-semibold text-3xl mb-4">{title}</h3>
 				<P class="text-gray-700 text-lg sm:text-xl">{@render children?.()}</P>
 			</div>
 		</section>
