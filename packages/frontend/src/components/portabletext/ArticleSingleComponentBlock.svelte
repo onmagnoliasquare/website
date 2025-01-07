@@ -21,11 +21,17 @@
 {#if style === 'h1'}
 	<h1 class="font-display">{@render children?.()}</h1>
 {:else if style === 'h2'}
-	<h2 class="font-display text-4xl my-4">{@render children?.()}</h2>
+	<h2 class="font-serif font-semibold tracking-tight text-3xl sm:text-4xl my-4">
+		{@render children?.()}
+	</h2>
 {:else if style === 'h3'}
-	<h3 class="font-display text-3xl my-4">{@render children?.()}</h3>
+	<h3 class="font-serif font-semibold tracking-normal text-2xl sm:text-3xl my-4">
+		{@render children?.()}
+	</h3>
 {:else if style === 'h4'}
-	<h4 class="font-display text-2xl my-4">{@render children?.()}</h4>
+	<h4 class="font-display font-semibold tracking-wide text-xl sm:text-2xl my-4">
+		{@render children?.()}
+	</h4>
 {:else if style === 'h5'}
 	<h5>{@render children?.()}</h5>
 {:else if style === 'h6'}
@@ -40,7 +46,7 @@
 	{#if value.children.length === 1 && value.children[0].text === ''}
 		<br />
 	{:else}
-		<P class="hyp">
+		<P class="leading-6 sm:leading-7">
 			{@render children?.()}
 		</P>
 	{/if}

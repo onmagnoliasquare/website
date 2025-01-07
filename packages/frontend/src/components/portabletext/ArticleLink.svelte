@@ -14,7 +14,7 @@
 	let { portableText, children }: Props = $props();
 </script>
 
-<a href={portableText.value.href} class="text-nyu-purple-100" target="_blank">
+<a href={portableText.value.href} class="text-nyu-purple-100 hover:underline" target="_blank">
 	{@render children?.()}
 </a>
 

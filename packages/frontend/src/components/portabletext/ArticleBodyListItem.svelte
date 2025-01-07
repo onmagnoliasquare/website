@@ -10,7 +10,7 @@
 	let { children }: Props = $props();
 </script>
 
-<li class="m-1 p-1">
+<li class="mb-1 pb-1">
 	<span class={twMerge(baseText, 'inline')}>
 		{@render children?.()}
 	</span>
