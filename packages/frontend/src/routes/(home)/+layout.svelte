@@ -35,14 +35,16 @@
 </svelte:head>
 
 <div class="grow">
-	<Centered>
-		<div class="hidden sm:block sm:m-0 sm:p-0">
-			<span class="hidden sm:block font-serif italic sm:text-xl tracking-tight select-none"
-				>The front page of...</span
-			>
-		</div>
-	</Centered>
 	<header>
+		<Centered>
+			<div class="hidden sm:block sm:m-0 sm:p-0">
+				<p class="m-0 p-0">
+					<span class="hidden sm:block font-serif italic sm:text-xl tracking-tight select-none"
+						>The front page of...</span
+					>
+				</p>
+			</div>
+		</Centered>
 		<Centered>
 			<div
 				class="p-1 sm:mb-4 sm:pb-4 relative border-b-1 sm:border-b-0 hidden bg-transparent sm:block"

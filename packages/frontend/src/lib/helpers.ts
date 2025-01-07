@@ -5,6 +5,20 @@
 
 import type { Member } from './schema';
 
+// Retrieved from:
+// https://medium.com/@sungbinkim98/is-your-javascript-date-one-day-off-c56afb37e4bc
+function parseDateString(dateString: string) {
+	const dateOnlyRegex =
+		/^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])))$/;
+
+	if (dateOnlyRegex.test(dateString as string)) {
+		const utcDate = new Date(dateString);
+		const localDate = new Date(utcDate.getTime() + utcDate.getTimezoneOffset() * 60000);
+		return localDate;
+	}
+	return new Date(dateString);
+}
+
 /**
  * dateFormatter expects a string in the format YYYY/MM/DD,
  * which is the format that Sanity Content Lake stores dates.
@@ -19,15 +33,7 @@ export const dateFormatter = (
 	locale?: Intl.LocalesArgument,
 	options?: Intl.DateTimeFormatOptions
 ): string => {
-	const splitted: string[] = date.split('-');
-
-	// Subtract 1 from monthIndex because monthIndex is indexed 0 through 11.
-	// See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/UTC#monthindex
-	const year: number = parseInt(splitted[0]);
-	const month: number = parseInt(splitted[1]) - 1;
-	const day: number = parseInt(splitted[2]);
-
-	const utcDate = new Date(Date.UTC(year, month, day, 0, 0, 0));
+	const utcDate = parseDateString(date);
 
 	// Using options.
 	// See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_options
@@ -43,7 +49,7 @@ export const dateFormatter = (
 	let localeDate: Intl.DateTimeFormat;
 
 	if (!locale) {
-		localeDate = new Intl.DateTimeFormat(undefined, options);
+		localeDate = new Intl.DateTimeFormat('UTC', options);
 	} else {
 		localeDate = new Intl.DateTimeFormat(locale as string, options);
 	}

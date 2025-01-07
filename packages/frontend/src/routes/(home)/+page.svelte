@@ -9,19 +9,21 @@
 
 <div>
 	<div class=" bg-amber-200 border-y-1 sm:border-y-0">
-		<nav class="sm:hidden flex flex-wrap justify-around list-none space-x-2 m-1 p-1">
-			{#each routes as route}
-				<li class="inline p-1 text-sm w-fit">
-					<a
-						href={route.path}
-						id="heroLinks"
-						title={route.name}
-						class="hover:underline tracking-wide font-semibold"
-					>
-						{route.name}
-					</a>
-				</li>
-			{/each}
+		<nav class="sm:hidden flex flex-wrap justify-around space-x-2 m-1 p-1">
+			<ul class="list-none">
+				{#each routes as route}
+					<li class="inline p-1 text-sm w-fit">
+						<a
+							href={route.path}
+							id="heroLinks"
+							title={route.name}
+							class="hover:underline tracking-wide font-semibold"
+						>
+							{route.name}
+						</a>
+					</li>
+				{/each}
+			</ul>
 		</nav>
 	</div>
 	<div id="fade-in-hero" class="relative mb-2 pb-2 hidden sm:block">
@@ -38,16 +40,16 @@
 			</div>
 			<div class="flex flex-row max-w-full space-x-2 space-y-2">
 				<div class="flex flex-col md:grid md:grid-cols-2 items-top space-y-4 w-5/4">
-					<ol class="list">
+					<ol class="list-none">
 						{#each data.articles.slice(3, 8) as article}
-							<li class="">
+							<li>
 								<ArticleBoxC {article} locale={data.userLocale} />
 							</li>
 						{/each}
 					</ol>
-					<ol class="list">
+					<ol class="list-none">
 						{#each data.articles.slice(8, 14) as article}
-							<li class="">
+							<li>
 								<ArticleBoxC
 									{article}
 									locale={data.userLocale}

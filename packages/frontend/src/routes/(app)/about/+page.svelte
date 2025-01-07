@@ -15,7 +15,7 @@
 					class="font-bold font-serif">We keep time.</em
 				>
 				Learn about
-				<a class="text-nyu-purple-400 hover:underline" href="/about/staff">our staff</a>.
+				<a class="text-nyu-purple-100 underline" href="/about/staff">our staff</a>.
 			</P>
 		</div>
 		<div>
@@ -31,7 +31,7 @@
 							On Magnolia Square produces truthful, balanced, timely, and engaging news and
 							information to better serve the community at <a
 								href="https://shanghai.nyu.edu"
-								class="text-nyu-purple-400 hover:underline">NYU Shanghai</a
+								class="text-nyu-purple-100 hover:underline">NYU Shanghai</a
 							>.
 						</P>
 					</span>
