@@ -11,18 +11,13 @@
 </script>
 
 <header>
-	<div
-		class="w-full max-w-7xl center border-0 lg:border-x-1 lg:border-dotted pt-4 mb-2 pb-2 sm:mb-0 sm:pb-0"
-	>
+	<div class="w-full max-w-7xl center border-0 lg:border-x-1 lg:border-dotted pt-4 sm:mb-0 sm:pb-0">
 		<div
-			class="flex flex-row sm:block order-b-1 md:border-b-0 {showMenu
+			class="flex flex-row sm:block md:border-b-0 {showMenu
 				? 'border-b-0'
 				: 'border-b-1'} sm:border-0 items-center pb-4 sm:pb-0"
 		>
 			<div class="p-2 my-2 ml-1">
-				<!-- <div class="max-w-30">
-							<img src="/favicon.svg" alt={`${site.name} logo`} class="max-w-full" />
-						</div> -->
 				<SiteTitle />
 			</div>
 

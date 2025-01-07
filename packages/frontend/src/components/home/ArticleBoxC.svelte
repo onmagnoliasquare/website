@@ -4,23 +4,41 @@
 	import ByLine from './ByLine.svelte';
 	import DateLine from '$components/article/DateLine.svelte';
 	import HoverDim from '$components/general/HoverDim.svelte';
+	import P from '$components/defaults/P.svelte';
 
 	interface Props {
 		article: Article;
 		locale?: string;
+		showSubtitle?: boolean;
+		showImage?: boolean;
 	}
 
-	let { article, locale = 'en-US' }: Props = $props();
+	let { article, locale = 'en-US', showSubtitle = true, showImage = true }: Props = $props();
 
 	const h1Class =
-		'font-display font-stretch-condensed font-bold tracking-tight text-3xl mb-2 hover:underline';
+		'font-display font-stretch-condensed font-bold tracking-tight  mb-1 pb-2 hover:underline';
 </script>
 
 {#snippet ByAndDate()}
-	<div class="flex flex-col">
-		<ByLine authors={article.authors} />
+	<div class="flex flex-col mt-1 pt-2">
+		<div class="mb-1">
+			<ByLine authors={article.authors} />
+		</div>
 		<DateLine date={article.date} {locale} />
 	</div>
+{/snippet}
+
+{#snippet TitleAndSubtitle(subtitle: boolean)}
+	<h1 class="{h1Class} {showImage ? 'text-4xl' : 'text-3xl'}">
+		{article.title}
+	</h1>
+	{#if subtitle}
+		<div class="max-w-md">
+			<P class="leading-6 text-gray-700">
+				{article.subtitle}
+			</P>
+		</div>
+	{/if}
 {/snippet}
 
 <article class="sm:m-4 sm:px-2 border-t-1 border-dotted">
@@ -31,12 +49,10 @@
 			href={`/category/${article.category.name.toLowerCase()}/${article.slug.current}`}
 		>
 			<div class="flow flow-col lg:grid lg:grid-cols-3 items-center gap-2 mb-4">
-				{#if article.media}
+				{#if article.media && showImage}
 					<div class="col-span-1 lg:col-span-2">
 						<div class="p-6 pr-4 pl-0">
-							<h1 class={h1Class}>
-								{article.title}
-							</h1>
+							{@render TitleAndSubtitle(showSubtitle)}
 							{@render ByAndDate()}
 						</div>
 					</div>
@@ -55,9 +71,7 @@
 				{:else}
 					<div class="col-span-3">
 						<div class="p-6 pl-0">
-							<h1 class={h1Class}>
-								{article.title}
-							</h1>
+							{@render TitleAndSubtitle(showSubtitle)}
 							{@render ByAndDate()}
 						</div>
 					</div>

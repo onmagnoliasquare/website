@@ -4,6 +4,7 @@
 	import ByLine from './ByLine.svelte';
 	import DateLine from '$components/article/DateLine.svelte';
 	import HoverDim from '$components/general/HoverDim.svelte';
+	import P from '$components/defaults/P.svelte';
 
 	interface Props {
 		article: Article;
@@ -18,8 +19,7 @@
 		<a
 			data-sveltekit-preload-code="viewport"
 			data-sveltekit-preload-data="tap"
-			href={`/category/${article.category.name.toLowerCase()}/${article.slug.current}`}
-			class=""
+			href="/category/{article.category.name.toLowerCase()}/{article.slug.current}"
 		>
 			<div class="sm:m-2 sm:p-2 max-w-2xl border-t-1 border-dotted">
 				<div class="m-2 pb-2">
@@ -34,15 +34,19 @@
 						/>
 					{/if}
 				</div>
-				<div class=" mb-2 pb-2 w-full">
+				<div class="mb-2 pb-2 w-full">
 					<h3 class="font-display italic font-black text-4xl mb-2 pb-2 hover:underline w-fit">
 						{article.title}
 					</h3>
 					<div class="max-w-2xl">
-						<p class="font-serif text-xl font-light mb-2">{article.subtitle}</p>
+						<P>
+							{article.subtitle}
+						</P>
 					</div>
-					<div class="flex flex-col">
-						<ByLine authors={article.authors} />
+					<div class="flex flex-col mt-1 pt-2">
+						<div class="mb-1">
+							<ByLine authors={article.authors} />
+						</div>
 						<DateLine date={article.date} {locale} />
 					</div>
 				</div>
