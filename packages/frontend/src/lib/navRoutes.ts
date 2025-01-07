@@ -15,4 +15,7 @@ const routes: route[] = [
 	{ path: '/about', name: 'About' }
 ];
 
-export { routes };
+const footerRoutes: route[] = [{ path: '/about/staff', name: 'Staff' }];
+
+export { routes, footerRoutes };
+export type { route };

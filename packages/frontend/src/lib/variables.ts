@@ -28,6 +28,6 @@ export const filler = {
 	memberDescription: 'is a contributor to On Magnolia Square'
 };
 
-export const baseText = 'block text-lg leading-relaxed tracking-wide';
+export const baseText = 'text-md sm:text-lg';
 
 export const email = 'onmagnoliasquare@gmail.com';
