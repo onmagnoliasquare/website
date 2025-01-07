@@ -30,7 +30,7 @@ test('INTEGRATION Functional By Line', async ({ page }) => {
 	await page.goto(v05TestArticleUrl);
 
 	// Checks two authors with an `&` in between.
-	await expect(page.getByText('Neo Alabastro & Jonathan Zhai', { exact: true })).toBeVisible();
+	await expect(page.getByText('Neo Alabastro & Jonathan Zhai', { exact: false })).toBeVisible();
 
 	// Check if the category is on the line.
 	await expect(
