@@ -17,7 +17,6 @@
 	</div>
 </div>
 <div class="center">
-	<!-- <p class="tracked-02">Here's a list of everyone that ever was or is...</p> -->
 	<div class="m-2 p-2">
 		<StaffGrid members={data.members} />
 	</div>

@@ -26,13 +26,13 @@
 				<div class="">
 					<span class="font-display font-stretch-condensed">
 						<P
-							class="text-4xl sm:text-6xl lg:text-7xl leading-10 sm:leading-16 lg:leading-20 tracking-normal mb-8 max-w-6xl sm:text-center"
+							class="text-4xl sm:text-6xl lg:text-7xl leading-10 sm:leading-16 lg:leading-20 tracking-normal mb-8 max-w-6xl"
 						>
-							“On Magnolia Square produces truthful, balanced, timely, and engaging news and
+							On Magnolia Square produces truthful, balanced, timely, and engaging news and
 							information to better serve the community at <a
 								href="https://shanghai.nyu.edu"
 								class="text-nyu-purple-400 hover:underline">NYU Shanghai</a
-							>.”
+							>.
 						</P>
 					</span>
 				</div>
@@ -40,16 +40,16 @@
 		</div>
 	</div>
 	<CodeOfEthics />
-	<div class="center w-fit">
-		<ul class="m-4 flex grow space-x-4">
+	<div class="center w-full">
+		<ul class="m-4 flex flex-wrap space-x-4 align-center items-start">
 			<li>
 				<CardLink title="Staff" link="/about/staff">Learn more about our staff</CardLink>
 			</li>
-			<li>
+			<!-- <li>
 				<CardLink title="Transition" link="/about/transition" bgColor="green"
 					>Learn more about our transition from OCA to OMS</CardLink
 				>
-			</li>
+			</li> -->
 		</ul>
 	</div>
 </div>

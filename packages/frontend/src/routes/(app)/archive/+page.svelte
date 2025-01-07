@@ -24,10 +24,10 @@
 				data-sveltekit-preload-data="tap"
 				href={`/archive/tags/${tag.slug.current}`}
 				title={tag.name}
-				class="hover:underline w-fit hover:bg-amber-100"
+				class=" w-fit"
 			>
 				<HoverDim>
-					<article class="p-1">
+					<article class="hover:underline p-1 w-fit hover:bg-amber-200">
 						<data.Tag tagName={tag.name} />
 					</article>
 				</HoverDim>

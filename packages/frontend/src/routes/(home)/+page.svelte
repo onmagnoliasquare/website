@@ -8,15 +8,15 @@
 </script>
 
 <div>
-	<div class=" border-y-1 bg-amber-200">
-		<nav class="sm:hidden flex flex-wrap list-none space-x-2 m-1 p-1 mb-3">
+	<div class=" bg-amber-200 border-y-1 sm:border-y-0">
+		<nav class="sm:hidden flex flex-wrap justify-around list-none space-x-2 m-1 p-1">
 			{#each routes as route}
-				<li class="inline p-1">
+				<li class="inline p-1 text-sm w-fit">
 					<a
 						href={route.path}
 						id="heroLinks"
 						title={route.name}
-						class="hover:underline tracking-wide"
+						class="hover:underline tracking-wide font-semibold"
 					>
 						{route.name}
 					</a>
@@ -24,10 +24,10 @@
 			{/each}
 		</nav>
 	</div>
-	<div id="fade-in-hero" class="relative mb-2 pb-2">
+	<div id="fade-in-hero" class="relative mb-2 pb-2 hidden sm:block">
 		<HomepageHero article={data.articles[0]} locale={data.userLocale} />
 	</div>
-	<h2 class="font-serif italic text-lg sm:text-xl font-bold tracking-tight">
+	<h2 class="hidden sm:block font-serif italic text-lg sm:text-xl font-bold tracking-tight">
 		The latest articles:
 	</h2>
 	<div class="m-2 p-2">
@@ -48,7 +48,12 @@
 					<ol class="list">
 						{#each data.articles.slice(8, 14) as article}
 							<li class="">
-								<ArticleBoxC {article} locale={data.userLocale} />
+								<ArticleBoxC
+									{article}
+									locale={data.userLocale}
+									showSubtitle={true}
+									showImage={true}
+								/>
 							</li>
 						{/each}
 					</ol>
