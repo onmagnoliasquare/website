@@ -1,5 +1,5 @@
 // Release version.
-export const semVer = '0.5.4';
+export const semVer = '0.6.0';
 
 /**
  * `site` is an object used in various components and server
@@ -29,3 +29,5 @@ export const filler = {
 };
 
 export const baseText = 'block text-lg leading-relaxed tracking-wide';
+
+export const email = 'onmagnoliasquare@gmail.com';
