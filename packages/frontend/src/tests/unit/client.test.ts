@@ -12,7 +12,7 @@ import { describe, expect, it, test } from 'vitest';
  */
 describe('dateFormatter', () => {
 	// All dates in YYYY/MM/DD format.
-	const normalDate = '2014-02-01';
+	const normalDate = '2014-02-01T00:00:00';
 	// const leapDate = '';
 
 	const noLocaleProvided = '';

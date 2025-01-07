@@ -2,54 +2,81 @@
 	import Image from '$components/Image.svelte';
 	import type { Article } from '$lib/schema';
 	import ByLine from './ByLine.svelte';
-	import DateLine from './DateLine.svelte';
+	import DateLine from '$components/article/DateLine.svelte';
+	import HoverDim from '$components/general/HoverDim.svelte';
+	import P from '$components/defaults/P.svelte';
 
 	interface Props {
 		article: Article;
 		locale?: string;
+		showSubtitle?: boolean;
+		showImage?: boolean;
 	}
 
-	let { article, locale = 'en-US' }: Props = $props();
+	let { article, locale = 'en-US', showSubtitle = true, showImage = true }: Props = $props();
+
+	const h1Class =
+		'font-display font-stretch-condensed font-bold tracking-tight  mb-1 pb-2 hover:underline';
 </script>
 
-<a
-	data-sveltekit-preload-code="viewport"
-	data-sveltekit-preload-data="tap"
-	href={`/category/${article.category.name.toLowerCase()}/${article.slug.current}`}
-	class="dim"
->
-	<article class="pv4 bt bb b--black-10 ph3 ph0-l">
-		<div class="flex flex-column flex-row-l">
-			<div class={`w-100 ${article.media ? `w-60-l` : ``} pr3-l order-2 order-1-l`}>
-				<h1 class="f3 mt0 lh-title">
-					{article.title}
-				</h1>
-				{#if article.subtitle}
-					<p class="serif fw3 i f6 f5-ns f4-l tracked-tight-1-ns lh-title ma0 measure">
-						{article.subtitle}
-					</p>
+{#snippet ByAndDate()}
+	<div class="flex flex-col mt-1 pt-2">
+		<div class="mb-1">
+			<ByLine authors={article.authors} />
+		</div>
+		<DateLine date={article.date} {locale} />
+	</div>
+{/snippet}
+
+{#snippet TitleAndSubtitle(subtitle: boolean)}
+	<h1 class="{h1Class} {showImage ? 'text-4xl' : 'text-3xl'}">
+		{article.title}
+	</h1>
+	{#if subtitle}
+		<div class="max-w-md">
+			<P class="leading-6 text-gray-700">
+				{article.subtitle}
+			</P>
+		</div>
+	{/if}
+{/snippet}
+
+<article class="sm:m-4 sm:px-2 border-t-1 border-dotted">
+	<HoverDim>
+		<a
+			data-sveltekit-preload-code="viewport"
+			data-sveltekit-preload-data="tap"
+			href={`/category/${article.category.name.toLowerCase()}/${article.slug.current}`}
+		>
+			<div class="flow flow-col lg:grid lg:grid-cols-3 items-center gap-2 mb-4">
+				{#if article.media && showImage}
+					<div class="col-span-1 lg:col-span-2">
+						<div class="p-6 pr-4 pl-0">
+							{@render TitleAndSubtitle(showSubtitle)}
+							{@render ByAndDate()}
+						</div>
+					</div>
+					<div class="col-span-1">
+						<div class="p-1">
+							<Image
+								media={article.media}
+								width={480}
+								height={320}
+								quality={20}
+								fit={'crop'}
+								altText={article.media.alt}
+							/>
+						</div>
+					</div>
+				{:else}
+					<div class="col-span-3">
+						<div class="p-6 pl-0">
+							{@render TitleAndSubtitle(showSubtitle)}
+							{@render ByAndDate()}
+						</div>
+					</div>
 				{/if}
 			</div>
-			{#if article.media}
-				<div class="pl3-ns order-1 order-2-ns mb4 mb0-ns w-100 w-40-l">
-					<Image
-						media={article.media}
-						width={480}
-						height={320}
-						quality={20}
-						fit={'crop'}
-						altText={article.media.alt}
-					/>
-				</div>
-			{/if}
-		</div>
-		<ByLine authors={article.authors} />
-		<DateLine date={article.date} {locale} />
-	</article>
-</a>
-
-<style>
-	a {
-		text-decoration: none;
-	}
-</style>
+		</a>
+	</HoverDim>
+</article>

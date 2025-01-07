@@ -29,9 +29,9 @@
 	}
 </script>
 
-<p class="tracked-02 pa0 ma0 f6">
+<p>
 	{#if countryName}
-		{flagEmoji}&nbsp;{countryName}
+		{flagEmoji} {countryName}
 	{/if}
 	{#if regionName}
 		~

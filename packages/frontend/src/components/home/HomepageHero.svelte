@@ -1,46 +1,62 @@
 <script lang="ts">
+	import Subtitle from '$components/defaults/Subtitle.svelte';
 	import Image from '$components/Image.svelte';
-	import { createAuthorString } from '$lib/helpers';
+	import { createAuthorString, dateFormatter } from '$lib/helpers';
 	import type { Article } from '$lib/schema';
-	import DateLine from './DateLine.svelte';
 
 	interface Props {
 		article: Article;
+		locale?: string;
 	}
 
-	let { article }: Props = $props();
+	let { article, locale = 'en-US' }: Props = $props();
 	let authorString = createAuthorString(article.authors);
 </script>
 
-<a
-	data-sveltekit-preload-data="hover"
-	data-sveltekit-preload-code="eager"
-	href={`/category/${article.category.name.toLowerCase()}/${article.slug.current}`}
-	class="no-underline"
+<div
+	class="hidden sm:block px-2 md:p-0 md:m-0 mb-2 py-2 border-y-1 sm:border-y-0 bg-amber-200 sm:bg-transparent"
 >
-	<article>
-		<div class="flex flex-column flex-row-ns">
-			<div class="dtc v-mid pa2-ns w-100 w-60-ns">
-				<h1 class="f2 f-subheadline-l fw6 tracked-tight pa0 ma0 mw9">
+	<p class="font-serif text-xl md:text-lg xl:text-xl tracking-tight inline">
+		<span class="italic">The latest scoop as of</span>
+		<b><time datetime={article.date}>{dateFormatter(article.date, locale)}</time></b>
+		<span class="italic">by</span>
+
+		<b>{authorString}</b>:
+	</p>
+</div>
+<div class="p-1 sm:p-0">
+	<a
+		data-sveltekit-preload-data="hover"
+		data-sveltekit-preload-code="eager"
+		href={`/category/${article.category.name.toLowerCase()}/${article.slug.current}`}
+		class="no-underline"
+	>
+		<div class="relative">
+			<div class="relative md:absolute md:m-4 md:p-6 md:bg-amber-200 md:w-3/4 lg:w-3/5">
+				<h1
+					class="font-stretch-condensed text-6xl md:text-4xl lg:text-6xl font-display font-black tracking-tight p-1 mb-4 pb-4 hover:underline"
+				>
 					{article.title}
 				</h1>
 				{#if article.subtitle}
-					<p class="serif fw2 i f4-ns f2-l tracked-tight-1-ns lh-title ma0 mb3 measure mt4">
+					<Subtitle class="m-0 p-1 sm:text-xl lg:text-4xl">
 						{article.subtitle}
-					</p>
+					</Subtitle>
+					<p class="text-4xl font-display font-light mb-2 pb-2"></p>
 				{/if}
-				<div>
-					<p class="h-100 fw4 f6 f5-ns lh-copy tracked-02 pb1 ma0">{authorString}</p>
-				</div>
-				<div class="">
-					<DateLine date={article.date} />
-				</div>
 			</div>
-			<div class="pl3-ns order-2 order-1-ns mb4-ns w-100 w-40-ns">
+			<div class="w-full mb-4">
 				{#if article.media}
-					<Image media={article.media} className="db" quality={50} width={1080} height={720} />
+					<Image
+						media={article.media}
+						class="w-full"
+						quality={50}
+						width={1920}
+						height={1080}
+						fit="crop"
+					/>
 				{/if}
 			</div>
 		</div>
-	</article>
-</a>
+	</a>
+</div>

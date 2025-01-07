@@ -1,6 +1,5 @@
 <script lang="ts">
 	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
-	import NormalCentering from '$components/NormalCentering.svelte';
 	import PageHeader from '$components/PageHeader.svelte';
 	import type { Article } from '$lib/schema';
 	import type { PageData } from './$types';
@@ -15,14 +14,13 @@
 	let description: string = data.description;
 </script>
 
-<NormalCentering>
-	<PageHeader>{title}</PageHeader>
-	<p class="tracked-02 pa1">{description}</p>
-	<ol class="list pa0 ma0">
-		{#each articles as article}
-			<li class="ma0 pa0">
-				<ArticleBoxC {article} />
-			</li>
-		{/each}
-	</ol>
-</NormalCentering>
+<span id="mini" class="inline text-2xl font-display italic">Series</span>
+<PageHeader>{title}</PageHeader>
+<p class="tracked-02 pa1">{description}</p>
+<ol class="list pa0 ma0">
+	{#each articles as article}
+		<li class="ma0 pa0">
+			<ArticleBoxC {article} />
+		</li>
+	{/each}
+</ol>

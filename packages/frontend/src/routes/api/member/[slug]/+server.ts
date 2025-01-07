@@ -22,7 +22,7 @@ export const GET: RequestHandler = async ({ url, params }) => {
 				`${equal('slug.current', slug)}]._id)`
 			],
 			attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
-			customAttrs: ['authors[]->{name}', 'category->'],
+			customAttrs: ['authors[]->{name}', 'category->{slug}'],
 			order: 'date desc'
 		});
 	} else {

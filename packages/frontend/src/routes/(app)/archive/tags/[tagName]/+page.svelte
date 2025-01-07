@@ -1,8 +1,9 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import NormalCentering from '$components/NormalCentering.svelte';
-	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
+	// import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
 	import type { Article } from '$lib/schema';
+	import { dev } from '$app/environment';
+	import PageHeader from '$components/PageHeader.svelte';
 
 	interface Props {
 		data: PageData;
@@ -11,35 +12,35 @@
 	let { data }: Props = $props();
 </script>
 
-<NormalCentering>
-	<header class="mt4">
-		<div class="dib">
-			{#if data.tag.name == 'on century avenue'}
-				<div class="bg-purple br-pill pa0 pa1-ns ph2">
-					<h1 class="sans f6 f3-ns ma0 pa0 pv1 pv0-ns tracked-02 fw6 ph2-ns white">
-						# {data.tag.name}
-					</h1>
-				</div>
-			{:else}
-				<div class="bg-green br-pill pa0 pa1-ns ph2">
-					<h1 class="sans f6 f3-ns ma0 pa0 pv1 pv0-ns tracked-02 fw6 ph2-ns white">
-						# {data.tag.name}
-					</h1>
-				</div>
-			{/if}
-		</div>
-		<p class="tracked-02">{data.tag.description}</p>
-	</header>
+<header>
+	<PageHeader>{data.tag.name}</PageHeader>
+	<p class="tracked-02">{data.tag.description}</p>
+	{#if dev}
+		<p class="opacity-50">key: 🔻 – no category</p>
+	{/if}
+</header>
 
-	<ul class="list pa1">
+<ol class="list-decimal ml-8 p-2">
+	<span class="tracking-wide">
 		{#each data.articles as Article[] as article}
-			<ArticleBoxC {article} />
+			{#if article.category}
+				<li class="pl-2 mb-1">
+					<a
+						data-sveltekit-preload-code="viewport"
+						data-sveltekit-preload-data="tap"
+						href={`/category/${article.category.slug.current}/${article.slug.current}`}
+						class="hover:underline"
+					>
+						{article.title}
+					</a>
+				</li>
+			{:else if dev}
+				<li class="opacity-25">
+					🔻 {article.title} //
+					{article.slug.current}
+				</li>
+			{/if}
 		{/each}
-	</ul>
-</NormalCentering>
-
-<style>
-	p {
-		color: var(--white);
-	}
-</style>
+	</span>
+	<!-- <ArticleBoxC {article} /> -->
+</ol>

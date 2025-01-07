@@ -4,33 +4,14 @@
 	let listOfRoutes = routes;
 </script>
 
-<div class="border-color ml2 ml4-ns">
-	<div class="w-100 center">
-		<nav id="indexNav" class="flex justify-left flex-wrap">
-			{#each listOfRoutes as route}
-				<a href={route.path} title={route.name} id="heroLinks">
-					<div class="pa2">
-						<p class="sans f6 f4-l fw5 pa0 tracked-02">{route.name}</p>
-					</div>
+<nav id="mainNav" class="sm:divide-x-1 sm:border-b-1 p-2 relative hidden sm:block">
+	<ul class="list-none">
+		{#each listOfRoutes as route}
+			<li class="mr-2 pr-2 tracking-wide hidden sm:inline">
+				<a href={route.path} title={route.name} class="hover:underline">
+					{route.name}
 				</a>
-			{/each}
-		</nav>
-	</div>
-</div>
-
-<style>
-	#heroLinks {
-		text-decoration: none;
-		color: var(--text-color);
-	}
-
-	#indexNav > a:hover {
-		/* background-color: var(--gold); */
-		text-decoration: underline;
-	}
-
-	p {
-		display: inline;
-		text-align: left;
-	}
-</style>
+			</li>
+		{/each}
+	</ul>
+</nav>

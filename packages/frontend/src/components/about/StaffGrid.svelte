@@ -9,21 +9,8 @@
 	let { members }: Props = $props();
 </script>
 
-<div class="mw8">
-	<div class="column-grid-1 column-grid-4-m column-grid-4-l">
-		{#each members as member}
-			<div class="w-100 h-100">
-				<StaffClickable {member} />
-			</div>
-		{/each}
-	</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
+	{#each members as member}
+		<StaffClickable {member} />
+	{/each}
 </div>
-
-<!-- <style>
-	.parent {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		grid-template-rows: repeat(1, 1fr);
-		gap: 8px;
-	}
-</style> -->

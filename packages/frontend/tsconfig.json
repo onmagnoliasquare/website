@@ -12,7 +12,8 @@
 		"moduleResolution": "bundler",
 		"module": "preserve",
 		"noUnusedLocals": true,
-		"allowImportingTsExtensions": true
+		"allowImportingTsExtensions": true,
+		"verbatimModuleSyntax": true
 	},
 	"include": ["./**/*"],
 	"exclude": ["node_modules", ".vscode", "dist", ".svelte-kit", "coverage"]

@@ -1,8 +1,9 @@
 <script lang="ts">
-	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
-	import NormalCentering from '$components/NormalCentering.svelte';
+	import P from '$components/defaults/P.svelte';
+	// import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
 	import PageHeader from '$components/PageHeader.svelte';
 	import type { PageData } from './$types';
+	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
 
 	interface Props {
 		data: PageData;
@@ -21,25 +22,44 @@
 	 */
 	let category = $derived(data.cat!);
 	let articles = $derived(data.articles);
+	const catMapping = new Map();
+	catMapping.set('opinion', '观点与评论');
 </script>
 
-<NormalCentering>
-	<!--https://svelte.dev/docs/logic-blocks#key -->
-	<!--Not sure if this is needed... -->
+<!--https://svelte.dev/docs/logic-blocks#key -->
+<!--Not sure if this is needed... -->
+<div class="m-2 p-2">
 	{#key category}
-		<PageHeader>
-			{category.name.charAt(0).toUpperCase() + category.name.slice(1)}
-		</PageHeader>
+		<div class="flex flex-row space-x-1">
+			<span class="inline text-lg sm:text-2xl font-display font-light italic">The</span>
+			<div class="inline">
+				<PageHeader
+					>{category.name.charAt(0).toUpperCase() + category.name.slice(1)}
+					<!--
+					{catMapping.get(category.slug.current)} -->
+				</PageHeader>
+			</div>
+		</div>
+		<div class="m-1 p-2 max-w-3xl">
+			<P>{category.description}</P>
+		</div>
+		<div class="flex flex-row max-w-full space-x-2 space-y-2">
+			<div class="flex flex-col md:grid md:grid-cols-2 items-top space-y-4 w-5/4">
+				<ol class="list">
+					{#each articles.slice(0, 10) as article}
+						<li class="">
+							<ArticleBoxC {article} locale={data.userLocale} />
+						</li>
+					{/each}
+				</ol>
+				<ol class="list">
+					{#each articles.slice(10, 20) as article}
+						<li class="">
+							<ArticleBoxC {article} locale={data.userLocale} />
+						</li>
+					{/each}
+				</ol>
+			</div>
+		</div>
 	{/key}
-	<p class="tracked-02 f5 f4-l pa2">{category.description}</p>
-	<ul class="list pa1">
-		{#each articles as article}
-			<!-- #key is a fix for https://github.com/onmagnoliasquare/website/issues/96  -->
-			{#key article}
-				<li>
-					<ArticleBoxC {article} />
-				</li>
-			{/key}
-		{/each}
-	</ul>
-</NormalCentering>
+</div>

@@ -35,7 +35,7 @@ test('About page has no accessibility issues', async ({ page }) => {
 });
 
 test('Staff page has no accessibility issues', async ({ page }) => {
-	await page.goto('/about');
+	await page.goto('/about/staff');
 
 	const accessibilityScanResults = await new AxeBuilder({ page })
 		.disableRules(['color-contrast'])

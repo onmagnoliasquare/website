@@ -14,7 +14,7 @@
 	let { portableText, children }: Props = $props();
 </script>
 
-<a href={portableText.value.href} target="_blank">
+<a href={portableText.value.href} class="text-nyu-purple-100" target="_blank">
 	{@render children?.()}
 </a>
 
@@ -22,7 +22,7 @@
 	a:link,
 	a:visited,
 	a:active {
-		color: var(--article-link-color);
+		/* color: var(--article-link-color); */
 		font-weight: 400;
 	}
 </style>

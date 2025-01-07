@@ -1,25 +1,27 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import PageHeader from '$components/PageHeader.svelte';
-	import NormalCentering from '$components/NormalCentering.svelte';
-	import { CardLink } from '$lib';
 	import type { Series } from '$lib/schema';
+	import SeriesLink from '$components/SeriesLink.svelte';
 
 	interface Props {
 		data: PageData;
 	}
 
 	let { data }: Props = $props();
-	let series: Series[] = data.series;
+	let series: Series[] = $derived(data.series);
 </script>
 
-<NormalCentering>
-	<PageHeader>Series</PageHeader>
-	<ul class="pa0 ma0 list">
-		{#each series as s}
-			<li>
-				<CardLink title={s.name} link={`/series/${s.slug.current}`}>{s.description}</CardLink>
-			</li>
-		{/each}
-	</ul>
-</NormalCentering>
+<div class="flex flex-row">
+	<span id="mini" class="inline text-2xl font-display font-light italic">The</span>
+	<div class="inline">
+		<PageHeader>Series</PageHeader>
+	</div>
+</div>
+<ul class="list">
+	{#each series as s}
+		<li>
+			<SeriesLink title={s.name} link={`/series/${s.slug.current}`}>{s.description}</SeriesLink>
+		</li>
+	{/each}
+</ul>

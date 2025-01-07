@@ -1,23 +1,19 @@
 // https://playwright.dev/docs/test-use-options#configuration-scopes
 
 import { test, expect } from '@playwright/test';
-
-test('Homepage has "Latest Articles" heading', async ({ page }) => {
-	await page.goto('/');
-	await expect(page.getByRole('heading', { name: 'Latest Articles', exact: true })).toBeVisible();
-});
+import { v05Slug } from '../testVariables';
 
 test('About page has title', async ({ page }) => {
 	await page.goto('/about');
-	await expect(page.getByRole('heading', { name: 'About' })).toBeVisible();
+	await expect(page.getByRole('heading', { name: 'Who are we?' })).toBeVisible();
 });
 
 test('Staff page is accessible via About page', async ({ page }) => {
 	await page.goto('/about');
-	await expect(page.getByRole('heading', { name: 'About' })).toBeVisible();
+	await expect(page.getByRole('heading', { name: 'Who are we?' })).toBeVisible();
 
 	// Click the staff link.
-	await page.getByRole('link', { name: 'Staff' }).click();
+	await page.getByRole('link', { name: 'our staff', exact: true }).click();
 
 	await expect(page.getByRole('heading', { name: 'Staff' })).toBeVisible();
 });
@@ -53,10 +49,10 @@ test('Archive page has title', async ({ page }) => {
 });
 
 test('Category on by line accessible via article page', async ({ page }) => {
-	await page.goto(`/category/news/this-year's-changes-in-cost-of-attendance-and-financial-aid`);
+	await page.goto(`/category/news/${v05Slug}`);
 	await expect(
 		page.getByRole('heading', {
-			name: `This Year's Changes in Cost of Attendance and Financial Aid`
+			name: `v0.5 Article Feature Set: What a blast!`
 		})
 	).toBeVisible();
 

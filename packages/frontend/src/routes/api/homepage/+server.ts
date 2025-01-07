@@ -10,10 +10,14 @@ export const GET: RequestHandler = async ({}) => {
 	try {
 		sanityQuery = buildSanityQuery({
 			type: 'article',
-			conditions: [unequal('wasDeleted', true), unequal('isDraft', true)],
+			conditions: [
+				unequal('wasDeleted', true),
+				unequal('isDraft', true),
+				unequal('category.slug.current', 'multimedia')
+			],
 			attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
 			customAttrs: ['category->{name}', 'authors[]->{name}'],
-			idx: [0, 10],
+			idx: [0, 14],
 			order: 'date desc'
 		});
 

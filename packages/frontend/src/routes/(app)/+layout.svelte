@@ -2,11 +2,12 @@
 	/**
 	 * ======== MAIN LAYOUT ========
 	 * */
-	import { Header } from '$lib';
 	import { page } from '$app/stores';
 	import type { Snippet } from 'svelte';
 	import { createSiteTitle } from '$lib/helpers';
 	import { site } from '$lib/variables';
+	import Header from '$components/Header.svelte';
+	import Centered from '$components/defaults/Centered.svelte';
 
 	interface Props {
 		children: Snippet;
@@ -20,8 +21,10 @@
 </svelte:head>
 
 <!-- This is the main layout for the entire website. -->
-<Header />
 
-<div class="pb4 pb7-ns">
-	{@render children()}
-</div>
+<Header />
+<main>
+	<Centered>
+		{@render children()}
+	</Centered>
+</main>

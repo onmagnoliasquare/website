@@ -9,11 +9,11 @@
 	let { link, title, icon, alt = '' }: Props = $props();
 </script>
 
-<div class="ma0 pa0">
+<div class="">
 	<a href={link} target="_blank" class="no-underline">
 		<div class="flex items-center">
-			<img src={icon} {alt} class="di pa0 ma0 o-50" width={20} height={20} />
-			<p class="tracked-02 fw6 f6 di pa1 ma0 gray">{title}</p>
+			<img src={icon} {alt} class="inline mr-2" width={20} height={20} />
+			<p class="inline">{title}</p>
 		</div>
 	</a>
 </div>

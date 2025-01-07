@@ -1,4 +1,5 @@
 <script lang="ts">
+	import P from '$components/defaults/P.svelte';
 	import { createAuthorString } from '$lib/helpers';
 	import type { Member } from '$lib/schema';
 
@@ -10,6 +11,6 @@
 	let authorString = createAuthorString(authors);
 </script>
 
-<div>
-	<p class="pa0 ma0 lh-copy f6 tracked-02">{authorString}</p>
-</div>
+<P class="text-sm font-bold">
+	{authorString}
+</P>

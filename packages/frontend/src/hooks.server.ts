@@ -66,12 +66,16 @@ export const redirectTag: Handle = async ({ event, resolve }) => {
 			redirect(302, '/tags');
 		}
 
-		const pathTag = path[0];
-		const pathArticleSlug = path[1];
+		const pathTag = path[0].toLowerCase();
+		const pathArticleSlug = path[1].toLowerCase();
 
 		// Get article from its slug. This object will contain the
 		// article's tags, category, and series.
 		const req = await event.fetch(`/api/article?slug=${pathArticleSlug}`);
+
+		if (req.status === 404) {
+			redirect(302, '/archive');
+		}
 
 		const article: Article = await req.json();
 

@@ -2,7 +2,12 @@ import { test, expect } from '@playwright/test';
 
 test('Neo Alabastro page has name displayed on page', async ({ page }) => {
 	await page.goto('/about/staff/neo-alabastro');
-	await expect(page.getByRole('heading', { name: 'Neo Alabastro' })).toBeVisible();
+	await expect(
+		page
+			.locator('header')
+			.filter({ hasText: /^Neo Alabastro$/ })
+			.getByRole('heading')
+	).toBeVisible();
 });
 
 test('Neo Alabastro page has alt text for profile image', async ({ page }) => {
@@ -14,24 +19,21 @@ test('Neo Alabastro page has alt text for profile image', async ({ page }) => {
 	).toBeVisible();
 });
 
-test('Neo Alabastro page has BIO', async ({ page }) => {
+test('Neo Alabastro page has bio', async ({ page }) => {
 	await page.goto('/about/staff/neo-alabastro');
-	await expect(page.getByRole('heading', { name: 'BIO', exact: true })).toBeVisible();
+	await expect(
+		page.getByText('I am a web development team member.', { exact: true })
+	).toBeVisible();
 });
 
-test('Neo Alabastro page has IN COMMITTEE', async ({ page }) => {
+test('Neo Alabastro page has committee', async ({ page }) => {
 	await page.goto('/about/staff/neo-alabastro');
-	await expect(page.getByRole('heading', { name: 'IN COMMITTEE', exact: true })).toBeVisible();
+	await expect(page.getByText('Web Dev committee', { exact: true })).toBeVisible();
 });
 
-test('Neo Alabastro page has FROM', async ({ page }) => {
+test('Neo Alabastro page has location', async ({ page }) => {
 	await page.goto('/about/staff/neo-alabastro');
-	await expect(page.getByRole('heading', { name: 'FROM', exact: true })).toBeVisible();
-});
-
-test('Neo Alabastro page has CONTACT', async ({ page }) => {
-	await page.goto('/about/staff/neo-alabastro');
-	await expect(page.getByRole('heading', { name: 'CONTACT', exact: true })).toBeVisible();
+	await expect(page.getByText(`United States ~ Honolulu, Hawai'i`, { exact: false })).toBeVisible();
 });
 
 test('Neo Alabastro page has visible handles', async ({ page }) => {
@@ -43,22 +45,6 @@ test('Neo Alabastro page has visible handles', async ({ page }) => {
 	await expect(page.getByRole('link', { name: 'idontusefacebook' })).toBeVisible();
 	await expect(page.getByRole('link', { name: 'n30w' })).toBeVisible();
 	await expect(page.getByRole('link', { name: 'neoalabastro.com' })).toBeVisible();
-});
-
-test('Author accessible via article page', async ({ page }) => {
-	await page.goto(`/category/news/this-year's-changes-in-cost-of-attendance-and-financial-aid`);
-	await expect(
-		page.getByRole('heading', {
-			name: `This Year's Changes in Cost of Attendance and Financial Aid`
-		})
-	).toBeVisible();
-
-	// Click Author link on the ByLine.
-	await page.getByRole('main').getByRole('link', { name: 'Fikret Halilov' }).click();
-
-	await expect(
-		page.getByRole('main').getByRole('heading', { name: 'Fikret Halilov' })
-	).toBeVisible();
 });
 
 test('Member page loads SEO correctly', async ({ page }) => {

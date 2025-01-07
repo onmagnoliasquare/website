@@ -12,10 +12,10 @@
 	let { listItem } = $derived(value);
 </script>
 
-<div class="mb4">
+<div class="m-1 p-1">
 	{#if listItem === 'number'}
-		<ol>{@render children?.()}</ol>
+		<ol class="list list-inside list-decimal">{@render children?.()}</ol>
 	{:else}
-		<ul>{@render children?.()}</ul>
+		<ul class="list list-inside list-disc">{@render children?.()}</ul>
 	{/if}
 </div>

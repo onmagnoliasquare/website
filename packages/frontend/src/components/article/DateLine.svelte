@@ -1,14 +1,19 @@
 <script lang="ts">
+	import P from '$components/defaults/P.svelte';
 	import { dateFormatter } from '$lib/helpers';
 
 	interface Props {
 		locale?: string;
 		date: string;
+		updated?: boolean;
 	}
 
-	let { locale = 'en-US', date }: Props = $props();
+	let { locale = 'en-US', date, updated = false }: Props = $props();
 </script>
 
-<p class="pa0 ma0 lh-copy tracked-02 fw4 f6">
-	<time datetime={date}>{dateFormatter(date, locale)} UTC</time>
-</p>
+<P class="text-sm font-bold">
+	{#if updated}
+		updated
+	{/if}
+	<time datetime={date}>{dateFormatter(date, locale)}</time>
+</P>

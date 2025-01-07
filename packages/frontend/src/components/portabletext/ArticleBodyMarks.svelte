@@ -12,11 +12,11 @@
 </script>
 
 {#if markType === 'strong'}
-	<strong class="tracked-02">
+	<strong>
 		{@render children?.()}
 	</strong>
 {:else if markType === 'em'}
-	<em class="tracked-02">
+	<em>
 		{@render children?.()}
 	</em>
 {:else if markType === 'code'}
@@ -24,11 +24,11 @@
 		{@render children?.()}
 	</code>
 {:else if markType === 'underline'}
-	<span style="text-decoration:underline;" class="tracked-02">
+	<span class="underline">
 		{@render children?.()}
 	</span>
 {:else if markType === 'strike-through'}
-	<del class="tracked-02">
+	<del>
 		{@render children?.()}
 	</del>
 {:else}
