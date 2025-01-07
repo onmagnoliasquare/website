@@ -5,7 +5,6 @@
 	import HoverDim from '$components/general/HoverDim.svelte';
 	// import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
 	import Image from '$components/Image.svelte';
-	import PageHeader from '$components/PageHeader.svelte';
 	import { dateFormatter, domainFromUrl } from '$lib/helpers';
 	import { filler } from '$lib/variables';
 	import type { PageData } from './$types';
@@ -24,14 +23,18 @@
 	// let hasArticles = articles ? articles.length > 0 : false;
 </script>
 
-<PageHeader>
-	{member.name}
-</PageHeader>
+<header class="mb-4 pb-4 w-full">
+	<h1
+		class="font-display font-black text-4xl md:text-6xl lg:text-8xl tracking-tight sm:p-1 select-none font-stretch-condensed"
+	>
+		{member.name}
+	</h1>
+</header>
 <div class="flex flex-col md:grid md:grid-cols-7 grid-flow-row gap-4 center mt-2 pt-2">
 	<div class="col-span-2 h-fit md:sticky top-3 p-1">
 		<header>
 			{#if member.portrait}
-				<div class="p-2">
+				<div class="p-0 sm:p-2">
 					<Image
 						media={member.portrait}
 						width={250}
@@ -39,28 +42,28 @@
 						fit={'crop'}
 						quality={90}
 						altText={`${member.name}'s profile image`}
-						class={`center max-w-xl md:w-full md:h-full mb-4`}
+						class={`center max-w-2xl md:w-full md:h-full mb-4`}
 					/>
 				</div>
 			{/if}
-			<div class="p-1 tracking-wide">
+			<div class="sm:p-1 tracking-wide">
 				<h1 class="font-display text-2xl italic mb-2 tracking-tight">
 					{member.name}
 				</h1>
 				<div class="border-t-1 border-dotted p-1">
 					<div class="w-full mb-4 mt-2 pb-4">
-						<p class="tracking-wide">
+						<P class="text-md sm:text-md">
 							{#if member.bio}
 								{member.bio.trim()}
 							{:else}
 								{member.name.trim()} {filler.memberDescription}.
 							{/if}
-						</p>
+						</P>
 					</div>
 					{#if member.committee}
 						<div class="mb-8">
 							<div class="mb2">
-								<p>{member.committee.name} committee</p>
+								<P>{member.committee.name} committee</P>
 							</div>
 						</div>
 					{/if}
@@ -143,12 +146,12 @@
 		<div class="col-span-5 md:m-2 mt-4 pt-4 md:mt-1 md:pt-1">
 			<section>
 				<h1 class="font-display text-2xl mb-2 pl-2">Works</h1>
-				<ol class="list border-t-1 border-dotted sm:p-1">
+				<ol class="list-none border-t-1 border-dotted sm:p-1 divide-y-1">
 					{#each articles as article}
 						<!-- #key is a fix for https://github.com/onmagnoliasquare/website/issues/96  -->
 						{#key article}
 							{#if article.category}
-								<li class="w-full mb-2">
+								<li class="w-full mb-6 sm:mb-2 pt-1 pb-1">
 									<a
 										data-sveltekit-preload-code="viewport"
 										data-sveltekit-preload-data="tap"
@@ -156,20 +159,28 @@
 									>
 										<HoverDim>
 											<article class="p-1 md:m-1 md:p-2">
-												<h1 class="text-2xl font-display font-bold mb-1 pb-1 hover:underline">
+												<h1
+													class="text-4xl font-display font-bold mb-2 pb-4 hover:underline font-stretch-condensed"
+												>
 													{article.title}
 												</h1>
-												<P class="text-sm">
-													<time datetime={article.date}
-														>{dateFormatter(article.date, data.userLocale)}</time
-													>
-												</P>
+												{#if article.subtitle}
+													<P class=" text-gray-600 tracking-wide mb-1 pb-2 leading-6">
+														{article.subtitle}
+													</P>
+												{/if}
+												<footer>
+													<P class="text-gray-600 tracking-wide font-semibold">
+														<time datetime={article.date}
+															>{dateFormatter(article.date, data.userLocale)}</time
+														>
+													</P>
+												</footer>
 											</article>
 										</HoverDim>
 									</a>
 								</li>
 							{/if}
-							<!-- <ArticleBoxC {article} /> -->
 						{/key}
 					{/each}
 				</ol>
