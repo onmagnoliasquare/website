@@ -1,45 +1,51 @@
-name: Deploy staging
+# Deploys frontend or backend to staging environment.
+
+name: Deploy to Staging
 
 on:
-  push:
-    branches: ['staging']
   workflow_dispatch:
+    inputs:
+      deployment_target:
+        description: 'Select deployment (frontend or backend)'
+        required: true
+        default: 'frontend'
+        type: choice
+        options:
+          - frontend
+          - backend
 
 jobs:
-  changes:
-    name: Check changes
-    runs-on: ubuntu-${{vars.RUNNER_VERSION}}
-    permissions:
-      pull-requests: read
-    outputs:
-      frontend: ${{ steps.filter.outputs.frontend }}
-      backend: ${{ steps.filter.outputs.backend }}
+  merge-dev-to-staging:
+    name: Fast-Forward Merge dev to staging
+    runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: dorny/paths-filter@v3
-        id: filter
+      - name: Checkout Repository
+        uses: actions/checkout@v4
         with:
-          base: dev
-          # base: ${{ github.ref_name }}
-          list-files: csv
-          filters: |
-            frontend:
-              - 'packages/frontend/**'
-            backend:
-              - 'packages/backend/**'
-      - name: Log all filter results
+          fetch-depth: 0 # Ensure full history is fetched for merging
+
+      - name: Configure Git
         run: |
-          echo "frontend: ${{ steps.filter.outputs.frontend }}"
-          echo "backend: ${{ steps.filter.outputs.backend }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Fast-Forward Merge
+        run: |
+          git checkout staging
+          git merge --ff-only origin/dev || {
+            echo "Fast-forward merge failed. Ensure dev branch is up-to-date.";
+            exit 1;
+          }
+          git push origin staging
 
   build:
     name: Set yarn and build artifacts
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
+    needs: merge-dev-to-staging
     outputs:
       yarn_version: ${{ steps.set_yarn_version.outputs.yarn_version }}
-    needs: [changes]
     environment: staging
-    if: ${{ needs.changes.outputs.backend == 'true' || needs.changes.outputs.frontend == 'true' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -61,12 +67,12 @@ jobs:
           yarn-version: ${{ steps.set_yarn_version.outputs.yarn_version }}
           yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Build frontend for staging
-        if: ${{ needs.changes.outputs.frontend == 'true' }}
+      - name: Build frontend for development
+        if: ${{ inputs.deployment_target == 'frontend' }}
         run: yarn workspace frontend build:staging
 
-      - name: Build backend for staging
-        if: ${{ needs.changes.outputs.backend == 'true' }}
+      - name: Build backend for development
+        if: ${{ inputs.deployment_target == 'backend' }}
         run: yarn workspace backend build
 
       # Cache the build after all is said and done.
@@ -77,15 +83,13 @@ jobs:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}
 
-  deploy-staging:
-    name: Deploy to development environment
-    needs: [build, changes]
-    if: ${{ github.event_name == 'push' && github.ref_name == 'dev' }}
+  deploy:
+    name: Deploy target
+    runs-on: ubuntu-${{vars.RUNNER_VERSION}}
+    needs: build
     env:
       YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
-    runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
     environment: staging
-
     steps:
       - uses: actions/checkout@v4
 
@@ -105,7 +109,7 @@ jobs:
           key: ${{ github.sha }}-${{ github.run_number }}
 
       - name: Publish frontend to Cloudflare Pages
-        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        if: ${{ inputs.deployment_target == 'frontend' }}
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -114,3 +118,11 @@ jobs:
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
       # Deploy backend artifact
+      - name: Publish backend to Cloudflare Pages
+        if: ${{ inputs.deployment_target == 'backend' }}
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy packages/backend/dist --project-name=backend
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

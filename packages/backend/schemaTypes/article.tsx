@@ -8,6 +8,7 @@ import formattedText from './primitives/formattedText'
 import formattedString from './primitives/formattedString'
 import embeddedLink from './objects/embeddedLink'
 import metadataInformation from './objects/metadataInformation'
+import blockContent from './objects/blockContent'
 
 // Portable text editor configuration on Sanity docs:
 // https://www.sanity.io/docs/portable-text-editor-configuration
@@ -182,63 +183,7 @@ export default defineType({
     // https://www.sanity.io/docs/portable-text-editor-configuration#ec55d49cfe6c
     defineField({
       name: 'content',
-      type: 'array',
-      title: 'Content',
-      of: [
-        {
-          type: 'block',
-          styles: [
-            {title: 'Normal', value: 'normal'},
-            {title: 'Heading 1', value: 'h2'},
-            {title: 'Heading 2', value: 'h3'},
-            {title: 'Heading 3', value: 'h4'},
-            {title: 'Quote', value: 'blockquote'},
-            {title: 'Hidden', value: 'blockComment'},
-          ],
-          marks: {
-            decorators: [
-              {title: 'Strong', value: 'strong'},
-              {title: 'Emphasis', value: 'em'},
-              {
-                title: 'Lead in',
-                value: 'leadIn',
-                icon: () => <span style={{fontFamily: 'serif'}}>LI</span>,
-                component: ({children}) => (
-                  <span style={{fontFamily: 'serif', fontWeight: 'bolder'}}>{children}</span>
-                ),
-              },
-            ],
-          },
-        },
-        {
-          type: 'image',
-          icon: ImageIcon,
-          fields: [
-            {
-              name: 'title',
-              title: 'Title',
-              type: formattedString.name,
-              description: 'Optional title of the image, displayed in larger text.',
-            },
-            {
-              name: 'description',
-              title: 'Description',
-              description: 'Optional short image caption, displayed under the image title.',
-              type: formattedText.name,
-            },
-            {
-              name: 'alt',
-              title: 'Alt Text',
-              description:
-                'Alt text is a description for those hard of seeing; it is a simple description of what is happening in a piece of media. For example, if there is an image that pertains to a dinner hosted by the school, the alt text would be—staff and faculty gathered around a table in-front of the speaker stage.',
-              type: requiredFormattedString.name,
-            },
-          ],
-        },
-        {
-          type: embeddedLink.name,
-        },
-      ],
+      type: blockContent.name,
       group: ContentGroup.name,
     }),
 
