@@ -67,11 +67,11 @@ jobs:
           yarn-version: ${{ steps.set_yarn_version.outputs.yarn_version }}
           yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Build frontend for development
+      - name: Build frontend for staging
         if: ${{ inputs.deployment_target == 'frontend' }}
         run: yarn workspace frontend build:staging
 
-      - name: Build backend for development
+      - name: Build backend for staging
         if: ${{ inputs.deployment_target == 'backend' }}
         run: yarn workspace backend build
 
