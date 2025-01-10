@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       deployment_target:
-        description: 'Select what to deploy (frontend or backend)'
+        description: 'Select deployment (frontend or backend)'
         required: true
         default: 'frontend'
         type: choice
