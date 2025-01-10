@@ -1,4 +1,6 @@
-name: 'Staging'
+# Main development workflow.
+
+name: 'Dev'
 
 on:
   push:

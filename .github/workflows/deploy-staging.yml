@@ -1,3 +1,5 @@
+# Deploys frontend or backend to staging environment.
+
 name: Deploy to Staging
 
 on:
