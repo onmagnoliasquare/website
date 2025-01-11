@@ -31,6 +31,8 @@
 		"@portabletext/svelte": "^2.1.11",
 		"@sanity/client": "^6.24.3",
 		"@sanity/image-url": "^1.1.0",
+		"@unpic/placeholder": "^0.1.2",
+		"@unpic/svelte": "^0.0.58",
 		"tailwind-merge": "^2.6.0"
 	},
 	"devDependencies": {
