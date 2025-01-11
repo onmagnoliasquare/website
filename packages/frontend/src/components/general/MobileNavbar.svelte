@@ -4,8 +4,8 @@
 	let { toggleNavbar, showMenu } = $props();
 </script>
 
-<div
-	class="flex-col md:mt-8 space-y-4 md:space-y-0 sm:hidden w-full {showMenu
+<ul
+	class="list-none flex-col md:mt-8 space-y-4 md:space-y-0 sm:hidden w-full {showMenu
 		? 'overscroll-contain border-b-1 pb-4 mt-4'
 		: 'hidden'}"
 >
@@ -23,4 +23,4 @@
 			</a>
 		</li>
 	{/each}
-</div>
+</ul>
