@@ -26,11 +26,12 @@
 					{#if article.media}
 						<Image
 							media={article.media}
+							blurHash={article.asset?.metadata.blurHash}
 							width={1920}
 							height={1080}
 							quality={20}
 							fit={'crop'}
-							altText={article.media.alt}
+							alt={article.media.alt}
 						/>
 					{/if}
 				</div>

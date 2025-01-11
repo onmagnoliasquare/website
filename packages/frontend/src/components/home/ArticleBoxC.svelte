@@ -64,7 +64,7 @@
 								height={320}
 								quality={20}
 								fit={'crop'}
-								altText={article.media.alt}
+								alt={article.media.alt}
 							/>
 						</div>
 					</div>

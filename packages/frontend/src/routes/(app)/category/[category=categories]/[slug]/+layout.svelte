@@ -16,7 +16,7 @@
 	let title = $derived(data.article.title);
 	let subtitle = $derived(data.article.subtitle);
 	let media = $derived(data.article.media);
-	let blurHash = $derived(data.article.headerImage?.metadata.blurHash);
+	let blurHash = $derived(data.article.asset?.metadata.blurHash);
 	let authors = $derived(data.article.authors);
 	let date = $derived(data.article.date);
 	let series = $derived(data.article.series);
@@ -53,19 +53,18 @@
 						<div class="mb-2">
 							<Image
 								{media}
-								altText={media.alt}
+								alt={media.alt}
 								width={1920}
 								height={1080}
-								fit="crop"
 								priority={true}
 								{blurHash}
 								loading={'eager'}
 							/>
 						</div>
-						{#if data.article.headerImage!.creditLine}
+						{#if data.article.asset!.creditLine}
 							<figcaption>
 								<PhotoCaption>
-									{data.article.headerImage!.creditLine}
+									{data.article.asset!.creditLine}
 								</PhotoCaption>
 							</figcaption>
 						{/if}
