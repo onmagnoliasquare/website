@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "sanity dev",
     "start": "sanity start",
+    "preview": "run -T wrangler pages dev dist",
     "build": "sanity build",
     "test": "run -T vitest",
     "test-ci:unit": "run -T vitest run --pool forks --poolOptions.forks.singleFork",
