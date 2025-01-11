@@ -86,5 +86,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy packages/frontend/.svelte-kit/cloudflare --project-name=website
+          command: pages deploy packages/frontend/.svelte-kit/cloudflare --project-name=website --branch=main
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
