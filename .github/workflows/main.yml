@@ -369,8 +369,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy packages/frontend/.svelte-kit/cloudflare --project-name=website
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          workingDirectory: 'packages/frontend'
 
       # Deploy backend artifact
       - name: Publish backend to Cloudflare Pages
@@ -379,8 +378,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy packages/backend/dist --project-name=backend
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          workingDirectory: 'packages/backend'
 
   # merge-dev-to-staging:
   #   name: Fast-Forward Merge dev to staging
