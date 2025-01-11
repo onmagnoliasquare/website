@@ -49,14 +49,15 @@ export const GET: RequestHandler = async ({ url }) => {
 							description,
 							"attrs": asset-> {
 								creditLine,
-							}
+								metadata
+							},
 						},
 						...
 					}`,
 					'authors[]->{name, slug}',
 					'tags[]->{name, slug}',
 					'category->{name, slug}',
-					`"headerImage": media.asset->{creditLine, metadata}`,
+					`"asset": media.asset->{creditLine, metadata}`,
 					'series->{name, slug}'
 				]
 			});

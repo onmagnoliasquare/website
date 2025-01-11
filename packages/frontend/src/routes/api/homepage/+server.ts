@@ -16,7 +16,7 @@ export const GET: RequestHandler = async ({}) => {
 				unequal('category.slug.current', 'multimedia')
 			],
 			attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
-			customAttrs: ['category->{name}', 'authors[]->{name}'],
+			customAttrs: ['category->{name}', 'authors[]->{name}', '"asset": media.asset->{metadata}'],
 			idx: [0, 14],
 			order: 'date desc'
 		});
