@@ -56,7 +56,7 @@ jobs:
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
-      YARN_VERSION: ${{ needs.setup.outputs.yarn_version }}
+      YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
     permissions:
       contents: read
       deployments: write
