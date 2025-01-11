@@ -370,6 +370,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: 'packages/frontend'
+          command: pages deploy --project-name=website
 
       # Deploy backend artifact
       - name: Publish backend to Cloudflare Pages
@@ -379,6 +380,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: 'packages/backend'
+          command: pages deploy --project-name=backend
 
   # merge-dev-to-staging:
   #   name: Fast-Forward Merge dev to staging
