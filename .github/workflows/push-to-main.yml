@@ -1,0 +1,28 @@
+name: Fast-Forward Main
+
+on:
+  workflow_dispatch:
+
+jobs:
+  merge-staging-to-main:
+    name: Fast-Forward Merge staging to main
+    runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Ensure full history is fetched for merging
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Fast-Forward Merge
+        run: |
+          git checkout main
+          git merge --ff-only origin/staging || {
+            echo "Fast-forward merge failed. Ensure staging branch is up-to-date.";
+            exit 1;
+          }
+          git push origin main
