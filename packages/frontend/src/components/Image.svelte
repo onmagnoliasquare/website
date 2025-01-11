@@ -13,7 +13,7 @@
 
 	interface Props {
 		class?: string;
-		altText?: string;
+		alt?: string;
 		media: any;
 		format?: ImageFormat;
 		crop?: CropMode;
@@ -28,7 +28,7 @@
 
 	let {
 		class: className = '',
-		altText = '',
+		alt = '',
 		media,
 		format = 'webp',
 		crop = 'entropy',
@@ -59,12 +59,11 @@
 
 <Image
 	src={ImageBuilder.url()}
-	alt={altText}
+	{alt}
 	layout="constrained"
 	class={className}
 	aspectRatio={width / height}
 	{width}
-	{height}
 	{priority}
 	{loading}
 	background={placeholder}
