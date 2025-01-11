@@ -148,9 +148,25 @@ export interface Image {
 		_ref: string;
 		_type: string;
 	};
+	metadata?: ImageMetadata;
 	title?: string;
 	description?: string;
 	alt: string;
+}
+
+export interface ImageMetadata {
+	hasAlpha?: boolean;
+	lqip?: string;
+	isOpaque?: boolean;
+	blurHash?: string;
+	dimensions?: ImageDimensions;
+}
+
+export interface ImageDimensions {
+	_type?: string;
+	width: number;
+	height: number;
+	aspectRatio: number;
 }
 
 type operators = '==' | '!==';
