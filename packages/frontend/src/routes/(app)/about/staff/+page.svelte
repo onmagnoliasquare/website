@@ -17,7 +17,7 @@
 	</div>
 </div>
 <div class="center">
-	<div class="m-2 p-2">
+	<div class="sm:m-2 sm:p-2">
 		<StaffGrid members={data.members} />
 	</div>
 </div>
