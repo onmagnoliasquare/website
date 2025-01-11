@@ -16,6 +16,7 @@
 	let title = $derived(data.article.title);
 	let subtitle = $derived(data.article.subtitle);
 	let media = $derived(data.article.media);
+	let blurHash = $derived(data.article.headerImage?.metadata.blurHash);
 	let authors = $derived(data.article.authors);
 	let date = $derived(data.article.date);
 	let series = $derived(data.article.series);
@@ -47,10 +48,19 @@
 				{/if}
 			</div>
 			{#if media}
-				<div class="w-fit center">
+				<div class="w-full center">
 					<figure role="group" class="mb-1 pb-1 sm:pb-4 sm:mb-4 center">
 						<div class="mb-2">
-							<Image {media} altText={media.alt} width={1920} height={1080} fit="crop" />
+							<Image
+								{media}
+								altText={media.alt}
+								width={1920}
+								height={1080}
+								fit="crop"
+								priority={true}
+								{blurHash}
+								loading={'eager'}
+							/>
 						</div>
 						{#if data.article.headerImage!.creditLine}
 							<figcaption>
