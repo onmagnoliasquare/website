@@ -15,7 +15,7 @@ test('Neo Alabastro page has alt text for profile image', async ({ page }) => {
 
 	// "name" is the alt text.
 	await expect(
-		page.getByRole('img', { name: "Neo Alabastro's profile image", exact: true })
+		page.getByRole('img', { name: "Neo Alabastro's portrait image", exact: true })
 	).toBeVisible();
 });
 
