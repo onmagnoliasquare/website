@@ -22,8 +22,7 @@
 	 */
 	let category = $derived(data.cat!);
 	let articles = $derived(data.articles);
-	const catMapping = new Map();
-	catMapping.set('opinion', '观点与评论');
+	let categoryName = $derived(category.name);
 </script>
 
 <!--https://svelte.dev/docs/logic-blocks#key -->
@@ -33,11 +32,7 @@
 		<div class="flex flex-row space-x-1">
 			<span class="inline text-lg sm:text-2xl font-display font-light italic">The</span>
 			<div class="inline">
-				<PageHeader
-					>{category.name.charAt(0).toUpperCase() + category.name.slice(1)}
-					<!--
-					{catMapping.get(category.slug.current)} -->
-				</PageHeader>
+				<PageHeader>{categoryName.charAt(0).toUpperCase() + categoryName.slice(1)}</PageHeader>
 			</div>
 		</div>
 		<div class="m-1 p-2 max-w-3xl">
@@ -47,14 +42,14 @@
 			<div class="flex flex-col md:grid md:grid-cols-2 items-top space-y-4 w-5/4">
 				<ol class="list">
 					{#each articles.slice(0, 10) as article}
-						<li class="">
+						<li>
 							<ArticleBoxC {article} locale={data.userLocale} />
 						</li>
 					{/each}
 				</ol>
 				<ol class="list">
 					{#each articles.slice(10, 20) as article}
-						<li class="">
+						<li>
 							<ArticleBoxC {article} locale={data.userLocale} />
 						</li>
 					{/each}
