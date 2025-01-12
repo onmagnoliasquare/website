@@ -24,7 +24,7 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 			{
 				type: 'article',
 				attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
-				customAttrs: ['authors[]->{name}', 'category->{name}'],
+				customAttrs: ['authors[]->{name}', 'category->{name}', '"asset": media.asset->{metadata}'],
 				conditions: [`category->slug.current == '${cat.slug.current as string}'`],
 				order: 'date desc'
 			},

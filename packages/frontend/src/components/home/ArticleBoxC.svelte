@@ -16,7 +16,7 @@
 	let { article, locale = 'en-US', showSubtitle = true, showImage = true }: Props = $props();
 
 	const h1Class =
-		'font-display font-stretch-condensed font-bold tracking-tight  mb-1 pb-2 hover:underline';
+		'font-display font-stretch-condensed font-bold tracking-tight mb-1 pb-2 hover:underline';
 </script>
 
 {#snippet ByAndDate()}
@@ -65,6 +65,7 @@
 								quality={20}
 								fit={'crop'}
 								alt={article.media.alt}
+								blurHash={article.asset?.metadata.blurHash}
 							/>
 						</div>
 					</div>
