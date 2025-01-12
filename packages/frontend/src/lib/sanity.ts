@@ -28,7 +28,7 @@ if (dev || import.meta.env.MODE === 'development') {
 	config.useCdn = false;
 } else if (import.meta.env.MODE === 'staging') {
 	config.dataset = 'staging';
-	config.useCdn = true;
+	config.useCdn = false;
 }
 
 export const client = createClient(config);
