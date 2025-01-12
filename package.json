@@ -1,5 +1,5 @@
 {
-  "packageManager": "yarn@4.5.3",
+  "packageManager": "yarn@4.6.0",
   "name": "website",
   "version": "0.2.0",
   "license": "MIT",
