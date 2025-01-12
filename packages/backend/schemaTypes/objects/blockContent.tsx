@@ -101,6 +101,7 @@ export default defineType({
           type: requiredFormattedString.name,
         },
       ],
+      options: ['blurhash'],
     },
     {
       type: embeddedLink.name,
