@@ -16,7 +16,8 @@ export const GET: RequestHandler = async ({ params }) => {
 			type: 'category',
 			conditions: [equal('slug.current', category.category as string)],
 			idx: [0],
-			attributes: ['name', 'description', 'slug', 'useCustomCss', 'metaInfo']
+			attributes: ['name', 'description', 'slug', 'useCustomCss', 'metaInfo'],
+			customAttrs: ['"asset": media.asset->{metadata}']
 		});
 
 		cat = await sanityFetch(sanityQuery);

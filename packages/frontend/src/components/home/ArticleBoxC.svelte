@@ -65,6 +65,7 @@
 								quality={20}
 								fit={'crop'}
 								alt={article.media.alt}
+								blurHash={article.asset?.metadata.blurHash}
 							/>
 						</div>
 					</div>
