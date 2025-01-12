@@ -63,7 +63,13 @@
 			<div class="flex flex-col h-full">
 				<div class="flex flex-row min-h-0 grow items-end">
 					<div class="absolute right-0 top-0 max-w-30 -z-20">
-						<img src="/favicon.svg" alt={`${site.name} logo`} class="max-w-20" />
+						<img
+							src="/favicon.svg"
+							alt={`${site.name} logo`}
+							class="max-w-20"
+							width="70"
+							height="70"
+						/>
 					</div>
 					<div
 						class="absolute right-0 pr-6 pt-4 top-20 -z-10 flex flex-col font-serif font-bold text-4xl text-gray-500 opacity-50 space-y-2"
@@ -76,7 +82,7 @@
 						{#if headlineMedia}
 							<Image
 								media={headlineMedia}
-								altText={headlineMedia.alt}
+								alt={headlineMedia.alt}
 								width={1080}
 								height={1080}
 								quality={40}
@@ -85,7 +91,7 @@
 							/>
 						{/if}
 					</div>
-					<span class="absolute -z-29 top-0 left-0 w-full bg-gradient-to-r from-gray-950 h-full"
+					<span class="absolute -z-29 top-0 left-0 w-full bg-gradient-to-r from-neutral-950 h-full"
 					></span>
 					<div class="flex flex-col">
 						<h1 class="w-full m-1 p-2 {headlineMedia ? 'text-white ' : 'text-black'}">
@@ -119,7 +125,7 @@
 							<div class="relative flex flex-col grow m-2 p-2 border-1 h-full">
 								<div>
 									<!-- Sun  -->
-									<div class="absolute -top-4 -left-2 w-fit h-12 overflow-visible">
+									<div class="absolute -top-4 -left-2 w-fit h-12 overflow-visible -rotate-12">
 										<div
 											class="left-2 bg-amber-300 h-12 w-12 rounded-full grid gird-cols-1 place-items-center z-10 antialiased"
 										>
