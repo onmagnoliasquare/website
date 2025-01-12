@@ -1,12 +1,10 @@
-import {DocumentsIcon, ImageIcon, TagsIcon} from '@sanity/icons'
+import {DocumentsIcon, TagsIcon} from '@sanity/icons'
 import {defineArrayMember, defineField, defineType} from 'sanity'
 import slugValidator from '../lib/slugValidator'
 import abbreviateName from '../lib/abbreviateName'
 import {ContentGroup, InfoGroup, SeoGroup} from './objects/fieldGroups'
 import requiredFormattedString from './primitives/requiredFormattedString'
 import formattedText from './primitives/formattedText'
-import formattedString from './primitives/formattedString'
-import embeddedLink from './objects/embeddedLink'
 import metadataInformation from './objects/metadataInformation'
 import blockContent from './objects/blockContent'
 
