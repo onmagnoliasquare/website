@@ -1,16 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:ital,wght@0,100..900;1,100..900&family=Noto+Serif+SC:wght@200..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wdth,wght@0,75,100..900;1,75,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+/* https: //github.com/tailwindlabs/tailwindcss/issues/15136 */
+@layer theme, base, components, utilities;
+@import './theme.css' layer(theme);
+@import 'tailwindcss/preflight.css' layer(base);
+@import 'tailwindcss/utilities.css' layer(utilities);
 
-@import 'tailwindcss';
+/* @import "tailwindcss"; */
 
 @theme {
-	--font-display: 'Noto Serif', 'Nanum Myeongjo', 'serif';
+	--font-display: 'Noto Serif', 'Noto Serif SC', 'Nanum Myeongjo', serif;
 	--font-serif: 'Noto Serif', 'Noto Serif SC', 'Nanum Myeongjo', serif;
-	--font-block: 'Archivo Black';
-	--font-sans: 'Archivo', 'Noto Sans SC', 'Noto Sans KR', sans-serif;
+	--font-sans: 'Archivo', 'Noto Sans SC', 'Nanum Gothic', sans-serif;
 
 	--font-mono: 'Space Mono', monospace;
 
 	--tracking-wide: 0.0225rem;
+
+	--color-black: #090808;
+	--color-white: #fbfdf9;
 
 	--color-nyu-purple-100: oklch(0.6705 0.1062 311.67);
 	--color-nyu-purple-400: oklch(0.4315 0.1816 296.89);
@@ -18,18 +24,6 @@
 
 .hyp {
 	/* Retrieved from: https://clagnut.com/blog/2395 */
-
-	/*-webkit-hyphenate-limit-before: 3;*/
-	/*-webkit-hyphenate-limit-after: 3;*/
-	/*-webkit-hyphenate-limit-chars: 6 3 3;*/
-	/*-webkit-hyphenate-limit-lines: 2;*/
-	/*-webkit-hyphenate-limit-last: always;*/
-	/*-webkit-hyphenate-limit-zone: 8%;*/
-
-	/*hyphenate-limit-lines: 2;*/
-	/*hyphenate-limit-last: always;*/
-	/*hyphenate-limit-zone: 8%;*/
-
 	hyphenate-limit-chars: 6 3 3;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
@@ -42,54 +36,4 @@
 .center {
 	margin-left: auto;
 	margin-right: auto;
-}
-
-#mini {
-	font-stretch: condensed;
-}
-
-/* CJK FONTS */
-
-/* CHINESE  */
-
-@font-face {
-	font-family: 'Noto Sans SC';
-	font-style: normal;
-	font-weight: 100 900;
-	src: url('Noto Sans SC');
-	unicode-range: +U4E00-9FD5;
-}
-
-@font-face {
-	font-family: 'Noto Serif SC';
-	font-style: normal;
-	font-weight: 100 900;
-	src: url('Noto Serif SC');
-	unicode-range: U+4E00-9FD5;
-}
-
-/* KOREAN */
-
-@font-face {
-	font-family: 'Noto Sans KR';
-	font-style: normal;
-	font-weight: 100 900;
-	src: url('Noto Sans KR');
-	unicode-range: U+AC00-D7AF;
-}
-
-@font-face {
-	font-family: 'Nanum Myeongjo';
-	font-style: normal;
-	font-weight: 400;
-	src: url('Nanum Myeongjo');
-	unicode-range: U+AC00-D7AF;
-}
-
-@font-face {
-	font-family: 'Nanum Myeongjo';
-	font-style: normal;
-	font-weight: 700;
-	src: url('Nanum Myeongjo');
-	unicode-range: U+AC00-D7AF;
 }
