@@ -26,6 +26,9 @@ const config: ClientConfig = {
 if (dev || import.meta.env.MODE === 'development') {
 	config.dataset = 'development';
 	config.useCdn = false;
+} else if (import.meta.env.MODE === 'staging') {
+	config.dataset = 'staging';
+	config.useCdn = true;
 }
 
 export const client = createClient(config);
