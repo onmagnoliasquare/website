@@ -24,7 +24,7 @@
 			<!-- Menu Button -->
 			<div class="absolute right-2 sm:hidden">
 				<!-- svelte-ignore a11y_consider_explicit_label -->
-				<button type="button" class="text-gray-800 p-1" onclick={toggleNavbar}>
+				<button type="button" title="Menu" class="text-gray-800 p-1" onclick={toggleNavbar}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
