@@ -16,7 +16,13 @@ export interface Member {
 	year?: number;
 	netid?: string;
 	bio?: string;
+
+	// portrait is used to resolve an image asset to a URL.
 	portrait?: CustomImageAsset;
+
+	// asset contains portrait related metadata.
+	asset?: { metadata: ImageMetadata };
+
 	slug: Slug;
 	from?: From;
 	committee?: Committee;
@@ -115,12 +121,12 @@ export interface Article {
 	media?: Image;
 
 	/**
-	 * HeaderImage exists because ImageAsset, for some reason,
+	 * asset exists because ImageAsset, for some reason,
 	 * does not have an `altText` attribute. Hopefully, in
 	 * the future, it receives one. For now, this must be
 	 * implemented.
 	 */
-	headerImage?: CustomImageAsset;
+	asset?: CustomImageAsset;
 
 	metaInfo: MetaInfo;
 }
@@ -148,9 +154,25 @@ export interface Image {
 		_ref: string;
 		_type: string;
 	};
+	metadata?: ImageMetadata;
 	title?: string;
 	description?: string;
 	alt: string;
+}
+
+export interface ImageMetadata {
+	hasAlpha?: boolean;
+	lqip?: string;
+	isOpaque?: boolean;
+	blurHash?: string;
+	dimensions?: ImageDimensions;
+}
+
+export interface ImageDimensions {
+	_type?: string;
+	width: number;
+	height: number;
+	aspectRatio: number;
 }
 
 type operators = '==' | '!==';

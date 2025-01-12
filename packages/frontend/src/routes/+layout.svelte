@@ -12,8 +12,6 @@
 
 	// CSS styling
 	import '../app.css';
-	// import '../styles/onmagnoliasquare.css';
-	// import '../styles/typography.css';
 
 	interface Props {
 		data: LayoutData;
@@ -27,18 +25,16 @@
 
 <MetaTags {...metaTags} />
 
+<svelte:head>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Nanum+Gothic:wght@400;700&family=Nanum+Myeongjo:wght@400;700&family=Noto+Sans+SC:wght@100..900&family=Noto+Serif+SC:wght@200..900&family=Noto+Serif:ital,wdth,wght@0,75,100..900;1,75,100..900&display=swap"
+		rel="stylesheet"
+	/>
+</svelte:head>
+
 <div class="flex flex-col grow min-h-screen antialiased">
 	{@render children()}
 	<Footer />
-	<!-- {#if dev}
-		<aside>
-			<div role="none" class="fixed bottom-0 right-0 w-fit select-none z-100">
-				<div
-					class="rounded-md bg-red-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-red-700 focus:shadow-none active:bg-red-700 hover:bg-red-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none m-2"
-				>
-					<p class="p-1 font-mono">dev</p>
-				</div>
-			</div>
-		</aside>
-	{/if} -->
 </div>

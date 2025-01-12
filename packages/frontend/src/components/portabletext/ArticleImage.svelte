@@ -1,7 +1,7 @@
 <script lang="ts">
 	import PhotoCaption from '$components/custom/PhotoCaption.svelte';
 	import P from '$components/defaults/P.svelte';
-	import { urlFor } from '$lib/sanity';
+	import Image from '$components/Image.svelte';
 
 	interface Props {
 		portableText: any;
@@ -10,12 +10,15 @@
 	let { portableText }: Props = $props();
 </script>
 
-<figure role="group" class="max-w-xl ml-auto mr-auto">
-	<img
-		src={urlFor(portableText.value).fit('max').auto('format').url()}
-		alt={portableText.value.alt}
+<figure role="group" class="max-w-xl center">
+	<Image
+		media={portableText.value}
 		loading="lazy"
 		class="mb-2"
+		width={portableText.value.attrs.metadata.dimensions.width}
+		height={portableText.value.attrs.metadata.dimensions.height}
+		blurHash={portableText.value.attrs.metadata.blurHash}
+		alt={portableText.value.alt}
 	/>
 	<figcaption>
 		{#if portableText.value.title}

@@ -3,7 +3,6 @@
 	import P from '$components/defaults/P.svelte';
 	import ContactIcons from '$components/general/ContactIcons.svelte';
 	import HoverDim from '$components/general/HoverDim.svelte';
-	// import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
 	import Image from '$components/Image.svelte';
 	import { dateFormatter, domainFromUrl } from '$lib/helpers';
 	import { filler } from '$lib/variables';
@@ -15,10 +14,10 @@
 
 	let { data }: Props = $props();
 
-	let member = data.member;
-	let handles = data.member.handles;
-	let location = data.member.from;
-	let articles = data.articles;
+	let member = $derived(data.member);
+	let handles = $derived(data.member.handles);
+	let location = $derived(data.member.from);
+	let articles = $derived(data.articles);
 
 	// let hasArticles = articles ? articles.length > 0 : false;
 </script>
@@ -33,15 +32,17 @@
 <div class="flex flex-col md:grid md:grid-cols-7 grid-flow-row gap-4 center mt-2 pt-2">
 	<div class="col-span-2 h-fit md:sticky top-3 p-1">
 		<header>
-			{#if member.portrait}
+			{#if member.portrait && member.asset}
 				<div class="p-0 sm:p-2">
 					<Image
 						media={member.portrait}
 						width={250}
 						height={250}
 						fit={'crop'}
-						quality={90}
-						altText={`${member.name}'s profile image`}
+						quality={80}
+						loading="eager"
+						blurHash={member.asset.metadata.blurHash}
+						alt={`${member.name}'s portrait image`}
 						class={`center max-w-2xl md:w-full md:h-full mb-4`}
 					/>
 				</div>
@@ -63,7 +64,7 @@
 					{#if member.committee}
 						<div class="mb-8">
 							<div class="mb2">
-								<P>{member.committee.name} committee</P>
+								<P class="text-md sm:text-md text-gray-600">{member.committee.name} committee</P>
 							</div>
 						</div>
 					{/if}

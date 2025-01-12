@@ -31,8 +31,8 @@ export const GET: RequestHandler = async ({ url, params }) => {
 			type: 'member',
 			conditions: [equal('slug.current', slug)],
 			idx: [0],
-			attributes: ['name', 'year', 'bio', 'handles', 'portrait', 'from'],
-			customAttrs: ['committee->{name}']
+			attributes: ['name', 'year', 'bio', 'handles', 'from', 'portrait'],
+			customAttrs: ['committee->{name}', '"asset": portrait.asset->{metadata}']
 		});
 	}
 

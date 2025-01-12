@@ -53,7 +53,10 @@
 						quality={50}
 						width={1920}
 						height={1080}
+						blurHash={article.asset?.metadata.blurHash}
 						fit="crop"
+						priority={true}
+						loading="eager"
 					/>
 				{/if}
 			</div>

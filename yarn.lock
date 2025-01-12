@@ -6792,6 +6792,37 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@unpic/core@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@unpic/core@npm:0.1.0"
+  dependencies:
+    unpic: "npm:^3.22.0"
+  checksum: 10c0/0dd2da79e0af9dd521ac16faa39a1c92e6bfc4b65007edb69c893772c0d72be00ca37b22cfd156fc6f9f534e279b6a8128600a89238afa51e9f7cf6b4d70f21d
+  languageName: node
+  linkType: hard
+
+"@unpic/placeholder@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "@unpic/placeholder@npm:0.1.2"
+  dependencies:
+    blurhash: "npm:^2.0.5"
+  checksum: 10c0/02ce2059f090b2dccd066616e4548320d3711de1870a2b8bb803faa5358c550a42d3e17dfe2a01308b2c92784fefb3ba028d9b17c78101517621851317838042
+  languageName: node
+  linkType: hard
+
+"@unpic/svelte@npm:^0.0.58":
+  version: 0.0.58
+  resolution: "@unpic/svelte@npm:0.0.58"
+  dependencies:
+    "@unpic/core": "npm:^0.1.0"
+    style-object-to-css-string: "npm:1.1.3"
+    unpic: "npm:^3.22.0"
+  peerDependencies:
+    svelte: "*"
+  checksum: 10c0/a542aac81840f71d76051774a42d6b1e34434496c6f8172f8b7e06616f2dfbfaa1b9ceed27f1db8235ed904db2f5b73653bd320379b454b6072eb91bba948860
+  languageName: node
+  linkType: hard
+
 "@vitejs/plugin-react@npm:^4.3.4":
   version: 4.3.4
   resolution: "@vitejs/plugin-react@npm:4.3.4"
@@ -7569,6 +7600,13 @@ __metadata:
   version: 2.1.5
   resolution: "blake3-wasm@npm:2.1.5"
   checksum: 10c0/5dc729d8e3a9d1d7ab016b36cdda264a327ada0239716df48435163e11d2bf6df25d6e421655a1f52649098ae49555268a654729b7d02768f77c571ab37ef814
+  languageName: node
+  linkType: hard
+
+"blurhash@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "blurhash@npm:2.0.5"
+  checksum: 10c0/75d5f042b5bb8ead977524a985048378a033af866534abbaee73c80030cc9fc34e6c5b7d483c68bbdb600e0ae438f2ea6140b1f46d75fcfa57a902208ae8b85e
   languageName: node
   linkType: hard
 
@@ -10421,6 +10459,8 @@ __metadata:
     "@tailwindcss/vite": "npm:^4.0.0-beta.9"
     "@testing-library/jest-dom": "npm:^6.6.3"
     "@testing-library/svelte": "npm:^5.2.6"
+    "@unpic/placeholder": "npm:^0.1.2"
+    "@unpic/svelte": "npm:^0.0.58"
     eslint-plugin-svelte: "npm:^2.46.1"
     prettier-plugin-svelte: "npm:^3.3.2"
     svelte: "npm:^5.17.3"
@@ -16481,6 +16521,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"style-object-to-css-string@npm:1.1.3":
+  version: 1.1.3
+  resolution: "style-object-to-css-string@npm:1.1.3"
+  checksum: 10c0/e1dfa7ab10fe4e2fe6935b832609d275239419ded8f489cae95348ddf12b9a3d83af4d407fb02617a6d71df5eaf0be417a8cb86b847e4e0335217fe729d734d9
+  languageName: node
+  linkType: hard
+
 "styled-components@npm:^6.1.14":
   version: 6.1.14
   resolution: "styled-components@npm:6.1.14"
@@ -17358,6 +17405,13 @@ __metadata:
   version: 0.2.0
   resolution: "universalify@npm:0.2.0"
   checksum: 10c0/cedbe4d4ca3967edf24c0800cfc161c5a15e240dac28e3ce575c689abc11f2c81ccc6532c8752af3b40f9120fb5e454abecd359e164f4f6aa44c29cd37e194fe
+  languageName: node
+  linkType: hard
+
+"unpic@npm:^3.22.0":
+  version: 3.22.0
+  resolution: "unpic@npm:3.22.0"
+  checksum: 10c0/529c735a74c79773ad0163c2fb7e670e6f1cd460e4a66d426a52693fb3784d879aa7100a58387b4ee87952fda52e6f45fc180fe1e889acb3068c2677158528f1
   languageName: node
   linkType: hard
 
