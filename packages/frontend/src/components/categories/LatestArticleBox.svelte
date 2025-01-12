@@ -55,7 +55,7 @@
 					height={1080}
 					quality={50}
 					fit={'clip'}
-					altText={article.media.alt}
+					alt={article.media.alt}
 					class="h-full w-full object-cover"
 				/>
 			{/if}
