@@ -47,7 +47,7 @@
 				{@render navList([...routes.slice(5, 7), footerRoutes[0]])}
 			</section>
 			<section>
-				{@render Subheader('about')}
+				{@render Subheader('info')}
 				{@render navList(footerRoutes.slice(1))}
 			</section>
 		</div>
