@@ -1,12 +1,12 @@
 <script lang="ts">
 	import Centered from '$components/defaults/Centered.svelte';
-	import Navbar from '$components/general/Navbar.svelte';
 	import { site } from '$lib/variables';
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
 	import DateLine from '$components/home/DateLine.svelte';
 	import { createAuthorString } from '$lib/helpers';
 	import Subtitle from '$components/defaults/Subtitle.svelte';
+	import DesktopLanding from '$components/home/DesktopLanding.svelte';
 	import Image from '$components/Image.svelte';
 
 	const splitTitle = site.title.split(' ');
@@ -17,15 +17,16 @@
 	}
 
 	let { data, children }: Props = $props();
-	let locale = $derived(data.userLocale);
-	// let locale = 'haw';
+	// let locale = $derived(data.userLocale);
+	let locale = 'haw';
 	let headlineArticle = $derived(data.articles[0]);
 	let authorString = $derived(createAuthorString(data.articles[0].authors));
 	let headlineMedia = $derived(data.articles[0].media);
+	let headlineMediaBlurHash = $derived(data.articles[0].asset?.metadata.blurHash);
 </script>
 
 {#snippet TitleWord(word: string)}
-	<span class="font-serif text-5xl font-black font-stretch-condensed tracking-tight select-none">
+	<span class="font-black font-stretch-condensed tracking-tight select-none">
 		{word}
 	</span>
 {/snippet}
@@ -36,27 +37,27 @@
 
 <div class="grow">
 	<header>
-		<Centered>
-			<div class="hidden sm:block sm:m-0 sm:p-0">
-				<p class="m-0 p-0">
-					<span class="hidden sm:block font-serif italic sm:text-xl tracking-tight select-none"
-						>The front page of...</span
-					>
+		<div class="hidden sm:block">
+			<DesktopLanding article={headlineArticle} {locale} />
+			<div class="hidden sm:block border-b-1 pb-4">
+				<p class="font-serif text-center text-2xl m-2 font-stretch-condensed">
+					{data.articles[0].subtitle}
 				</p>
+				{#if headlineMedia}
+					<div class="p-2 m-2">
+						<Image
+							media={headlineMedia}
+							loading="lazy"
+							class="center"
+							width={1920}
+							height={1080}
+							blurHash={headlineMediaBlurHash}
+							fit={'crop'}
+						/>
+					</div>
+				{/if}
 			</div>
-		</Centered>
-		<Centered>
-			<div
-				class="p-1 sm:mb-4 sm:pb-4 relative border-b-1 sm:border-b-0 hidden bg-transparent sm:block"
-			>
-				<h1
-					class="font-display text-7xl sm:text-7xl lg:text-9xl font-black font-stretch-condensed tracking-tight p-1 mb-4 select-none"
-				>
-					{site.title}
-				</h1>
-				<Navbar />
-			</div>
-		</Centered>
+		</div>
 
 		<!-- Mobile header -->
 		<div class="block sm:hidden h-dvh">
@@ -77,19 +78,6 @@
 						<span>玉</span>
 						<span>兰</span>
 						<span>花</span>
-					</div>
-					<div class="absolute w-full h-full left-0 object-cover top-0 -z-30 overflow-hidden">
-						{#if headlineMedia}
-							<Image
-								media={headlineMedia}
-								alt={headlineMedia.alt}
-								width={1080}
-								height={1080}
-								quality={40}
-								fit="crop"
-								class="h-full w-full overflow-clip  object-cover"
-							/>
-						{/if}
 					</div>
 					<span class="absolute -z-29 top-0 left-0 w-full bg-gradient-to-r from-neutral-950 h-full"
 					></span>
@@ -133,11 +121,7 @@
 										</div>
 									</div>
 									<div class="flex flex-col">
-										<DateLine
-											{locale}
-											date={headlineArticle.date}
-											class="text-right text-transparent text-4xl font-bold subpixel-antialiased"
-										/>
+										<DateLine {locale} date={headlineArticle.date} />
 										<div class="">
 											<h2
 												class="text-left font-display text-5xl font-stretch-condensed font-bold text-black"
@@ -153,6 +137,11 @@
 				</div>
 			</div>
 		</div>
+		<div
+			class="absolute size-full left-0 top-0 -z-20 overflow-hidden {headlineMedia
+				? 'bg-black opacity-70'
+				: 'bg-transparent '}"
+		></div>
 	</header>
 	<Centered>
 		<main>
