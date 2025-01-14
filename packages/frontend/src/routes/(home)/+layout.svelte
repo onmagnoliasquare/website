@@ -40,7 +40,7 @@
 		<div class="hidden sm:block">
 			<DesktopLanding article={headlineArticle} {locale} />
 			<div class="hidden sm:block border-b-1 pb-4">
-				<p class="font-serif text-center text-2xl m-2 font-stretch-condensed">
+				<p class="font-serif text-center text-4xl m-2 font-stretch-condensed">
 					{data.articles[0].subtitle}
 				</p>
 				{#if headlineMedia}

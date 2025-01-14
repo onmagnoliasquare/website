@@ -25,33 +25,33 @@
 
 <div class="min-h-screen grid grid-rows-1 grid-cols-7">
 	<div class="flex flex-col space-y-2 col-span-3 size-fit row-span-1 center">
-		<div class="size-full p-4">
+		<div class="size-fit p-4">
 			{#each splitTitle as word}
 				<h1 id="bigText">
 					{@render TitleWord(word)}
 				</h1>
 			{/each}
 		</div>
-		<div class="size-full p-4">
-			<p class="text-4xl font-display font-stretch-condensed text-neutral-600">
+		<div class="size-fit p-2 m-2">
+			<p class="text-2xl font-display font-stretch-condensed text-neutral-700 font-semibold pt-5">
 				Student journalism at NYU Shanghai
 			</p>
 		</div>
 	</div>
-	<div class="col-span-4 flex flex-row-reverse row-span-1 p-6">
-		<div id="kindaBigText" class="size-fit p-4 border-2 bg-amber-300">
+	<div class="col-span-4 ml-auto row-span-1 p-6">
+		<div id="kindaBigText" class="size-fit p-4 border-2">
 			<p>上海纽约</p>
 			<p>大学官方</p>
 			<p>学生媒体</p>
 		</div>
 	</div>
-	<div class="col-span-7 w-full flex flex-col items-center">
+	<div class="col-span-7">
 		<DesktopLandingNavbar />
 	</div>
 	<div
 		class="size-full col-span-7 row-span-1 bg-white border-t-1 flex flex-col p-4 items-center text-black"
 	>
-		<p id="quip" class="text-center font-display p-4 text-3xl border-1 border-dashed w-fit">
+		<p id="quip" class="text-center font-display p-4 text-2xl border-1 border-dashed w-fit">
 			The latest scoop by <span class="italic font-semibold">{authorString}</span>
 			on
 			<em>
@@ -77,16 +77,16 @@
 
 	#bigText {
 		font-family: var(--font-display);
-		font-size: clamp(1.263rem, 5vw + 5rem, 12.737rem);
-		line-height: clamp(1.263rem, 5vw + 4rem, 12.737rem);
+		font-size: clamp(8.563rem, 4vw + 2.5rem, 12.813rem);
+		line-height: clamp(8.563rem, 4vw + 2.5rem, 12.813rem);
 		font-variation-settings: 'wdth' 65;
 		font-weight: 200;
 	}
 
 	#kindaBigText {
 		font-family: var(--font-serif);
-		font-size: clamp(1rem, 1vw + 2rem, 8.737rem);
-		line-height: clamp(1rem, 1vw + 2.5rem, 8.737rem);
+		font-size: clamp(0.5rem, 0.5vw + 2rem, 5.695rem);
+		line-height: clamp(0.5rem, 0.5vw + 2.3rem, 5.695rem);
 		font-variation-settings: 'wdth' 100;
 		text-justify: inter-ideograph;
 		writing-mode: vertical-rl;
