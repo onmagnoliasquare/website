@@ -15,7 +15,11 @@ const routes: route[] = [
 	{ path: '/about', name: 'About' }
 ];
 
-const footerRoutes: route[] = [{ path: '/about/staff', name: 'Staff' }];
+const footerRoutes: route[] = [
+	{ path: '/archive/tags/oca', name: '# on century avenue' },
+	{ path: '/about', name: 'About' },
+	{ path: '/about/staff', name: 'Staff' }
+];
 
 export { routes, footerRoutes };
 export type { route };

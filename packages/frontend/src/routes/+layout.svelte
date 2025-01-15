@@ -34,7 +34,7 @@
 	/>
 </svelte:head>
 
-<div class="flex flex-col grow min-h-screen antialiased">
+<div class="flex flex-col grow min-h-screen antialiased bg-white">
 	{@render children()}
 	<Footer />
 </div>

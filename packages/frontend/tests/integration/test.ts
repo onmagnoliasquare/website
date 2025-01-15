@@ -20,7 +20,7 @@ test('Staff page is accessible via About page', async ({ page }) => {
 
 test('News category page has title', async ({ page }) => {
 	await page.goto('/category/news');
-	await expect(page.getByRole('heading', { name: 'News' })).toBeVisible();
+	await expect(page.getByRole('heading', { name: 'News', exact: true })).toBeVisible();
 });
 
 test('People category page has title', async ({ page }) => {
@@ -30,22 +30,22 @@ test('People category page has title', async ({ page }) => {
 
 test('Opinion page has title', async ({ page }) => {
 	await page.goto('/category/opinion');
-	await expect(page.getByRole('heading', { name: 'Opinion' })).toBeVisible();
+	await expect(page.getByRole('heading', { name: 'Opinion', exact: true })).toBeVisible();
 });
 
 test('Culture page has title', async ({ page }) => {
 	await page.goto('/category/culture');
-	await expect(page.getByRole('heading', { name: 'Culture' })).toBeVisible();
+	await expect(page.getByRole('heading', { name: 'Culture', exact: true })).toBeVisible();
 });
 
 test('Series page has title', async ({ page }) => {
 	await page.goto('/series');
-	await expect(page.getByRole('heading', { name: 'Series' })).toBeVisible();
+	await expect(page.getByRole('heading', { name: 'Series', exact: true })).toBeVisible();
 });
 
 test('Archive page has title', async ({ page }) => {
 	await page.goto('/archive');
-	await expect(page.getByRole('heading', { name: 'Archive' })).toBeVisible();
+	await expect(page.getByRole('heading', { name: 'Archive', exact: true })).toBeVisible();
 });
 
 test('Category on by line accessible via article page', async ({ page }) => {

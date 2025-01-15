@@ -1,13 +1,14 @@
 <script lang="ts">
 	import Centered from '$components/defaults/Centered.svelte';
-	import Navbar from '$components/general/Navbar.svelte';
 	import { site } from '$lib/variables';
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
-	import DateLine from '$components/home/DateLine.svelte';
 	import { createAuthorString } from '$lib/helpers';
-	import Subtitle from '$components/defaults/Subtitle.svelte';
+	import DesktopLanding from '$components/home/DesktopLanding.svelte';
 	import Image from '$components/Image.svelte';
+	import Subtitle from '$components/defaults/Subtitle.svelte';
+	import { routes } from '$lib/navRoutes';
+	import DateLine from '$components/home/DateLine.svelte';
 
 	const splitTitle = site.title.split(' ');
 
@@ -17,18 +18,14 @@
 	}
 
 	let { data, children }: Props = $props();
-	let locale = $derived(data.userLocale);
-	// let locale = 'haw';
+	// let locale = $derived(data.userLocale);
+	let locale = 'haw';
 	let headlineArticle = $derived(data.articles[0]);
 	let authorString = $derived(createAuthorString(data.articles[0].authors));
 	let headlineMedia = $derived(data.articles[0].media);
+	let headlineArticleSlug = $derived(data.articles[0].slug.current);
+	let headlineMediaBlurHash = $derived(data.articles[0].asset?.metadata.blurHash);
 </script>
-
-{#snippet TitleWord(word: string)}
-	<span class="font-serif text-5xl font-black font-stretch-condensed tracking-tight select-none">
-		{word}
-	</span>
-{/snippet}
 
 <svelte:head>
 	<title>{site.title}</title>
@@ -36,115 +33,75 @@
 
 <div class="grow">
 	<header>
-		<Centered>
-			<div class="hidden sm:block sm:m-0 sm:p-0">
-				<p class="m-0 p-0">
-					<span class="hidden sm:block font-serif italic sm:text-xl tracking-tight select-none"
-						>The front page of...</span
-					>
+		<div class="hidden sm:block">
+			<DesktopLanding article={headlineArticle} {locale} />
+			<div class="hidden sm:block pb-4">
+				<p class="font-serif text-center text-4xl m-2 font-stretch-condensed">
+					{data.articles[0].subtitle}
 				</p>
 			</div>
-		</Centered>
-		<Centered>
-			<div
-				class="p-1 sm:mb-4 sm:pb-4 relative border-b-1 sm:border-b-0 hidden bg-transparent sm:block"
-			>
-				<h1
-					class="font-display text-7xl sm:text-7xl lg:text-9xl font-black font-stretch-condensed tracking-tight p-1 mb-4 select-none"
-				>
-					{site.title}
-				</h1>
-				<Navbar />
-			</div>
-		</Centered>
 
-		<!-- Mobile header -->
-		<div class="block sm:hidden h-dvh">
+			<!-- Mobile header -->
+		</div>
+		<div class="block sm:hidden h-screen">
 			<div class="flex flex-col h-full">
-				<div class="flex flex-row min-h-0 grow items-end">
-					<div class="absolute right-0 top-0 max-w-30 -z-20">
-						<img
-							src="/favicon.svg"
-							alt={`${site.name} logo`}
-							class="max-w-20"
-							width="70"
-							height="70"
-						/>
-					</div>
-					<div
-						class="absolute right-0 pr-6 pt-4 top-20 -z-10 flex flex-col font-serif font-bold text-4xl text-gray-500 opacity-50 space-y-2"
+				<div class="flex flex-col min-h-xl grow items-end p-3">
+					<h1 class="w-full h-fit m-1 p-2 font-serif leading-8 text-6xl font-stretch-condensed">
+						{splitTitle[0]}
+					</h1>
+					<h1 class="w-full h-fit m-1 p-2 font-serif leading-8 text-6xl font-stretch-condensed">
+						{splitTitle[1]}
+					</h1>
+					<h1
+						class="w-full h-fit m-1 p-2 font-serif leading-8 text-6xl font-stretch-condensed pb-8"
 					>
-						<span>玉</span>
-						<span>兰</span>
-						<span>花</span>
-					</div>
-					<div class="absolute w-full h-full left-0 object-cover top-0 -z-30 overflow-hidden">
-						{#if headlineMedia}
-							<Image
-								media={headlineMedia}
-								alt={headlineMedia.alt}
-								width={1080}
-								height={1080}
-								quality={40}
-								fit="crop"
-								class="h-full w-full overflow-clip  object-cover"
-							/>
-						{/if}
-					</div>
-					<span class="absolute -z-29 top-0 left-0 w-full bg-gradient-to-r from-neutral-950 h-full"
-					></span>
-					<div class="flex flex-col">
-						<h1 class="w-full m-1 p-2 {headlineMedia ? 'text-white ' : 'text-black'}">
-							{#each splitTitle as word}
-								{@render TitleWord(word)}
-								<br />
-							{/each}
-						</h1>
-						<Subtitle
-							class="py-2 my-1 text-md tracking-wide font-sans ml-2 {headlineMedia
-								? 'text-white '
-								: 'text-black'}">Student journalism at NYU Shanghai</Subtitle
-						>
-					</div>
+						{splitTitle[2]}
+					</h1>
 				</div>
-
-				<div class="px-2 py-3 border-y-1 bg-nyu-purple-100">
-					<p class="font-serif text-xl md:text-lg xl:text-xl tracking-tight inline">
-						<span class="italic"
-							>The latest scoop by
-							<b>{authorString}</b>
-						</span>
+				<nav class="sm:hidden">
+					<ul class="list-none flex flex-wrap justify-around p-1">
+						{#each routes as route}
+							<li class="p-1 text-sm w-fit pb-3">
+								<a
+									href={route.path}
+									id="heroLinks"
+									title={route.name}
+									class="hover:underline tracking-wide font-semibold"
+								>
+									{route.name}
+								</a>
+							</li>
+						{/each}
+					</ul>
+				</nav>
+				<div class="px-2 py-3 border-y-1">
+					<p class="font-serif sm:text-lg xl:text-xl tracking-tight text-center">
+						The latest scoop by <span class="italic font-semibold">{authorString}</span>
+						on
+						<em>
+							<DateLine {locale} date={headlineArticle.date} />
+						</em>
 					</p>
 				</div>
-				<div class="items-start bg-white">
+				<div class="items-start">
 					<div class="relative">
-						<a
-							href="category/{headlineArticle.category.name.toLowerCase()}/{headlineArticle.slug
-								.current}"
-						>
-							<div class="relative flex flex-col grow m-2 p-2 border-1 h-full">
+						<a href="category/{headlineArticle.category.name.toLowerCase()}/{headlineArticleSlug}">
+							<div class="relative flex flex-col grow m-2 p-2">
 								<div>
-									<!-- Sun  -->
 									<div class="absolute -top-4 -left-2 w-fit h-12 overflow-visible -rotate-12">
 										<div
 											class="left-2 bg-amber-300 h-12 w-12 rounded-full grid gird-cols-1 place-items-center z-10 antialiased"
 										>
-											<p class="font-serif text-xl">最近</p>
+											<p class="font-serif text-lg">最近</p>
 										</div>
 									</div>
 									<div class="flex flex-col">
-										<DateLine
-											{locale}
-											date={headlineArticle.date}
-											class="text-right text-transparent text-4xl font-bold subpixel-antialiased"
-										/>
-										<div class="">
-											<h2
-												class="text-left font-display text-5xl font-stretch-condensed font-bold text-black"
-											>
-												{headlineArticle.title}
-											</h2>
-										</div>
+										<h2
+											class="text-left font-display text-5xl font-stretch-condensed font-bold leading-12"
+										>
+											{headlineArticle.title}
+										</h2>
+										<Subtitle class="pl-0">{headlineArticle.subtitle}</Subtitle>
 									</div>
 								</div>
 							</div>
@@ -153,6 +110,19 @@
 				</div>
 			</div>
 		</div>
+		{#if headlineMedia}
+			<div class="sm:p-2 pb-4 border-b-1">
+				<Image
+					media={headlineMedia}
+					loading="lazy"
+					class="center"
+					width={1920}
+					height={1080}
+					blurHash={headlineMediaBlurHash}
+					fit={'crop'}
+				/>
+			</div>
+		{/if}
 	</header>
 	<Centered>
 		<main>

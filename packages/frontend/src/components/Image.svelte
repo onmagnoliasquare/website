@@ -20,7 +20,8 @@
 		fit?: FitMode;
 		quality?: number;
 		width: number;
-		height: number;
+		height?: number;
+		aspectRatio?: number;
 		priority?: boolean;
 		loading?: 'lazy' | 'eager';
 		blurHash?: string;
@@ -35,7 +36,8 @@
 		fit = 'max',
 		quality = 50,
 		width,
-		height,
+		height = 1080,
+		aspectRatio,
 		priority = false,
 		loading = 'lazy',
 		blurHash
@@ -62,7 +64,7 @@
 	{alt}
 	layout="constrained"
 	class={className}
-	aspectRatio={width / height}
+	aspectRatio={aspectRatio ? aspectRatio : width / height}
 	{width}
 	{priority}
 	{loading}
