@@ -1,7 +1,8 @@
 import type { Article } from '$lib/schema';
-import type { LayoutServerLoad, LayoutServerLoadEvent } from './$types';
+import { error } from '@sveltejs/kit';
+import type { LayoutLoad, LayoutLoadEvent } from './$types';
 
-export const load: LayoutServerLoad = (async (event: LayoutServerLoadEvent) => {
+export const load: LayoutLoad = (async (event: LayoutLoadEvent) => {
 	const { category, slug } = event.params;
 
 	/**
@@ -12,6 +13,12 @@ export const load: LayoutServerLoad = (async (event: LayoutServerLoadEvent) => {
 	 */
 	const req = await event.fetch(`/api/article?category=${category}&slug=${slug}`);
 	const article: Article | undefined = await req.json();
+
+	if (article!.error) {
+		throw error(article!.error.status, article!.error.message);
+	}
+
+	console.log(article);
 
 	return {
 		article,
@@ -25,4 +32,4 @@ export const load: LayoutServerLoad = (async (event: LayoutServerLoadEvent) => {
 		 */
 		parentData: await event.parent()
 	};
-}) satisfies LayoutServerLoad;
+}) satisfies LayoutLoad;

@@ -1,10 +1,10 @@
 import { createAuthorLink, createAuthorString } from '$lib/helpers';
 import { site } from '$lib/variables';
 import type { MetaTagsProps } from 'svelte-meta-tags';
-import type { PageServerLoad, PageServerLoadEvent } from './$types';
+import type { PageLoad, PageLoadEvent } from './$types';
 import { error } from '@sveltejs/kit';
 
-export const load: PageServerLoad = (async (event: PageServerLoadEvent) => {
+export const load: PageLoad = (async (event: PageLoadEvent) => {
 	// The parent data here is from `+layout.server.ts`
 	const { article } = await event.parent();
 
@@ -91,4 +91,4 @@ export const load: PageServerLoad = (async (event: PageServerLoadEvent) => {
 	}
 
 	error(404, 'Article not found...');
-}) satisfies PageServerLoad;
+}) satisfies PageLoad;
