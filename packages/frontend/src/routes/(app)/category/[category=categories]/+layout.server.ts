@@ -2,9 +2,9 @@ import { error, type ServerLoadEvent } from '@sveltejs/kit';
 import { buildSanityQuery, sanityFetch } from '$lib/sanity';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import type { Article, Category } from '$lib/schema';
-import type { PageServerLoad } from './$types';
+import type { LayoutServerLoad } from './$types';
 
-export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
+export const load: LayoutServerLoad = (async (event: ServerLoadEvent) => {
 	let sanityQuery: string;
 	let articles: Article[] | undefined;
 
@@ -25,7 +25,7 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 				type: 'article',
 				attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
 				customAttrs: ['authors[]->{name}', 'category->{name}', '"asset": media.asset->{metadata}'],
-				conditions: [`category->slug.current == '${cat.slug.current as string}'`],
+				conditions: [`category->slug.current == '${category as string}'`],
 				order: 'date desc'
 			},
 			[0, 20]
@@ -77,4 +77,4 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 	}
 
 	error(404, "That category doesn't exist...");
-}) satisfies PageServerLoad;
+}) satisfies LayoutServerLoad;
