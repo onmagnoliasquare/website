@@ -2,28 +2,8 @@
 	import type { PageData } from './$types';
 	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
 	import ArticleBoxB from '$components/home/ArticleBoxB.svelte';
-	import { routes } from '$lib/navRoutes';
 	let { data }: { data: PageData } = $props();
 </script>
-
-<div class="bg-amber-200">
-	<nav class="sm:hidden">
-		<ul class="list-none flex flex-wrap justify-around m-1 p-1">
-			{#each routes as route}
-				<li class="inline p-1 text-sm w-fit">
-					<a
-						href={route.path}
-						id="heroLinks"
-						title={route.name}
-						class="hover:underline tracking-wide font-semibold"
-					>
-						{route.name}
-					</a>
-				</li>
-			{/each}
-		</ul>
-	</nav>
-</div>
 
 <h2 class="hidden sm:block font-serif italic text-lg sm:text-xl font-bold tracking-tight">
 	The latest articles:

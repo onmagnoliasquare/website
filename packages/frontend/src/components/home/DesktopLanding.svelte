@@ -19,16 +19,12 @@
 	const splitTitle = site.title.split(' ');
 </script>
 
-{#snippet TitleWord(word: string)}
-	{word}
-{/snippet}
-
 <div class="min-h-screen grid grid-rows-1 grid-cols-7">
 	<div class="flex flex-col space-y-2 col-span-3 size-fit row-span-1 center">
 		<div class="size-fit p-4">
 			{#each splitTitle as word}
-				<h1 id="bigText">
-					{@render TitleWord(word)}
+				<h1 id="bigText" class="font-stretch-condensed">
+					{word}
 				</h1>
 			{/each}
 		</div>
@@ -38,7 +34,7 @@
 			</p>
 		</div>
 	</div>
-	<div class="col-span-4 ml-auto row-span-1 p-6">
+	<div class="hidden md:block col-span-3 col-start-5 ml-auto row-span-1 p-6">
 		<div id="kindaBigText" class="size-fit p-4 border-2">
 			<p>上海纽约</p>
 			<p>大学官方</p>
@@ -79,7 +75,6 @@
 		font-family: var(--font-display);
 		font-size: clamp(8.563rem, 4vw + 2.5rem, 12.813rem);
 		line-height: clamp(8.563rem, 4vw + 2.5rem, 12.813rem);
-		font-variation-settings: 'wdth' 65;
 		font-weight: 200;
 	}
 
