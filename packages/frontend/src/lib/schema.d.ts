@@ -85,6 +85,7 @@ export interface Committee {
 	metaInfo: MetaInfo;
 }
 export interface Article {
+	_id: string;
 	_type: 'article';
 	_createdAt: string;
 
@@ -129,6 +130,7 @@ export interface Article {
 	asset?: CustomImageAsset;
 
 	metaInfo: MetaInfo;
+	error: ApiError;
 }
 
 export interface EmbeddedLink {
@@ -246,3 +248,8 @@ export type Query =
 	| SanityQuery<'category'>
 	| SanityQuery<'series'>
 	| SanityQuery<'tag'>;
+
+export type ApiError = {
+	message: string;
+	status: number;
+};

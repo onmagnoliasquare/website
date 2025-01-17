@@ -17,7 +17,7 @@ export const GET: RequestHandler = async ({}) => {
 			],
 			attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
 			customAttrs: ['category->{name}', 'authors[]->{name}', '"asset": media.asset->{metadata}'],
-			idx: [0, 14],
+			idx: [0, 15],
 			order: 'date desc'
 		});
 

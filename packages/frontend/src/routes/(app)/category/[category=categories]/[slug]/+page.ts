@@ -1,19 +1,12 @@
-import { error, type ServerLoadEvent } from '@sveltejs/kit';
-import type { MetaTagsProps } from 'svelte-meta-tags';
-import { site } from '$lib/variables';
 import { createAuthorLink, createAuthorString } from '$lib/helpers';
-import type { Article } from '$lib/schema';
-import type { LayoutServerLoad } from './$types';
+import { site } from '$lib/variables';
+import type { MetaTagsProps } from 'svelte-meta-tags';
+import type { PageLoad, PageLoadEvent } from './$types';
+import { error } from '@sveltejs/kit';
 
-export const load: LayoutServerLoad = (async (event: ServerLoadEvent) => {
-	const { category, slug } = event.params;
-
-	/**
-	 * Retrieve article information.
-	 */
-
-	const req = await event.fetch(`/api/article?category=${category}&slug=${slug}`);
-	const article: Article | undefined = await req.json();
+export const load: PageLoad = (async (event: PageLoadEvent) => {
+	// The parent data here is from `+layout.server.ts`
+	const { article } = await event.parent();
 
 	/**
 	 * Build article information.
@@ -90,7 +83,6 @@ export const load: LayoutServerLoad = (async (event: ServerLoadEvent) => {
 		/**
 		 * Return page data.
 		 */
-
 		return {
 			article,
 			title,
@@ -99,4 +91,4 @@ export const load: LayoutServerLoad = (async (event: ServerLoadEvent) => {
 	}
 
 	error(404, 'Article not found...');
-}) satisfies LayoutServerLoad;
+}) satisfies PageLoad;

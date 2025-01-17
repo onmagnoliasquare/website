@@ -1,5 +1,5 @@
 import { buildSanityQuery, equal, sanityFetch } from '$lib/sanity';
-import type { Article } from '$lib/schema';
+import type { ApiError, Article } from '$lib/schema';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ url }) => {
@@ -13,23 +13,25 @@ export const GET: RequestHandler = async ({ url }) => {
 	if (!category && !slug) {
 		return json({ error: 'Missing category and slug parameter' }, { status: 400 });
 	} else if (!category && slug) {
-		// Request for a single article by it's slug is requested.
-		try {
-			sanityQuery = buildSanityQuery({
-				type: 'article',
-				idx: [0],
-				conditions: [equal('slug.current', slug as string)],
-				customAttrs: ['tags[]->{name, slug}', 'category->{name, slug}']
-			});
+		const error: ApiError = { message: 'Malformed parameter(s)', status: 400 };
+		return json({ error: error }, { status: 400 });
+		// // Request for a single article by it's slug is requested.
+		// try {
+		// 	sanityQuery = buildSanityQuery({
+		// 		type: 'article',
+		// 		idx: [0],
+		// 		conditions: [equal('slug.current', slug as string)],
+		// 		customAttrs: ['tags[]->{name, slug}', 'category->{name, slug}']
+		// 	});
 
-			article = await sanityFetch(sanityQuery);
-		} catch (err) {
-			console.error(err);
-			return json(
-				{ message: 'Failed to fetch article', error: (err as Error).message },
-				{ status: 500 }
-			);
-		}
+		// 	article = await sanityFetch(sanityQuery);
+		// } catch (err) {
+		// 	console.error(err);
+		// 	return json(
+		// 		{ message: 'Failed to fetch article', error: (err as Error).message },
+		// 		{ status: 500 }
+		// 	);
+		// }
 	} else if (category && slug) {
 		// Request for an article page.
 		try {

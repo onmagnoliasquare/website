@@ -4,6 +4,7 @@
 	import PageHeader from '$components/PageHeader.svelte';
 	import type { PageData } from './$types';
 	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
+	import { page } from '$app/state';
 
 	interface Props {
 		data: PageData;
@@ -16,19 +17,18 @@
 	 * to reload the content of the pages.
 	 * See: https://stackoverflow.com/questions/75756247/dynamic-routes-dont-refresh-when-navigation-between-them
 	 * Nowadays, use the `$derived` and `$state` syntax. See:
-	 * https://svelte.dev/docs/kit/state-management#Component-and-page-state-is-preserved. I am not
-	 * entirely sure why it's `$derived` and not `$state`. All I know
-	 * is that `$state` wasn't working and so `$derived` worked...
+	 * https://svelte.dev/docs/kit/state-management#Component-and-page-state-is-preserved.
+	 * `$derived` is used here rather than `$state` because `$derived` is for
+	 * values that are derived from state changes, like API data.
 	 */
 	let category = $derived(data.cat!);
 	let articles = $derived(data.articles);
 	let categoryName = $derived(category.name);
 </script>
 
-<!--https://svelte.dev/docs/logic-blocks#key -->
-<!--Not sure if this is needed... -->
 <div class="m-2 p-2">
-	{#key category}
+	<!-- https://svelte.dev/docs/kit/state-management#Component-and-page-state-is-preserved -->
+	{#key page.url.pathname}
 		<div class="flex flex-row space-x-1">
 			<span class="inline text-lg sm:text-2xl font-display font-light italic">The</span>
 			<div class="inline">

@@ -31,7 +31,7 @@
 						href={`/category/${article.category.slug.current}/${article.slug.current}`}
 						class="hover:underline"
 					>
-						{article.title}
+						{article.title} <span class="italic text-neutral-400">on {article.date}</span>
 					</a>
 				</li>
 			{:else if dev}
