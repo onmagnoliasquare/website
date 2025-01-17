@@ -24,7 +24,6 @@
 import { hasUppercase } from '$lib/helpers';
 import { redirect, type Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
-import type { Article } from '$lib/schema';
 import { dev } from '$app/environment';
 
 /**
@@ -48,72 +47,72 @@ const redirectHome: Handle = async ({ event, resolve }) => {
 
 /**
  * redirectTag redirects paths of the form `/tags/(tag-slug)/(article-slug)`
- * to the category page of the article.
+ * to the category page of the article. For the time being, I'm not going to implement this. Nobody uses it, and it doesn't add much to the API.
  * @returns `Response`
  */
-export const redirectTag: Handle = async ({ event, resolve }) => {
-	// Split a url's path by `/`, then return only the final element.
-	const path: string[] = event.url.pathname.split('/').slice(2);
+// export const redirectTag: Handle = async ({ event, resolve }) => {
+// 	// Split a url's path by `/`, then return only the final element.
+// 	const path: string[] = event.url.pathname.split('/').slice(2);
 
-	// Determine if the pathname is actually for `tags`. If it isn't,
-	// the function will just resolve normally in the middleware chain.
-	const isTags = event.url.pathname.startsWith('/tags') && path.length >= 2;
+// 	// Determine if the pathname is actually for `tags`. If it isn't,
+// 	// the function will just resolve normally in the middleware chain.
+// 	const isTags = event.url.pathname.startsWith('/tags') && path.length >= 2;
 
-	if (isTags) {
-		// Redirect if there's nonsense at the end of the tags path. In other
-		// words, redirect if there's more than /{tag-name}/{post-name}/more/...
-		if (path.length >= 3) {
-			redirect(302, '/tags');
-		}
+// 	if (isTags) {
+// 		// Redirect if there's nonsense at the end of the tags path. In other
+// 		// words, redirect if there's more than /{tag-name}/{post-name}/more/...
+// 		if (path.length >= 3) {
+// 			redirect(302, '/archive');
+// 		}
 
-		const pathTag = path[0].toLowerCase();
-		const pathArticleSlug = path[1].toLowerCase();
+// 		const pathTag = path[0].toLowerCase();
+// 		const pathArticleSlug = path[1].toLowerCase();
 
-		// Get article from its slug. This object will contain the
-		// article's tags, category, and series.
-		const req = await event.fetch(`/api/article?slug=${pathArticleSlug}`);
+// 		// Get article from its slug. This object will contain the
+// 		// article's tags, category, and series.
+// 		const req = await event.fetch(`/api/article?slug=${pathArticleSlug}`);
 
-		if (req.status === 404) {
-			redirect(302, '/archive');
-		}
+// 		if (req.status === 404) {
+// 			redirect(302, '/archive');
+// 		}
 
-		const article: Article = await req.json();
+// 		const article: Article = await req.json();
 
-		// Check if article actually exists, based on the API query.
-		if (article === null) {
-			redirect(302, '/archive');
-		}
+// 		// Check if article actually exists, based on the API query.
+// 		if (article === null) {
+// 			redirect(302, '/archive');
+// 		}
 
-		// Check if the article is in the array of tags it has.
-		const articleHasTag: boolean = article.tags.some((t) => t.slug.current == pathTag);
+// 		// Check if the article is in the array of tags it has.
+// 		const articleHasTag: boolean = article.tags.some((t) => t.slug.current == pathTag);
 
-		// Check if article has the appropriate tag on it.
-		if (articleHasTag === false) {
-			// If the article isn't found, return user to /tags/{tag-name}
-			// perhaps also show modal - no tag found!
-			redirect(302, '/archive');
-		}
+// 		// Check if article has the appropriate tag on it.
+// 		if (articleHasTag === false) {
+// 			// If the article isn't found, return user to /tags/{tag-name}
+// 			// perhaps also show modal - no tag found!
+// 			redirect(302, '/archive');
+// 		}
 
-		// Respond with a category redirect when the tag name is valid,
-		// and the article actually exists. In other words, send the user
-		// to the article they requested.
-		const categoryPath = `/category/${article.category.slug.current}/${pathArticleSlug}`;
-		if (dev) {
-			const out = `
-TAG URL REDIRECT
-  from: ${event.url.pathname}
-  to:   ${categoryPath}
-			`;
-			console.log(out);
-		}
+// 		// Respond with a category redirect when the tag name is valid,
+// 		// and the article actually exists. In other words, send the user
+// 		// to the article they requested.
+// 		const categoryPath = `/category/${article.category.slug.current}/${pathArticleSlug}`;
+// 		if (dev) {
+// 			const out = `
+// TAG URL REDIRECT
+//   from: ${event.url.pathname}
+//   to:   ${categoryPath}
+// 			`;
+// 			console.log(out);
+// 		}
 
-		redirect(302, categoryPath);
-	}
+// 		redirect(302, categoryPath);
+// 	}
 
-	const response = await resolve(event);
+// 	const response = await resolve(event);
 
-	return response;
-};
+// 	return response;
+// };
 
 /**
  * redirectCaps checks if there's an uppercase in the path, then
@@ -180,4 +179,4 @@ const logSpeed: Handle = async ({ event, resolve }) => {
 	return response;
 };
 
-export const handle = sequence(redirectCaps, redirectTag, redirectHome, preflightOptions, logSpeed);
+export const handle = sequence(redirectCaps, redirectHome, preflightOptions, logSpeed);
