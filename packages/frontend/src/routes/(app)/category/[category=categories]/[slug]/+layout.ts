@@ -14,11 +14,9 @@ export const load: LayoutLoad = (async (event: LayoutLoadEvent) => {
 	const req = await event.fetch(`/api/article?category=${category}&slug=${slug}`);
 	const article: Article | undefined = await req.json();
 
-	if (article!.error) {
-		throw error(article!.error.status, article!.error.message);
+	if (!article) {
+		throw error(404, 'Article not found 🔍');
 	}
-
-	console.log(article);
 
 	return {
 		article,

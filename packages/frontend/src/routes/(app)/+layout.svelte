@@ -6,8 +6,7 @@
 	import type { Snippet } from 'svelte';
 	import { createSiteTitle } from '$lib/helpers';
 	import { site } from '$lib/variables';
-	import Header from '$components/Header.svelte';
-	import Centered from '$components/defaults/Centered.svelte';
+	import MainLayout from '$components/MainLayout.svelte';
 
 	interface Props {
 		children: Snippet;
@@ -22,9 +21,6 @@
 
 <!-- This is the main layout for the entire website. -->
 
-<Header />
-<Centered>
-	<main>
-		{@render children()}
-	</main>
-</Centered>
+<MainLayout>
+	{@render children()}
+</MainLayout>

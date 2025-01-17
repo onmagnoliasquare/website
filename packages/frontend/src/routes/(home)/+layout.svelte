@@ -18,8 +18,8 @@
 	}
 
 	let { data, children }: Props = $props();
-	// let locale = $derived(data.userLocale);
-	let locale = 'haw';
+	let locale = $derived(data.userLocale);
+	// let locale = 'haw';
 	let headlineArticle = $derived(data.articles[0]);
 	let authorString = $derived(createAuthorString(data.articles[0].authors));
 	let headlineMedia = $derived(data.articles[0].media);

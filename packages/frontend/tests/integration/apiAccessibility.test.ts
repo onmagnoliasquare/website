@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { v05TestArticleUrl } from '../testVariables';
+import { article404, v05TestArticleUrl } from '../testVariables';
 
 /**
  * We'll disable color contrast for now. This will be fixed
@@ -126,6 +126,16 @@ test('Article page has no accessibility issues', async ({ page }) => {
 
 test('Author page has no accessibility issues', async ({ page }) => {
 	await page.goto(authorUrl);
+
+	const accessibilityScanResults = await new AxeBuilder({ page })
+		.disableRules(['color-contrast'])
+		.analyze();
+
+	expect(accessibilityScanResults.violations).toHaveLength(0);
+});
+
+test('404 page has no accessibility issues', async ({ page }) => {
+	await page.goto(article404);
 
 	const accessibilityScanResults = await new AxeBuilder({ page })
 		.disableRules(['color-contrast'])
