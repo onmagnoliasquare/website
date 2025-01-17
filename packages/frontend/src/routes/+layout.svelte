@@ -25,15 +25,6 @@
 
 <MetaTags {...metaTags} />
 
-<svelte:head>
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-	<link
-		href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Nanum+Gothic:wght@400;700&family=Nanum+Myeongjo:wght@400;700&family=Noto+Sans+SC:wght@100..900&family=Noto+Serif+SC:wght@200..900&family=Noto+Serif:ital,wdth,wght@0,75,100..900;1,75,100..900&display=swap"
-		rel="stylesheet"
-	/>
-</svelte:head>
-
 <div class="flex flex-col grow min-h-screen antialiased bg-white">
 	{@render children()}
 	<Footer />
