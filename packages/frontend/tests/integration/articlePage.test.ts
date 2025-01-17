@@ -1,6 +1,6 @@
 import { site } from '$lib/variables';
 import { test, expect } from '@playwright/test';
-import { v05TestArticleUrl } from '../testVariables';
+import { article404, v05TestArticleUrl } from '../testVariables';
 
 test('INTEGRATION Article has title', async ({ page }) => {
 	await page.goto(v05TestArticleUrl);
@@ -346,3 +346,10 @@ test('INTEGRATION No blank <p> elements in the article', async ({ page }) => {
 
 // 	await expect(spotify).toBeVisible();
 // });
+
+test('INTEGRATION Route to 404 page on non-existing article', async ({ page }) => {
+	await page.goto(article404);
+
+	// 404 error present.
+	await expect(page.getByText('404', { exact: true })).toBeVisible();
+});
