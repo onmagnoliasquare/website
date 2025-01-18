@@ -11,9 +11,8 @@
 		<div class="flex flex-col w-fit max-w-2xl mb-16">
 			<P>
 				Founded in 2014, On Magnolia Square, or OMS, is a student journalism organization
-				maintaining an active archive and living record of student life at NYU Shanghai. <em
-					class="font-bold font-serif">We keep time.</em
-				>
+				maintaining an active archive and fully-online living record of student life at NYU
+				Shanghai. <em class="font-bold font-serif">We keep time.</em>
 				Learn about
 				<a class="text-nyu-purple-100 underline" href="/about/staff">our staff</a>.
 			</P>
@@ -26,7 +25,7 @@
 				<div class="">
 					<span class="font-display font-stretch-condensed">
 						<P
-							class="text-4xl sm:text-6xl lg:text-7xl leading-10 sm:leading-16 lg:leading-20 tracking-normal mb-8 max-w-6xl"
+							class="text-4xl sm:text-5xl lg:text-6xl leading-10 sm:leading-12 lg:leading-18 tracking-normal mb-8 max-w-7xl"
 						>
 							On Magnolia Square produces truthful, balanced, timely, and engaging news and
 							information to better serve the community at <a

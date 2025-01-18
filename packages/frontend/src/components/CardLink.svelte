@@ -17,7 +17,7 @@
 		<section>
 			<div class="p-4">
 				<h3 class="font-serif font-semibold text-3xl mb-4">{title}</h3>
-				<P class="text-gray-700 text-lg sm:text-xl">{@render children?.()}</P>
+				<P class="text-gray-700 text-sm sm:text-lg">{@render children?.()}</P>
 			</div>
 		</section>
 	</div>
