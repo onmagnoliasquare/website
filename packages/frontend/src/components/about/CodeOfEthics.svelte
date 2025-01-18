@@ -16,10 +16,10 @@
 
 <div class=" w-full p-6">
 	<section>
-		<h2 class="text-2xl sm:text-3xl font-serif font-semibold mb-2 pb-2">✑ Code of Ethics</h2>
+		<h2 class="text-2xl sm:text-3xl font-serif font-semibold mb-2 pb-2">Code of Ethics</h2>
 		<ol class="list-decimal m-1 p-1">
 			{#each ethicsText as text}
-				<li class="p-2 tracking-wide sm:text-xl">
+				<li class="p-2 tracking-wide text-base sm:text-lg">
 					{text}
 				</li>
 			{/each}
