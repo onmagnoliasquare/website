@@ -4,10 +4,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  merge-staging-to-main:
+  merge-dev-to-staging:
     if: ${{ github.ref_name == 'dev' }}
     name: Fast-Forward Merge dev to staging
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
