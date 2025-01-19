@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { article404, v05TestArticleUrl } from '../testVariables';
+import { article404, authorUrl, v05TestArticleUrl } from '../testVariables';
 
 /**
  * We'll disable color contrast for now. This will be fixed
@@ -11,8 +11,6 @@ import { article404, v05TestArticleUrl } from '../testVariables';
  * CURRENTLY DISABLED CHECKS ID:
  *   - 'color-contrast'
  */
-
-const authorUrl = `/about/staff/neo-alabastro`;
 
 test('Homepage has no accessibility issues', async ({ page }) => {
 	await page.goto('/');

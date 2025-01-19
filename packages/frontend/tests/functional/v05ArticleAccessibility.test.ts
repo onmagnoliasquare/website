@@ -2,7 +2,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { test, expect } from '@playwright/test';
 import { v05Category, v05DummyDataPath, v05Slug, v05TestArticleUrl } from '../testVariables';
 
-test('Article page has no accessibility issues', async ({ page }) => {
+test('Article page has no accessibility issues', { tag: '@functional' }, async ({ page }) => {
 	await page.route(`*/**/api/article?category=${v05Category}&slug=${v05Slug}`, async (route) => {
 		await route.fulfill({ path: v05DummyDataPath });
 	});
