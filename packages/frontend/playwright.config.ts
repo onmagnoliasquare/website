@@ -1,4 +1,4 @@
-import type { PlaywrightTestConfig } from '@playwright/test';
+import { devices, type PlaywrightTestConfig } from '@playwright/test';
 
 const config: PlaywrightTestConfig = {
 	testDir: 'tests',
@@ -24,6 +24,45 @@ const config: PlaywrightTestConfig = {
 	use: {
 		baseURL: process.env.CI ? 'http://localhost:8788' : 'http://localhost:5173/'
 	},
+
+	projects: [
+		{
+			name: 'chromium',
+			use: { ...devices['Desktop Chrome'] }
+		},
+
+		{
+			name: 'firefox',
+			use: { ...devices['Desktop Firefox'] }
+		},
+
+		{
+			name: 'webkit',
+			use: { ...devices['Desktop Safari'] }
+		},
+
+		/* Test against mobile viewports. */
+		{
+			name: 'Mobile Chrome',
+			use: { ...devices['Pixel 5'] },
+			testIgnore: ['tests/e2e/**/*']
+		},
+		{
+			name: 'Mobile Safari',
+			use: { ...devices['iPhone 12'] },
+			testIgnore: ['tests/e2e/**/*']
+		},
+
+		/* Test against branded browsers. */
+		{
+			name: 'Microsoft Edge',
+			use: { ...devices['Desktop Edge'], channel: 'msedge' }
+		},
+		{
+			name: 'Google Chrome',
+			use: { ...devices['Desktop Chrome'], channel: 'chrome' }
+		}
+	],
 
 	// Configurations for the webServer playwright starts and uses.
 	webServer: {
