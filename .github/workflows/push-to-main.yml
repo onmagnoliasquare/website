@@ -7,6 +7,9 @@ jobs:
   merge-staging-to-main:
     name: Fast-Forward Merge staging to main
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
