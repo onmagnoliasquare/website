@@ -254,7 +254,7 @@ jobs:
 
       - name: Install playwright
         if: ${{ needs.changes.outputs.frontend == 'true' }}
-        run: yarn workspace frontend playwright install
+        run: yarn workspace frontend playwright install --with-deps
 
       - name: Run frontend integration tests
         if: ${{ needs.changes.outputs.frontend == 'true' }}
@@ -292,7 +292,7 @@ jobs:
 
       - name: Install playwright
         if: ${{ needs.changes.outputs.frontend == 'true' }}
-        run: yarn workspace frontend playwright install
+        run: yarn workspace frontend playwright install --with-deps
 
       - name: Run frontend functional tests
         if: ${{ needs.changes.outputs.frontend == 'true' }}
@@ -330,7 +330,7 @@ jobs:
 
       - name: Install playwright
         if: ${{ needs.changes.outputs.frontend == 'true' }}
-        run: yarn workspace frontend playwright install
+        run: yarn workspace frontend playwright install --with-deps
 
       - name: Run frontend E2E tests
         if: ${{ needs.changes.outputs.frontend == 'true' }}
