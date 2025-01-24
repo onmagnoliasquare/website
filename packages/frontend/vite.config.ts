@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineProject({
 	//@ts-ignore ts(2741)
-	plugins: [sveltekit(), svelteTesting(), tailwindcss()],
+	plugins: [tailwindcss(), sveltekit(), svelteTesting()],
 	//@ts-ignore ts(2769)
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}'],
