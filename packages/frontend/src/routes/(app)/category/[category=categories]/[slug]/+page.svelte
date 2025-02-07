@@ -7,7 +7,6 @@
 	import ArticleLink from '$components/portabletext/ArticleLink.svelte';
 	import { ArticleSingleArticleBlock, ArticleImage, ArticleBodyMarks } from '$lib';
 	import ArticleLeadIn from '$components/portabletext/ArticleLeadIn.svelte';
-	import { PortableText } from '@eirikk/portabletext-2-svelte-5';
 	import ArticleSuperscript from '$components/portabletext/ArticleSuperscript.svelte';
 	import ArticleSubscript from '$components/portabletext/ArticleSubscript.svelte';
 	import Tag from '$components/Tag.svelte';
@@ -16,6 +15,7 @@
 	import Image from '$components/Image.svelte';
 	import ByLine from '$components/article/ByLine.svelte';
 	import DateLine from '$components/article/DateLine.svelte';
+	import { PortableText } from '@portabletext/svelte';
 
 	interface Props {
 		data: PageData;
