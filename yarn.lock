@@ -1834,17 +1834,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eirikk/portabletext-2-svelte-5@npm:^0.1.0-alpha.2":
-  version: 0.1.0-alpha.2
-  resolution: "@eirikk/portabletext-2-svelte-5@npm:0.1.0-alpha.2"
-  dependencies:
-    "@portabletext/toolkit": "npm:^2.0.15"
-  peerDependencies:
-    svelte: ^5.0.0
-  checksum: 10c0/0add7034cdf6021e5e7067f2a8066f5466e44dd65ce03188e5ec71e13db40679950ef590f70ac9af9166aadc6c873269ba04d4e586f17ef1054da4697478ca3a
-  languageName: node
-  linkType: hard
-
 "@emotion/babel-plugin@npm:^11.13.5":
   version: 11.13.5
   resolution: "@emotion/babel-plugin@npm:11.13.5"
@@ -3365,14 +3354,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@portabletext/svelte@npm:^2.1.11":
-  version: 2.1.11
-  resolution: "@portabletext/svelte@npm:2.1.11"
+"@portabletext/svelte@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@portabletext/svelte@npm:3.0.0"
   dependencies:
-    "@portabletext/toolkit": "npm:^2.0.15"
+    "@portabletext/toolkit": "npm:^2.0.17"
   peerDependencies:
-    svelte: ">=3.47.0 <5.0.0"
-  checksum: 10c0/0cde8d6edfb3e5b444fe54cf654db87cc73592ba6db370e8b3d189116b2f6d3a0bcc90ac6d925de1879de9cba3801c85c6ac4a0199c9f4d9f4ca7b5ea9f71f91
+    svelte: ^5.0.0
+  checksum: 10c0/ba3407e7613298674906217c2abc8aef078005ddda82216d31114638e62f0489891202f42bc088b77b75f36b153b26b73ff8d947107b8b0069a6775db7dea2d7
   languageName: node
   linkType: hard
 
@@ -3392,6 +3381,15 @@ __metadata:
   dependencies:
     "@portabletext/types": "npm:^2.0.13"
   checksum: 10c0/8c5ac6a06ca48daac7a330692e1eeae2e0d9a017e22aebbfd9ee557a4436e33baad4981fe5dccb3b75a915542d095ee5b965d3a5e4f812501f943f57c61406d9
+  languageName: node
+  linkType: hard
+
+"@portabletext/toolkit@npm:^2.0.17":
+  version: 2.0.17
+  resolution: "@portabletext/toolkit@npm:2.0.17"
+  dependencies:
+    "@portabletext/types": "npm:^2.0.13"
+  checksum: 10c0/e02e25f48fbb2f96a594e06bca69beafde030fc5296e755bff3fcebda7d552615fe6b8132a60bf58fe5c2b249360851488ef0f9ffe977cf8679d026172b15b12
   languageName: node
   linkType: hard
 
@@ -9225,9 +9223,8 @@ __metadata:
   resolution: "frontend@workspace:packages/frontend"
   dependencies:
     "@axe-core/playwright": "npm:^4.10.1"
-    "@eirikk/portabletext-2-svelte-5": "npm:^0.1.0-alpha.2"
     "@playwright/test": "npm:^1.50.1"
-    "@portabletext/svelte": "npm:^2.1.11"
+    "@portabletext/svelte": "npm:^3.0.0"
     "@sanity/client": "npm:^6.27.2"
     "@sanity/image-url": "npm:^1.1.0"
     "@sveltejs/adapter-auto": "npm:^4.0.0"
