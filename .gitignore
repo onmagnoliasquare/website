@@ -16,6 +16,8 @@ packages/frontend/.wrangler
 .env
 .env.local
 
+.direnv
+
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
