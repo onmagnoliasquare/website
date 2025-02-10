@@ -18,6 +18,8 @@ packages/frontend/.wrangler
 
 .direnv
 
+mprocs.log
+
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
