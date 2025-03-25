@@ -1,7 +1,7 @@
 import { devices, type PlaywrightTestConfig } from '@playwright/test';
 
 const config: PlaywrightTestConfig = {
-	testDir: 'tests',
+	testDir: 'playwright',
 	testMatch: /(.+\.)?(test|spec)\.[jt]s/,
 
 	timeout: process.env.CI ? 45_000 : 15_000,
