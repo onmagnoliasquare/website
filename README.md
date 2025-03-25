@@ -2,13 +2,37 @@
 
 On Magnolia Square website monorepo for frontend and backend.
 
-## Prerequisites
+## Getting Started
 
-Please first have **yarn** installed on your computer first before starting
-development. Here is the
-[yarn documentation for installing it](https://yarnpkg.com/corepack#installation).
+There are two ways to setup a development environment to get started.
 
-### MacOS - `brew` specific
+### Using Nix
+
+It is highly recommended to use the Nix flake in this repository to setup the development environment._For your convenience, there is also a `.envrc` file ready to go (but you might've noticed that already)._
+
+Using a Nix flake requires the [`nix` package manager](https://nixos.org/download/) and experimental flakes in the nix configuration **enabled**. (If you use MacOS, the [nix determinate installer](https://zero-to-nix.com/concepts/nix-installer/) is effective)
+
+Run this command in the repository.
+
+```bash
+nix develop
+```
+
+This will install all required development tools, like yarn, as well as `node_modules` for web dependencies.
+
+If you don't have `direnv` install, you need to rerun the `nix develop` command every time you re-enter this repository.
+
+### Manual Steps
+
+Prerequisite dependencies:
+
+- Node version >= 22.x.x
+- Yarn version >= 4.7.x
+
+`yarn` is our package manager of choice. Here is the
+[yarn documentation for installing it on your system](https://yarnpkg.com/corepack#installation).
+
+#### MacOS with `brew`
 
 If you're using MacOS the brew package `corepack` is needed. Corepack ships with
 Node, but zsh does not find this linkage in the shell. Therefore, since we are
@@ -27,9 +51,11 @@ Now, run `corepack enable`. This will enable corepack globally. Optionally, one
 can run `corepack install --global yarn@stable` to install the latest yarn
 version globally using corepack.
 
-### Windows
+#### Windows
 
-Install `node` on Windows and enable corepack. Make sure to run powershell in administrator mode. An error may occur when using yarn, something along the lines of `yarn.ps1 cannot be loaded`.
+Install `node` on Windows and enable corepack. Make sure to run powershell in administrator mode.
+
+An error may occur when using yarn, something along the lines of `yarn.ps1 cannot be loaded`.
 
 To fix this, input this command into the current powershell terminal session:
 
@@ -37,7 +63,11 @@ To fix this, input this command into the current powershell terminal session:
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
-## Setup
+#### Linux
+
+If you're using Linux, make sure you have the prerequisite dependencies installed.
+
+### Setup
 
 In the repository's root directory, run the following commands:
 
