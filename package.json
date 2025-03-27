@@ -22,8 +22,8 @@
     "sanity": "yarn workspace backend sanity"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,svelte}": ["yarn prettier --write", "yarn eslint"],
-    "*.{html,css,json}": ["yarn prettier --write"]
+    "*.{js,jsx,ts,tsx,svelte}": ["prettier --write", "eslint"],
+    "*.{html,css,json}": ["prettier --write"]
   },
   "dependencies": {
     "styled-components": "^6.1.16"
@@ -48,5 +48,6 @@
     "vite": "^6.2.3",
     "vitest": "^3.0.9",
     "wrangler": "^4.4.0"
-  }
+  },
+  "packageManager": "yarn@4.7.0"
 }
