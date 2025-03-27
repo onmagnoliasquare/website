@@ -23,14 +23,17 @@
 
         commonPackages = with pkgs; [
           # Development related
+          # Node version matches that on the CI runners.
           nodejs_22
           yarn-berry
           typescript
           typescript-language-server
+          nixfmt-rfc-style
 
-          lazygit
-          imagemagick
-          jq
+          # Data tools.
+          imagemagick # manipulate images.
+          jq # manipulate JSON.
+          yq # manipulate YML.
 
           # System tools
           htop
@@ -41,11 +44,11 @@
         devShell = pkgs.mkShell {
           buildInputs = [ commonPackages ];
           shellHook = ''
+            # Initialize yarn.
+            yarn
+
             # Customize the prompt to show we're in a Nix environment
             export PS1='$(printf "\033[01;34m(nix) \033[00m\033[01;32m[%s] \033[01;33m(node $(node -v))\033[00m$\033[00m " "\W")'
-
-            # Initialize yarn
-            yarn
           '';
         };
       }
