@@ -23,7 +23,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,svelte}": ["prettier --write", "eslint"],
-    "*.{html,css,json}": ["prettier --write"],
+    "*.{html,css,json,yaml,yml}": ["prettier --write"],
     "*.nix": "nixfmt"
   },
   "dependencies": {
