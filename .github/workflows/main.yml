@@ -107,6 +107,11 @@ jobs:
       yarn_version: ${{ steps.set_yarn_version.outputs.yarn_version }}
     needs: [changes]
     environment: development
+    env:
+      SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
+      SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
+      SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
+      SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
     if: ${{ (needs.changes.outputs.backend == 'true' || needs.changes.outputs.frontend == 'true') }}
     steps:
       - uses: actions/checkout@v4

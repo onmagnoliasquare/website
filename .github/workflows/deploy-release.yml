@@ -13,6 +13,10 @@ jobs:
     environment: production
     outputs:
       yarn_version: ${{ steps.set_yarn_version.outputs.yarn_version }}
+    env:
+      SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
+      SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
+      SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
     steps:
       - uses: actions/checkout@v4
 
