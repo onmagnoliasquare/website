@@ -107,6 +107,11 @@ jobs:
       yarn_version: ${{ steps.set_yarn_version.outputs.yarn_version }}
     needs: [changes]
     environment: development
+    env:
+      SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
+      SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
+      SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
+      SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
     if: ${{ (needs.changes.outputs.backend == 'true' || needs.changes.outputs.frontend == 'true') }}
     steps:
       - uses: actions/checkout@v4
@@ -156,7 +161,6 @@ jobs:
     needs: [changes, build]
     if: ${{ github.event_name == 'pull_request' }}
     env:
-      SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
@@ -194,7 +198,6 @@ jobs:
     needs: [changes, build]
     if: ${{ github.event_name == 'pull_request' }}
     env:
-      SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
@@ -228,7 +231,6 @@ jobs:
     if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
     needs: [changes, build]
     env:
-      SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
@@ -266,7 +268,6 @@ jobs:
     if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
     needs: [changes, build]
     env:
-      SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
@@ -304,7 +305,6 @@ jobs:
     if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
     needs: [changes, build]
     env:
-      SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
@@ -341,6 +341,10 @@ jobs:
     if: ${{ github.event_name == 'push' && github.ref_name == 'dev' }}
     env:
       YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
+      SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
+      SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
+      SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
+      SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
     environment: development
     needs: [changes, build]
