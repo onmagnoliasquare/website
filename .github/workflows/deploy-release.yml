@@ -52,10 +52,9 @@ jobs:
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
     environment: production
     env:
-      SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
-      SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
+      SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
       YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
     permissions:
       contents: read

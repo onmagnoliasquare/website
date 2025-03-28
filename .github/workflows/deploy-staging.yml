@@ -65,6 +65,9 @@ jobs:
     needs: build
     env:
       YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
+      SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
+      SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
+      SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
     environment: staging
     steps:
       - uses: actions/checkout@v4
