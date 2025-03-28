@@ -41,19 +41,20 @@ const config: PlaywrightTestConfig = {
 			use: { ...devices['Desktop Safari'] },
 			// Disabled for now because for some reason, these tests don't pass
 			// on Webkit/Safari.
-			testIgnore: ['tests/integration/tagPage.test.ts']
+			testIgnore: ['playwright/integration/tagPage.test.ts']
 		},
 
 		/* Test against mobile viewports. */
 		{
 			name: 'Mobile Chrome',
 			use: { ...devices['Pixel 5'] },
-			testIgnore: ['tests/e2e/**/*']
+			testIgnore: ['playwright/e2e/**/*']
 		},
+
 		{
 			name: 'Mobile Safari',
 			use: { ...devices['iPhone 12'] },
-			testIgnore: ['tests/e2e/**/*', 'tests/integration/tagPage.test.ts']
+			testIgnore: ['playwright/e2e/**/*', 'playwright/integration/tagPage.test.ts']
 		},
 
 		/* Test against branded browsers. */
@@ -61,6 +62,7 @@ const config: PlaywrightTestConfig = {
 			name: 'Microsoft Edge',
 			use: { ...devices['Desktop Edge'], channel: 'msedge' }
 		},
+
 		{
 			name: 'Google Chrome',
 			use: { ...devices['Desktop Chrome'], channel: 'chrome' }
