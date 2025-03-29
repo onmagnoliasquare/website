@@ -1,8 +1,37 @@
-import { site } from '$lib/variables';
+import AxeBuilder from '@axe-core/playwright';
 import { test, expect } from '@playwright/test';
+import { articleTestDataList } from '../testVariables';
+
+/**
+ * ACCESSIBILITY TESTS
+ */
+
+for (const article of articleTestDataList) {
+	test(
+		`${article.title} article has no accessibility issues`,
+		{ tag: ['@functional', '@accessibility'] },
+		async ({ page }) => {
+			await page.route(
+				`*/**/api/article?category=${article.category}&slug=${article.slug}`,
+				async (route) => {
+					await route.fulfill({ path: article.dataPath });
+				}
+			);
+
+			await page.goto(article.url);
+			const accessibilityScanResults = await new AxeBuilder({ page })
+				.disableRules(['color-contrast'])
+				.analyze();
+
+			expect(accessibilityScanResults.violations).toHaveLength(0);
+		}
+	);
+}
+
+import { site } from '$lib/variables';
 import { v05Category, v05DummyDataPath, v05Slug, v05TestArticleUrl } from '../testVariables';
 
-test.describe('v0.5 Article Features', { tag: '@functional' }, () => {
+test.describe('v0.5.x Article Features', { tag: '@functional' }, () => {
 	test.beforeEach(async ({ page }) => {
 		await page.route(`*/**/api/article?category=${v05Category}&slug=${v05Slug}`, async (route) => {
 			await route.fulfill({ path: v05DummyDataPath });
@@ -309,3 +338,5 @@ test.describe('v0.5 Article Features', { tag: '@functional' }, () => {
 		}
 	});
 });
+
+test.describe('v0.6.x Article Features', { tag: '@functional' }, () => {});
