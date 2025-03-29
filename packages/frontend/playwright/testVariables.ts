@@ -1,3 +1,5 @@
+import type { articleTestData } from '$lib/types';
+
 // article404 is an article that shouldn't exist used for 404 page checks.
 export const article404 = `/category/news/asdlkjafsjklfegnjkasjfaasldkjfj2093q580`;
 
@@ -16,14 +18,6 @@ export const v06DummyDataPath = `../dummyData/v6/article.json`;
 export const v06Category = 'news';
 export const v06Slug = `v06-features`;
 
-export interface articleTestData {
-	title: string;
-	dataPath: string;
-	category: string;
-	slug: string;
-	url: string;
-}
-
 export const v0_5Article: articleTestData = {
 	title: 'v0.5.x',
 	dataPath: `../dummyData/v0.5.x/article.json`,
@@ -40,4 +34,4 @@ export const v0_6Article: articleTestData = {
 	url: '/category/news/v06-features'
 };
 
-export const articleTestDataList: Array<articleTestData> = [v0_5Article, v0_6Article];
+export const articleTestDataList: Array<articleTestData> = [v0_5Article];
