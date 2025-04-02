@@ -35,7 +35,7 @@ export default defineType({
       title: 'Description',
       type: requiredFormattedText.name,
       description: 'Information about the committee.',
-      //@ts-ignore TS(2353)
+      //@ts-expect-error TS(2353)
       rows: 4,
     }),
 

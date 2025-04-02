@@ -46,7 +46,7 @@ export default defineType({
       description:
         'This is a subtitle that is displayed under the title of an article. Although optional, it is highly recommended to add one. The optional criteria is to accommodate old articles that never had a subtitle in the first place.',
       type: formattedText.name,
-      //@ts-ignore TS(2353)
+      //@ts-expect-error TS(2353)
       rows: 2,
       group: InfoGroup.name,
     }),
@@ -58,7 +58,7 @@ export default defineType({
       type: 'date',
       options: {
         dateFormat: 'YYYY-MM-DD',
-        //@ts-ignore - ignore TS(2353)
+        //@ts-expect-error - ignore TS(2353)
         calendarTodayLabel: 'Today',
       },
       validation: (rule) => rule.required(),
@@ -81,7 +81,7 @@ export default defineType({
       type: 'date',
       options: {
         dateFormat: 'YYYY-MM-DD',
-        //@ts-ignore - ignore TS(2353)
+        //@ts-expect-error - ignore TS(2353)
         calendarTodayLabel: 'Today',
       },
       group: InfoGroup.name,
@@ -91,7 +91,6 @@ export default defineType({
       name: 'category',
       title: 'Category',
       type: 'reference',
-      //@ts-ignore - TS(2353)
       to: [{type: 'category'}],
       options: {disableNew: true},
       validation: (rule) => rule.required(),
@@ -103,7 +102,6 @@ export default defineType({
       title: 'Series',
       description: 'Series of this article, if any.',
       type: 'reference',
-      //@ts-ignore - TS(2353)
       to: [{type: 'series'}],
       options: {disableNew: true},
       group: InfoGroup.name,
@@ -116,7 +114,6 @@ export default defineType({
         'Tags help to sort data internally. They are then displayed on the website for readers to view articles in an organized fashion. Tags are also used for SEO.',
       type: 'array',
       icon: TagsIcon,
-      // @ts-ignore TS(2353)
       of: [
         defineArrayMember({
           name: 'tag',
@@ -133,7 +130,6 @@ export default defineType({
       title: 'Authors',
       description: 'Multiple authors and contributors can be added.',
       type: 'array',
-      //@ts-ignore - ignore TS(2353).
       of: [
         defineArrayMember({
           name: 'author',
@@ -172,7 +168,7 @@ export default defineType({
       title: 'Summary',
       type: formattedText.name,
       description: 'Optional summary for the article that appears before the article body.',
-      //@ts-ignore TS(2353)
+      //@ts-expect-error TS(2353)
       rows: 3,
       group: ContentGroup.name,
     }),

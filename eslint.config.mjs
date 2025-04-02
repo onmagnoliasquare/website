@@ -7,6 +7,23 @@ import sanityEslintConfig from '@sanity/eslint-config-studio'
 import js from '@eslint/js'
 
 export default [
+  {
+    ignores: [
+      './**/*/.DS_Store',
+      './**/*/node_modules',
+      'packages/backend/.sanity',
+      'packages/backend/dist',
+      'packages/frontend/.svelte-kit',
+      'packages/frontend/test-results',
+      './**/*/static',
+      '**/*.env',
+      '**/*.env.*',
+      '**/*/yarn.lock',
+      '**/.*',
+      '**/*.config.{ts,js}',
+      '**/*.wrangler',
+    ],
+  },
   js.configs.recommended,
   ...ts.configs.recommended,
   ...svelte.configs.prettier,
@@ -18,6 +35,7 @@ export default [
       },
     },
   },
+  // See: https://github.com/eslint/eslint/discussions/16960#discussioncomment-11135633
   {
     files: ['**/*.svelte', '**/*.svelte.ts', '**/*.svelte.js'],
     languageOptions: {
@@ -32,22 +50,7 @@ export default [
     },
   },
   {
-    files: ['packages/backend/**/*'],
+    files: ['packages/backend/**/*.ts'],
   },
   ...sanityEslintConfig,
-  {
-    ignores: [
-      '.DS_Store',
-      'node_modules',
-      '.svelte-kit',
-      'test-results',
-      'static',
-      '.env',
-      '.env.*',
-      'yarn.lock',
-      '**/.*',
-      '**/*.config.{ts,js}',
-      '.wrangler',
-    ],
-  },
 ]

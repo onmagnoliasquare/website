@@ -8,8 +8,8 @@
  * @returns abbreviated name
  */
 export default function abbreviateName(name: string): string {
-  let splitted = name.split(' ')
-  let length = splitted.length
+  const splitted = name.split(' ')
+  const length = splitted.length
 
   switch (length) {
     case 1:

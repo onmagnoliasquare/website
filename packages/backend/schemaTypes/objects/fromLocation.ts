@@ -1,4 +1,4 @@
-import {EarthGlobeIcon, PinIcon} from '@sanity/icons'
+import {EarthGlobeIcon} from '@sanity/icons'
 import {defineType} from 'sanity'
 
 /**

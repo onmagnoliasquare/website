@@ -10,7 +10,7 @@ export default function replaceApostrophes(s: string): string {
   // const singleL: string = '‘'
 
   let start: number = 0
-  let end: number = s.length
+  const end: number = s.length
 
   const singleR: string = '’'
   const doubleL: string = '“'
@@ -29,9 +29,9 @@ export default function replaceApostrophes(s: string): string {
     }
 
     if (stack.length > 1) {
-      let a: string = s.slice(start, stack[0])
-      let b: string = s.slice(stack[0] + 1, stack[1])
-      let c: string = s.slice(stack[1] + 1, end)
+      const a: string = s.slice(start, stack[0])
+      const b: string = s.slice(stack[0] + 1, stack[1])
+      const c: string = s.slice(stack[1] + 1, end)
 
       newString = newString.concat(a, doubleL, b, doubleR, replaceApostrophes(c))
 

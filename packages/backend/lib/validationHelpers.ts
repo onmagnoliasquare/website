@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * RETRIEVED FROM: https://www.sanity.io/guides/validation-helpers
  *
@@ -155,7 +156,7 @@ export function validUrl(message?: string) {
         new URL(value)
         return true
       } catch (err) {
-        return {message: message || 'Must be a valid URL'}
+        return {message: message || err}
       }
     }
 

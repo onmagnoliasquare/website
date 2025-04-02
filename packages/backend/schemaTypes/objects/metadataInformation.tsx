@@ -52,7 +52,7 @@ export default defineType({
       description:
         'Optional. Text in this field becomes the description of the web page, both for Google and Open Graph. If not populated, a default will be used.',
       type: formattedText.name,
-      //@ts-ignore ts(2353)
+      //@ts-expect-error ts(2353)
       rows: 2,
       validation: (rule) => rule.max(160),
     }),

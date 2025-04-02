@@ -27,7 +27,6 @@ describe('abbreviateName', () => {
 
   test.each([...twoWordNames, ...oneWordNames, ...moreThanTwoWordNames])(
     '%s -> %s',
-    //@ts-ignore TS(2345)
     (input, output) => {
       expect(abbreviateName(input)).toBe(output)
     },
@@ -58,7 +57,6 @@ describe('checkBannedTags', () => {
 
   test.each([...defaultBanList, ...ignoresCase, ...rejectsCustomTags])(
     '%s -> %s',
-    //@ts-ignore TS(2345)
     (input, output) => {
       expect(validator(input)).toBe(output)
     },
@@ -91,7 +89,7 @@ describe('checkWhitespace', () => {
 
   test.each([...nonStrings, ...leadingOrTrailingWhitespace, ...noWhitespaces, ...emptyStrings])(
     '%s -> %s',
-    //@ts-ignore TS(2345)
+    //@ts-expect-error TS(2345)
     (input, output) => {
       expect(validator(input)).toBe(output)
     },

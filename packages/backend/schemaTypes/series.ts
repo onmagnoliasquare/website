@@ -1,5 +1,5 @@
 import {FolderIcon} from '@sanity/icons'
-import {defineField, defineType, MetaInfo} from 'sanity'
+import {defineField, defineType} from 'sanity'
 import slugValidator from '../lib/slugValidator'
 import {InfoGroup, ContentGroup, SeoGroup} from './objects/fieldGroups'
 import requiredFormattedString from './primitives/requiredFormattedString'
@@ -39,7 +39,7 @@ export default defineType({
       title: 'Description',
       type: requiredFormattedText.name,
       description: 'What is this series about?',
-      //@ts-ignore TS(2353)
+      //@ts-expect-error TS(2353)
       rows: 4,
       group: InfoGroup.name,
     }),

@@ -72,7 +72,6 @@ export default defineType({
       name: 'committee',
       title: 'Committee',
       type: 'reference',
-      //@ts-ignore - TS(2353)
       to: [{type: 'committee'}],
       options: {disableNew: true},
       group: InfoGroup.name,
@@ -96,7 +95,7 @@ export default defineType({
       title: 'Bio',
       type: formattedText.name,
       description: 'Optional personal description.',
-      //@ts-ignore TS(2353)
+      //@ts-expect-error TS(2353)
       rows: 3,
       group: ContentGroup.name,
     }),
