@@ -20,20 +20,20 @@
   },
   "dependencies": {
     "@sanity/icons": "^3.7.0",
-    "@sanity/ui": "^2.15.8",
-    "@sanity/vision": "^3.80.1",
+    "@sanity/ui": "^2.15.12",
+    "@sanity/vision": "^3.82.0",
     "@superside-oss/sanity-plugin-copy-paste": "^1.0.3",
     "archiver-utils": "^5.0.2",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-is": "^19.0.0",
-    "sanity": "^3.80.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-is": "^19.1.0",
+    "sanity": "^3.82.0",
     "sanity-plugin-media": "^3.0.2",
-    "styled-components": "^6.1.16"
+    "styled-components": "^6.1.17"
   },
   "devDependencies": {
-    "@sanity/cli": "^3.80.1",
+    "@sanity/cli": "^3.82.0",
     "@sanity/eslint-config-studio": "^5.0.2",
-    "@types/react": "^19.0.12"
+    "@types/react": "^19.1.0"
   }
 }
