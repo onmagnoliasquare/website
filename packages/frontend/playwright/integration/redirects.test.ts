@@ -1,5 +1,4 @@
 import { test } from '@playwright/test';
-// import { v05Slug, v05TestArticleUrl } from '../testVariables';
 
 /**
  * See: https://playwright.dev/docs/api/class-page#page-wait-for-url

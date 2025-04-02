@@ -7,24 +7,12 @@ export const article404 = `/category/news/asdlkjafsjklfegnjkasjfaasldkjfj2093q58
 // Globals
 export const authorUrl = `/about/staff/neo-alabastro`;
 
-// v0.5.x
-export const v05TestArticleUrl = `/category/news/v05-article-feature-set--what-a-blast`;
-export const v05DummyDataPath = '../dummyData/v5/article.json';
-export const v05Category = 'news';
-export const v05Slug = 'v05-article-feature-set--what-a-blast';
-
-// v0.6.x
-export const v06TestArticleUrl = `/category/news/v06-features`;
-export const v06DummyDataPath = `../dummyData/v6/article.json`;
-export const v06Category = 'news';
-export const v06Slug = `v06-features`;
-
 export const v0_5_x_Article: testPage = {
 	testDescription: 'v0.5.x',
 	testDataPath: `../dummyData/v0.5.x/article.json`,
 	testUrl: '/category/news/v05-article-feature-set--what-a-blast',
 	article: {
-		title: '',
+		title: 'v0.5 Article Feature Set: What a blast!',
 		category: {
 			_type: 'category',
 			_createdAt: '',
@@ -40,12 +28,12 @@ export const v0_5_x_Article: testPage = {
 			_type: 'slug',
 			current: 'v05-article-feature-set--what-a-blast'
 		},
-		_id: '',
+		_id: 'a85e2576-3bdd-4125-ac20-ba9a2cfd17d1',
 		_type: 'article',
 		_createdAt: '',
-		updatedDate: '',
-		subtitle: '',
-		date: '',
+		updatedDate: '2024-11-28',
+		subtitle: "Here's what's good, here's what's fresh.",
+		date: '2024-11-27',
 		tags: [],
 		authors: [],
 		metaInfo: {},
@@ -77,7 +65,7 @@ export const v0_6_x_Article: testPage = {
 			_type: 'slug',
 			current: 'v06-features'
 		},
-		_id: '',
+		_id: 'c0a4e6c5-8ab5-48f3-bacb-bb9979d44275',
 		_type: 'article',
 		_createdAt: '',
 		updatedDate: '',
@@ -93,7 +81,7 @@ export const v0_6_x_Article: testPage = {
 	}
 };
 
-export const articleTestDataList: Array<testPage> = [v0_5_x_Article];
+export const articleTestDataList: Array<testPage> = [v0_5_x_Article, v0_6_x_Article];
 
 const homePage: testPage = {
 	testDescription: 'Homepage',
