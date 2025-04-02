@@ -1,6 +1,6 @@
-import eslintPluginSvelte from 'eslint-plugin-svelte'
-import * as svelteParser from 'svelte-eslint-parser'
-import * as typescriptParser from '@typescript-eslint/parser'
+import svelte from 'eslint-plugin-svelte'
+// import * as svelteParser from 'svelte-eslint-parser'
+import ts from 'typescript-eslint'
 import svelteConfig from './packages/frontend/svelte.config.js'
 import globals from 'globals'
 import sanityEslintConfig from '@sanity/eslint-config-studio'
@@ -8,20 +8,26 @@ import js from '@eslint/js'
 
 export default [
   js.configs.recommended,
-  ...eslintPluginSvelte.configs['flat/recommended'],
+  ...ts.configs.recommended,
+  ...svelte.configs.prettier,
   {
-    files: ['packages/frontend/**/*.svelte'],
     languageOptions: {
-      parser: svelteParser,
-      parserOptions: {
-        parser: typescriptParser,
-        project: 'packages/frontend/tsconfig.json',
-        extraFileExtensions: ['.svelte'],
-        svelteConfig,
-      },
       globals: {
         ...globals.browser,
         ...globals.node,
+      },
+    },
+  },
+  {
+    files: ['**/*.svelte', '**/*.svelte.ts', '**/*.svelte.js'],
+    languageOptions: {
+      // parser: svelteParser,
+      parserOptions: {
+        projectService: true,
+        parser: ts.parser,
+        project: 'packages/frontend/tsconfig.json',
+        extraFileExtensions: ['.svelte'],
+        svelteConfig,
       },
     },
   },
@@ -41,6 +47,7 @@ export default [
       'yarn.lock',
       '**/.*',
       '**/*.config.{ts,js}',
+      '.wrangler',
     ],
   },
 ]
