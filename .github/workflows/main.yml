@@ -134,6 +134,10 @@ jobs:
           yarn-version: ${{ steps.set_yarn_version.outputs.yarn_version }}
           yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
+      - name: Frontend linting
+        if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
+        run: yarn lint:front
+
       # Check if there are any errors in the SvelteKit code.
       - name: SvelteKit check
         if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
@@ -142,6 +146,10 @@ jobs:
       - name: Build frontend for development
         if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: yarn workspace frontend build:development
+
+      - name: Backend linting
+        if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
+        run: yarn lint:back
 
       - name: Build backend for development
         if: ${{ needs.changes.outputs.backend == 'true' }}

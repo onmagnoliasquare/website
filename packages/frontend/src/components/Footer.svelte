@@ -8,7 +8,7 @@
 
 {#snippet navList(routes: route[])}
 	<ul class="flex flex-col space-x-2">
-		{#each routes as route}
+		{#each routes as route (route.path)}
 			<li class="mb-1 w-full">
 				<a
 					href={route.path}

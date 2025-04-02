@@ -28,8 +28,8 @@ export const load: PageServerLoad = (async () => {
 	if (series) {
 		const title = 'Series';
 
-		let ogTitle = createSiteTitle(site.title, title);
-		let ogDescription = `View more contributor series at ${site.name}`;
+		const ogTitle = createSiteTitle(site.title, title);
+		const ogDescription = `View more contributor series at ${site.name}`;
 
 		const pageMetaTags = Object.freeze({
 			description: ogDescription,

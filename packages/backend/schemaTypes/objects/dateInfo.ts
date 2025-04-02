@@ -11,7 +11,7 @@ export default defineType({
       type: 'date',
       options: {
         dateFormat: 'YYYY-MM-DD',
-        //@ts-ignore - ignore TS(2353)
+        //@ts-expect-error ignore TS(2353)
         calendarTodayLabel: 'Today',
       },
       validation: (rule) => rule.required().min('2014-02-01T00:00:00.000Z'),
@@ -33,7 +33,7 @@ export default defineType({
       type: 'date',
       options: {
         dateFormat: 'YYYY-MM-DD',
-        //@ts-ignore - ignore TS(2353)
+        //@ts-expect-error ignore TS(2353)
         calendarTodayLabel: 'Today',
       },
     }),

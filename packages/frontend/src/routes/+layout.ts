@@ -8,7 +8,7 @@ import { createSiteTitle } from '$lib/helpers';
 export const load: LayoutLoad = async ({ url, data }) => {
 	// Choose locale metadata based on header or cookie.
 	// Defaults to US English.
-	let userLocale: string = data.chosenLocale
+	const userLocale: string = data.chosenLocale
 		? data.chosenLocale
 		: data.acceptedLanguage
 			? data.acceptedLanguage
@@ -32,7 +32,7 @@ export const load: LayoutLoad = async ({ url, data }) => {
 		twitter: {
 			title: site.title,
 			description: site.description,
-			cardType: 'summary_large_image' as 'summary_large_image',
+			cardType: 'summary_large_image' as const,
 			image: `${site.url}/og-default-preview.png`,
 			imageAlt: `${site.name} logo`
 		},

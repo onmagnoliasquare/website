@@ -39,7 +39,7 @@ export default function slugValidator(slug: string): string {
 
     // Replace all types of brackets with empty string.
     // See: http://xahlee.info/comp/unicode_matching_brackets.html
-    .replace(/[\[\]{}﹙﹚﹛﹜﹝﹞（）［］｛｝｟｠]/g, '')
+    .replace(/[[\]{}﹙﹚﹛﹜﹝﹞（）［］｛｝｟｠]/g, '')
 
     // Break down all characters into their constituent diacritics
     // and base forms.
@@ -79,7 +79,7 @@ export default function slugValidator(slug: string): string {
  */
 function removeTrailing(s: string) {
   // Retrieve last char in string.
-  let lc = s.at(-1)
+  const lc = s.at(-1)
 
   if (lc === '-' || lc === ' ' || lc === '_') {
     s = removeTrailing(s.slice(0, -1))

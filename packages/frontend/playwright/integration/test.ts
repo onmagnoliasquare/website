@@ -1,7 +1,7 @@
 // https://playwright.dev/docs/test-use-options#configuration-scopes
 
 import { test, expect } from '@playwright/test';
-import { v05Slug } from '../testVariables';
+import { v0_5_x_Article } from '../testVariables';
 
 test.describe('Basic routing', { tag: '@integration' }, () => {
 	test('About page has title', async ({ page }) => {
@@ -50,7 +50,7 @@ test.describe('Basic routing', { tag: '@integration' }, () => {
 	});
 
 	test('Category on by line accessible via article page', async ({ page }) => {
-		await page.goto(`/category/news/${v05Slug}`);
+		await page.goto(`/category/news/${v0_5_x_Article.article?.slug.current}`);
 		await expect(
 			page.getByRole('heading', {
 				name: `v0.5 Article Feature Set: What a blast!`

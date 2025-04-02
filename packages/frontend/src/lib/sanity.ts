@@ -4,6 +4,7 @@ import imageUrlBuilder from '@sanity/image-url';
 // Environment variables, found in ".env". Check ".env.example" for explanation.
 import type { Query } from './schema';
 import { dev } from '$app/environment';
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
 // if (!SANITY_PROJECT_ID || !SANITY_DATASET) {
 // 	throw new Error('Did you forget to run yarn run -T sanity init --env?');
@@ -37,7 +38,7 @@ export const client = createClient(config);
 // See: https://www.sanity.io/docs/presenting-images#mY9Be3Ph
 const builder = imageUrlBuilder(client);
 
-export function urlFor(source: any) {
+export function urlFor(source: SanityImageSource) {
 	return builder.image(source);
 }
 
@@ -52,6 +53,7 @@ export function urlFor(source: any) {
  * @param q The GROQ query string to run against the Sanity API.
  * @returns The result of the query as a JSON object.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function sanityFetch(q: string): Promise<any> {
 	try {
 		return client.fetch(q);
@@ -104,7 +106,7 @@ export function unequal(leftSide: string, rightSide: string | boolean): string {
  * @param sq The sanity query to execute.
  * @returns a serialized query string.
  */
-export function buildSanityQuery(sq: Query, resultsNum?: Number[]): string {
+export function buildSanityQuery(sq: Query, resultsNum?: number[]): string {
 	const type = sq.type ? `_type == "${sq.type}"` : '';
 	const conditions = sq.conditions ? getConditions(sq.conditions) : '';
 
@@ -123,7 +125,7 @@ export function buildSanityQuery(sq: Query, resultsNum?: Number[]): string {
 	// `${[type, conditions].join(' && ')}` combines the type and
 	// condition variables into a single string separated by the boolean
 	// `and` operator.
-	let query = `*[${conditions !== '' ? [type, conditions].join(' && ') : type}] ${order}${results} {${allAttrs}} ${idx}`;
+	const query = `*[${conditions !== '' ? [type, conditions].join(' && ') : type}] ${order}${results} {${allAttrs}} ${idx}`;
 
 	return query;
 }
@@ -136,7 +138,7 @@ export function buildSanityQuery(sq: Query, resultsNum?: Number[]): string {
  * @returns A single string containing all the conditions.
  */
 export function getConditions(conditions: string[]): string {
-	let newConditions = conditions.map((c) => {
+	const newConditions = conditions.map((c) => {
 		return c.trim();
 	});
 
@@ -150,10 +152,10 @@ export function getConditions(conditions: string[]): string {
  * @param values One to two element array.
  * @returns A formatted array string.
  */
-export function getIdx(values: Number[]): string {
-	let start, end: Number;
+export function getIdx(values: number[]): string {
+	let end: number;
 
-	start = values[0];
+	const start = values[0];
 
 	if (values[1]) {
 		end = values[1];
@@ -170,7 +172,7 @@ export function getIdx(values: Number[]): string {
  * @returns A single string containing all the attributes.
  */
 export function getAttrs(attrs: string[]): string {
-	let newAttrs = attrs.map((a) => {
+	const newAttrs = attrs.map((a) => {
 		return a.trim();
 	});
 

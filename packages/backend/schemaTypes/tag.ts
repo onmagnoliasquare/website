@@ -44,7 +44,7 @@ export default defineType({
       title: 'Description',
       type: requiredFormattedText.name,
       description: 'What is this tag about?',
-      //@ts-ignore TS(2353)
+      //@ts-expect-error TS(2353)
       rows: 4,
       group: InfoGroup.name,
     }),

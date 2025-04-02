@@ -5,7 +5,6 @@
 	interface Props {
 		title: string;
 		link: string;
-		bgColor?: string;
 		children: Snippet;
 	}
 

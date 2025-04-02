@@ -19,12 +19,14 @@
     "test-ci:back": "yarn workspace backend test-ci:unit",
     "test-coverage": "yarn vitest run --coverage",
     "front:test:ui": "yarn workspace frontend test:ui",
-    "sanity": "yarn workspace backend sanity"
+    "sanity": "yarn workspace backend sanity",
+    "lint:front": "yarn run -T eslint packages/frontend",
+    "lint:back": "yarn run -T eslint packages/backend"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,svelte}": ["prettier --write", "eslint"],
     "*.{html,css,json,yaml,yml}": ["prettier --write"],
-    "*.nix": "nixfmt"
+    "*.nix": "nixfmt --version && nixfmt"
   },
   "dependencies": {
     "styled-components": "^6.1.16"

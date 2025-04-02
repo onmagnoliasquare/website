@@ -1,0 +1,199 @@
+[
+	{
+		"_createdAt": "2024-12-29T05:24:24Z",
+		"_id": "c0a4e6c5-8ab5-48f3-bacb-bb9979d44275",
+		"_rev": "3TqmEw6QxBarTdLm3XdcFh",
+		"_type": "article",
+		"_updatedAt": "2025-01-13T13:53:30Z",
+		"authors": [
+			{
+				"_key": "91df2cbf1fc3",
+				"_ref": "d2326d9c-9adc-4bf9-8709-867ee13d2185",
+				"_type": "author"
+			}
+		],
+		"category": {
+			"_ref": "4edba030-a87c-4b27-b1e5-0250cff2e565",
+			"_type": "reference"
+		},
+		"content": [
+			{
+				"_key": "e74b5b4d9be6",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "56de747f143c",
+						"_type": "span",
+						"marks": [],
+						"text": "Super"
+					},
+					{
+						"_key": "8b5e26a2024b",
+						"_type": "span",
+						"marks": ["superscript"],
+						"text": "script"
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "e682c9dcec57",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "35c9039a7dc0",
+						"_type": "span",
+						"marks": [],
+						"text": "Sub"
+					},
+					{
+						"_key": "4179e6a53ff0",
+						"_type": "span",
+						"marks": ["subscript"],
+						"text": "script"
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "4150bb40d68b",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "92bbe4eab1b5",
+						"_type": "span",
+						"marks": ["underline"],
+						"text": "underline"
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "1fe49196d5d3",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "d96d08b1e82c",
+						"_type": "span",
+						"marks": [],
+						"text": ""
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "e72f5d59b5fe",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "8cd247a9ecde",
+						"_type": "span",
+						"marks": [],
+						"text": "When I went to the nearest garden, right by the dorms, I had an epiphany (I don't like using that word, by the way, but such circumstances require its use). I wrote something down in my notebook:"
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "e072001fe666",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "773799817b85",
+						"_type": "span",
+						"marks": [],
+						"text": ""
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "3412ef74b1dd",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "91fb290bac05",
+						"_type": "span",
+						"marks": [],
+						"text": "At first, when I heard about the many vicissitudes of life here, I was astonished. But now, I live in the matter-of-fact, the current present, the what-have-yous."
+					}
+				],
+				"markDefs": [],
+				"style": "blockquote"
+			},
+			{
+				"_key": "36cd289da489",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "04d557952bb2",
+						"_type": "span",
+						"marks": [],
+						"text": ""
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			},
+			{
+				"_key": "9343bab996d4",
+				"_type": "block",
+				"children": [
+					{
+						"_key": "a9ff6f00e091",
+						"_type": "span",
+						"marks": [],
+						"text": "Rather corny. But "
+					},
+					{
+						"_key": "74f907c34fd4",
+						"_type": "span",
+						"marks": ["em"],
+						"text": "C'est La Vie"
+					},
+					{
+						"_key": "53a9910e8b54",
+						"_type": "span",
+						"marks": [],
+						"text": " as the french say, or in English, "
+					},
+					{
+						"_key": "37fca3aaf848",
+						"_type": "span",
+						"marks": ["em"],
+						"text": "Good Riddance"
+					},
+					{
+						"_key": "72da234f7b21",
+						"_type": "span",
+						"marks": [],
+						"text": ". My relationship with her relegated to a past beyond my years. So short-lived, like a lab experiment. Let's see how much heartbreak I can sustain in a week."
+					}
+				],
+				"markDefs": [],
+				"style": "normal"
+			}
+		],
+		"date": "2024-12-28",
+		"media": {
+			"_type": "image",
+			"asset": {
+				"_ref": "image-55c8874c61a0a39ac78021da7fe86babdeafa655-4608x3456-jpg",
+				"_type": "reference"
+			}
+		},
+		"slug": {
+			"_type": "slug",
+			"current": "v06-features"
+		},
+		"subtitle": "More tricks and treats up our sleeves... We got a lot more where that came from, and then some!",
+		"title": "v0.6 Features: More Things to Tickle One's Fancy",
+		"useCustomCss": false
+	}
+]

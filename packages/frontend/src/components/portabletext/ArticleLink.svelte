@@ -1,7 +1,7 @@
 <!-- https://github.com/portabletext/svelte-portabletext/blob/main/src/customComponents/Link.svelte -->
 
 <script lang="ts">
-	import type { MarkComponentProps } from '$lib/rendererTypes';
+	import type { MarkComponentProps } from '@portabletext/svelte';
 	import type { Snippet } from 'svelte';
 
 	interface Props {

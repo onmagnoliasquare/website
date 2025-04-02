@@ -229,7 +229,7 @@ export type SanityQuery<T extends keyof validQueryableTypes> = {
 	 * The first element is the start of a range. The second element is the
 	 * end of a range. The first element is required.
 	 */
-	idx?: Number[];
+	idx?: number[];
 
 	/**
 	 * `order` defines the order in which to receive the data. This is a groq

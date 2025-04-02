@@ -8,7 +8,7 @@ export function validUrl(message?: string) {
         new URL(value)
         return true
       } catch (err) {
-        return {message: message || 'Must be a valid URL'}
+        return {message: message || err}
       }
     }
 

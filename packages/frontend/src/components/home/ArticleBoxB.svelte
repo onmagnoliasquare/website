@@ -30,7 +30,7 @@
 							width={1920}
 							height={1080}
 							quality={20}
-							fit={'crop'}
+							fit="crop"
 							alt={article.media.alt}
 						/>
 					{/if}

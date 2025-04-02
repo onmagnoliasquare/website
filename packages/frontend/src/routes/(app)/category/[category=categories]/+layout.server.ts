@@ -38,7 +38,7 @@ export const load: LayoutServerLoad = (async (event: ServerLoadEvent) => {
 	}
 
 	if (articles) {
-		let title = cat.name;
+		const title = cat.name;
 		let ogTitle = title;
 		let ogDescription = cat.description;
 

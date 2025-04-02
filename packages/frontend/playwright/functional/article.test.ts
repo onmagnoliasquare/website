@@ -1,13 +1,17 @@
-import { site } from '$lib/variables';
 import { test, expect } from '@playwright/test';
-import { v05Category, v05DummyDataPath, v05Slug, v05TestArticleUrl } from '../testVariables';
+import { site } from '$lib/variables';
+import { v0_5_x_Article, v0_6_x_Article } from '../testVariables';
 
-test.describe('v0.5 Article Features', { tag: '@functional' }, () => {
+test.describe('v0.5.x Article Features', { tag: '@functional' }, () => {
+	test.describe.configure({ mode: 'serial' });
 	test.beforeEach(async ({ page }) => {
-		await page.route(`*/**/api/article?category=${v05Category}&slug=${v05Slug}`, async (route) => {
-			await route.fulfill({ path: v05DummyDataPath });
-		});
-		await page.goto(v05TestArticleUrl);
+		await page.route(
+			`*/**/api/article?category=${v0_5_x_Article.article?.category.slug}&slug=${v0_5_x_Article.article?.slug.current}`,
+			async (route) => {
+				await route.fulfill({ path: v0_5_x_Article.testDataPath });
+			}
+		);
+		await page.goto(v0_5_x_Article.testUrl);
 	});
 
 	test('Article has title', async ({ page }) => {
@@ -76,14 +80,14 @@ test.describe('v0.5 Article Features', { tag: '@functional' }, () => {
 		await expect(page.getByRole('heading', { name: 'Header 3', level: 4 })).toBeVisible();
 	});
 
-	test('Unordered List present', async ({ page }) => {
+	test('Unordered List visible', async ({ page }) => {
 		const unorderedList = page.getByRole('list').getByText("Here's bulletsBang bangWoo");
 		// await expect(unorderedList).toContainText(`Here's bullets`);
 		await expect(unorderedList).toContainText('Bang bang');
 		await expect(unorderedList).toContainText('Woo hoo!');
 	});
 
-	test('Ordered List present', async ({ page }) => {
+	test('Ordered List visible', async ({ page }) => {
 		const orderedList = page.getByRole('list').getByText('BananaAppleRhombus');
 		await expect(orderedList).toContainText('Apple');
 		await expect(orderedList).toContainText('Rhombus');
@@ -157,7 +161,7 @@ test.describe('v0.5 Article Features', { tag: '@functional' }, () => {
 		).toBeVisible();
 	});
 
-	test('Tags rendered', async ({ page }) => {
+	test('Tags visible', async ({ page }) => {
 		const seniorsTag = page.getByText('# seniors', { exact: true });
 		const adviceTag = page.getByText('# advice', { exact: true });
 
@@ -295,7 +299,7 @@ test.describe('v0.5 Article Features', { tag: '@functional' }, () => {
 	 * Checks if there are any blank <p> elements. This is a regression test for
 	 * https://github.com/onmagnoliasquare/website/issues/194
 	 */
-	test('No blank <p> elements in the article', async ({ page }) => {
+	test('No blank <p> elements in the article', { tag: '@regression' }, async ({ page }) => {
 		// Locate all <p> elements within the <article>
 		const paragraphs = page.locator('article p');
 
@@ -307,5 +311,45 @@ test.describe('v0.5 Article Features', { tag: '@functional' }, () => {
 			const paragraphText = await paragraphs.nth(i).innerText();
 			expect(paragraphText.trim()).not.toBe(''); // Ensure the <p> is not blank
 		}
+	});
+});
+
+test.describe('v0.6.x Article Features', { tag: '@functional' }, () => {
+	test.describe.configure({ mode: 'serial' });
+	test.beforeEach(async ({ page }) => {
+		await page.route(
+			`*/**/api/article?category=${v0_6_x_Article.article?.category.slug}&slug=${v0_6_x_Article.article?.slug.current}`,
+			async (route) => {
+				await route.fulfill({ path: v0_6_x_Article.testDataPath });
+			}
+		);
+		await page.goto(v0_6_x_Article.testUrl);
+	});
+
+	test('Superscript text rendered', async ({ page }) => {
+		const superscript = page.locator('sup', { hasText: 'script' });
+		await expect(superscript).toBeVisible();
+	});
+
+	test('Subscript text rendered', async ({ page }) => {
+		await expect(page.locator('text=subscript').locator('sub')).toHaveText('script');
+	});
+
+	test('Underline text rendered', async ({ page }) => {
+		const underlineEl = page.getByText('underline', { exact: true });
+
+		await expect(underlineEl).toBeVisible();
+		const textDecoration = await underlineEl.evaluate((el) => {
+			return window.getComputedStyle(el).textDecorationLine;
+		});
+
+		expect(textDecoration).toContain('underline');
+	});
+
+	test('Block quote visible', async ({ page }) => {
+		const quote = page.getByRole('blockquote');
+		await expect(quote).toContainText(
+			'At first, when I heard about the many vicissitudes of life here, I was astonished. But now, I live in the matter-of-fact, the current present, the what-have-yous.'
+		);
 	});
 });

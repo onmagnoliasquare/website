@@ -1,6 +1,6 @@
 import { site } from '$lib/variables';
 import { test, expect, type Page } from '@playwright/test';
-import { article404, v05TestArticleUrl } from '../testVariables';
+import { article404, v0_5_x_Article, v0_6_x_Article } from '../testVariables';
 
 test.describe('v0.5 Article Features', { tag: '@integration' }, () => {
 	// Lets save some API requests... Plus, the data is static anyway.
@@ -17,7 +17,7 @@ test.describe('v0.5 Article Features', { tag: '@integration' }, () => {
 	});
 
 	test('Article has title', async () => {
-		await page.goto(v05TestArticleUrl);
+		await page.goto(v0_5_x_Article.testUrl);
 		await expect(
 			page.getByRole('heading', {
 				name: 'v0.5 Article Feature Set: What a blast!'
@@ -329,5 +329,49 @@ test.describe('v0.5 Article Features', { tag: '@integration' }, () => {
 
 		// 404 error present.
 		await expect(page.getByText('404', { exact: true })).toBeVisible();
+	});
+});
+
+test.describe('v0.6.x Article Features', { tag: '@integration' }, () => {
+	let page: Page;
+
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
+	});
+
+	test.afterAll(async () => {
+		await page.close();
+	});
+
+	test('Superscript text rendered', async ({ page }) => {
+		await page.goto(v0_6_x_Article.testUrl);
+		const superscript = page.locator('sup', { hasText: 'script' });
+		await expect(superscript).toBeVisible();
+	});
+
+	test('Subscript text rendered', async ({ page }) => {
+		await page.goto(v0_6_x_Article.testUrl);
+		const superscript = page.locator('sub', { hasText: 'script' });
+		await expect(superscript).toBeVisible();
+	});
+
+	test('Underline text rendered', async ({ page }) => {
+		await page.goto(v0_6_x_Article.testUrl);
+		const underlineEl = page.getByText('underline', { exact: true });
+
+		await expect(underlineEl).toBeVisible();
+		const textDecoration = await underlineEl.evaluate((el) => {
+			return window.getComputedStyle(el).textDecorationLine;
+		});
+
+		expect(textDecoration).toContain('underline');
+	});
+
+	test('Block quote visible', async ({ page }) => {
+		await page.goto(v0_6_x_Article.testUrl);
+		const quote = page.getByRole('blockquote');
+		await expect(quote).toContainText(
+			'At first, when I heard about the many vicissitudes of life here, I was astonished. But now, I live in the matter-of-fact, the current present, the what-have-yous.'
+		);
 	});
 });

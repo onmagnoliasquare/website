@@ -3,9 +3,9 @@ import type { RequestHandler } from './$types';
 import { buildSanityQuery, sanityFetch, unequal } from '$lib/sanity';
 import type { Article } from '$lib/schema';
 
-export const GET: RequestHandler = async ({}) => {
+export const GET: RequestHandler = async () => {
 	let sanityQuery: string;
-	let articles: Article[] | undefined;
+	let articles: Article[] | never;
 
 	try {
 		sanityQuery = buildSanityQuery({

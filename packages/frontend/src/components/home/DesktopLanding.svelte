@@ -22,7 +22,7 @@
 <div class="min-h-screen grid grid-rows-1 grid-cols-7">
 	<div class="flex flex-col space-y-2 col-span-3 size-fit row-span-1 center">
 		<div class="size-fit p-4">
-			{#each splitTitle as word}
+			{#each splitTitle as word (word)}
 				<h1 id="bigText" class="font-stretch-condensed">
 					{word}
 				</h1>

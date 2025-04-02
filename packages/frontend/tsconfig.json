@@ -16,7 +16,7 @@
 		"verbatimModuleSyntax": true
 	},
 	"include": ["./**/*"],
-	"exclude": ["node_modules", ".vscode", "dist", ".svelte-kit", "coverage"]
+	"exclude": ["node_modules", ".vscode", "dist", ".svelte-kit", "coverage", ".wrangler"]
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
 	//
 	// If you want to overwrite includes/excludes, make sure to copy over the relevant includes/excludes
