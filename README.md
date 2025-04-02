@@ -8,7 +8,7 @@ There are two ways to setup a development environment to get started.
 
 ### Using Nix
 
-It is highly recommended to use the Nix flake in this repository to setup the development environment._For your convenience, there is also a `.envrc` file ready to go (but you might've noticed that already)._
+It is highly recommended to use the Nix flake in this repository to setup the development environment. _For your convenience, there is also a `.envrc` file ready to go (but you might've noticed that already)._
 
 Using a Nix flake requires the [`nix` package manager](https://nixos.org/download/) and experimental flakes in the nix configuration **enabled**. (If you use MacOS, the [nix determinate installer](https://zero-to-nix.com/concepts/nix-installer/) is effective)
 
