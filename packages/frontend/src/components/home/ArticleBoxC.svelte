@@ -63,7 +63,7 @@
 								width={480}
 								height={320}
 								quality={20}
-								fit={'crop'}
+								fit="crop"
 								alt={article.media.alt}
 								blurHash={article.asset?.metadata.blurHash}
 							/>

@@ -1,6 +1,6 @@
 // See: https://dev.to/jdgamble555/async-fetching-in-svelte-5-826
 
-export let resource = <T>(fn: () => Promise<T>, initialValue?: T) => {
+export const resource = <T>(fn: () => Promise<T>, initialValue?: T) => {
 	const _rune = $state<{ value: T | undefined }>({
 		value: initialValue
 	});

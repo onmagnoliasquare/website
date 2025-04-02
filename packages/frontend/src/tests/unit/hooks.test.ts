@@ -8,7 +8,7 @@ describe('preflightOptions', () => {
 			request: {
 				method: 'OPTIONS'
 			}
-		} as any; // Cast as any to mock event shape
+		} as never; // Cast as any to mock event shape
 
 		// Mock the resolve function.
 		const mockResolve = vi.fn();
@@ -26,7 +26,7 @@ describe('preflightOptions', () => {
 			request: {
 				method: 'GET'
 			}
-		} as any;
+		} as never;
 
 		// Mock resolve function.
 		const mockResolve = vi.fn().mockResolvedValue(new Response('Resolved'));

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { MarkComponentProps } from '$lib/rendererTypes';
+	import type { MarkComponentProps } from '@portabletext/svelte';
 
 	interface Props {
 		portableText: MarkComponentProps;

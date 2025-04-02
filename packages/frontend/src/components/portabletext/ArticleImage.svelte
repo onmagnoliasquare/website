@@ -2,9 +2,10 @@
 	import PhotoCaption from '$components/custom/PhotoCaption.svelte';
 	import P from '$components/defaults/P.svelte';
 	import Image from '$components/Image.svelte';
+	import type { PortableText } from '@portabletext/svelte';
 
 	interface Props {
-		portableText: any;
+		portableText: PortableText;
 	}
 
 	let { portableText }: Props = $props();

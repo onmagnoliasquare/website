@@ -20,7 +20,7 @@ export const load: PageLoad = (async (event: PageLoadEvent) => {
 
 		let ogTitle = title;
 		let ogDescription = subtitle;
-		let ogTags = [
+		const ogTags = [
 			// Add default site tags.
 			...site.tags,
 

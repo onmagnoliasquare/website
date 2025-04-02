@@ -2,9 +2,7 @@ import { error } from '@sveltejs/kit';
 import { buildSanityQuery, sanityFetch } from '$lib/sanity';
 import type { PageServerLoad } from './$types';
 import type { MetaTagsProps } from 'svelte-meta-tags';
-import { site } from '$lib/variables';
 import type { Tag } from '$lib/schema';
-import { createSiteTitle } from '$lib/helpers';
 
 export const load: PageServerLoad = (async () => {
 	let sanityQuery: string;
@@ -32,10 +30,10 @@ export const load: PageServerLoad = (async () => {
 	 */
 
 	if (tags) {
-		const title = createSiteTitle(site.title, 'Archive');
+		const title = 'Archive';
 
-		let ogTitle = title;
-		let ogDescription = `Browse our articles, tags, and content.`;
+		const ogTitle = title;
+		const ogDescription = `Browse our articles, tags, and content.`;
 
 		const pageMetaTags = Object.freeze({
 			description: ogDescription,

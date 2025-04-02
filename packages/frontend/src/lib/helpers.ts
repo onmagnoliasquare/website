@@ -126,7 +126,7 @@ export const getFlagEmoji = (countryCode: string): string => {
 	return (
 		countryCode
 			.toUpperCase()
-			//@ts-ignore
+			//@ts-expect-error for nonsense.
 			.replace(/./g, (char) => String.fromCodePoint(127397 + char.charCodeAt()))
 	);
 };
@@ -141,7 +141,7 @@ export const getFlagEmoji = (countryCode: string): string => {
  * @returns `string` country name
  */
 export const getCountryName = (countryCode: string, locale: string): string | undefined => {
-	let name = new Intl.DisplayNames([locale], { type: 'region' });
+	const name = new Intl.DisplayNames([locale], { type: 'region' });
 	return name.of(countryCode);
 };
 
@@ -165,10 +165,10 @@ export const parseEmbedLink = (url: string): EmbeddedLinkAttributes => {
 	const domainNames = sourcesList.join('|');
 
 	// Defines the regex expression to seek for what we want.
-	const name = new RegExp(`(${domainNames})(\/*)?`, 'i');
+	const name = new RegExp(`(${domainNames})(/*)?`, 'i');
 
 	// Search the string for a name from the list of domain names.
-	let match = url.match(name)!;
+	const match = url.match(name)!;
 
 	// If there's no match...
 	if (!match) {

@@ -6,7 +6,12 @@
 	 */
 
 	import { urlFor } from '$lib/sanity';
-	import type { FitMode, ImageFormat, CropMode } from '@sanity/image-url/lib/types/types';
+	import type {
+		FitMode,
+		ImageFormat,
+		CropMode,
+		SanityImageSource
+	} from '@sanity/image-url/lib/types/types';
 	import type { ImageUrlBuilder } from 'sanity';
 	import { Image } from '@unpic/svelte';
 	import { blurhashToCssGradientString } from '@unpic/placeholder';
@@ -14,7 +19,7 @@
 	interface Props {
 		class?: string;
 		alt?: string;
-		media: any;
+		media: SanityImageSource;
 		format?: ImageFormat;
 		crop?: CropMode;
 		fit?: FitMode;
