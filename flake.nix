@@ -25,7 +25,7 @@
           # Development related
           # Node version matches that on the CI runners.
           nodejs_22
-          yarn-berry
+          corepack
           typescript
           typescript-language-server
           nixfmt-rfc-style
