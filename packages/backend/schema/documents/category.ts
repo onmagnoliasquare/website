@@ -13,7 +13,7 @@ import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 
 export default defineType({
   name: 'category',
-  title: 'Categories',
+  title: 'Category',
   type: 'document',
   icon: TiersIcon,
   groups: [InfoGroup, ContentGroup, SeoGroup],

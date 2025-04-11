@@ -13,7 +13,7 @@ import blockContent from '../objects/blockContent'
 
 export default defineType({
   name: 'article',
-  title: 'Articles',
+  title: 'Article',
   type: 'document',
   icon: DocumentTextIcon,
   groups: [InfoGroup, ContentGroup, SeoGroup],

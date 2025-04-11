@@ -8,7 +8,7 @@ import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 
 export default defineType({
   name: 'committee',
-  title: 'Committees',
+  title: 'Committee',
   type: 'document',
   icon: UsersIcon,
   fields: [

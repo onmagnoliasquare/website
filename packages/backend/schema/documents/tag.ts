@@ -14,7 +14,7 @@ import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 
 export default defineType({
   name: 'tag',
-  title: 'Tags',
+  title: 'Tag',
   type: 'document',
   icon: TagIcon,
   groups: [InfoGroup, ContentGroup, SeoGroup],

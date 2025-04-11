@@ -29,7 +29,7 @@ import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 
 export default defineType({
   name: 'member',
-  title: 'Members',
+  title: 'Member',
   type: 'document',
   icon: UserIcon,
   groups: [InfoGroup, ContentGroup, SeoGroup],
