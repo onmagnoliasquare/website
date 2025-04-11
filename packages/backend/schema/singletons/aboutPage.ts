@@ -1,18 +1,12 @@
 import {defineType} from 'sanity'
 
+const TITLE = 'About Page'
+
 export default defineType({
   name: 'aboutPage',
-  title: 'aboutPage',
+  title: TITLE,
   type: 'document',
   fields: [
-    {
-      name: 'title',
-      title: 'Title',
-      type: 'string',
-      initialValue: 'About Page',
-      hidden: true,
-      readOnly: true,
-    },
     {
       name: 'president',
       title: 'President',
@@ -26,4 +20,11 @@ export default defineType({
       to: [{type: 'member'}],
     },
   ],
+  preview: {
+    prepare() {
+      return {
+        title: TITLE,
+      }
+    },
+  },
 })
