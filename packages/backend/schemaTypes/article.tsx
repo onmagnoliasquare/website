@@ -111,7 +111,7 @@ export default defineType({
       name: 'tags',
       title: 'Tags',
       description:
-        'Tags help to sort data internally. They are then displayed on the website for readers to view articles in an organized fashion. Tags are also used for SEO.',
+        'Tags group relevant content. Added tags are included in <meta> headers, which makes them important for SEO.',
       type: 'array',
       icon: TagsIcon,
       of: [
