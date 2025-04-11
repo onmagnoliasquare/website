@@ -1,6 +1,7 @@
-import article from './article'
-import category from './category'
-import member from './member'
+import article from './documents/article'
+import category from './documents/category'
+import member from './documents/member'
+import tag from './documents/tag'
 import accessibleImage from './objects/accessibleImage'
 import blockContent from './objects/blockContent'
 import dateInfo from './objects/dateInfo'
@@ -11,11 +12,11 @@ import formattedString from './primitives/formattedString'
 import formattedText from './primitives/formattedText'
 import requiredFormattedString from './primitives/requiredFormattedString'
 import requiredFormattedText from './primitives/requiredFormattedText'
-import series from './series'
-import tag from './tag'
-import committee from './committee'
+import series from './documents/series'
+import committee from './documents/committee'
 import seoMetadataTagText from './primitives/seoMetadataTagText'
 import metadataInformation from './objects/metadataInformation'
+import aboutPage from './singletons/aboutPage'
 
 const objects = [
   socialHandles,
@@ -37,4 +38,6 @@ const primitives = [
 
 const documents = [article, member, category, series, tag, committee]
 
-export const schemaTypes = [...objects, ...primitives, ...documents]
+const singletons = [aboutPage]
+
+export const schemaTypes = [...objects, ...primitives, ...documents, ...singletons]

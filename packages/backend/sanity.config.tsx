@@ -2,11 +2,12 @@ import {defineConfig, NavbarProps, useWorkspace} from 'sanity'
 import {copyPastePlugin} from '@superside-oss/sanity-plugin-copy-paste'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
-import {schemaTypes} from './schemaTypes'
+import {schemaTypes} from './schema'
 import {BookIcon, RobotIcon} from '@sanity/icons'
 import {media} from 'sanity-plugin-media'
 import {studioDataset, studioProjectId, studioTitle} from './lib/environment'
 import {Card, Stack, Text} from '@sanity/ui'
+import {structure} from './structure'
 
 function CustomNavbar(props: NavbarProps) {
   const {dataset} = useWorkspace()
@@ -30,7 +31,7 @@ export default defineConfig({
   projectId: studioProjectId,
   dataset: studioDataset!,
   plugins: [
-    structureTool(),
+    structureTool({structure: structure}),
     visionTool(),
     media({
       creditLine: {
@@ -50,4 +51,7 @@ export default defineConfig({
   announcements: {
     enabled: false,
   },
+  // document: {
+  //   newDocumentOptions:
+  // }kk
 })

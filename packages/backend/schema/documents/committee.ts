@@ -1,29 +1,21 @@
-import {TagIcon} from '@sanity/icons'
+import {UsersIcon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
-import slugValidator from '../lib/slugValidator'
-import {InfoGroup, ContentGroup, SeoGroup} from './objects/fieldGroups'
-import requiredFormattedString from './primitives/requiredFormattedString'
-import requiredFormattedText from './primitives/requiredFormattedText'
-import metadataInformation from './objects/metadataInformation'
+import slugValidator from '../../lib/slugValidator'
+import requiredFormattedText from '../primitives/requiredFormattedText'
+import metadataInformation from '../objects/metadataInformation'
+import requiredFormattedString from '../primitives/requiredFormattedString'
 import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 
-/**
- * A tag can be attached to an article. It lets us organize content into
- * smaller and specific units past the general organization of a category.
- */
-
 export default defineType({
-  name: 'tag',
-  title: 'Tags',
+  name: 'committee',
+  title: 'Committees',
   type: 'document',
-  icon: TagIcon,
-  groups: [InfoGroup, ContentGroup, SeoGroup],
+  icon: UsersIcon,
   fields: [
     defineField({
       name: 'name',
-      title: 'Tag Name',
+      title: 'Committee Name',
       type: requiredFormattedString.name,
-      group: InfoGroup.name,
     }),
 
     defineField({
@@ -36,23 +28,28 @@ export default defineType({
         slugify: (input: string) => slugValidator(input),
       },
       validation: (rule) => rule.required(),
-      group: InfoGroup.name,
     }),
 
     defineField({
       name: 'description',
       title: 'Description',
       type: requiredFormattedText.name,
-      description: 'What is this tag about?',
+      description: 'Information about the committee.',
       //@ts-expect-error TS(2353)
       rows: 4,
-      group: InfoGroup.name,
+    }),
+
+    defineField({
+      name: 'useCustomCss',
+      title: 'Use Custom CSS',
+      description:
+        'Enable if Custom CSS has been designed for this specific article and is ready on the frontend for use. If no custom CSS is applied, default styling will be used.',
+      type: 'boolean',
     }),
 
     defineField({
       name: 'metaInfo',
       type: metadataInformation.name,
-      group: SeoGroup.name,
     }),
     defineField(copyPaste),
   ],

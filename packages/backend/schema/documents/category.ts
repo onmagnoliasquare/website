@@ -1,9 +1,9 @@
-import {FolderIcon} from '@sanity/icons'
+import {TiersIcon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
-import slugValidator from '../lib/slugValidator'
-import {ContentGroup, InfoGroup, SeoGroup} from './objects/fieldGroups'
-import requiredFormattedText from './primitives/requiredFormattedText'
-import requiredFormattedString from './primitives/requiredFormattedString'
+import slugValidator from '../../lib/slugValidator'
+import {ContentGroup, InfoGroup, SeoGroup} from '../objects/fieldGroups'
+import requiredFormattedText from '../primitives/requiredFormattedText'
+import requiredFormattedString from '../primitives/requiredFormattedString'
 import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 
 /**
@@ -15,7 +15,7 @@ export default defineType({
   name: 'category',
   title: 'Categories',
   type: 'document',
-  icon: FolderIcon,
+  icon: TiersIcon,
   groups: [InfoGroup, ContentGroup, SeoGroup],
   fields: [
     defineField({
