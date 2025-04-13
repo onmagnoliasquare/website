@@ -1,12 +1,12 @@
 import {UserIcon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
-import slugValidator from '../lib/slugValidator'
-import {InfoGroup, ContentGroup, SeoGroup} from './objects/fieldGroups'
-import metadataInformation from './objects/metadataInformation'
-import formattedText from './primitives/formattedText'
-import fromLocation from './objects/fromLocation'
-import requiredFormattedString from './primitives/requiredFormattedString'
-import formattedString from './primitives/formattedString'
+import slugValidator from '../../lib/slugValidator'
+import {InfoGroup, ContentGroup, SeoGroup} from '../objects/fieldGroups'
+import metadataInformation from '../objects/metadataInformation'
+import formattedText from '../primitives/formattedText'
+import fromLocation from '../objects/fromLocation'
+import requiredFormattedString from '../primitives/requiredFormattedString'
+import formattedString from '../primitives/formattedString'
 import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 
 /**
@@ -29,7 +29,7 @@ import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 
 export default defineType({
   name: 'member',
-  title: 'Members',
+  title: 'Member',
   type: 'document',
   icon: UserIcon,
   groups: [InfoGroup, ContentGroup, SeoGroup],

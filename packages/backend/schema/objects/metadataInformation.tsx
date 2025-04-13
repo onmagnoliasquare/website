@@ -16,15 +16,19 @@ export default defineType({
   name: 'metaInfo',
   description: (
     <HtmlDescription>
-      The optional fields below are for the <a href="https://ogp.me/">Open Graph Protocol</a>. These
-      fields are not for internal organization but rather for SEO and social media displays.
+      The optional fields below are for{' '}
+      <a href="https://ogp.me/" target="_blank" rel="noreferrer">
+        Open Graph Protocol (OGP)
+      </a>{' '}
+      metadata. Unfilled fields will be populated with defaults.
     </HtmlDescription>
   ),
   fields: [
     defineField({
       name: 'ogTitle',
       title: 'Open Graph Title',
-      description: 'Optional. If not set, a default title will be used.',
+      description:
+        'Optional. If not set, a default title will be used (title of article for articles).',
       type: formattedString.name,
     }),
 
@@ -32,7 +36,7 @@ export default defineType({
       name: 'ogTags',
       title: 'Open Graph Tags',
       description:
-        'Optional. If tags are to be added, be creative. If this is an article, do not repeat tags.',
+        'Optional. If tags are to be added, be informative, relevant, and reasonably creative. If this is an article, do not repeat the tags already defined in the Tag section, as they are automatically included in OGP metadata.',
       type: 'array',
       of: [
         {
@@ -50,7 +54,7 @@ export default defineType({
       name: 'ogDescription',
       title: 'Open Graph Description',
       description:
-        'Optional. Text in this field becomes the description of the web page, both for Google and Open Graph. If not populated, a default will be used.',
+        'Optional. Text in this field becomes the <meta> description of the web page. If not set, a generic default description will be used.',
       type: formattedText.name,
       //@ts-expect-error ts(2353)
       rows: 2,
@@ -61,7 +65,7 @@ export default defineType({
       name: 'ogImage',
       title: 'Open Graph Image',
       description:
-        'Optional. Text in this field becomes the preview image of the web page, used on Twitter, Facebook, Discord, etc. If not populated, a default will be used.',
+        'Optional. Text in this field becomes the preview image of the web page, used on Twitter, Facebook, Discord, WhatsApp etc. If not set, a default brand logo image will be used.',
       type: 'image',
       fields: [
         {

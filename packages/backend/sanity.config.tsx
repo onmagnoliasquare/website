@@ -1,12 +1,16 @@
-import {defineConfig, NavbarProps, useWorkspace} from 'sanity'
+import {defineConfig, isDev, NavbarProps, useWorkspace} from 'sanity'
 import {copyPastePlugin} from '@superside-oss/sanity-plugin-copy-paste'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
-import {schemaTypes} from './schemaTypes'
+import {schemaTypes} from './schema'
 import {BookIcon, RobotIcon} from '@sanity/icons'
 import {media} from 'sanity-plugin-media'
 import {studioDataset, studioProjectId, studioTitle} from './lib/environment'
 import {Card, Stack, Text} from '@sanity/ui'
+import {structure} from './structure'
+import {customDocumentActions} from './plugins/customDocumentActions'
+
+const devOnlyPlugins = [visionTool()]
 
 function CustomNavbar(props: NavbarProps) {
   const {dataset} = useWorkspace()
@@ -30,14 +34,15 @@ export default defineConfig({
   projectId: studioProjectId,
   dataset: studioDataset!,
   plugins: [
-    structureTool(),
-    visionTool(),
+    structureTool({structure: structure}),
     media({
       creditLine: {
         enabled: true,
       },
     }),
     copyPastePlugin(),
+    customDocumentActions(),
+    ...(isDev ? devOnlyPlugins : []),
   ],
   schema: {
     types: schemaTypes,
@@ -50,4 +55,7 @@ export default defineConfig({
   announcements: {
     enabled: false,
   },
+  // document: {
+  //   newDocumentOptions:
+  // }kk
 })

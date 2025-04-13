@@ -4,6 +4,7 @@ import embeddedLink from './embeddedLink'
 import requiredFormattedString from '../primitives/requiredFormattedString'
 import formattedText from '../primitives/formattedText'
 import formattedString from '../primitives/formattedString'
+import {HtmlDescription} from '../../components/HtmlDescription'
 
 export default defineType({
   name: 'content',
@@ -96,8 +97,17 @@ export default defineType({
         {
           name: 'alt',
           title: 'Alt Text',
-          description:
-            'Alt text is a description for those hard of seeing; it is a simple description of what is happening in a piece of media. For example, if there is an image that pertains to a dinner hosted by the school, the alt text would be—staff and faculty gathered around a table in-front of the speaker stage.',
+          description: (
+            <HtmlDescription>
+              Alt-text is a necessary accessibility description describing content in media (often
+              an image). For example, alt-text of a picture of a school dinner would read: People
+              eating at a table in front of a stage. Learn more about alt-text here:{' '}
+              <a href="https://www.a11ywithlindsey.com/blog/writing-alternative-text-matters">
+                Writing Alternative Text That Matters
+              </a>
+              .
+            </HtmlDescription>
+          ),
           type: requiredFormattedString.name,
         },
       ],

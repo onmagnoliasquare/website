@@ -1,21 +1,21 @@
-import {DocumentsIcon, TagsIcon} from '@sanity/icons'
+import {DocumentTextIcon, TagsIcon} from '@sanity/icons'
 import {defineArrayMember, defineField, defineType} from 'sanity'
-import slugValidator from '../lib/slugValidator'
-import abbreviateName from '../lib/abbreviateName'
-import {ContentGroup, InfoGroup, SeoGroup} from './objects/fieldGroups'
-import requiredFormattedString from './primitives/requiredFormattedString'
-import formattedText from './primitives/formattedText'
-import metadataInformation from './objects/metadataInformation'
-import blockContent from './objects/blockContent'
+import slugValidator from '../../lib/slugValidator'
+import abbreviateName from '../../lib/abbreviateName'
+import {ContentGroup, InfoGroup, SeoGroup} from '../objects/fieldGroups'
+import requiredFormattedString from '../primitives/requiredFormattedString'
+import formattedText from '../primitives/formattedText'
+import metadataInformation from '../objects/metadataInformation'
+import blockContent from '../objects/blockContent'
 
 // Portable text editor configuration on Sanity docs:
 // https://www.sanity.io/docs/portable-text-editor-configuration
 
 export default defineType({
   name: 'article',
-  title: 'Articles',
+  title: 'Article',
   type: 'document',
-  icon: DocumentsIcon,
+  icon: DocumentTextIcon,
   groups: [InfoGroup, ContentGroup, SeoGroup],
   fields: [
     defineField({
@@ -61,7 +61,7 @@ export default defineType({
         //@ts-expect-error - ignore TS(2353)
         calendarTodayLabel: 'Today',
       },
-      validation: (rule) => rule.required(),
+      validation: (rule) => rule.required().min('2014-02-01'),
       group: InfoGroup.name,
     }),
 
@@ -111,7 +111,7 @@ export default defineType({
       name: 'tags',
       title: 'Tags',
       description:
-        'Tags help to sort data internally. They are then displayed on the website for readers to view articles in an organized fashion. Tags are also used for SEO.',
+        'Tags group relevant content. Added tags are included in <meta> headers, which makes them important for SEO.',
       type: 'array',
       icon: TagsIcon,
       of: [
