@@ -12,6 +12,7 @@ import type { ImageAsset, Slug } from '@sanity/types';
 
 export interface Member {
 	_type: 'member';
+	_id: string;
 	name: string;
 	year?: number;
 	netid?: string;
@@ -66,6 +67,7 @@ export interface Series {
 }
 
 export interface Category {
+	_id: string;
 	_type: 'category';
 	_createdAt: string;
 	name: string;
@@ -87,6 +89,7 @@ export interface Committee {
 export interface Article {
 	_id: string;
 	_type: 'article';
+	_score: number;
 	_createdAt: string;
 
 	// This is for when the author gets to choose
