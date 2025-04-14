@@ -137,9 +137,9 @@
 <footer>
 	{#if tags}
 		<div data-sveltekit-preload-data="false" class="px-2 mx-1 my-3 py-3 border-t-1 border-dotted">
-			<a href="/archive" class="w-fit">
-				<h3 class="font-serif tracking-wide font-bold text-xl mb-1 pb-1">Tags</h3>
-			</a>
+			<h3 class="font-serif tracking-wide font-bold text-xl mb-1 pb-1 w-fit">
+				<a href="/archive">Tags</a>
+			</h3>
 			<ul class="list flex flex-wrap items-center justify-left space-x-1">
 				{#each data.article.tags as tag}
 					<li class="pr-1 inline">
@@ -152,6 +152,7 @@
 		</div>
 	{/if}
 </footer>
+
 <!--
 <style>
 	/* Code modified from:  */
