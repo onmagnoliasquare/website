@@ -60,7 +60,13 @@ export const GET: RequestHandler = async ({ url }) => {
 					'tags[]->{name, slug}',
 					'category->{name, slug}',
 					`"asset": media.asset->{creditLine, metadata}`,
-					'series->{name, slug}'
+					'series->{name, slug}',
+					// Below query modified from:
+					// https://www.sanity.io/schemas/get-related-items-of-a-post-in-sanity-by-comparing-category-array-reference-with-another-array-0d752dd7
+					`"related": *[_type == "article" && count(categories[@._ref == ^.category._ref]) > 0] | order(date) [0..5] {
+     					title,
+     					slug
+   					}`
 				]
 			});
 
