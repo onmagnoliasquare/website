@@ -42,7 +42,16 @@ export const GET: RequestHandler = async ({ url }) => {
 					equal('category->slug.current', (category as string).toLowerCase()),
 					equal('slug.current', slug as string)
 				],
-				attributes: ['title', 'subtitle', 'date', 'media', 'updatedDate', 'metaInfo'],
+				attributes: [
+					'title',
+					'subtitle',
+					'date',
+					'media',
+					'updatedDate',
+					'metaInfo',
+					'slug',
+					'_id'
+				],
 				customAttrs: [
 					`content[]{
 						_type == "image" => {
@@ -56,17 +65,13 @@ export const GET: RequestHandler = async ({ url }) => {
 						},
 						...
 					}`,
-					'authors[]->{name, slug}',
+					'authors[]->{_id, name, slug}',
 					'tags[]->{name, slug}',
-					'category->{name, slug}',
+					'category->{_id, name, slug}',
 					`"asset": media.asset->{creditLine, metadata}`,
-					'series->{name, slug}',
-					// Below query modified from:
+					'series->{name, slug}' // Below query modified from:
 					// https://www.sanity.io/schemas/get-related-items-of-a-post-in-sanity-by-comparing-category-array-reference-with-another-array-0d752dd7
-					`"related": *[_type == "article" && count(categories[@._ref == ^.category._ref]) > 0] | order(date) [0..5] {
-     					title,
-     					slug
-   					}`
+					// `"related": *[_type == "article" && category._ref == ^.category._ref] | order(date) [0..5]`
 				]
 			});
 
