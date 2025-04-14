@@ -131,6 +131,8 @@ export interface Article {
 
 	metaInfo: MetaInfo;
 	error: ApiError;
+
+	related?: Article[];
 }
 
 export interface EmbeddedLink {
@@ -236,7 +238,26 @@ export type SanityQuery<T extends keyof validQueryableTypes> = {
 	 * feature.
 	 */
 	order?: string;
+
+	/**
+	 * `function` is the Sanity GROQ function that wraps the entire query
+	 * expression.
+	 */
+	function?: 'count' | 'round' | 'defined' | 'references';
+
+	/**
+	 * `outer` is the outer selection of the square brackets. It starts
+	 * with a `.`. The selection is an attribute.
+	 */
+	outer?: string;
 };
+
+/**
+ * queryConditions is either an array of conditions or the string literal
+ * 'attrs'. If the array is empty, this means conditions are `*[]`. If
+ * 'attrs' is used, no conditional square brackets will be used.
+ */
+type queryConditions = string[] | 'attrs';
 
 /**
  * Query represents a valid Sanity query according to our schema defined
@@ -253,3 +274,19 @@ export type ApiError = {
 	message: string;
 	status: number;
 };
+
+/**
+ * Pages
+ */
+
+export interface ArchivePageStatistics {
+	categoryCount: categoryCount;
+}
+
+export interface categoryCount {
+	news: number;
+	opinion: number;
+	culture: number;
+	people: number;
+	multimedia: number;
+}

@@ -18,7 +18,14 @@ export const GET: RequestHandler = async ({ url, params }) => {
 	if (getArticles && getArticles === 'true') {
 		sanityQuery = buildSanityQuery({
 			type: 'article',
-			conditions: [`references(*[${equal('_type', 'tag')}`, `${equal('slug.current', slug)}]._id)`],
+			conditions: [
+				`${buildSanityQuery({
+					type: 'tag',
+					function: 'references',
+					conditions: [equal('slug.current', slug)],
+					outer: '_id'
+				})}`
+			],
 			attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
 			customAttrs: ['authors[]->{name}', 'category->'],
 			order: 'date desc'
@@ -32,8 +39,6 @@ export const GET: RequestHandler = async ({ url, params }) => {
 			attributes: ['name', 'slug', 'description', 'metaInfo']
 		});
 	}
-
-	console.log(sanityQuery);
 
 	try {
 		tagPage = await sanityFetch(sanityQuery);
