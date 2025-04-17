@@ -15,6 +15,9 @@ const config = {
 		}),
 		alias: {
 			$components: 'src/components/*'
+
+			// If you're looking for the `$lib` alias, that is automatically
+			// defined by Svelte and does NOT need to be defined here.
 		}
 	}
 };
