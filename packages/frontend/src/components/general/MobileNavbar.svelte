@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { routes } from '$lib/navRoutes';
+	import { routes } from '$lib/constants';
 	let listOfRoutes = routes;
 	let { toggleNavbar, showMenu } = $props();
 </script>

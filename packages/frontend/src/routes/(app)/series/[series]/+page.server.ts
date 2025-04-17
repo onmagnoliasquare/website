@@ -1,6 +1,6 @@
 import { error, type ServerLoadEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { site } from '$lib/variables';
+import { site } from '$lib/constants';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import type { Article, Series } from '$lib/schema';
 import { createSiteTitle } from '$lib/helpers';

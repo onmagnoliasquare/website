@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { routes } from '$lib/navRoutes';
+	import { routes } from '$lib/constants';
 	// let listOfRoutes = routes.slice(1);
 	let listOfRoutes = routes;
 </script>

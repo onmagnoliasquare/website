@@ -3,7 +3,7 @@ import { buildSanityQuery, sanityFetch } from '$lib/sanity';
 import type { PageServerLoad } from './$types';
 import type { Series } from '$lib/schema';
 import type { MetaTagsProps } from 'svelte-meta-tags';
-import { site } from '$lib/variables';
+import { site } from '$lib/constants';
 import { createSiteTitle } from '$lib/helpers';
 
 export const load: PageServerLoad = (async () => {

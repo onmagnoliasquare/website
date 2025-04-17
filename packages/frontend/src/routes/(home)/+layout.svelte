@@ -1,13 +1,12 @@
 <script lang="ts">
 	import Centered from '$components/defaults/Centered.svelte';
-	import { site } from '$lib/variables';
+	import { site, routes } from '$lib/constants';
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
 	import { createAuthorString } from '$lib/helpers';
 	import DesktopLanding from '$components/home/DesktopLanding.svelte';
 	import Image from '$components/Image.svelte';
 	import Subtitle from '$components/defaults/Subtitle.svelte';
-	import { routes } from '$lib/navRoutes';
 	import DateLine from '$components/home/DateLine.svelte';
 
 	const splitTitle = site.title.split(' ');

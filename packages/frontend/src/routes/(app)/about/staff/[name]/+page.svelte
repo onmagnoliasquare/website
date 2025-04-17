@@ -5,7 +5,7 @@
 	import HoverDim from '$components/general/HoverDim.svelte';
 	import Image from '$components/Image.svelte';
 	import { dateFormatter, domainFromUrl } from '$lib/helpers';
-	import { filler } from '$lib/variables';
+	import { filler } from '$lib/constants';
 	import type { PageData } from './$types';
 
 	interface Props {

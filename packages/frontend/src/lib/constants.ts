@@ -1,5 +1,5 @@
 // Release version.
-export const semVer = '0.6.0';
+export const semVer = '0.6.4';
 
 /**
  * `site` is an object used in various components and server
@@ -31,3 +31,27 @@ export const filler = {
 export const baseText = 'text-md sm:text-lg';
 
 export const email = 'onmagnoliasquare@gmail.com';
+
+interface route {
+	path: string;
+	name: string;
+}
+
+export const routes: route[] = [
+	{ path: '/category/news', name: 'News' },
+	{ path: '/category/opinion', name: 'Opinion' },
+	{ path: '/category/people', name: 'People' },
+	{ path: '/category/culture', name: 'Culture' },
+	{ path: '/category/multimedia', name: 'Multimedia' },
+	{ path: '/series', name: 'Series' },
+	{ path: '/archive', name: 'Archive' },
+	{ path: '/about', name: 'About' }
+];
+
+export const footerRoutes: route[] = [
+	{ path: '/archive/tags/oca', name: '# on century avenue' },
+	{ path: '/about', name: 'About' },
+	{ path: '/about/staff', name: 'Staff' }
+];
+
+export type { route };

@@ -1,7 +1,6 @@
 <script lang="ts">
-	// import { dev } from '$app/environment';
-	import { routes, footerRoutes, type route } from '$lib/navRoutes';
-	import { site } from '$lib/variables';
+	//import { dev } from '$app/environment';
+	import { footerRoutes, routes, site, type route } from '$lib/constants';
 	import P from './defaults/P.svelte';
 	// import VersionLabel from './general/VersionLabel.svelte';
 </script>

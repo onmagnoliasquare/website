@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { routes } from '$lib/navRoutes';
+	import { routes } from '$lib/constants';
 </script>
 
 <nav id="mainNav" class="max-w-7xl p-2 m-2 hidden center sm:block">

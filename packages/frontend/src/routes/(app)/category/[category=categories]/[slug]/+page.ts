@@ -1,5 +1,5 @@
 import { createAuthorLink, createAuthorString } from '$lib/helpers';
-import { site } from '$lib/variables';
+import { site } from '$lib/constants';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import type { PageLoad, PageLoadEvent } from './$types';
 import { error } from '@sveltejs/kit';

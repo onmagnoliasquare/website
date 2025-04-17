@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createAuthorString } from '$lib/helpers';
 	import type { Article } from '$lib/schema';
-	import { site } from '$lib/variables';
+	import { site } from '$lib/constants';
 	import DateLine from './DateLine.svelte';
 	import DesktopLandingNavbar from './DesktopLandingNavbar.svelte';
 	// import type { Image as ImageType } from '$lib/schema';

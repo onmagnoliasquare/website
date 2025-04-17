@@ -1,5 +1,5 @@
 <script>
-	import { site } from '$lib/variables';
+	import { site } from '$lib/constants';
 </script>
 
 <a href="/">
