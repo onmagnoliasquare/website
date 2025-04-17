@@ -1,3 +1,4 @@
+import { dev } from '$app/environment';
 import { buildSanityQuery, equal, sanityFetch } from '$lib/sanity';
 import type { Tag } from '$lib/schema';
 import { json, type RequestHandler } from '@sveltejs/kit';
@@ -43,7 +44,9 @@ export const GET: RequestHandler = async ({ url, params }) => {
 	try {
 		tagPage = await sanityFetch(sanityQuery);
 	} catch (err) {
-		console.error(err);
+		if (dev) {
+			console.error(err);
+		}
 		return json(
 			{ message: 'Failed to fetch series', error: (err as Error).message },
 			{ status: 500 }

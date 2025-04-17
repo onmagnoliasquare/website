@@ -2,6 +2,7 @@ import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { buildSanityQuery, sanityFetch, unequal } from '$lib/sanity';
 import type { Article } from '$lib/schema';
+import { dev } from '$app/environment';
 
 export const GET: RequestHandler = async () => {
 	let sanityQuery: string;
@@ -27,7 +28,9 @@ export const GET: RequestHandler = async () => {
 			return json({ message: 'No articles found' }, { status: 404 });
 		}
 	} catch (err) {
-		console.error(err);
+		if (dev) {
+			console.error(err);
+		}
 		return json(
 			{ message: 'Failed to fetch articles', error: (err as Error).message },
 			{ status: 500 }
