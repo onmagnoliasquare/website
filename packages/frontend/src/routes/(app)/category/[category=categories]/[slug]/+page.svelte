@@ -1,21 +1,13 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 
-	import ArticleBodyList from '$components/portabletext/ArticleBodyList.svelte';
-	import ArticleBodyListItem from '$components/portabletext/ArticleBodyListItem.svelte';
-	import EmbeddedLink from '$components/embeds/EmbeddedLink.svelte';
-	import ArticleLink from '$components/portabletext/ArticleLink.svelte';
-	import { ArticleSingleArticleBlock, ArticleImage, ArticleBodyMarks } from '$lib';
-	import ArticleLeadIn from '$components/portabletext/ArticleLeadIn.svelte';
-	import ArticleSuperscript from '$components/portabletext/ArticleSuperscript.svelte';
-	import ArticleSubscript from '$components/portabletext/ArticleSubscript.svelte';
 	import Tag from '$components/Tag.svelte';
 	import Subtitle from '$components/defaults/Subtitle.svelte';
 	import PhotoCaption from '$components/custom/PhotoCaption.svelte';
 	import Image from '$components/Image.svelte';
 	import ByLine from '$components/article/ByLine.svelte';
 	import DateLine from '$components/article/DateLine.svelte';
-	import { PortableText } from '@portabletext/svelte';
+	import ArticleContent from '$components/article/ArticleContent.svelte';
 
 	interface Props {
 		data: PageData;
@@ -32,6 +24,7 @@
 	let series = $derived(data.article.series);
 	let category = $derived(data.article.category);
 	let updatedDate = $derived(data.article.updatedDate);
+	let content = $derived(data.article.content);
 </script>
 
 <header class="flex flex-col center">
@@ -108,31 +101,7 @@
 	</div>
 </header>
 <div class="m-1 p-3 sm:max-w-3xl mb-6 pb-6 sm:ml-4 sm:pl-4">
-	<!-- TODO move this to its own component for testing -->
-	<PortableText
-		value={data.article.content}
-		onMissingComponent={(message, options) => {
-			console.log(message, options);
-		}}
-		components={{
-			marks: {
-				ArticleBodyMarks,
-				link: ArticleLink,
-				leadIn: ArticleLeadIn,
-				superscript: ArticleSuperscript,
-				subscript: ArticleSubscript
-			},
-			block: ArticleSingleArticleBlock,
-			types: {
-				image: ArticleImage,
-				embeddedLink: EmbeddedLink
-			},
-			list: ArticleBodyList,
-			listItem: {
-				normal: ArticleBodyListItem
-			}
-		}}
-	/>
+	<ArticleContent {content} />
 </div>
 <footer>
 	{#if tags}
