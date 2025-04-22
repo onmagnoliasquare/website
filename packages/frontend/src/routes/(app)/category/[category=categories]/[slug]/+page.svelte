@@ -29,17 +29,11 @@
 
 <header class="flex flex-col center">
 	<div class="pb-1 mb-1 lg:mb-1 lg:pb-1 w-fit">
-		{#await title}
-			Loading title...
-		{:then title}
-			{#if title}
-				<h1
-					class="text-4xl sm:text-5xl lg:text-7xl font-display font-black font-stretch-condensed tracking-tight ml-1 p-2 sm:mb-3 sm:pb-3 antialiased"
-				>
-					{title}
-				</h1>
-			{/if}
-		{/await}
+		<h1
+			class="text-4xl sm:text-5xl lg:text-7xl font-display font-black font-stretch-condensed tracking-tight ml-1 p-2 sm:mb-8 sm:pb-4 antialiased leading-24"
+		>
+			{title}
+		</h1>
 		{#if subtitle}
 			<div class="mb-8 max-w-3xl">
 				<Subtitle>
@@ -110,9 +104,9 @@
 				<a href="/archive">Tags</a>
 			</h3>
 			<ul class="list flex flex-wrap items-center justify-left space-x-1">
-				{#each data.article.tags as tag}
+				{#each tags as tag}
 					<li class="pr-1 inline">
-						<a href={`/archive/tags/${tag.slug.current}`}>
+						<a href="/archive/tags/{tag.slug.current}">
 							<Tag tagName={tag.name} />
 						</a>
 					</li>
