@@ -1,15 +1,16 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { buildSanityQuery, sanityFetch, unequal } from '$lib/sanity';
+import { buildSanityQuery, unequal } from '$lib/sanity';
 import type { Article } from '$lib/schema';
 import { dev } from '$app/environment';
+import { db } from '$lib/database';
 
 export const GET: RequestHandler = async () => {
-	let sanityQuery: string;
+	let homepageQuery: string;
 	let articles: Article[] | never;
 
 	try {
-		sanityQuery = buildSanityQuery({
+		homepageQuery = buildSanityQuery({
 			type: 'article',
 			conditions: [
 				unequal('wasDeleted', true),
@@ -22,7 +23,8 @@ export const GET: RequestHandler = async () => {
 			order: 'date desc'
 		});
 
-		articles = await sanityFetch(sanityQuery);
+		// articles = await sanityFetch(sanityQuery);
+		articles = await db.fetch(homepageQuery);
 
 		if (!articles || articles.length === 0) {
 			return json({ message: 'No articles found' }, { status: 404 });
