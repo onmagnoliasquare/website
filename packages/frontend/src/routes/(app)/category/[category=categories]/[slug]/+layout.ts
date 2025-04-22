@@ -1,7 +1,7 @@
-import type { Article } from '$lib/schema';
 import { error } from '@sveltejs/kit';
 import type { LayoutLoad, LayoutLoadEvent } from './$types';
-import { sanityFetch } from '$lib/sanity';
+import type { DetailedArticleQueryResult, FetchScoredArticleQueryResults } from '$lib/types/api';
+import { fetchRelatedArticles } from '$lib/sanity/repository';
 
 export const load: LayoutLoad = (async (event: LayoutLoadEvent) => {
 	const { category, slug } = event.params;
@@ -13,30 +13,42 @@ export const load: LayoutLoad = (async (event: LayoutLoadEvent) => {
 	 * only the article and nothing else.
 	 */
 	const req = await event.fetch(`/api/article?category=${category}&slug=${slug}`);
-	const article: Article | undefined = await req.json();
+	const article: DetailedArticleQueryResult = await req.json();
 
 	if (!article) {
 		error(404, 'Article not found 🔍');
 	}
 
-	const sanityQuery = `
-		*[_type == "article" && slug.current != "${slug}"] | score(
-			boost(author._ref in [${article.authors.map((val) => `"${val._id}"`).join(',')}], 4),
-			boost(date match "${article.date.slice(0, 4)}", 1.5),
-			// boost(title match "${article.title}", 1.2),
-	  		boost(category._ref match "${article.category._id}", 2.3),
-			// boost(content[].children[].text match "${article.content!.text}", 4),
-	  	) | order(_score desc) [0..8] {
-	  		_score,
-	  		title,
-	  		date,
-	  		slug,
-			authors[]->,
-			category->{name, slug},
-		} //[ _score > 0 ]
-		`;
+	// Extract article text.
 
-	const related = await sanityFetch(sanityQuery);
+	const contentText = article
+		.content!.map(
+			(block) =>
+				block.children &&
+				block.children
+					.filter((child) => child._type === 'span')
+					.map((child) => child.text)
+					.join('')
+		)
+		.join(' ');
+
+	const authors = article.authors.map((val) => `"${val._id}"`);
+	const date = article.date.slice(0, 4);
+	const catId = article.category._id;
+
+	const related: FetchScoredArticleQueryResults = await fetchRelatedArticles(
+		{
+			slug: slug,
+			authors: authors
+		},
+		{
+			title: article.title,
+			date: date,
+			content: contentText,
+			categoryId: catId,
+			authors: authors
+		}
+	);
 
 	return {
 		article,
