@@ -1,3 +1,10 @@
+<!--
+@component
+
+`Footer` is the footer component for the entire website.
+
+-->
+
 <script lang="ts">
 	//import { dev } from '$app/environment';
 	import { footerRoutes, routes, site, type route } from '$lib/constants';
