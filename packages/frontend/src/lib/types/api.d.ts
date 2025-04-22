@@ -39,3 +39,7 @@ export type FetchScoredArticleQueryResult = ScoredArticleQueryResult;
 export type ScoredArticleQueryResults = ScoredArticleQueryResult[];
 
 export type FetchScoredArticleQueryResults = ScoredArticleQueryResults;
+
+export type HomepageArticleQueryResult = BasicArticleQueryResults;
+
+export type FetchHomepageArticleQueryResult = HomepageArticleQueryResult;

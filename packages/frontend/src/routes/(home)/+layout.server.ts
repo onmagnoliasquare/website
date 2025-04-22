@@ -1,13 +1,13 @@
 // Uses a page server load in order to access Sanity API.
 
 import { error } from '@sveltejs/kit';
-import type { Article } from '$lib/schema';
 import type { LayoutServerLoad } from '../$types';
+import type { HomepageArticleQueryResult } from '$lib/types/api';
 
 export const load: LayoutServerLoad = (async ({ fetch }) => {
 	const req = await fetch(`/api/homepage`);
 
-	const articles: Article[] | undefined = await req.json();
+	const articles: HomepageArticleQueryResult = await req.json();
 
 	if (articles) {
 		return {

@@ -1,5 +1,18 @@
 import groq from 'groq';
 
+export const homepageArticles =
+	() => groq`*[_type == "article" && category.slug.current != "multimedia"] | order(date desc) [0..15] {
+			_id,
+			title,
+			subtitle,
+			authors[]->,
+			slug,
+			date,
+			category->,
+			media
+		}
+`;
+
 export const articlePage = (): string =>
 	groq`*[_type == "article" && category->slug.current == $category && slug.current == $slug]{title,subtitle,date,media,updatedDate,metaInfo,slug,_id,content[]{
 						_type == "image" => {
