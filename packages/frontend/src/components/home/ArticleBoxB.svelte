@@ -5,9 +5,10 @@
 	import DateLine from '$components/article/DateLine.svelte';
 	import HoverDim from '$components/general/HoverDim.svelte';
 	import P from '$components/defaults/P.svelte';
+	import type { BasicArticleQueryResult } from '$lib/types/api';
 
 	interface Props {
-		article: Article;
+		article: Article | BasicArticleQueryResult;
 		locale?: string;
 	}
 
@@ -26,7 +27,7 @@
 					{#if article.media}
 						<Image
 							media={article.media}
-							blurHash={article.asset?.metadata.blurHash}
+							blurHash={article.media.metadata.blurHash}
 							width={1920}
 							height={1080}
 							quality={20}

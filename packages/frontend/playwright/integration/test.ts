@@ -1,7 +1,7 @@
 // https://playwright.dev/docs/test-use-options#configuration-scopes
 
-import { test, expect } from '@playwright/test';
-import { v0_5_x_Article } from '../testVariables';
+import { expect, test } from '@playwright/test';
+import { v0_5_x_Article } from '../parameters.ts';
 
 test.describe('Basic routing', { tag: '@integration' }, () => {
 	test('About page has title', async ({ page }) => {

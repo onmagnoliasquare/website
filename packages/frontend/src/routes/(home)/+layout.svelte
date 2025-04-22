@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Centered from '$components/defaults/Centered.svelte';
-	import { site, routes } from '$lib/constants';
+	import { routes, site } from '$lib/constants';
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
 	import { createAuthorString } from '$lib/helpers';
@@ -23,7 +23,7 @@
 	let authorString = $derived(createAuthorString(data.articles[0].authors));
 	let headlineMedia = $derived(data.articles[0].media);
 	let headlineArticleSlug = $derived(data.articles[0].slug.current);
-	let headlineMediaBlurHash = $derived(data.articles[0].asset?.metadata.blurHash);
+	let headlineMediaBlurHash = $derived(data.articles[0].media.metadata.blurHash);
 </script>
 
 <svelte:head>

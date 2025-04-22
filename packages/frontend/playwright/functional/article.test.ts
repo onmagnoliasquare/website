@@ -1,6 +1,6 @@
-import { test, expect } from '@playwright/test';
-import { site } from '$lib/variables';
-import { v0_5_x_Article, v0_6_x_Article } from '../testVariables';
+import { expect, test } from '@playwright/test';
+import { site } from '$lib/constants.ts';
+import { v0_5_x_Article, v0_6_x_Article } from '../parameters.ts';
 
 test.describe('v0.5.x Article Features', { tag: '@functional' }, () => {
 	test.describe.configure({ mode: 'serial' });

@@ -1,6 +1,6 @@
-import { site } from '$lib/variables';
-import { test, expect } from '@playwright/test';
-import { pages } from '../testVariables';
+import { site } from '$lib/constants';
+import { expect, test } from '@playwright/test';
+import { pages } from '../parameters.ts';
 
 for (const p of pages) {
 	const metaTitle = p.testMetaInfo!.ogTitle!;

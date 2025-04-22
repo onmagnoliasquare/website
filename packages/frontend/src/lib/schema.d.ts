@@ -86,10 +86,11 @@ export interface Committee {
 	useCustomCss?: boolean;
 	metaInfo: MetaInfo;
 }
+
 export interface Article {
 	_id: string;
 	_type: 'article';
-	_score: number;
+	_score?: number;
 	_createdAt: string;
 
 	// This is for when the author gets to choose
@@ -161,7 +162,7 @@ export interface Image {
 		_ref: string;
 		_type: string;
 	};
-	metadata?: ImageMetadata;
+	metadata: ImageMetadata;
 	title?: string;
 	description?: string;
 	alt: string;

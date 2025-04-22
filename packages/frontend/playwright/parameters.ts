@@ -1,5 +1,5 @@
-import type { testPage } from '$lib/types';
-import { site } from '$lib/variables';
+import type { testPage } from '$lib/types/testing';
+import { site } from '$lib/constants';
 
 // article404 is an article that shouldn't exist used for 404 page checks.
 export const article404 = `/category/news/asdlkjafsjklfegnjkasjfaasldkjfj2093q580`;
@@ -14,6 +14,7 @@ export const v0_5_x_Article: testPage = {
 	article: {
 		title: 'v0.5 Article Feature Set: What a blast!',
 		category: {
+			_id: '4edba030-a87c-4b27-b1e5-0250cff2e565',
 			_type: 'category',
 			_createdAt: '',
 			name: 'News',
@@ -51,6 +52,7 @@ export const v0_6_x_Article: testPage = {
 	article: {
 		title: '',
 		category: {
+			_id: 'c0a4e6c5-8ab5-48f3-bacb-bb9979d44275',
 			_type: 'category',
 			_createdAt: '',
 			name: 'News',

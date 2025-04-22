@@ -1,6 +1,6 @@
-import { site } from '$lib/variables';
-import { test, expect, type Page } from '@playwright/test';
-import { article404, v0_5_x_Article, v0_6_x_Article } from '../testVariables';
+import { site } from '$lib/constants';
+import { expect, type Page, test } from '@playwright/test';
+import { article404, v0_5_x_Article, v0_6_x_Article } from '../parameters.ts';
 
 test.describe('v0.5 Article Features', { tag: '@integration' }, () => {
 	// Lets save some API requests... Plus, the data is static anyway.
