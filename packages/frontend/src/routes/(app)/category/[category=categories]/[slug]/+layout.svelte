@@ -62,7 +62,7 @@
 						<a href="/category/{r.category.slug.current}/{r.slug.current}" class="hover:underline">
 							<cite class="font-bold">{r.title}</cite> by {r.authors[0].name}</a
 						>
-						<date>{r.date}</date>
+						<time>{r.date}</time>
 					</li>
 				{/each}
 			</ul>
