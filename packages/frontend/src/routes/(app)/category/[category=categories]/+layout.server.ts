@@ -23,8 +23,8 @@ export const load: LayoutServerLoad = (async (event: ServerLoadEvent) => {
 		sanityQuery = buildSanityQuery(
 			{
 				type: 'article',
-				attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
-				customAttrs: ['authors[]->{name}', 'category->{name}', '"asset": media.asset->{metadata}'],
+				attributes: ['_id', 'title', 'subtitle', 'date', 'slug', 'media'],
+				customAttrs: ['authors[]->{name}', 'category->', '"asset": media.asset->{metadata}'],
 				conditions: [`category->slug.current == '${category as string}'`],
 				order: 'date desc'
 			},
