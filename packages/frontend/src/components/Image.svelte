@@ -1,7 +1,8 @@
 <!--
 @component
-Image wraps the default <img> element. This enables more flexibility in regard to the way that images are displayed,
-and is custom-fit for sanity's urlBuilder API.
+Image wraps the default <img> element. This enables more flexibility in regard
+to the way that images are displayed and is custom-fit for sanity's
+urlBuilder API.
 -->
 <script lang="ts">
 	import { urlFor } from '$lib/sanity';
