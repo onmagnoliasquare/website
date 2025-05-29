@@ -42,7 +42,7 @@
 	</article>
 </div>
 <div class="mt-4 pt-4 pb-10 flex flex-col sm:grid grid-cols-5 gap-2">
-	<aside class="col-span-3">
+	<aside class="col-span-3" aria-label="Related Articles">
 		{@render asideHeader('Related Articles')}
 		<ol class="border-1 border-dotted">
 			{#each relatedArticles as r}
@@ -61,7 +61,7 @@
 			{/each}
 		</ol>
 	</aside>
-	<aside class="sm:sticky top-8 h-fit col-span-2">
+	<aside class="sm:sticky top-8 h-fit col-span-2" aria-label="Recent Articles">
 		{@render asideHeader(`Recent ${categoryName}`)}
 		<ol class="border-1 border-dotted">
 			{#each recent().slice(0, 5) as r}
