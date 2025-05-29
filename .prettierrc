@@ -18,24 +18,15 @@
   "singleQuote": true,
   "plugins": [
     "prettier-plugin-svelte",
+    "prettier-plugin-tailwindcss",
     "@ianvs/prettier-plugin-sort-imports"
   ],
   "svelteSortOrder": "options-styles-scripts-markup",
   "svelteBracketNewLine": false,
   "svelteAllowShorthand": false,
   "svelteIndentScriptAndStyle": false,
-  "importOrder": [
-    "^@lib/(.*)$",
-    "",
-    "^@components/(.*)$",
-    "",
-    "^[./]"
-  ],
-  "importOrderParserPlugins": [
-    "typescript",
-    "jsx",
-    "decorators-legacy"
-  ],
+  "importOrder": ["^@lib/(.*)$", "", "^@components/(.*)$", "", "^[./]"],
+  "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
   "importOrderTypeScriptVersion": "5.0.0",
   "importOrderCaseSensitive": false,
   "overrides": [
