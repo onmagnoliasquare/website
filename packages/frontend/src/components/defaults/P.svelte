@@ -12,7 +12,7 @@
 
 <p
 	class={twMerge(
-		'text-base tracking-wide leading-normal antialiased sm:subpixel-antialiased',
+		'text-base tracking-wide leading-normal antialiased sm:subpixel-antialiased max-w-[66ch]',
 		classList
 	)}
 >
