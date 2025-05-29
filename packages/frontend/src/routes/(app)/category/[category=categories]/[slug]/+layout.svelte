@@ -1,8 +1,9 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
-	import { dev } from '$app/environment';
 	import type { ScoredArticleQueryResults } from '$lib/types/api';
+	import ByLine from '$components/article/ByLine.svelte';
+	import DateLine from '$components/article/DateLine.svelte';
 
 	interface Props {
 		data: LayoutData;
@@ -31,43 +32,49 @@
 	</ol>
 </div>
 
-<div class="m-0 p-0 md:m-1 md:p-1 lg:m-2 lg:p-2 relative w-full sm:max-w-5xl center">
+{#snippet asideHeader(text: string)}
+	<h2 class="text-lg font-sans mb-2 p-2 font-black italic">{text}</h2>
+{/snippet}
+
+<div class="m-1 p-1 lg:m-2 lg:p-2 relative w-full sm:max-w-5xl center">
 	<article class="mb-4 pb-4">
 		{@render children()}
 	</article>
-	<div class="mt-4 pt-4 grid grid-cols-2 gap-4">
-		<section>
-			<h1 class="text-2xl font-serif mb-2 pb-2">Related Articles</h1>
-			<ul>
-				{#each relatedArticles as r}
-					<li class="mb-1 pb-2">
-						<a href="/category/{r.category.slug.current}/{r.slug.current}" class="hover:underline">
-							<cite class="font-bold">{r.title}</cite> by {r.authors[0].name}</a
-						>
-						<time>{r.date}</time>
-						{#if dev}
-							<span class="font-mono text-sm"><mark>+{r._score}</mark></span>
-						{/if}
-					</li>
-				{/each}
-			</ul>
-		</section>
-		<section>
-			<h2 class="text-2xl font-serif mb-2 pb-2">
-				Recent from {categoryName}
-			</h2>
-			<ul>
-				{#each recent().slice(0, 4) as r}
-					<li class="mb-1 pb-2">
-						<a href="/category/{r.category.slug.current}/{r.slug.current}" class="hover:underline">
-							<cite class="font-bold">{r.title}</cite> by {r.authors[0].name}</a
-						>
-						<time>{r.date}</time>
-					</li>
-				{/each}
-			</ul>
-		</section>
-	</div>
+</div>
+<div class="mt-4 pt-4 pb-10 flex flex-col sm:grid grid-cols-5 gap-2">
+	<aside class="col-span-3">
+		{@render asideHeader('Related Articles')}
+		<ol class="border-1 border-dotted">
+			{#each relatedArticles as r}
+				<li class="p-2 sm:p-4 text-sm sm:text-base hover:bg-amber-200">
+					<a href="/category/{r.category.slug.current}/{r.slug.current}" class="hover:underline">
+						<h3 class="text-lg sm:text-2xl font-display pb-2 leading-tight">{r.title}</h3>
+					</a>
+					<div class="leading-loose text-sm">
+						<ByLine authors={r.authors} />
+						<DateLine date={r.date} />
+					</div>
+					<!-- {#if dev}
+						<span class="font-mono text-sm"><mark>+{r._score}</mark></span>
+					{/if} -->
+				</li>
+			{/each}
+		</ol>
+	</aside>
+	<aside class="sm:sticky top-8 h-fit col-span-2">
+		{@render asideHeader(`Recent ${categoryName}`)}
+		<ol class="border-1 border-dotted">
+			{#each recent().slice(0, 5) as r}
+				<li class="p-2 sm:p-4 hover:bg-amber-200">
+					<a href="/category/{r.category.slug.current}/{r.slug.current}" class="hover:underline">
+						<h3 class="text-lg font-display pb-2">{r.title}</h3>
+						by {r.authors[0].name}</a
+					>
+					<time>{r.date}</time>
+				</li>
+			{/each}
+		</ol>
+	</aside>
 </div>
 
 <style>

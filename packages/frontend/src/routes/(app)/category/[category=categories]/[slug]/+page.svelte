@@ -14,11 +14,15 @@
 	}
 
 	let { data }: Props = $props();
+
+	let headerMedia = $derived(data.article.media);
+	let headerMediaBlurHash = $derived(data.article.media?.blurHash);
+	let headerMediaCreditLine = $derived(data.article.media?.creditLine);
+	let headerMediaAlt = $derived(data.article.media?.alt);
+
 	let tags = $derived(data.article.tags);
 	let title = $derived(data.article.title);
 	let subtitle = $derived(data.article.subtitle);
-	let media = $derived(data.article.media);
-	let blurHash = $derived(data.article.asset?.metadata.blurHash);
 	let authors = $derived(data.article.authors);
 	let date = $derived(data.article.date);
 	let series = $derived(data.article.series);
@@ -30,7 +34,7 @@
 <header class="flex flex-col center">
 	<div class="pb-1 mb-1 lg:mb-1 lg:pb-1 w-fit">
 		<h1
-			class="text-4xl sm:text-5xl lg:text-7xl font-display font-black font-stretch-condensed tracking-tight ml-1 p-2 sm:mb-8 sm:pb-4 antialiased leading-24"
+			class="text-4xl sm:text-5xl lg:text-7xl font-display font-black font-stretch-condensed tracking-tight ml-1 p-2 sm:mb-8 sm:pb-4 antialiased leading-tight sm:leading-24"
 		>
 			{title}
 		</h1>
@@ -42,24 +46,24 @@
 			</div>
 		{/if}
 	</div>
-	{#if media}
+	{#if headerMedia}
 		<div class="w-full center">
 			<figure role="group" class="mb-1 pb-1 sm:pb-4 sm:mb-4 center">
 				<div class="mb-2">
 					<Image
-						{media}
-						alt={media.alt}
+						media={headerMedia}
+						alt={headerMediaAlt}
 						width={1920}
 						height={1080}
 						priority={true}
-						{blurHash}
+						blurHash={headerMediaBlurHash}
 						loading={'eager'}
 					/>
 				</div>
-				{#if data.article.asset!.creditLine}
+				{#if headerMediaCreditLine}
 					<figcaption class="sm:p-1 pt-1 p-3">
 						<PhotoCaption>
-							{data.article.asset!.creditLine}
+							{headerMediaCreditLine}
 						</PhotoCaption>
 					</figcaption>
 				{/if}
@@ -89,7 +93,7 @@
 			{/if}
 		</div>
 		<DateLine {date} locale={data.userLocale} />
-		{#if data.article.updatedDate}
+		{#if updatedDate}
 			<DateLine date={updatedDate} locale={data.userLocale} updated={true} />
 		{/if}
 	</div>
