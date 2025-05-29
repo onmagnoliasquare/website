@@ -46,7 +46,7 @@ test.describe('Basic routing', { tag: '@integration' }, () => {
 
 	test('Archive page has title', async ({ page }) => {
 		await page.goto('/archive');
-		await expect(page.getByRole('heading', { name: 'Archive', exact: true })).toBeVisible();
+		await expect(page.getByRole('heading', { name: 'Archive', exact: true }).first()).toBeVisible();
 	});
 
 	test('Category on by line accessible via article page', async ({ page }) => {

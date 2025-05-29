@@ -5,27 +5,74 @@ export const homepageArticles =
 			_id,
 			title,
 			subtitle,
-			authors[]->,
+			authors[]->{name, slug},
 			slug,
 			date,
-			category->,
-			media
+			category->{
+				name,
+				slug,
+			},
+			media {
+				...,
+  				...asset-> {
+    				altText,
+    				...metadata {
+					  	blurHash,
+    				  	...dimensions {
+    				    	width,
+    				    	height
+    				  	}
+    				}
+  				}
+			}
 		}
 `;
 
 export const articlePage = (): string =>
-	groq`*[_type == "article" && category->slug.current == $category && slug.current == $slug]{title,subtitle,date,media,updatedDate,metaInfo,slug,_id,content[]{
-						_type == "image" => {
-							title,
-							alt,
-							description,
-							"attrs": asset-> {
-								creditLine,
-								metadata
-							},
-						},
-						...
-					},authors[]->{_id, name, slug},tags[]->{name, slug},category->{_id, name, slug},"asset": media.asset->{creditLine, metadata},series->{name, slug}}[0]`;
+	groq`*[_type == "article" && category->slug.current == $category && slug.current == $slug]{
+		title,
+		subtitle,
+		date,
+		media,
+		updatedDate,
+		metaInfo,
+		slug,
+		_id,
+		content[]{
+			_type == "image" => {
+				title,
+				alt,
+				description,
+				"attrs": asset-> {
+					creditLine,
+					metadata
+				},
+			},
+			...
+		},
+		authors[]->{
+			_id,
+			name,
+			slug
+		},
+		tags[]->{name, slug},
+		category->{_id, name, slug},
+		media {
+			..., // this will ensure you keep the existing data
+			...asset-> {
+				creditLine,
+				...metadata {
+					blurHash,
+					...dimensions {
+						width,
+						height
+					}
+				}
+			}
+		},
+		series->{name, slug}
+	}[0]
+`;
 
 export const relatedArticlesTypeA = (): string => groq`
 		*[_type == "article" && slug.current != "$slug"] | score(
@@ -41,5 +88,18 @@ export const relatedArticlesTypeA = (): string => groq`
 	  		slug,
 			authors[]->,
 			category->,
+			media {
+				...,
+  				...asset-> {
+    				altText,
+    				...metadata {
+					  	blurHash,
+    				  	...dimensions {
+    				    	width,
+    				    	height
+    				  	}
+    				}
+  				}
+			}
 		} //[ _score > 0 ]
 `;

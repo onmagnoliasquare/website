@@ -50,12 +50,12 @@ test.describe('v0.5 Article Features', { tag: '@integration' }, () => {
 		const neoAlabastroUrl = `/about/staff/neo-alabastro`;
 		const jonathanZhaiUrl = `/about/staff/jonathan-zhai`;
 
-		await expect(page.locator('a', { hasText: 'Neo Alabastro' })).toHaveAttribute(
+		await expect(page.locator('a', { hasText: 'Neo Alabastro' }).first()).toHaveAttribute(
 			'href',
 			neoAlabastroUrl
 		);
 
-		await expect(page.locator('a', { hasText: 'Jonathan Zhai' })).toHaveAttribute(
+		await expect(page.locator('a', { hasText: 'Jonathan Zhai' }).first()).toHaveAttribute(
 			'href',
 			jonathanZhaiUrl
 		);

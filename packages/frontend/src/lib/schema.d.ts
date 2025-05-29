@@ -1,5 +1,5 @@
 import type { PortableTextBlock } from '@portabletext/types';
-import type { ImageAsset, Slug } from '@sanity/types';
+import type { ImageAsset, ImageMetadata, Slug } from '@sanity/types';
 
 /**
  * This file mirrors the sanity schema types in the backend. These types
@@ -145,6 +145,9 @@ export interface EmbeddedLink {
 	contentUrl: string;
 }
 
+/**
+ * MetaInfo represents custom OpenGraph metadata information.
+ */
 export interface MetaInfo {
 	ogTitle?: string;
 	ogTags?: string[];
@@ -163,24 +166,11 @@ export interface Image {
 		_type: string;
 	};
 	metadata: ImageMetadata;
+	blurHash?: string;
+	creditLine?: string;
 	title?: string;
 	description?: string;
 	alt: string;
-}
-
-export interface ImageMetadata {
-	hasAlpha?: boolean;
-	lqip?: string;
-	isOpaque?: boolean;
-	blurHash?: string;
-	dimensions?: ImageDimensions;
-}
-
-export interface ImageDimensions {
-	_type?: string;
-	width: number;
-	height: number;
-	aspectRatio: number;
 }
 
 type operators = '==' | '!==';

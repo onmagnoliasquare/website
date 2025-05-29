@@ -1,6 +1,6 @@
-import type { Category, CustomImageAsset, Member, MetaInfo, Series, Tag } from '$lib/schema';
+import type { Category, Image, Member, MetaInfo, Series, Tag } from '$lib/schema';
 import type { PortableTextBlock } from '@portabletext/types';
-import type { ImageAsset, Slug } from '@sanity/types';
+import type { Slug } from '@sanity/types';
 
 export type BasicArticleQueryResult = {
 	_id: string;
@@ -10,7 +10,7 @@ export type BasicArticleQueryResult = {
 	slug: Slug;
 	date: string;
 	category: Category;
-	media: CustomImageAsset;
+	media?: Image;
 };
 
 export type FetchBasicArticleQueryResult = BasicArticleQueryResult;
@@ -20,12 +20,11 @@ export type BasicArticleQueryResults = BasicArticleQueryResult[];
 export type FetchBasicArticleQueryResults = BasicArticleQueryResults;
 
 export type DetailedArticleQueryResult = BasicArticleQueryResult & {
-	updatedDate: string;
-	asset: ImageAsset;
+	updatedDate?: string;
 	content?: PortableTextBlock[];
-	tags: Tag[];
-	series: Series;
-	metaInfo: MetaInfo;
+	tags?: Tag[];
+	series?: Series;
+	metaInfo?: MetaInfo;
 };
 
 export type FetchDetailedArticleQueryResult = DetailedArticleQueryResult;

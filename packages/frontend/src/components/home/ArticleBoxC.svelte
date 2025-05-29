@@ -18,24 +18,35 @@
 
 	const h1Class =
 		'font-display font-stretch-condensed font-bold tracking-tight mb-1 pb-2 hover:underline';
+
+	let media = $derived(article.media);
+	let mediaBlurHash = $derived(article.media?.blurHash);
+	let mediaAlt = $derived(article.media?.alt);
+
+	let articleAuthors = $derived(article.authors);
+	let articleDate = $derived(article.date);
+	let articleTitle = $derived(article.title);
+	let articleSubtitle = $derived(article.subtitle);
+	let articleCategory = $derived(article.category.name);
+	let articleSlug = $derived(article.slug.current);
 </script>
 
 {#snippet ByAndDate()}
 	<div class="flex flex-col mt-1 pt-2">
 		<div class="mb-1">
-			<ByLine authors={article.authors} />
+			<ByLine authors={articleAuthors} />
 		</div>
-		<DateLine date={article.date} {locale} />
+		<DateLine date={articleDate} {locale} />
 	</div>
 {/snippet}
 
 {#snippet TitleAndSubtitle(subtitle: boolean)}
 	<h1 class="{h1Class} {showImage ? 'text-4xl' : 'text-3xl'}">
-		{article.title}
+		{articleTitle}
 	</h1>
 	{#if subtitle}
 		<P class=" text-gray-600 tracking-wide">
-			{article.subtitle}
+			{articleSubtitle}
 		</P>
 	{/if}
 {/snippet}
@@ -45,10 +56,10 @@
 		<a
 			data-sveltekit-preload-code="viewport"
 			data-sveltekit-preload-data="tap"
-			href={`/category/${article.category.name.toLowerCase()}/${article.slug.current}`}
+			href={`/category/${articleCategory.toLowerCase()}/${articleSlug}`}
 		>
 			<div class="flow flow-col lg:grid lg:grid-cols-3 items-center gap-2 mb-4">
-				{#if article.media && showImage}
+				{#if media && showImage}
 					<div class="col-span-1 lg:col-span-2">
 						<div class="p-6 pr-1 pl-0">
 							{@render TitleAndSubtitle(showSubtitle)}
@@ -60,13 +71,13 @@
 					<div class="col-span-1">
 						<div class="p-1">
 							<Image
-								media={article.media}
+								{media}
 								width={480}
 								height={320}
 								quality={20}
 								fit="crop"
-								alt={article.media.alt}
-								blurHash={article.media.metadata.blurHash}
+								alt={mediaAlt}
+								blurHash={mediaBlurHash}
 							/>
 						</div>
 					</div>

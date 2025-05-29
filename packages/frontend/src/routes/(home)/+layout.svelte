@@ -23,7 +23,7 @@
 	let authorString = $derived(createAuthorString(data.articles[0].authors));
 	let headlineMedia = $derived(data.articles[0].media);
 	let headlineArticleSlug = $derived(data.articles[0].slug.current);
-	let headlineMediaBlurHash = $derived(data.articles[0].media.metadata.blurHash);
+	let headlineMediaBlurHash = $derived(data.articles[0].media?.blurHash);
 </script>
 
 <svelte:head>
