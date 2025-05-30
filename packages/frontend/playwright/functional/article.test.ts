@@ -352,4 +352,14 @@ test.describe('v0.6.x Article Features', { tag: '@functional' }, () => {
 			'At first, when I heard about the many vicissitudes of life here, I was astonished. But now, I live in the matter-of-fact, the current present, the what-have-yous.'
 		);
 	});
+
+	test('Related article section visible', async ({ page }) => {
+		const section = page.getByLabel('Related Articles');
+		await expect(section).toBeVisible();
+	});
+
+	test('Recent article section visible', async ({ page }) => {
+		const section = page.getByLabel('Recent Articles');
+		await expect(section).toBeVisible();
+	});
 });
