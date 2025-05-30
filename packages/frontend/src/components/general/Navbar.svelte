@@ -11,7 +11,7 @@
 >
 	<ul class="list-none">
 		{#each listOfRoutes as route}
-			<li class="mr-2 pr-2 tracking-wide hidden sm:inline">
+			<li class="mr-2 pr-2 tracking-wide hidden sm:inline sm:border-r-1">
 				<a href={route.path} title={route.name} class="hover:underline">
 					{route.name}
 				</a>
