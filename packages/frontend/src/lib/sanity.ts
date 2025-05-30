@@ -122,10 +122,18 @@ export function buildSanityQuery(sq: Query, resultsNum?: number[]): string {
 
 	const results = resultsNum ? ` [${resultsNum[0]}...${resultsNum[1]}]` : '';
 
+	const outerSelection = sq.outer ? `.${sq.outer} ` : ' ';
+
 	// `${[type, conditions].join(' && ')}` combines the type and
 	// condition variables into a single string separated by the boolean
 	// `and` operator.
-	const query = `*[${conditions !== '' ? [type, conditions].join(' && ') : type}] ${order}${results} {${allAttrs}} ${idx}`;
+	let query = `*[${
+		conditions.length > 0 ? [type, conditions].join(' && ') : type
+	}]${order}${results}${allAttrs.length != 0 ? `{${allAttrs}}` : ' '}${idx}`;
+
+	if (sq.function) {
+		query = `${sq.function}(${query}${outerSelection})`;
+	}
 
 	return query;
 }

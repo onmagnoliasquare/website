@@ -1,33 +1,22 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { buildSanityQuery, sanityFetch, unequal } from '$lib/sanity';
-import type { Article } from '$lib/schema';
+import { dev } from '$app/environment';
+import { fetchHomepageArticles } from '$lib/sanity/repository.ts';
+import type { HomepageArticleQueryResult } from '$lib/types/api';
 
 export const GET: RequestHandler = async () => {
-	let sanityQuery: string;
-	let articles: Article[] | never;
+	let articles: HomepageArticleQueryResult | never;
 
 	try {
-		sanityQuery = buildSanityQuery({
-			type: 'article',
-			conditions: [
-				unequal('wasDeleted', true),
-				unequal('isDraft', true),
-				unequal('category.slug.current', 'multimedia')
-			],
-			attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
-			customAttrs: ['category->{name}', 'authors[]->{name}', '"asset": media.asset->{metadata}'],
-			idx: [0, 15],
-			order: 'date desc'
-		});
-
-		articles = await sanityFetch(sanityQuery);
+		articles = await fetchHomepageArticles();
 
 		if (!articles || articles.length === 0) {
 			return json({ message: 'No articles found' }, { status: 404 });
 		}
 	} catch (err) {
-		console.error(err);
+		if (dev) {
+			console.error(err);
+		}
 		return json(
 			{ message: 'Failed to fetch articles', error: (err as Error).message },
 			{ status: 500 }

@@ -4,7 +4,7 @@
 	import PageHeader from '$components/PageHeader.svelte';
 	import type { PageData } from './$types';
 	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
-	import { page } from '$app/state';
+	//	import { page } from '$app/state';
 
 	interface Props {
 		data: PageData;
@@ -28,9 +28,9 @@
 
 <div class="m-2 p-2">
 	<!-- https://svelte.dev/docs/kit/state-management#Component-and-page-state-is-preserved -->
-	{#key page.url.pathname}
+	<!-- {#key page.url.pathname} -->
+	{#key category._id}
 		<div class="flex flex-row space-x-1">
-			<span class="inline text-lg sm:text-2xl font-display font-light italic">The</span>
 			<div class="inline">
 				<PageHeader>{categoryName.charAt(0).toUpperCase() + categoryName.slice(1)}</PageHeader>
 			</div>

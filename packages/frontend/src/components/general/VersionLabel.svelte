@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { semVer } from '$lib/variables';
+	import { semVer } from '$lib/constants';
 
 	// const githubCommitSha = process.env.THIS_COMMIT_SHA;
 	// let version = import.meta.env.VITE_RELEASE_VERSION;

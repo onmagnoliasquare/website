@@ -1,9 +1,7 @@
-// Types related to code, not data.
-
-import type { Article, MetaInfo } from './schema';
+import type { Article, MetaInfo } from '../schema';
 
 /**
- * `testArticle` type defines a test article. The word "test" here is used
+ * `testPage` type defines a testing page for playwright. The word "test" here is used
  * as a noun, not a verb.
  */
 export interface testPage {

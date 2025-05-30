@@ -1,5 +1,5 @@
 import { createAuthorLink, createSiteTitle, domainFromUrl, parseEmbedLink } from '$lib/helpers';
-import { site } from '$lib/variables';
+import { site } from '$lib/constants';
 import { describe, expect, it } from 'vitest';
 
 describe('domainFromUrl', () => {

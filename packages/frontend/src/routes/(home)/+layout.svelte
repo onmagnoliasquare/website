@@ -1,13 +1,12 @@
 <script lang="ts">
 	import Centered from '$components/defaults/Centered.svelte';
-	import { site } from '$lib/variables';
+	import { routes, site } from '$lib/constants';
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
 	import { createAuthorString } from '$lib/helpers';
 	import DesktopLanding from '$components/home/DesktopLanding.svelte';
 	import Image from '$components/Image.svelte';
 	import Subtitle from '$components/defaults/Subtitle.svelte';
-	import { routes } from '$lib/navRoutes';
 	import DateLine from '$components/home/DateLine.svelte';
 
 	const splitTitle = site.title.split(' ');
@@ -24,7 +23,7 @@
 	let authorString = $derived(createAuthorString(data.articles[0].authors));
 	let headlineMedia = $derived(data.articles[0].media);
 	let headlineArticleSlug = $derived(data.articles[0].slug.current);
-	let headlineMediaBlurHash = $derived(data.articles[0].asset?.metadata.blurHash);
+	let headlineMediaBlurHash = $derived(data.articles[0].media?.blurHash);
 </script>
 
 <svelte:head>

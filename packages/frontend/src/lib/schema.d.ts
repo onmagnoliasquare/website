@@ -1,5 +1,5 @@
 import type { PortableTextBlock } from '@portabletext/types';
-import type { ImageAsset, Slug } from '@sanity/types';
+import type { ImageAsset, ImageMetadata, Slug } from '@sanity/types';
 
 /**
  * This file mirrors the sanity schema types in the backend. These types
@@ -12,6 +12,7 @@ import type { ImageAsset, Slug } from '@sanity/types';
 
 export interface Member {
 	_type: 'member';
+	_id: string;
 	name: string;
 	year?: number;
 	netid?: string;
@@ -66,6 +67,7 @@ export interface Series {
 }
 
 export interface Category {
+	_id: string;
 	_type: 'category';
 	_createdAt: string;
 	name: string;
@@ -84,9 +86,11 @@ export interface Committee {
 	useCustomCss?: boolean;
 	metaInfo: MetaInfo;
 }
+
 export interface Article {
 	_id: string;
 	_type: 'article';
+	_score?: number;
 	_createdAt: string;
 
 	// This is for when the author gets to choose
@@ -131,6 +135,8 @@ export interface Article {
 
 	metaInfo: MetaInfo;
 	error: ApiError;
+
+	related?: Article[];
 }
 
 export interface EmbeddedLink {
@@ -139,6 +145,9 @@ export interface EmbeddedLink {
 	contentUrl: string;
 }
 
+/**
+ * MetaInfo represents custom OpenGraph metadata information.
+ */
 export interface MetaInfo {
 	ogTitle?: string;
 	ogTags?: string[];
@@ -156,25 +165,12 @@ export interface Image {
 		_ref: string;
 		_type: string;
 	};
-	metadata?: ImageMetadata;
+	metadata: ImageMetadata;
+	blurHash?: string;
+	creditLine?: string;
 	title?: string;
 	description?: string;
 	alt: string;
-}
-
-export interface ImageMetadata {
-	hasAlpha?: boolean;
-	lqip?: string;
-	isOpaque?: boolean;
-	blurHash?: string;
-	dimensions?: ImageDimensions;
-}
-
-export interface ImageDimensions {
-	_type?: string;
-	width: number;
-	height: number;
-	aspectRatio: number;
 }
 
 type operators = '==' | '!==';
@@ -236,7 +232,26 @@ export type SanityQuery<T extends keyof validQueryableTypes> = {
 	 * feature.
 	 */
 	order?: string;
+
+	/**
+	 * `function` is the Sanity GROQ function that wraps the entire query
+	 * expression.
+	 */
+	function?: 'count' | 'round' | 'defined' | 'references';
+
+	/**
+	 * `outer` is the outer selection of the square brackets. It starts
+	 * with a `.`. The selection is an attribute.
+	 */
+	outer?: string;
 };
+
+/**
+ * queryConditions is either an array of conditions or the string literal
+ * 'attrs'. If the array is empty, this means conditions are `*[]`. If
+ * 'attrs' is used, no conditional square brackets will be used.
+ */
+type queryConditions = string[] | 'attrs';
 
 /**
  * Query represents a valid Sanity query according to our schema defined
@@ -253,3 +268,19 @@ export type ApiError = {
 	message: string;
 	status: number;
 };
+
+/**
+ * Pages
+ */
+
+export interface ArchivePageStatistics {
+	categoryCount: categoryCount;
+}
+
+export interface categoryCount {
+	news: number;
+	opinion: number;
+	culture: number;
+	people: number;
+	multimedia: number;
+}

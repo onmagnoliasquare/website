@@ -1,9 +1,13 @@
+<!--
+@component
+`Footer` is the footer component for the entire website.
+-->
+
 <script lang="ts">
-	// import { dev } from '$app/environment';
-	import { routes, footerRoutes, type route } from '$lib/navRoutes';
-	import { site } from '$lib/variables';
+	import { dev } from '$app/environment';
+	import { footerRoutes, routes, site, type route } from '$lib/constants';
 	import P from './defaults/P.svelte';
-	// import VersionLabel from './general/VersionLabel.svelte';
+	import VersionLabel from './general/VersionLabel.svelte';
 </script>
 
 {#snippet navList(routes: route[])}
@@ -68,24 +72,24 @@
 				</P>
 			</div>
 		</div>
-		<!-- <div class="inline w-full center">
+		<div class="inline w-full center">
 			<div class="flex flex-row-reverse items-center justify-left pr-1">
 				{#if dev || import.meta.env.MODE === 'development'}
 					<div class="">
 						<a href={`https://github.com/onmagnoliasquare/website`} target="_blank">
-							<p class="font-mono text-sm">dev</p>
+							<p class="font-mono text-sm">! dev !</p>
 						</a>
 					</div>
 				{:else if import.meta.env.MODE === 'staging'}
 					<div class="">
-						<a href={`https://github.com/onmagnoliasquare/website`} target="_blank">
-							<p class="font-mono text-sm">staging</p>
+						<a href={`https://github.com/onmagnoliasquare/website/tree/staging`} target="_blank">
+							<p class="font-mono text-sm">! staging @ {import.meta.env.GIT_REF}!</p>
 						</a>
 					</div>
 				{:else}
 					<VersionLabel />
 				{/if}
 			</div>
-		</div> -->
+		</div>
 	</div>
 </footer>

@@ -1,6 +1,6 @@
 import AxeBuilder from '@axe-core/playwright';
-import { articleTestDataList } from '../testVariables';
-import { test, expect } from '@playwright/test';
+import { articleTestDataList } from '../parameters.ts';
+import { expect, test } from '@playwright/test';
 
 for (const article of articleTestDataList) {
 	test(

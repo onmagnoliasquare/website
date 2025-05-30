@@ -1,3 +1,4 @@
+import { dev } from '$app/environment';
 import { buildSanityQuery, equal, sanityFetch } from '$lib/sanity';
 import type { Category } from '$lib/schema';
 import { json, type RequestHandler } from '@sveltejs/kit';
@@ -16,12 +17,14 @@ export const GET: RequestHandler = async ({ params }) => {
 			type: 'category',
 			conditions: [equal('slug.current', category.category as string)],
 			idx: [0],
-			attributes: ['name', 'description', 'slug', 'useCustomCss', 'metaInfo']
+			attributes: ['_id', 'name', 'description', 'slug', 'useCustomCss', 'metaInfo']
 		});
 
 		cat = await sanityFetch(sanityQuery);
 	} catch (err) {
-		console.error(err);
+		if (dev) {
+			console.error(err);
+		}
 		return json(
 			{ message: 'Failed to fetch category', error: (err as Error).message },
 			{ status: 500 }

@@ -5,7 +5,7 @@ export const csr = dev;
 import { error, type ServerLoadEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import type { MetaTagsProps } from 'svelte-meta-tags';
-import { filler, site } from '$lib/variables';
+import { filler, site } from '$lib/constants';
 import type { Article, Member } from '$lib/schema';
 import { createSiteTitle } from '$lib/helpers';
 

@@ -4,7 +4,7 @@ import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { buildSanityQuery, sanityFetch } from '$lib/sanity';
 import type { MetaTagsProps } from 'svelte-meta-tags';
-import { site } from '$lib/variables';
+import { site } from '$lib/constants';
 import type { Member } from '$lib/schema';
 import { createSiteTitle } from '$lib/helpers';
 

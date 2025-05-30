@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import MainLayout from '$components/MainLayout.svelte';
-	import { site } from '$lib/variables';
+	import { site } from '$lib/constants';
 	export const msg = $page.error!.message;
 	export const status = $page.status;
 </script>

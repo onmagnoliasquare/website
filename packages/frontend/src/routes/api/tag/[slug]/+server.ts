@@ -1,3 +1,4 @@
+import { dev } from '$app/environment';
 import { buildSanityQuery, equal, sanityFetch } from '$lib/sanity';
 import type { Tag } from '$lib/schema';
 import { json, type RequestHandler } from '@sveltejs/kit';
@@ -19,8 +20,12 @@ export const GET: RequestHandler = async ({ url, params }) => {
 		sanityQuery = buildSanityQuery({
 			type: 'article',
 			conditions: [
-				`references((*[${equal('_type', 'tag')}`,
-				`${equal('slug.current', slug)}]._id))`
+				`${buildSanityQuery({
+					type: 'tag',
+					function: 'references',
+					conditions: [equal('slug.current', slug)],
+					outer: '_id'
+				})}`
 			],
 			attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
 			customAttrs: ['authors[]->{name}', 'category->'],
@@ -39,7 +44,9 @@ export const GET: RequestHandler = async ({ url, params }) => {
 	try {
 		tagPage = await sanityFetch(sanityQuery);
 	} catch (err) {
-		console.error(err);
+		if (dev) {
+			console.error(err);
+		}
 		return json(
 			{ message: 'Failed to fetch series', error: (err as Error).message },
 			{ status: 500 }

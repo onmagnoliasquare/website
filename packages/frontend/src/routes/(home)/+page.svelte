@@ -2,6 +2,7 @@
 	import type { PageData } from './$types';
 	import ArticleBoxC from '$components/home/ArticleBoxC.svelte';
 	import ArticleBoxB from '$components/home/ArticleBoxB.svelte';
+
 	let { data }: { data: PageData } = $props();
 </script>
 

@@ -1,13 +1,15 @@
 <script lang="ts">
 	import { createAuthorString } from '$lib/helpers';
 	import type { Article } from '$lib/schema';
-	import { site } from '$lib/variables';
+	import { site } from '$lib/constants';
 	import DateLine from './DateLine.svelte';
 	import DesktopLandingNavbar from './DesktopLandingNavbar.svelte';
+	import type { BasicArticleQueryResult } from '$lib/types/api';
+
 	// import type { Image as ImageType } from '$lib/schema';
 
 	interface Props {
-		article: Article;
+		article: Article | BasicArticleQueryResult;
 		locale: string;
 	}
 
@@ -30,7 +32,7 @@
 		</div>
 		<div class="size-fit p-2 m-2">
 			<p class="text-2xl font-display font-stretch-condensed text-neutral-700 font-semibold pt-5">
-				Student journalism at NYU Shanghai
+				Student journalism and writing at NYU Shanghai
 			</p>
 		</div>
 	</div>

@@ -1,6 +1,6 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { pages } from '../testVariables';
+import { pages } from '../parameters.ts';
 
 /**
  * We'll disable color contrast for now. This will be fixed

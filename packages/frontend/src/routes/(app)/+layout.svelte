@@ -5,7 +5,7 @@
 	import { page } from '$app/stores';
 	import type { Snippet } from 'svelte';
 	import { createSiteTitle } from '$lib/helpers';
-	import { site } from '$lib/variables';
+	import { site } from '$lib/constants';
 	import MainLayout from '$components/MainLayout.svelte';
 
 	interface Props {

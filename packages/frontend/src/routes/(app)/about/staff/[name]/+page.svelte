@@ -5,7 +5,7 @@
 	import HoverDim from '$components/general/HoverDim.svelte';
 	import Image from '$components/Image.svelte';
 	import { dateFormatter, domainFromUrl } from '$lib/helpers';
-	import { filler } from '$lib/variables';
+	import { filler } from '$lib/constants';
 	import type { PageData } from './$types';
 
 	interface Props {
@@ -143,7 +143,7 @@
 			</div>
 		</header>
 	</div>
-	{#if articles}
+	{#if articles.length > 0}
 		<div class="col-span-5 md:m-2 mt-4 pt-4 md:mt-1 md:pt-1">
 			<section>
 				<h1 class="font-display text-2xl mb-2 pl-2">Works</h1>

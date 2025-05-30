@@ -1,6 +1,6 @@
-import { site } from '$lib/variables';
-import { test, expect, type Page } from '@playwright/test';
-import { article404, v0_5_x_Article, v0_6_x_Article } from '../testVariables';
+import { site } from '$lib/constants';
+import { expect, type Page, test } from '@playwright/test';
+import { article404, v0_5_x_Article, v0_6_x_Article } from '../parameters.ts';
 
 test.describe('v0.5 Article Features', { tag: '@integration' }, () => {
 	// Lets save some API requests... Plus, the data is static anyway.
@@ -50,12 +50,12 @@ test.describe('v0.5 Article Features', { tag: '@integration' }, () => {
 		const neoAlabastroUrl = `/about/staff/neo-alabastro`;
 		const jonathanZhaiUrl = `/about/staff/jonathan-zhai`;
 
-		await expect(page.locator('a', { hasText: 'Neo Alabastro' })).toHaveAttribute(
+		await expect(page.locator('a', { hasText: 'Neo Alabastro' }).first()).toHaveAttribute(
 			'href',
 			neoAlabastroUrl
 		);
 
-		await expect(page.locator('a', { hasText: 'Jonathan Zhai' })).toHaveAttribute(
+		await expect(page.locator('a', { hasText: 'Jonathan Zhai' }).first()).toHaveAttribute(
 			'href',
 			jonathanZhaiUrl
 		);
@@ -373,5 +373,17 @@ test.describe('v0.6.x Article Features', { tag: '@integration' }, () => {
 		await expect(quote).toContainText(
 			'At first, when I heard about the many vicissitudes of life here, I was astonished. But now, I live in the matter-of-fact, the current present, the what-have-yous.'
 		);
+	});
+
+	test('Related article section visible', async ({ page }) => {
+		await page.goto(v0_6_x_Article.testUrl);
+		const section = page.getByLabel('Related Articles');
+		await expect(section).toBeVisible();
+	});
+
+	test('Recent article section visible', async ({ page }) => {
+		await page.goto(v0_6_x_Article.testUrl);
+		const section = page.getByLabel('Recent Articles');
+		await expect(section).toBeVisible();
 	});
 });

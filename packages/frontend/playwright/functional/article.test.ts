@@ -1,6 +1,6 @@
-import { test, expect } from '@playwright/test';
-import { site } from '$lib/variables';
-import { v0_5_x_Article, v0_6_x_Article } from '../testVariables';
+import { expect, test } from '@playwright/test';
+import { site } from '$lib/constants.ts';
+import { v0_5_x_Article, v0_6_x_Article } from '../parameters.ts';
 
 test.describe('v0.5.x Article Features', { tag: '@functional' }, () => {
 	test.describe.configure({ mode: 'serial' });
@@ -47,12 +47,12 @@ test.describe('v0.5.x Article Features', { tag: '@functional' }, () => {
 		const neoAlabastroUrl = `/about/staff/neo-alabastro`;
 		const jonathanZhaiUrl = `/about/staff/jonathan-zhai`;
 
-		await expect(page.locator('a', { hasText: 'Neo Alabastro' })).toHaveAttribute(
+		await expect(page.locator('a', { hasText: 'Neo Alabastro' }).first()).toHaveAttribute(
 			'href',
 			neoAlabastroUrl
 		);
 
-		await expect(page.locator('a', { hasText: 'Jonathan Zhai' })).toHaveAttribute(
+		await expect(page.locator('a', { hasText: 'Jonathan Zhai' }).first()).toHaveAttribute(
 			'href',
 			jonathanZhaiUrl
 		);
@@ -351,5 +351,15 @@ test.describe('v0.6.x Article Features', { tag: '@functional' }, () => {
 		await expect(quote).toContainText(
 			'At first, when I heard about the many vicissitudes of life here, I was astonished. But now, I live in the matter-of-fact, the current present, the what-have-yous.'
 		);
+	});
+
+	test('Related article section visible', async ({ page }) => {
+		const section = page.getByLabel('Related Articles');
+		await expect(section).toBeVisible();
+	});
+
+	test('Recent article section visible', async ({ page }) => {
+		const section = page.getByLabel('Recent Articles');
+		await expect(section).toBeVisible();
 	});
 });

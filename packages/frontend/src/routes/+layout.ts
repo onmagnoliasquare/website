@@ -1,6 +1,6 @@
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import type { LayoutLoad } from './$types';
-import { site } from '$lib/variables';
+import { site } from '$lib/constants';
 import { createSiteTitle } from '$lib/helpers';
 
 // https://svelte.dev/docs/kit/load#Universal-vs-server-When-to-use-which
