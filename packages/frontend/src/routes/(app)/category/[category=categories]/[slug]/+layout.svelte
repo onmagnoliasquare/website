@@ -47,7 +47,11 @@
 		<ol class="border-1 border-dotted">
 			{#each relatedArticles as r}
 				<li class="p-2 sm:p-4 text-sm sm:text-base hover:bg-amber-200">
-					<a href="/category/{r.category.slug.current}/{r.slug.current}" class="hover:underline">
+					<a
+						data-sveltekit-reload
+						href="/category/{r.category.slug.current}/{r.slug.current}"
+						class="hover:underline"
+					>
 						<h3 class="text-lg sm:text-2xl font-display pb-2 leading-tight">{r.title}</h3>
 					</a>
 					<div class="leading-loose text-sm">
@@ -66,7 +70,11 @@
 		<ol class="border-1 border-dotted">
 			{#each recent().slice(0, 5) as r}
 				<li class="p-2 sm:p-4 hover:bg-amber-200">
-					<a href="/category/{r.category.slug.current}/{r.slug.current}" class="hover:underline">
+					<a
+						data-sveltekit-reload
+						href="/category/{r.category.slug.current}/{r.slug.current}"
+						class="hover:underline"
+					>
 						<h3 class="text-lg font-display pb-2">{r.title}</h3>
 						by {r.authors[0].name}</a
 					>
