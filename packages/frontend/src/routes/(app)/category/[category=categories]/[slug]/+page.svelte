@@ -20,7 +20,7 @@
 	let headerMediaCreditLine = $derived(data.article.media?.creditLine);
 	let headerMediaAlt = $derived(data.article.media?.alt);
 
-	let id = $derived(data.article._id);
+	// let id = $derived(data.article._id)
 	let tags = $derived(data.article.tags);
 	let title = $derived(data.article.title);
 	let subtitle = $derived(data.article.subtitle);
@@ -48,30 +48,28 @@
 		{/if}
 	</div>
 	{#if headerMedia}
-		{#key id}
-			<div class="w-full center">
-				<figure role="group" class="mb-1 pb-1 sm:pb-4 sm:mb-4 center">
-					<div class="mb-2">
-						<Image
-							media={headerMedia}
-							alt={headerMediaAlt}
-							width={1920}
-							height={1080}
-							priority={true}
-							blurHash={headerMediaBlurHash}
-							loading={'eager'}
-						/>
-					</div>
-					{#if headerMediaCreditLine}
-						<figcaption class="sm:p-1 pt-1 p-3">
-							<PhotoCaption>
-								{headerMediaCreditLine}
-							</PhotoCaption>
-						</figcaption>
-					{/if}
-				</figure>
-			</div>
-		{/key}
+		<div class="w-full center">
+			<figure role="group" class="mb-1 pb-1 sm:pb-4 sm:mb-4 center">
+				<div class="mb-2">
+					<Image
+						media={headerMedia}
+						alt={headerMediaAlt}
+						width={1920}
+						height={1080}
+						priority={true}
+						blurHash={headerMediaBlurHash}
+						loading={'eager'}
+					/>
+				</div>
+				{#if headerMediaCreditLine}
+					<figcaption class="sm:p-1 pt-1 p-3">
+						<PhotoCaption>
+							{headerMediaCreditLine}
+						</PhotoCaption>
+					</figcaption>
+				{/if}
+			</figure>
+		</div>
 	{/if}
 	<div class="flex flex-col mb-4 ml-1 pl-2 sm:ml-4 sm:pl-4">
 		<div class="flex flex-row items-baseline align-center">
