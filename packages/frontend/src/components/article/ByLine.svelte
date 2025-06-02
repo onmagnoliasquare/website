@@ -17,9 +17,9 @@
 	</a>
 {/snippet}
 
-{#if authors.length == 1}
+{#if authors.length === 1}
 	{@render authorElm(authors[0])}
-{:else if authors.length == 2}
+{:else if authors.length === 2}
 	{@render authorElm(authors[0])}
 	<span class="text-sm inline">&nbsp;&&nbsp;</span>
 	{@render authorElm(authors[1])}
