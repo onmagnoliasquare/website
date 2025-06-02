@@ -1,9 +1,11 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
-	import type { ScoredArticleQueryResults } from '$lib/types/api';
+	import type { FetchScoredArticleQueryResults } from '$lib/types/api';
 	import ByLine from '$components/article/ByLine.svelte';
 	import DateLine from '$components/article/DateLine.svelte';
+	import { fetchRelatedArticles } from '$lib/sanity/repository.ts';
+	import P from '$components/defaults/P.svelte';
 
 	interface Props {
 		data: LayoutData;
@@ -11,9 +13,7 @@
 	}
 
 	let { data, children }: Props = $props();
-	const relatedArticles = $derived(
-		data.related.filter((a) => a.title !== data.article.title) as ScoredArticleQueryResults
-	);
+
 	const categoryArticles = $derived(data.parentData.articles);
 	const categoryName = $derived(data.article.category.name);
 	const categorySlug = $derived(data.article.category.slug.current);
@@ -22,6 +22,37 @@
 	const recent = () => {
 		return categoryArticles.filter((a) => a._id !== data.article._id);
 	};
+
+	const contentText = data.article
+		.content!.map(
+			(block) =>
+				block.children &&
+				block.children
+					.filter((child) => child._type === 'span')
+					.map((child) => child.text)
+					.join('')
+		)
+		.join(' ');
+
+	const authors = data.article.authors.map((val) => `"${val._id}"`);
+	const date = data.article.date.slice(0, 4);
+	const catId = data.article.category._id;
+
+	async function getRelatedArticles(): Promise<FetchScoredArticleQueryResults> {
+		return await fetchRelatedArticles(
+			{
+				slug: data.article.slug.current,
+				authors: authors
+			},
+			{
+				title: data.article.title,
+				date: date,
+				content: contentText,
+				categoryId: catId,
+				authors: authors
+			}
+		);
+	}
 </script>
 
 <div class="mb-2 pb-2">
@@ -44,26 +75,34 @@
 <div class="mt-4 pt-4 pb-10 flex flex-col sm:grid grid-cols-5 gap-2">
 	<aside class="col-span-3" aria-label="Related Articles">
 		{@render asideHeader('Related Articles')}
-		<ol class="border-1 border-dotted">
-			{#each relatedArticles as r}
-				<li class="p-2 sm:p-4 text-sm sm:text-base hover:bg-amber-200">
-					<a
-						data-sveltekit-reload
-						href="/category/{r.category.slug.current}/{r.slug.current}"
-						class="hover:underline"
-					>
-						<h3 class="text-lg sm:text-2xl font-display pb-2 leading-tight">{r.title}</h3>
-					</a>
-					<div class="leading-loose text-sm">
-						<ByLine authors={r.authors} />
-						<DateLine date={r.date} />
-					</div>
-					<!-- {#if dev}
-						<span class="font-mono text-sm"><mark>+{r._score}</mark></span>
-					{/if} -->
-				</li>
-			{/each}
-		</ol>
+		{#await getRelatedArticles()}
+			<P>Loading related articles...</P>
+		{:then ra}
+			{@const relatedArticles = ra.filter((a) => a.title !== data.article.title)}
+			<ol class="border-1 border-dotted">
+				{#each relatedArticles as r}
+					<li class="p-2 sm:p-4 text-sm sm:text-base hover:bg-amber-200">
+						<a
+							data-sveltekit-reload
+							href="/category/{r.category.slug.current}/{r.slug.current}"
+							class="hover:underline"
+						>
+							<h3 class="text-lg sm:text-2xl font-display pb-2 leading-tight">{r.title}</h3>
+						</a>
+						<div class="leading-loose text-sm">
+							<ByLine authors={r.authors} />
+							<DateLine date={r.date} />
+						</div>
+						<!-- {#if dev}
+							<span class="font-mono text-sm"><mark>+{r._score}</mark></span>
+						{/if} -->
+					</li>
+				{/each}
+			</ol>
+		{:catch error}
+			{@debug error}
+			<P>Failed to load related articles :(</P>
+		{/await}
 	</aside>
 	<aside class="sm:sticky top-8 h-fit col-span-2" aria-label="Recent Articles">
 		{@render asideHeader(`Recent ${categoryName}`)}

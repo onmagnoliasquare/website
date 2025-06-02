@@ -20,7 +20,6 @@
 	let headerMediaCreditLine = $derived(data.article.media?.creditLine);
 	let headerMediaAlt = $derived(data.article.media?.alt);
 
-	// let id = $derived(data.article._id)
 	let tags = $derived(data.article.tags);
 	let title = $derived(data.article.title);
 	let subtitle = $derived(data.article.subtitle);
