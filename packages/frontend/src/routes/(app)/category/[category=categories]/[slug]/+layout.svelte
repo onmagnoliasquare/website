@@ -6,6 +6,7 @@
 	import DateLine from '$components/article/DateLine.svelte';
 	import { fetchRelatedArticles } from '$lib/sanity/repository.ts';
 	import P from '$components/defaults/P.svelte';
+	import HoverDim from '$components/general/HoverDim.svelte';
 
 	interface Props {
 		data: LayoutData;
@@ -55,47 +56,43 @@
 	}
 </script>
 
-<div class="mb-2 pb-2">
+<article class="m-1 p-1 lg:m-2 lg:p-2 relative w-full sm:max-w-5xl center">
+	{@render children()}
+</article>
+<div class="p-1">
 	<ol aria-label="breadcrumbs" class="breadcrumb text-sm font-medium text-neutral-600">
-		<li>Category</li>
 		<li><a href="/category/{categorySlug}" class="hover:underline">{categoryName}</a></li>
 		<li aria-current="page" class="italic">{articleTitle}</li>
 	</ol>
 </div>
-
-{#snippet asideHeader(text: string)}
-	<h2 class="text-lg font-sans mb-2 p-2 font-black italic">{text}</h2>
-{/snippet}
-
-<div class="m-1 p-1 lg:m-2 lg:p-2 relative w-full sm:max-w-5xl center">
-	<article class="mb-4 pb-4">
-		{@render children()}
-	</article>
-</div>
 <div class="mt-4 pt-4 pb-10 flex flex-col sm:grid grid-cols-5 gap-2">
 	<aside class="col-span-3" aria-label="Related Articles">
-		{@render asideHeader('Related Articles')}
+		<h2 class="text-lg font-sans mb-2 p-2 font-black">Related Articles</h2>
 		{#await getRelatedArticles()}
-			<P>Loading related articles...</P>
+			<div class="p-2">
+				<P>Loading related articles...</P>
+			</div>
 		{:then ra}
 			{@const relatedArticles = ra.filter((a) => a.title !== data.article.title)}
-			<ol class="border-1 border-dotted">
+			<ol class="divide-y-1">
 				{#each relatedArticles as r}
-					<li class="p-2 sm:p-4 text-sm sm:text-base hover:bg-amber-200">
-						<a
-							data-sveltekit-reload
-							href="/category/{r.category.slug.current}/{r.slug.current}"
-							class="hover:underline"
-						>
-							<h3 class="text-lg sm:text-2xl font-display pb-2 leading-tight">{r.title}</h3>
-						</a>
-						<div class="leading-loose text-sm">
-							<ByLine authors={r.authors} />
-							<DateLine date={r.date} />
-						</div>
-						<!-- {#if dev}
-							<span class="font-mono text-sm"><mark>+{r._score}</mark></span>
-						{/if} -->
+					<li class="p-2 sm:p-6 text-sm sm:text-base">
+						<HoverDim>
+							<a
+								data-sveltekit-reload
+								href="/category/{r.category.slug.current}/{r.slug.current}"
+								class="hover:underline"
+							>
+								<h3 class="text-lg sm:text-xl font-display pb-2 leading-tight">{r.title}</h3>
+							</a>
+							<div class="leading-loose text-sm">
+								<ByLine authors={r.authors} />
+								<DateLine date={r.date} />
+							</div>
+							<!-- {#if dev}
+								<span class="font-mono text-sm"><mark>+{r._score}</mark></span>
+							{/if} -->
+						</HoverDim>
 					</li>
 				{/each}
 			</ol>
@@ -104,20 +101,24 @@
 			<P>Failed to load related articles :(</P>
 		{/await}
 	</aside>
-	<aside class="sm:sticky top-8 h-fit col-span-2" aria-label="Recent Articles">
-		{@render asideHeader(`Recent ${categoryName}`)}
-		<ol class="border-1 border-dotted">
-			{#each recent().slice(0, 5) as r}
-				<li class="p-2 sm:p-4 hover:bg-amber-200">
-					<a
-						data-sveltekit-reload
-						href="/category/{r.category.slug.current}/{r.slug.current}"
-						class="hover:underline"
-					>
-						<h3 class="text-lg font-display pb-2">{r.title}</h3>
-						by {r.authors[0].name}</a
-					>
-					<time>{r.date}</time>
+	<aside class="sm:sticky top-10 h-fit col-span-2" aria-label="Recent Articles">
+		<h2 class="text-base font-sans mb-2 p-2 font-black">More in {categoryName}</h2>
+		<ol>
+			{#each recent().slice(0, 3) as r}
+				<li class="p-2 sm:p-4">
+					<HoverDim>
+						<a
+							data-sveltekit-reload
+							href="/category/{r.category.slug.current}/{r.slug.current}"
+							class="hover:underline"
+						>
+							<h3 class="text-lg font-display pb-2">{r.title}</h3></a
+						>
+						<div class="leading-loose text-sm">
+							<!--							<ByLine authors={r.authors} />-->
+							<DateLine date={r.date} />
+						</div>
+					</HoverDim>
 				</li>
 			{/each}
 		</ol>

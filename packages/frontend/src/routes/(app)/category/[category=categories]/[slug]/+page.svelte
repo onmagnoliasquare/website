@@ -31,47 +31,49 @@
 	let content = $derived(data.article.content);
 </script>
 
-<header class="flex flex-col center">
-	<div class="pb-1 mb-1 lg:mb-1 lg:pb-1 w-fit">
-		<h1
-			class="text-4xl sm:text-5xl lg:text-7xl font-display font-black font-stretch-condensed tracking-tight ml-1 p-2 sm:mb-8 sm:pb-4 antialiased leading-tight sm:leading-24"
-		>
-			{title}
-		</h1>
-		{#if subtitle}
-			<div class="mb-8 max-w-3xl">
-				<Subtitle>
-					{subtitle}
-				</Subtitle>
+<header class="center">
+	<div class="flex flex-col-reverse sm:flex-col">
+		<div class="w-fit p-2">
+			<h1
+				class="text-4xl sm:text-5xl lg:text-7xl font-display font-black font-stretch-condensed tracking-tight pb-8 sm:mb-8 sm:pb-4 antialiased leading-tight sm:leading-24"
+			>
+				{title}
+			</h1>
+			{#if subtitle}
+				<div class="pb-4 sm:mb-8 max-w-3xl">
+					<Subtitle class="leading-tight">
+						{subtitle}
+					</Subtitle>
+				</div>
+			{/if}
+		</div>
+		{#if headerMedia}
+			<div class="w-full center">
+				<figure role="group" class="mb-1 pb-1 sm:pb-4 sm:mb-4 center">
+					<div class="mb-2">
+						<Image
+							media={headerMedia}
+							alt={headerMediaAlt}
+							width={1920}
+							height={1080}
+							priority={true}
+							blurHash={headerMediaBlurHash}
+							loading={'eager'}
+						/>
+					</div>
+					{#if headerMediaCreditLine}
+						<figcaption class="sm:p-1 pt-1 p-3">
+							<PhotoCaption>
+								{headerMediaCreditLine}
+							</PhotoCaption>
+						</figcaption>
+					{/if}
+				</figure>
 			</div>
 		{/if}
 	</div>
-	{#if headerMedia}
-		<div class="w-full center">
-			<figure role="group" class="mb-1 pb-1 sm:pb-4 sm:mb-4 center">
-				<div class="mb-2">
-					<Image
-						media={headerMedia}
-						alt={headerMediaAlt}
-						width={1920}
-						height={1080}
-						priority={true}
-						blurHash={headerMediaBlurHash}
-						loading={'eager'}
-					/>
-				</div>
-				{#if headerMediaCreditLine}
-					<figcaption class="sm:p-1 pt-1 p-3">
-						<PhotoCaption>
-							{headerMediaCreditLine}
-						</PhotoCaption>
-					</figcaption>
-				{/if}
-			</figure>
-		</div>
-	{/if}
-	<div class="flex flex-col mb-4 ml-1 pl-2 sm:ml-4 sm:pl-4">
-		<div class="flex flex-row items-baseline align-center">
+	<div class="flex flex-col mb-4 p-2 sm:ml-4 sm:pl-4">
+		<div class="flex flex-row items-baseline align-center pb-1">
 			<ByLine {authors} />&nbsp;
 			<span class="font-bold text-sm">✍&nbsp;</span>
 			{#if series}
@@ -94,11 +96,13 @@
 		</div>
 		<DateLine {date} locale={data.userLocale} />
 		{#if updatedDate}
-			<DateLine date={updatedDate} locale={data.userLocale} updated={true} />
+			<div class="pt-2">
+				<DateLine date={updatedDate} locale={data.userLocale} updated={true} />
+			</div>
 		{/if}
 	</div>
 </header>
-<div class="m-1 p-3 sm:max-w-3xl mb-6 pb-6 sm:ml-4 sm:pl-4">
+<div class="p-2 sm:max-w-3xl mb-6 pb-6 sm:ml-4 sm:pl-4">
 	<ArticleContent {content} />
 </div>
 <footer>
