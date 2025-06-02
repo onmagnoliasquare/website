@@ -5,14 +5,13 @@
 
 <script lang="ts">
 	import { dev } from '$app/environment';
-	import { footerRoutes, routes, site, type route } from '$lib/constants';
-	import P from './defaults/P.svelte';
+	import { footerRoutes, type route, routes, site } from '$lib/constants';
 	import VersionLabel from './general/VersionLabel.svelte';
 </script>
 
-{#snippet navList(routes: route[])}
+{#snippet navList(r: route[])}
 	<ul class="flex flex-col space-x-2">
-		{#each routes as route (route.path)}
+		{#each r as route (route.path)}
 			<li class="mb-1 w-full">
 				<a
 					href={route.path}
@@ -33,7 +32,7 @@
 {/snippet}
 
 <footer
-	class="flex flex-col sm:flex-wrap border-t-1 space-x-2 items-baseline border-dotted p-8 w-full"
+	class="flex flex-col sm:flex-wrap border-t-1 space-x-2 items-baseline border-dotted p-4 sm:p-8 w-full"
 >
 	<div class="w-full max-w-7xl center">
 		<h1 class="mb-6 font-black tracking-wide border-1 w-fit p-2">
@@ -41,7 +40,7 @@
 				{site.name.toLowerCase()}
 			</a>
 		</h1>
-		<div class="grid grid-cols-3 grid-rows-1 gap-1 mb-8 p-2">
+		<div class="flex flex-col space-y-6 sm:grid sm:grid-cols-3 grid-rows-1 gap-1 mb-8 p-2">
 			<section>
 				{@render Subheader('categories')}
 				{@render navList(routes.slice(0, 5))}
@@ -55,21 +54,14 @@
 				{@render navList(footerRoutes.slice(1))}
 			</section>
 		</div>
-
 		<div class="w-full">
-			<div class="w-1/2">
-				<P class="w-1/2 sm:center">
-					<small
-						>Contact us at <a href="mailto:onmagnoliasquare@gmail.com" class="underline">
-							onmagnoliasquare@gmail.com</a
-						></small
+			<div class="w-1/2 text-sm font-serif">
+				<address>
+					Email us:
+					<a href="mailto:onmagnoliasquare@gmail.com" class="underline">
+						onmagnoliasquare@gmail.com</a
 					>
-				</P>
-			</div>
-			<div class="w-1/2 inline">
-				<P class=" w-full sm:center sm:text-right">
-					<small>On Magnolia Square is based in SHANGHAI, CHINA</small>
-				</P>
+				</address>
 			</div>
 		</div>
 		<div class="inline w-full center">
