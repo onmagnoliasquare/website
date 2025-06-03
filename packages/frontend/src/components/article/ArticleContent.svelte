@@ -12,6 +12,7 @@ ArticleContent is the Content from Sanity portable text.
 	import ArticleLeadIn from '$components/portabletext/ArticleLeadIn.svelte';
 	import ArticleSuperscript from '$components/portabletext/ArticleSuperscript.svelte';
 	import ArticleSubscript from '$components/portabletext/ArticleSubscript.svelte';
+	import { dev } from '$app/environment';
 
 	const { content } = $props();
 </script>
@@ -19,7 +20,9 @@ ArticleContent is the Content from Sanity portable text.
 <PortableText
 	value={content}
 	onMissingComponent={(message, options) => {
-		console.log(message, options);
+		if (dev) {
+			console.log(message, options);
+		}
 	}}
 	components={{
 		marks: {

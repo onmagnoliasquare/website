@@ -1,4 +1,4 @@
-import { createAuthorLink, createAuthorString } from '$lib/helpers';
+import { buildSiteTags, createAuthorLink, createAuthorString } from '$lib/helpers';
 import { site } from '$lib/constants';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import type { PageLoad, PageLoadEvent } from './$types';
@@ -20,17 +20,10 @@ export const load: PageLoad = (async (event: PageLoadEvent) => {
 
 		let ogTitle = title;
 		let ogDescription = subtitle;
-		const ogTags = [
-			// Add default site tags.
-			...site.tags,
 
-			// Add the article's tags.
-			...(article.tags
-				? article.tags.map((t) => {
-						return t.name;
-					})
-				: [])
-		];
+		const articleTags: string[] = article.tags ? article.tags.map((v) => v.name) : Array<string>(0);
+
+		const ogTags: string[] = buildSiteTags(site.tags, articleTags);
 
 		// If metaInfo is not null, that means there is data
 		// we can customize in the HTML document.

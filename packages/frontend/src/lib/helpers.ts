@@ -254,10 +254,9 @@ export const sourcesList = [
 ];
 
 /**
- * domainFromUrl strips a URL of any extra paths or
- * protocols using a regex query. Currently, this function
- * does not check if the URL is valid, because that
- * is handled in the backend. This should be validated on the
+ * domainFromUrl strips a URL of any extra paths or protocols using a
+ * regex query. Currently, this function does not check if the URL is valid,
+ * because that is handled in the backend. This should be validated on the
  * frontend, though.
  * @param url the url to strip
  * @returns domain name and TLD
@@ -276,4 +275,25 @@ export const domainFromUrl = (url: string): string => {
 	}
 
 	return 'website';
+};
+
+/**
+ * buildSiteTags compares two string arrays, which are compared using the ref,
+ * or reference, and cmp, or comparison. All items in ref will be included in
+ * along with disjoint items in cmp.
+ * @param ref is the array of strings that will be included all the time
+ * @param cmp is the array that will be compared to ref
+ * @returns new string array containing elements of ref and cmp
+ */
+export const buildSiteTags = (ref: string[], cmp: string[]): string[] => {
+	// This is written very imperatively.
+	const newTags: string[] = [...ref];
+
+	for (const v of cmp) {
+		if (!newTags.includes(v)) {
+			newTags.push(v);
+		}
+	}
+
+	return newTags;
 };

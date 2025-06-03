@@ -10,8 +10,11 @@
 	let { class: classList, children }: Props = $props();
 </script>
 
-<div class="font-serif font-stretch-condensed tracking-tight">
-	<p class={twMerge('m-1 pl-2 sm:pl-3 text-2xl sm:text-3xl lg:text-4xl antialiased', classList)}>
-		{@render children()}
-	</p>
-</div>
+<p
+	class={twMerge(
+		'font-serif font-stretch-condensed tracking-tight sm:pl-3 text-xl sm:text-3xl lg:text-4xl antialiased',
+		classList
+	)}
+>
+	{@render children()}
+</p>

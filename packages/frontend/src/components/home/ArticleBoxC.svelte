@@ -19,21 +19,21 @@
 	const h1Class =
 		'font-display font-stretch-condensed font-bold tracking-tight mb-1 pb-2 hover:underline';
 
-	let media = $derived(article.media);
-	let mediaBlurHash = $derived(article.media?.blurHash);
-	let mediaAlt = $derived(article.media?.alt);
+	let media = article.media;
+	let mediaBlurHash = article.media?.blurHash;
+	let mediaAlt = article.media?.alt;
 
-	let articleAuthors = $derived(article.authors);
-	let articleDate = $derived(article.date);
-	let articleTitle = $derived(article.title);
-	let articleSubtitle = $derived(article.subtitle);
-	let articleCategory = $derived(article.category.name);
-	let articleSlug = $derived(article.slug.current);
+	let articleAuthors = article.authors;
+	let articleDate = article.date;
+	let articleTitle = article.title;
+	let articleSubtitle = article.subtitle;
+	let articleCategory = article.category.name;
+	let articleSlug = article.slug.current;
 </script>
 
 {#snippet ByAndDate()}
 	<div class="flex flex-col mt-1 pt-2">
-		<div class="mb-1">
+		<div class="pb-2">
 			<ByLine authors={articleAuthors} />
 		</div>
 		<DateLine date={articleDate} {locale} />
@@ -44,10 +44,12 @@
 	<h1 class="{h1Class} {showImage ? 'text-4xl' : 'text-3xl'}">
 		{articleTitle}
 	</h1>
-	{#if subtitle}
-		<P class=" text-gray-600 tracking-wide">
-			{articleSubtitle}
-		</P>
+	{#if subtitle && articleSubtitle}
+		<div data-testid="article-subtitle">
+			<P class=" text-gray-600 tracking-wide">
+				{articleSubtitle}
+			</P>
+		</div>
 	{/if}
 {/snippet}
 
@@ -56,7 +58,7 @@
 		<a
 			data-sveltekit-preload-code="viewport"
 			data-sveltekit-preload-data="tap"
-			href={`/category/${articleCategory.toLowerCase()}/${articleSlug}`}
+			href="/category/{articleCategory.toLowerCase()}/{articleSlug}"
 		>
 			<div class="flow flow-col lg:grid lg:grid-cols-3 items-center gap-2 mb-4">
 				{#if media && showImage}
