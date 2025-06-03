@@ -33,7 +33,7 @@
 
 {#snippet ByAndDate()}
 	<div class="flex flex-col mt-1 pt-2">
-		<div class="mb-1">
+		<div class="pb-2">
 			<ByLine authors={articleAuthors} />
 		</div>
 		<DateLine date={articleDate} {locale} />
