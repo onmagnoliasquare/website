@@ -103,7 +103,7 @@ export interface Article {
 	updatedDate: string;
 
 	title: string;
-	subtitle: string;
+	subtitle?: string;
 	abstract?: string;
 	date: string;
 	slug: Slug;
