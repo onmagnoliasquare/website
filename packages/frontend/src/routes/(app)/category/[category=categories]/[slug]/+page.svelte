@@ -107,8 +107,9 @@
 <div class="p-2 sm:max-w-3xl mb-6 pb-6 sm:ml-4 sm:pl-4">
 	<ArticleContent {content} />
 </div>
+<hr class="dotted" />
 <footer class="p-2">
-	<div class="border-dotted border-y-1 border-spacing-y-2 px-2 sm:px-4 py-4">
+	<div class="px-2 sm:px-4 py-4">
 		<div class="pb-2">
 			<cite>{title}</cite> is an article by {createAuthorString(authors)}.
 		</div>
@@ -156,3 +157,10 @@
 		animation: FadeIn 1s ease-in-out forwards;
 	}
 </style> -->
+
+<style>
+	hr.dotted {
+		border-top: 2px dotted #999;
+		border-bottom: none;
+	}
+</style>
