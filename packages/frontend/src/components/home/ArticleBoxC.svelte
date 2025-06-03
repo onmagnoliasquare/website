@@ -58,6 +58,7 @@
 		<a
 			data-sveltekit-preload-code="viewport"
 			data-sveltekit-preload-data="tap"
+			data-sveltekit-reload
 			href="/category/{articleCategory.toLowerCase()}/{articleSlug}"
 		>
 			<div class="flow flow-col lg:grid lg:grid-cols-3 items-center gap-2 mb-4">
