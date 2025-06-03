@@ -7,6 +7,7 @@
 	import { dev } from '$app/environment';
 	import { footerRoutes, type route, routes, site } from '$lib/constants';
 	import VersionLabel from './general/VersionLabel.svelte';
+	import EmailClickable from '$components/EmailClickable.svelte';
 </script>
 
 {#snippet navList(r: route[])}
@@ -58,9 +59,7 @@
 			<div class="w-1/2 text-sm font-serif">
 				<address>
 					Email us:
-					<a href="mailto:onmagnoliasquare@gmail.com" class="underline">
-						onmagnoliasquare@gmail.com</a
-					>
+					<EmailClickable />
 				</address>
 			</div>
 		</div>
