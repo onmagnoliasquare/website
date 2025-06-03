@@ -60,7 +60,7 @@
 							height={1080}
 							priority={true}
 							blurHash={headerMediaBlurHash}
-							loading={'eager'}
+							loading="eager"
 						/>
 					</div>
 					{#if headerMediaCreditLine}
