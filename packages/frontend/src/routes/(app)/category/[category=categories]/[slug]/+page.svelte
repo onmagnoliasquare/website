@@ -8,6 +8,8 @@
 	import ByLine from '$components/article/ByLine.svelte';
 	import DateLine from '$components/article/DateLine.svelte';
 	import ArticleContent from '$components/article/ArticleContent.svelte';
+	import { createAuthorString } from '$lib/helpers.ts';
+	import EmailClickable from '$components/EmailClickable.svelte';
 
 	interface Props {
 		data: PageData;
@@ -105,10 +107,19 @@
 <div class="p-2 sm:max-w-3xl mb-6 pb-6 sm:ml-4 sm:pl-4">
 	<ArticleContent {content} />
 </div>
-<footer>
+<footer class="p-2">
+	<div class="border-dotted border-y-1 border-spacing-y-2 px-2 sm:px-4 py-4">
+		<div class="pb-2">
+			<cite>{title}</cite> is an article by {createAuthorString(authors)}.
+		</div>
+		<address>
+			To get in touch, please contact us at
+			<EmailClickable />
+		</address>
+	</div>
 	{#if tags}
-		<div data-sveltekit-preload-data="false" class="px-2 mx-1 my-3 py-3 border-t-1 border-dotted">
-			<h3 class="font-serif tracking-wide font-bold text-xl mb-1 pb-1 w-fit">
+		<div data-sveltekit-preload-data="false" class="px-2 py-8">
+			<h3 class="font-serif tracking-wide font-bold text-lg sm:text-xl mb-1 pb-1 w-fit">
 				<a href="/archive">Tags</a>
 			</h3>
 			<ul class="list flex flex-wrap items-center justify-left space-x-1">

@@ -84,6 +84,7 @@ export const relatedArticlesTypeA = (): string => groq`
 	  	) | order(_score desc) [0..8] {
 	  		_score,
 	  		title,
+	  		subtitle,
 	  		date,
 	  		slug,
 			authors[]->,
