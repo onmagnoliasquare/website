@@ -309,7 +309,7 @@ test.describe('v0.5.x Article Features', { tag: '@functional' }, () => {
 		// Iterate through each <p> and check if it has text
 		for (let i = 0; i < paragraphCount; i++) {
 			const paragraphText = await paragraphs.nth(i).innerText();
-			expect(paragraphText.trim()).not.toBe(''); // Ensure the <p> is not blank
+			expect(paragraphText.trim()).not.toBe('');
 		}
 	});
 });

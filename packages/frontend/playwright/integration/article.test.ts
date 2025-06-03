@@ -302,7 +302,7 @@ test.describe('v0.5 Article Features', { tag: '@integration' }, () => {
 	 * Checks if there are any blank <p> elements. This is a regression test for
 	 * https://github.com/onmagnoliasquare/website/issues/194
 	 */
-	test('No blank <p> elements in the article', async () => {
+	test('No blank <p> elements in the article', { tag: '@regression' }, async () => {
 		// Locate all <p> elements within the <article>
 		const paragraphs = page.locator('article p');
 
@@ -312,7 +312,7 @@ test.describe('v0.5 Article Features', { tag: '@integration' }, () => {
 		// Iterate through each <p> and check if it has text
 		for (let i = 0; i < paragraphCount; i++) {
 			const paragraphText = await paragraphs.nth(i).innerText();
-			expect(paragraphText.trim()).not.toBe(''); // Ensure the <p> is not blank
+			expect(paragraphText.trim()).not.toBe('');
 		}
 	});
 
