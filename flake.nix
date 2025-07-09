@@ -25,10 +25,15 @@
           # Development related
           # Node version matches that on the CI runners.
           nodejs_22
-          corepack
+          yarn-berry
           typescript
           typescript-language-server
           nixfmt-rfc-style
+          nixd
+          prettierd
+          typescript-language-server
+          nil
+          svelte-language-server
 
           # Data tools.
           imagemagick # manipulate images.
@@ -44,7 +49,7 @@
         devShell = pkgs.mkShell {
           buildInputs = [ commonPackages ];
           shellHook = ''
-            # Initialize yarn.
+            # Initialize yarn
             yarn
 
             # Customize the prompt to show we're in a Nix environment
