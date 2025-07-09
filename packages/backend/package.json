@@ -19,21 +19,21 @@
     "singleQuote": true
   },
   "dependencies": {
-    "@sanity/icons": "^3.7.0",
-    "@sanity/ui": "^2.15.18",
-    "@sanity/vision": "^3.90.0",
+    "@sanity/icons": "^3.7.4",
+    "@sanity/ui": "^2.16.4",
+    "@sanity/vision": "^3.98.1",
     "@superside-oss/sanity-plugin-copy-paste": "^1.0.3",
     "archiver-utils": "^5.0.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-is": "^19.1.0",
-    "sanity": "^3.90.0",
-    "sanity-plugin-media": "^3.0.2",
-    "styled-components": "^6.1.18"
+    "sanity": "^3.98.1",
+    "sanity-plugin-media": "^3.0.3",
+    "styled-components": "^6.1.19"
   },
   "devDependencies": {
-    "@sanity/cli": "^3.90.0",
+    "@sanity/cli": "^3.98.1",
     "@sanity/eslint-config-studio": "^5.0.2",
-    "@types/react": "^19.1.6"
+    "@types/react": "^19.1.8"
   }
 }
