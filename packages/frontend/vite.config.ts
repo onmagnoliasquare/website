@@ -6,7 +6,6 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineProject({
 	//@ts-ignore ts(2741)
 	plugins: [tailwindcss(), sveltekit(), svelteTesting()],
-	//@ts-ignore ts(2769)
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}'],
 		environment: 'node',
@@ -17,6 +16,11 @@ export default defineProject({
 		poolOptions: {
 			forks: {
 				singleFork: true
+			}
+		},
+		server: {
+			deps: {
+				inline: [`@sveltejs/kit`]
 			}
 		}
 	}
