@@ -1,5 +1,7 @@
 name = "frontend"
 main = ".svelte-kit/cloudflare/_worker.js"
+preview_urls = false
+workers_dev = false
 
 compatibility_flags = ["nodejs_compat"]
 compatibility_date = "2025-08-07"
