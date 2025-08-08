@@ -8,33 +8,24 @@ on:
 
 jobs:
   build:
-    name: Set yarn and build artifacts
+    name: Build artifacts
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     environment: production
-    outputs:
-      yarn_version: ${{ steps.set_yarn_version.outputs.yarn_version }}
     env:
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
     steps:
       - uses: actions/checkout@v4
-
-      - name: Get yarn version from package.json
-        run: |
-          grep 'packageManager' package.json | awk -F: '{gsub(/[", ]/, "", $2); print $2}' | xargs -I {} echo "YARN_VERSION="{} >> "$GITHUB_ENV"
-
-      - name: Append yarn version to $GITHUB_OUTPUT
-        id: set_yarn_version
-        run: |
-          echo "yarn_version=${{ env.YARN_VERSION }}" >> "$GITHUB_OUTPUT"
-
-      - name: Node setup
-        uses: ./.github/actions/setup
+      - name: Enable corepack
+        run: corepack enable
+      - name: Use Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ vars.NODE_VERSION }}
-          yarn-version: ${{ steps.set_yarn_version.outputs.yarn_version }}
-          yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          node-version: 22
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn install --immutable
 
       - name: Build frontend for production
         run: yarn workspace frontend build:production
@@ -59,35 +50,30 @@ jobs:
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
-      YARN_VERSION: ${{ needs.build.outputs.yarn_version }}
     permissions:
       contents: read
       deployments: write
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Node setup
-        uses: ./.github/actions/setup
+      - name: Enable corepack
+        run: corepack enable
+      - name: Use Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ vars.NODE_VERSION }}
-          yarn-version: ${{ env.YARN_VERSION  }}
-          yarn-run-install: false
-          yarn-restore-cache: false # We restore the build from actions/cache
-          yarn-install-cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-
+          node-version: 22
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn install --immutable
       - name: Restore build
         uses: actions/cache@v4
         with:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}
-
-      # Deploy using wrangler CLI
-      # See: https://github.com/cloudflare/wrangler-action?tab=readme-ov-file#deploy-your-pages-site-production--preview
-      - name: Publish to Cloudflare Pages
+      - name: Deploy to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: 'packages/frontend'
-          command: pages deploy --project-name=website --branch=main
+          command: deploy --env production
