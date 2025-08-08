@@ -373,6 +373,8 @@ jobs:
     if: ${{ github.event_name == 'push' && github.ref_name == 'dev' }}
     needs: deploy-development
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout Repository
