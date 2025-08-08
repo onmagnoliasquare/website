@@ -1,5 +1,5 @@
-import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import adapterCloudflare from '@sveltejs/adapter-cloudflare';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -8,10 +8,7 @@ const config = {
 	preprocess: vitePreprocess(),
 	kit: {
 		adapter: adapterCloudflare({
-			routes: {
-				include: ['/*'],
-				exclude: ['<all>']
-			}
+			config: './wrangler.toml'
 		}),
 		alias: {
 			$components: 'src/components/*'
