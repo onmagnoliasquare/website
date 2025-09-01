@@ -2,10 +2,16 @@
 	import PhotoCaption from '$components/custom/PhotoCaption.svelte';
 	import P from '$components/defaults/P.svelte';
 	import Image from '$components/Image.svelte';
-	import type { PortableText } from '@portabletext/svelte';
+	import type { CustomBlockComponentProps } from '@portabletext/svelte';
+	import type { Image as ImageType } from '$lib/schema';
 
 	interface Props {
-		portableText: PortableText;
+		portableText: CustomBlockComponentProps<{
+			attrs: ImageType;
+			alt: string;
+			title: string;
+			description: string;
+		}>;
 	}
 
 	let { portableText }: Props = $props();

@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { parseEmbedLink } from '$lib/helpers';
-	import type { PortableText } from '@portabletext/svelte';
+	import type { CustomBlockComponentProps } from '@portabletext/svelte';
+	import type { EmbeddedLink } from '$lib/schema';
 	import SpotifyEmbed from './SpotifyEmbed.svelte';
 
 	interface Props {
-		portableText: PortableText;
+		portableText: CustomBlockComponentProps<EmbeddedLink>;
 	}
 
 	let { portableText }: Props = $props();
