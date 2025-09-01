@@ -4,7 +4,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
   };
-
   outputs =
     {
       self,
@@ -24,7 +23,7 @@
         commonPackages = with pkgs; [
           # Development related
           # Node version matches that on the CI runners.
-          nodejs_22
+          nodejs_24
           yarn-berry
           typescript
           typescript-language-server
