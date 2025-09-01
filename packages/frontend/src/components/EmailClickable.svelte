@@ -2,4 +2,4 @@
 	import { email } from '$lib/constants.js';
 </script>
 
-<a href="mailto:{email}" class="underline"> {email}</a>
+<a href="mailto:{email}" class="underline">{email}</a>
