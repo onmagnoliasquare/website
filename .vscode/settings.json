@@ -17,5 +17,9 @@
     "Parens",
     "portabletext",
     "whitespaces"
-  ]
+  ],
+  "prettier.printWidth": 100,
+  "prettier.requireConfig": false,
+  "prettier.prettierPath": "./node_modules/prettier",
+  "prettier.configPath": ".prettierrc"
 }

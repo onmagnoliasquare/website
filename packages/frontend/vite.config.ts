@@ -1,11 +1,12 @@
 import { sveltekit } from '@sveltejs/kit/vite';
-import { svelteTesting } from '@testing-library/svelte/vite';
-import { defineProject } from 'vitest/config';
 import tailwindcss from '@tailwindcss/vite';
+import { svelteTesting } from '@testing-library/svelte/vite';
+import { defineConfig } from 'vite';
+import { defineConfig as testConfig } from 'vitest/config';
 
-export default defineProject({
-	//@ts-ignore ts(2741)
-	plugins: [tailwindcss(), sveltekit(), svelteTesting()],
+import pkg from './package.json' with { type: 'json' };
+
+const tstConfig = testConfig({
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}'],
 		environment: 'node',
@@ -25,3 +26,15 @@ export default defineProject({
 		}
 	}
 });
+
+const config = defineConfig({
+	plugins: [tailwindcss(), sveltekit(), svelteTesting()],
+	define: {
+		__ONMAGNOLIASQUARE_FRONTEND_VERSION__: `"${pkg.version}"`
+	}
+});
+
+export default {
+	...tstConfig,
+	...config
+};

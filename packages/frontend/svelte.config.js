@@ -1,3 +1,4 @@
+import * as child_process from 'node:child_process';
 import adapterCloudflare from '@sveltejs/adapter-cloudflare';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
@@ -15,6 +16,9 @@ const config = {
 
 			// If you're looking for the `$lib` alias, that is automatically
 			// defined by Svelte and does NOT need to be defined here.
+		},
+		version: {
+			name: child_process.execSync('git rev-parse HEAD').toString().trim()
 		}
 	}
 };

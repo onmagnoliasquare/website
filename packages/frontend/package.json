@@ -1,5 +1,7 @@
 {
 	"name": "frontend",
+	"type": "module",
+	"version": "0.6.6",
 	"scripts": {
 		"dev": "run -T vite dev",
 		"build": "run -T vite build",
@@ -28,7 +30,6 @@
 		"test:ui": "playwright test --ui .",
 		"coverage": "run -T vitest run --coverage"
 	},
-	"type": "module",
 	"dependencies": {
 		"@portabletext/svelte": "^3.0.1",
 		"@sanity/client": "^7.11.1",

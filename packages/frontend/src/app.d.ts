@@ -8,6 +8,7 @@ declare global {
 		// interface PageState {}
 		// interface Platform {}
 	}
+	const __ONMAGNOLIASQUARE_FRONTEND_VERSION__: string;
 }
 
 export {};

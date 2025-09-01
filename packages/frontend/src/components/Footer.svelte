@@ -4,7 +4,6 @@
 -->
 
 <script lang="ts">
-	import { dev } from '$app/environment';
 	import { footerRoutes, type route, routes, site } from '$lib/constants';
 	import VersionLabel from './general/VersionLabel.svelte';
 	import EmailClickable from '$components/EmailClickable.svelte';
@@ -65,21 +64,7 @@
 		</div>
 		<div class="inline w-full center">
 			<div class="flex flex-row-reverse items-center justify-left pr-1">
-				{#if dev || import.meta.env.MODE === 'development'}
-					<div class="">
-						<a href={`https://github.com/onmagnoliasquare/website`} target="_blank">
-							<p class="font-mono text-sm">! dev !</p>
-						</a>
-					</div>
-				{:else if import.meta.env.MODE === 'staging'}
-					<div class="">
-						<a href={`https://github.com/onmagnoliasquare/website/tree/staging`} target="_blank">
-							<p class="font-mono text-sm">! staging @ {import.meta.env.GIT_REF}!</p>
-						</a>
-					</div>
-				{:else}
-					<VersionLabel />
-				{/if}
+				<VersionLabel />
 			</div>
 		</div>
 	</div>
