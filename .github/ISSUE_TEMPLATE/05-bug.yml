@@ -2,10 +2,8 @@
 # As well as: https://github.com/syncthing/syncthing/blob/main/.github/ISSUE_TEMPLATE/02-bug.yml
 
 name: Bug report
-description: Describe unexpected behavior or dysfunctional implementation.
-labels: ["bug"]
-assignees:
-  - yulanhua
+description: Report unexpected behavior or dysfunctional implementation.
+type: bug
 body:
   - type: textarea
     id: description
@@ -34,6 +32,9 @@ body:
         - Chrome
         - Safari
         - Microsoft Edge
+        - Vivaldi
+        - Arc
+        - Other
     validations:
       required: true
 

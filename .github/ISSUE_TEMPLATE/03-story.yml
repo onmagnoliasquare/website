@@ -1,0 +1,19 @@
+name: Story
+description: Define a story for implementation.
+type: story
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Description of the Story. Make it clear and concise if you can.
+    validations:
+      required: true
+
+  - type: textarea
+    id: links
+    attributes:
+      label: Links
+      description: Useful or relevant links to aid this Story implementation.
+    validations:
+      required: false

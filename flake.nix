@@ -10,7 +10,49 @@
       nixpkgs,
       flake-utils,
     }:
-    flake-utils.lib.eachDefaultSystem (
+    let
+      overlay = final: prev: {
+        ratchet = prev.stdenv.mkDerivation rec {
+          pname = "ratchet";
+          version = "0.11.4";
+
+          src = prev.fetchurl (
+            if prev.stdenv.isDarwin then
+              {
+                url = "https://github.com/sethvargo/ratchet/releases/download/v${version}/ratchet_${version}_darwin_arm64.tar.gz";
+                hash = "";
+              }
+            else
+              {
+                url = "https://github.com/sethvargo/ratchet/releases/download/v${version}/ratchet_${version}_linux_amd64.tar.gz";
+                hash = "sha256-cUEjbFUA3ORAu3ZKlkydnYEwo6QhYEx1t/f7qlXPifU=";
+              }
+          );
+
+          nativeBuildInputs = [ prev.installShellFiles ];
+
+          sourceRoot = ".";
+
+          installPhase = ''
+            runHook preInstall
+            install -Dm755 ratchet $out/bin/ratchet
+            runHook postInstall
+          '';
+
+          meta = with prev.lib; {
+            description = "A tool for securing CI/CD workflows with version pinning.";
+            homepage = "https://github.com/sethvargo/ratchet";
+            license = licenses.asl20;
+            maintainers = [ ];
+            platforms = platforms.darwin ++ platforms.linux;
+          };
+        };
+      };
+    in
+    {
+      overlays.default = overlay;
+    }
+    // flake-utils.lib.eachDefaultSystem (
       system:
       let
         pkgs = import nixpkgs {
@@ -18,11 +60,13 @@
           config = {
             allowUnfree = true;
           };
+          overlays = [ overlay ];
         };
 
         commonPackages = with pkgs; [
           # Development related
           # Node version matches that on the CI runners.
+          pkgs.ratchet
           nodejs_24
           yarn-berry
           typescript

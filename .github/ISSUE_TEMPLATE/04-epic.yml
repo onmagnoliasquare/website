@@ -1,0 +1,19 @@
+name: Epic
+description: Describe or propose a project Epic.
+type: epic
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Description of the Epic. Write just enough.
+    validations:
+      required: true
+
+  - type: textarea
+    id: links
+    attributes:
+      label: Links
+      description: Useful or relevant links to aid this Epic implementation.
+    validations:
+      required: false
