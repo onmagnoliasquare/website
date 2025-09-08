@@ -118,7 +118,7 @@ jobs:
     environment: ${{ needs.set-environment.outputs.current_env }}
     needs: set-environment
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
@@ -173,7 +173,7 @@ jobs:
       YARN_VERSION: ${{ needs.setup.outputs.yarn_version }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
@@ -222,7 +222,7 @@ jobs:
   #   if: github.ref_name == 'main'
   #   needs: test
   #   steps:
-  #     - uses: actions/checkout@v4
+  #     - uses: actions/checkout@v5
   #     - uses: sanity-io/github-action-sanity@v0.7-alpha
   #       env:
   #         SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
