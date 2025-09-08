@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@sanity/icons": "^3.7.4",
-    "@sanity/ui": "^3.0.8",
+    "@sanity/ui": "^3.0.14",
     "@sanity/vision": "^4.6.0",
     "@superside-oss/sanity-plugin-copy-paste": "^1.0.3",
     "archiver-utils": "^5.0.2",
