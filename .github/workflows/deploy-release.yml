@@ -16,7 +16,7 @@ jobs:
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Enable corepack
         run: corepack enable
       - name: Use Node.js
@@ -55,7 +55,7 @@ jobs:
       deployments: write
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Enable corepack
         run: corepack enable
       - name: Use Node.js

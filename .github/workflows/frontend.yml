@@ -117,7 +117,7 @@ jobs:
     environment: ${{ needs.set-environment.outputs.current_env }}
     needs: set-environment
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Enable corepack
         run: corepack enable
       - name: Use Node.js
@@ -140,7 +140,7 @@ jobs:
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Enable corepack
         run: corepack enable
       - name: Use Node.js
@@ -174,7 +174,7 @@ jobs:
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Enable corepack
         run: corepack enable
       - name: Use Node.js
