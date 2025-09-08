@@ -25,11 +25,11 @@ jobs:
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Enable corepack
         run: corepack enable
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: 'yarn'
@@ -62,11 +62,11 @@ jobs:
       SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
     environment: staging
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Enable corepack
         run: corepack enable
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: 'yarn'
