@@ -31,7 +31,7 @@
 	"type": "module",
 	"dependencies": {
 		"@portabletext/svelte": "^3.0.1",
-		"@sanity/client": "^7.10.0",
+		"@sanity/client": "^7.11.0",
 		"@sanity/image-url": "^1.2.0",
 		"@unpic/placeholder": "^0.1.2",
 		"@unpic/svelte": "^1.0.0",
