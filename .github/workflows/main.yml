@@ -305,7 +305,7 @@ jobs:
       SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
     environment: development
-    needs: [changes, build]
+    needs: [changes, build, test-unit, test-comp, test-func]
 
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # ratchet:actions/checkout@v5
@@ -336,7 +336,7 @@ jobs:
   merge-dev-to-staging:
     name: Fast-Forward Merge dev to staging
     if: ${{ github.event_name == 'push' && github.ref_name == 'dev' }}
-    needs: deploy-development
+    needs: [deploy-development, test-int, test-e2e]
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
     permissions:
       contents: write
@@ -415,6 +415,7 @@ jobs:
     environment: development
     needs:
       [
+        changes,
         build,
         test-unit,
         test-comp,
