@@ -412,7 +412,6 @@ jobs:
     name: All Green
     if: always()
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
-    environment: development
     needs:
       [
         changes,
