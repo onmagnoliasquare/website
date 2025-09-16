@@ -28,7 +28,7 @@ const tstConfig = testConfig({
 });
 
 const config = defineConfig({
-	plugins: [tailwindcss(), sveltekit(), svelteTesting()],
+	plugins: [tailwindcss(), sveltekit(), svelteTesting({ autoCleanup: true })],
 	define: {
 		__ONMAGNOLIASQUARE_FRONTEND_VERSION__: `"${pkg.version}"`
 	}
