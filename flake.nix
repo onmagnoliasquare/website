@@ -20,7 +20,7 @@
             if prev.stdenv.isDarwin then
               {
                 url = "https://github.com/sethvargo/ratchet/releases/download/v${version}/ratchet_${version}_darwin_arm64.tar.gz";
-                hash = "";
+                hash = "sha256-MZ9MNbgY+ND0JGeWDlD72dYgMq47sXCqWuwAmF5hMzY=";
               }
             else
               {
