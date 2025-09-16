@@ -72,6 +72,11 @@ on:
 
       # Ignore cms package specific paths.
       - "packages/cms/static/**"
+  merge_group:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   changes:
