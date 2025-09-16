@@ -3,7 +3,9 @@
   "version": "0.2.0",
   "license": "MIT",
   "private": true,
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "postinstall": "husky",
     "format": "yarn lint-staged",
@@ -24,8 +26,13 @@
     "lint:back": "yarn run -T eslint packages/backend"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,svelte}": ["prettier --write", "eslint"],
-    "*.{html,css,json,yaml,yml}": ["prettier --write"],
+    "*.{js,jsx,ts,tsx,svelte}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{html,css,json,yaml,yml}": [
+      "prettier --write"
+    ],
     "*.nix": "nixfmt --version && nixfmt"
   },
   "dependencies": {

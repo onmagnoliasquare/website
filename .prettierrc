@@ -1,7 +1,7 @@
 {
   "useTabs": false,
   "endOfLine": "auto",
-  "printWidth": 80,
+  "printWidth": 100,
   "arrowParens": "avoid",
   "proseWrap": "preserve",
   "htmlWhitespaceSensitivity": "strict",
@@ -25,8 +25,18 @@
   "svelteBracketNewLine": false,
   "svelteAllowShorthand": false,
   "svelteIndentScriptAndStyle": false,
-  "importOrder": ["^@lib/(.*)$", "", "^@components/(.*)$", "", "^[./]"],
-  "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
+  "importOrder": [
+    "^@lib/(.*)$",
+    "",
+    "^@components/(.*)$",
+    "",
+    "^[./]"
+  ],
+  "importOrderParserPlugins": [
+    "typescript",
+    "jsx",
+    "decorators-legacy"
+  ],
   "importOrderTypeScriptVersion": "5.0.0",
   "importOrderCaseSensitive": false,
   "overrides": [

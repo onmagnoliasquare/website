@@ -13,7 +13,8 @@
 		"module": "preserve",
 		"noUnusedLocals": true,
 		"allowImportingTsExtensions": true,
-		"verbatimModuleSyntax": true
+		"verbatimModuleSyntax": true,
+		"types": ["@testing-library/jest-dom"]
 	},
 	"include": ["./**/*"],
 	"exclude": ["node_modules", ".vscode", "dist", ".svelte-kit", "coverage", ".wrangler"]
