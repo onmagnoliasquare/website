@@ -17823,6 +17823,7 @@ __metadata:
     husky: "npm:^9.1.7"
     jsdom: "npm:^27.0.0"
     lint-staged: "npm:^16.1.6"
+    micromatch: "npm:^4.0.8"
     prettier: "npm:^3.6.2"
     prettier-plugin-tailwindcss: "npm:^0.6.14"
     react: "npm:^19.1.1"
