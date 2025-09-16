@@ -17,15 +17,8 @@ jobs:
       SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
     steps:
       - uses: actions/checkout@v5
-      - name: Enable corepack
-        run: corepack enable
-      - name: Use Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: 22
-          cache: 'yarn'
-      - name: Install dependencies
-        run: yarn install --immutable
+      - name: "Setup Node.js with Yarn"
+        uses: ./.github/actions/setup-node
 
       - name: Build frontend for production
         run: yarn workspace frontend build:production
@@ -56,15 +49,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5
-      - name: Enable corepack
-        run: corepack enable
-      - name: Use Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: 22
-          cache: 'yarn'
-      - name: Install dependencies
-        run: yarn install --immutable
+      - name: "Setup Node.js with Yarn"
+        uses: ./.github/actions/setup-node
       - name: Restore build
         uses: actions/cache@v4
         with:
@@ -75,5 +61,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: 'packages/frontend'
+          workingDirectory: "packages/frontend"
           command: deploy --env production

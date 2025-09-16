@@ -22,10 +22,16 @@ on:
       - "LICENSE"
       - "tsconfig.json"
       - "eslint.config.mjs"
+      # This will ignore svelte.config.js
+      - "**/*.config.js"
+      - "**/*.config.mjs"
+      - "**/*.config.cjs"
 
       # Ignore changes in .github directory.
       - ".github/ISSUE_TEMPLATE/**"
       - ".github/pull_request_template.*"
+      - ".github/dependabot.yml"
+      - ".github/actions/**"
 
       # Ignore build related files.
       - ".env.example"
@@ -33,11 +39,9 @@ on:
       # Ignore frontend package specific paths.
       - "packages/frontend/static/**"
       - "packages/frontend/.prettierrc"
-      - "packages/frontend/svelte.config.js"
 
       # Ignore cms package specific paths.
       - "packages/cms/static/**"
-
   pull_request:
     branches: ["dev"]
     paths-ignore:
@@ -57,10 +61,16 @@ on:
       - "LICENSE"
       - "tsconfig.json"
       - "eslint.config.mjs"
+      # This will ignore svelte.config.js
+      - "**/*.config.js"
+      - "**/*.config.mjs"
+      - "**/*.config.cjs"
 
       # Ignore changes in .github directory.
       - ".github/ISSUE_TEMPLATE/**"
       - ".github/pull_request_template.*"
+      - ".github/dependabot.yml"
+      - ".github/actions/**"
 
       # Ignore build related files.
       - ".env.example"
@@ -68,7 +78,6 @@ on:
       # Ignore frontend package specific paths.
       - "packages/frontend/static/**"
       - "packages/frontend/.prettierrc"
-      - "packages/frontend/svelte.config.js"
 
       # Ignore cms package specific paths.
       - "packages/cms/static/**"
