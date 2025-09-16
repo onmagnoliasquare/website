@@ -64,8 +64,6 @@
         };
 
         commonPackages = with pkgs; [
-          # Development related
-          # Node version matches that on the CI runners.
           pkgs.ratchet
           nodejs_24
           yarn-berry
@@ -82,10 +80,6 @@
           imagemagick # manipulate images.
           jq # manipulate JSON.
           yq # manipulate YML.
-
-          # System tools
-          htop
-          mprocs
         ];
       in
       {
