@@ -1,77 +1,77 @@
 # Main development workflow.
 
-name: 'Dev'
+name: "Dev"
 
 on:
   push:
-    branches: ['dev']
+    branches: ["dev"]
     paths-ignore:
       # Ignore changes in documentation.
-      - '**/*.md'
+      - "**/*.md"
 
       # Ignore changes in root directory.
-      - '.gitattributes'
-      - '.gitignore'
-      - '.markdownlint.json'
-      - '.yarnrc.yml'
-      - 'LICENSE'
-      - '.yarn'
-      - '.vscode'
-      - '.prettierignore'
-      - '.prettierrc'
-      - 'LICENSE'
-      - 'tsconfig.json'
-      - 'eslint.config.mjs'
+      - ".gitattributes"
+      - ".gitignore"
+      - ".markdownlint.json"
+      - ".yarnrc.yml"
+      - "LICENSE"
+      - ".yarn"
+      - ".vscode"
+      - ".prettierignore"
+      - ".prettierrc"
+      - "LICENSE"
+      - "tsconfig.json"
+      - "eslint.config.mjs"
 
       # Ignore changes in .github directory.
-      - '.github/ISSUE_TEMPLATE/**'
-      - '.github/pull_request_template.*'
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/pull_request_template.*"
 
       # Ignore build related files.
-      - '.env.example'
+      - ".env.example"
 
       # Ignore frontend package specific paths.
-      - 'packages/frontend/static/**'
-      - 'packages/frontend/.prettierrc'
-      - 'packages/frontend/svelte.config.js'
+      - "packages/frontend/static/**"
+      - "packages/frontend/.prettierrc"
+      - "packages/frontend/svelte.config.js"
 
-      # Ignore backend package specific paths.
-      - 'packages/backend/static/**'
+      # Ignore cms package specific paths.
+      - "packages/cms/static/**"
 
   pull_request:
-    branches: ['dev']
+    branches: ["dev"]
     paths-ignore:
       # Ignore changes in documentation.
-      - '**/*.md'
+      - "**/*.md"
 
       # Ignore changes in root directory.
-      - '.gitattributes'
-      - '.gitignore'
-      - '.markdownlint.json'
-      - '.yarnrc.yml'
-      - 'LICENSE'
-      - '.yarn'
-      - '.vscode'
-      - '.prettierignore'
-      - '.prettierrc'
-      - 'LICENSE'
-      - 'tsconfig.json'
-      - 'eslint.config.mjs'
+      - ".gitattributes"
+      - ".gitignore"
+      - ".markdownlint.json"
+      - ".yarnrc.yml"
+      - "LICENSE"
+      - ".yarn"
+      - ".vscode"
+      - ".prettierignore"
+      - ".prettierrc"
+      - "LICENSE"
+      - "tsconfig.json"
+      - "eslint.config.mjs"
 
       # Ignore changes in .github directory.
-      - '.github/ISSUE_TEMPLATE/**'
-      - '.github/pull_request_template.*'
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/pull_request_template.*"
 
       # Ignore build related files.
-      - '.env.example'
+      - ".env.example"
 
       # Ignore frontend package specific paths.
-      - 'packages/frontend/static/**'
-      - 'packages/frontend/.prettierrc'
-      - 'packages/frontend/svelte.config.js'
+      - "packages/frontend/static/**"
+      - "packages/frontend/.prettierrc"
+      - "packages/frontend/svelte.config.js"
 
-      # Ignore backend package specific paths.
-      - 'packages/backend/static/**'
+      # Ignore cms package specific paths.
+      - "packages/cms/static/**"
 
 jobs:
   changes:
@@ -81,7 +81,7 @@ jobs:
       pull-requests: read
     outputs:
       frontend: ${{ steps.filter.outputs.frontend }}
-      backend: ${{ steps.filter.outputs.backend }}
+      cms: ${{ steps.filter.outputs.cms }}
     steps:
       - uses: actions/checkout@v5
       - uses: dorny/paths-filter@v3
@@ -93,12 +93,12 @@ jobs:
           filters: |
             frontend:
               - 'packages/frontend/**'
-            backend:
-              - 'packages/backend/**'
+            cms:
+              - 'packages/cms/**'
       - name: Log all filter results
         run: |
           echo "frontend: ${{ steps.filter.outputs.frontend }}"
-          echo "backend: ${{ steps.filter.outputs.backend }}"
+          echo "cms: ${{ steps.filter.outputs.cms }}"
 
   build:
     name: Build artifacts
@@ -110,18 +110,11 @@ jobs:
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
-    if: ${{ (needs.changes.outputs.backend == 'true' || needs.changes.outputs.frontend == 'true') }}
+    if: ${{ (needs.changes.outputs.cms == 'true' || needs.changes.outputs.frontend == 'true') }}
     steps:
       - uses: actions/checkout@v5
-      - name: Enable corepack
-        run: corepack enable
-      - name: Use Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: 22
-          cache: 'yarn'
-      - name: Install dependencies
-        run: yarn install --immutable
+      - name: "Setup Node.js with Yarn"
+        uses: ./.github/actions/setup-node
 
       - name: Frontend linting
         if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
@@ -136,13 +129,13 @@ jobs:
         if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: yarn workspace frontend build:development
 
-      - name: Backend linting
+      - name: cms linting
         if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
-        run: yarn lint:back
+        run: yarn lint:cms
 
-      - name: Build backend for development
-        if: ${{ needs.changes.outputs.backend == 'true' }}
-        run: yarn workspace backend build
+      - name: Build cms for development
+        if: ${{ needs.changes.outputs.cms == 'true' }}
+        run: yarn workspace cms build
 
       # Cache the build after all is said and done.
       # This build will be used in the following jobs.
@@ -164,15 +157,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5
-      - name: Enable corepack
-        run: corepack enable
-      - name: Use Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: 22
-          cache: 'yarn'
-      - name: Install dependencies
-        run: yarn install --immutable
+      - name: "Setup Node.js with Yarn"
+        uses: ./.github/actions/setup-node
       - name: Restore build
         uses: actions/cache@v4
         with:
@@ -183,9 +169,9 @@ jobs:
         if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: yarn workspace frontend test-ci:unit
 
-      - name: Run backend unit tests
-        if: ${{ needs.changes.outputs.backend == 'true' }}
-        run: yarn workspace backend test-ci:unit
+      - name: Run cms unit tests
+        if: ${{ needs.changes.outputs.cms == 'true' }}
+        run: yarn workspace cms test-ci:unit
 
   test-comp:
     name: Component tests
@@ -199,15 +185,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5
-      - name: Enable corepack
-        run: corepack enable
-      - name: Use Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: 22
-          cache: 'yarn'
-      - name: Install dependencies
-        run: yarn install --immutable
+      - name: "Setup Node.js with Yarn"
+        uses: ./.github/actions/setup-node
       - name: Restore build
         uses: actions/cache@v4
         with:
@@ -230,15 +209,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5
-      - name: Enable corepack
-        run: corepack enable
-      - name: Use Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: 22
-          cache: 'yarn'
-      - name: Install dependencies
-        run: yarn install --immutable
+      - name: "Setup Node.js with Yarn"
+        uses: ./.github/actions/setup-node
       - name: Restore build
         uses: actions/cache@v4
         with:
@@ -265,15 +237,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5
-      - name: Enable corepack
-        run: corepack enable
-      - name: Use Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: 22
-          cache: 'yarn'
-      - name: Install dependencies
-        run: yarn install --immutable
+      - name: "Setup Node.js with Yarn"
+        uses: ./.github/actions/setup-node
       - name: Restore build
         uses: actions/cache@v4
         with:
@@ -300,15 +265,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5
-      - name: Enable corepack
-        run: corepack enable
-      - name: Use Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: 22
-          cache: 'yarn'
-      - name: Install dependencies
-        run: yarn install --immutable
+      - name: "Setup Node.js with Yarn"
+        uses: ./.github/actions/setup-node
       - name: Restore build
         uses: actions/cache@v4
         with:
@@ -337,15 +295,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5
-      - name: Enable corepack
-        run: corepack enable
-      - name: Use Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: 22
-          cache: 'yarn'
-      - name: Install dependencies
-        run: yarn install --immutable
+      - name: "Setup Node.js with Yarn"
+        uses: ./.github/actions/setup-node
       - name: Restore build
         uses: actions/cache@v4
         with:
@@ -357,16 +308,16 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: 'packages/frontend'
+          workingDirectory: "packages/frontend"
           command: deploy --env dev
-      - name: Deploy backend to Cloudflare Pages
-        if: ${{ needs.changes.outputs.backend == 'true' }}
+      - name: Deploy cms to Cloudflare Pages
+        if: ${{ needs.changes.outputs.cms == 'true' }}
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: 'packages/backend'
-          command: pages deploy --project-name=backend
+          workingDirectory: "packages/cms"
+          command: pages deploy --project-name=cms
 
   merge-dev-to-staging:
     name: Fast-Forward Merge dev to staging
@@ -414,25 +365,16 @@ jobs:
         with:
           ref: staging
 
-      - name: Enable corepack
-        run: corepack enable
-
-      - name: Use Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: 22
-          cache: 'yarn'
-
-      - name: Install dependencies
-        run: yarn install --immutable
+      - name: "Setup Node.js with Yarn"
+        uses: ./.github/actions/setup-node
 
       - name: Build frontend for staging
         if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: yarn workspace frontend build:staging
 
-      - name: Build backend for staging
-        if: ${{ needs.changes.outputs.backend == 'true' }}
-        run: yarn workspace backend build
+      - name: Build cms for staging
+        if: ${{ needs.changes.outputs.cms == 'true' }}
+        run: yarn workspace cms build
 
       - name: Deploy frontend to Cloudflare Workers (staging)
         if: ${{ needs.changes.outputs.frontend == 'true' }}
@@ -440,17 +382,17 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: 'packages/frontend'
+          workingDirectory: "packages/frontend"
           command: deploy --env staging
 
-      - name: Deploy backend to Cloudflare Pages (staging)
-        if: ${{ needs.changes.outputs.backend == 'true' }}
+      - name: Deploy cms to Cloudflare Pages (staging)
+        if: ${{ needs.changes.outputs.cms == 'true' }}
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: 'packages/backend'
-          command: pages deploy --project-name=backend
+          workingDirectory: "packages/cms"
+          command: pages deploy --project-name=cms
 
   all-green:
     name: All Green

@@ -1,4 +1,4 @@
-# Deploys frontend or backend to staging environment.
+# Deploys frontend or cms to staging environment.
 
 name: Deploy to Staging
 
@@ -6,13 +6,13 @@ on:
   workflow_dispatch:
     inputs:
       deployment_target:
-        description: 'Select deployment (frontend or backend)'
+        description: 'Select deployment (frontend or cms)'
         required: true
         default: 'frontend'
         type: choice
         options:
           - frontend
-          - backend
+          - cms
 
 jobs:
   build:
@@ -40,9 +40,9 @@ jobs:
         if: ${{ inputs.deployment_target == 'frontend' }}
         run: yarn workspace frontend build:staging
 
-      - name: Build backend for staging
-        if: ${{ inputs.deployment_target == 'backend' }}
-        run: yarn workspace backend build
+      - name: Build cms for staging
+        if: ${{ inputs.deployment_target == 'cms' }}
+        run: yarn workspace cms build
 
       # Cache the build after all is said and done.
       # This build will be used in the following jobs.
@@ -85,11 +85,11 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: 'packages/frontend'
           command: deploy --env staging
-      - name: Deploy backend to Cloudflare Pages
-        if: ${{ inputs.deployment_target == 'backend' }}
+      - name: Deploy cms to Cloudflare Pages
+        if: ${{ inputs.deployment_target == 'cms' }}
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: 'packages/backend'
-          command: pages deploy --project-name=backend
+          workingDirectory: 'packages/cms'
+          command: pages deploy --project-name=cms

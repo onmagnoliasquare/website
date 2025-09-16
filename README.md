@@ -82,11 +82,11 @@ yarn run postinstall
 
 ## Development
 
-The frontend and backend directories have `.env.example` files that must be
+The frontend and cms directories have `.env.example` files that must be
 duplicated and renamed into `.env` files. Fill in the template with appropriate,
 legitimate values.
 
-To start development for either backend or frontend, run `yarn dev:front` or
+To start development for either the cms or the frontend, run `yarn dev:front` or
 `yarn dev:back` in the root directory.
 
 Keep in mind that for backend work, one must be logged into the OMS Sanity

@@ -30,9 +30,9 @@ on:
       # Ignore build related files.
       - '.env.example'
 
-      # Ignore changes in backend.
-      - '.github/workflows/backend.yml'
-      - 'packages/backend/**'
+      # Ignore changes in cms.
+      - '.github/workflows/cms.yml'
+      - 'packages/cms/**'
 
       # Ignore frontend package specific paths.
       - 'packages/frontend/static/**'
@@ -69,9 +69,9 @@ on:
       # Ignore build related files.
       - '.env.example'
 
-      # Ignore changes in backend package.
-      - '.github/workflows/backend.yml'
-      - 'packages/backend/**'
+      # Ignore changes in cms package.
+      - '.github/workflows/cms.yml'
+      - 'packages/cms/**'
 
       - '.github/**'
 

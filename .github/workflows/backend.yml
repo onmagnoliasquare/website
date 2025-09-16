@@ -1,87 +1,87 @@
-# Build and test the backend package.
+# Build and test the cms package.
 
-name: 'Backend'
+name: "cms"
 
 on:
   pull_request:
-    branches: ['main', 'staging', 'dev']
+    branches: ["main", "staging", "dev"]
     paths-ignore:
       # Ignore changes in documentation.
-      - 'docs/**'
-      - 'README.md'
+      - "docs/**"
+      - "README.md"
 
       # Ignore package.json changes.
-      - 'package.json'
+      - "package.json"
 
       # Ignore changes in root directory.
-      - '.gitattributes'
-      - '.gitignore'
-      - '.markdownlint.json'
-      - '.yarnrc.yml'
-      - 'LICENSE'
-      - 'yarn.lock'
-      - '.yarn'
-      - '.vscode'
+      - ".gitattributes"
+      - ".gitignore"
+      - ".markdownlint.json"
+      - ".yarnrc.yml"
+      - "LICENSE"
+      - "yarn.lock"
+      - ".yarn"
+      - ".vscode"
 
       # Ignore changes in .github directory.
-      - '.github/ISSUE_TEMPLATE/**'
-      - '.github/pull_request_template.*'
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/pull_request_template.*"
 
       # Ignore build related files.
-      - '.env.example'
+      - ".env.example"
 
       # Ignore changes in frontend package.
-      - '.github/workflows/frontend.yml'
-      - 'packages/frontend/**'
+      - ".github/workflows/frontend.yml"
+      - "packages/frontend/**"
 
-      - '.github/**'
+      - ".github/**"
 
       # Ignore frontend package specific paths.
-      - 'packages/backend/static/**'
-      - 'packages/backend/.eslintrc'
-      - 'packages/backend/sanity.cli.ts'
-      - 'packages/backend/sanity.config.ts'
-      - 'packages/backend/schemaTypes/**'
+      - "packages/cms/static/**"
+      - "packages/cms/.eslintrc"
+      - "packages/cms/sanity.cli.ts"
+      - "packages/cms/sanity.config.ts"
+      - "packages/cms/schemaTypes/**"
 
   push:
-    branches: ['main', 'staging', 'dev']
+    branches: ["main", "staging", "dev"]
     paths-ignore:
       # Ignore changes in documentation.
-      - 'docs/**'
-      - 'README.md'
+      - "docs/**"
+      - "README.md"
 
       # Ignore package.json changes.
-      - 'package.json'
+      - "package.json"
 
       # Ignore changes in root directory.
-      - '.gitattributes'
-      - '.gitignore'
-      - '.markdownlint.json'
-      - '.yarnrc.yml'
-      - 'LICENSE'
-      - 'yarn.lock'
-      - '.yarn'
-      - '.vscode'
+      - ".gitattributes"
+      - ".gitignore"
+      - ".markdownlint.json"
+      - ".yarnrc.yml"
+      - "LICENSE"
+      - "yarn.lock"
+      - ".yarn"
+      - ".vscode"
 
       # Ignore changes in .github directory.
-      - '.github/ISSUE_TEMPLATE/**'
-      - '.github/pull_request_template.*'
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/pull_request_template.*"
 
       # Ignore build related files.
-      - '.env.example'
+      - ".env.example"
 
       # Ignore changes in frontend .
-      - '.github/workflows/frontend.yml'
-      - 'packages/frontend/**'
+      - ".github/workflows/frontend.yml"
+      - "packages/frontend/**"
 
-      - '.github/**'
+      - ".github/**"
 
-      # Ignore backend package specific paths.
-      - 'packages/backend/static/**'
-      - 'packages/backend/.eslintrc'
-      - 'packages/backend/sanity.cli.ts'
-      - 'packages/backend/sanity.config.ts'
-      - 'packages/backend/schemaTypes/**'
+      # Ignore cms package specific paths.
+      - "packages/cms/static/**"
+      - "packages/cms/.eslintrc"
+      - "packages/cms/sanity.cli.ts"
+      - "packages/cms/sanity.config.ts"
+      - "packages/cms/schemaTypes/**"
 
 jobs:
   # Sets the environment.
@@ -210,7 +210,7 @@ jobs:
         # ============================================== #
 
       # Run unit tests
-      - name: Run backend tests
+      - name: Run cms tests
         run: yarn test-ci:back
 
   # deploys to Sanity, using:

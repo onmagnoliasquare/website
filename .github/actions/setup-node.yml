@@ -1,0 +1,27 @@
+name: "Setup Node.js with Yarn"
+description: "Sets up Node.js with corepack enabled and yarn cache"
+runs:
+  using: "composite"
+  steps:
+    - name: Enable corepack
+      shell: bash
+      run: corepack enable
+    - name: Setup Node
+      uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # ratchet:actions/setup-node@v5.0.0
+      with:
+        node-version-file: "package.json"
+        cache: "yarn"
+    - name: Install dependencies
+      env:
+        # Update the checksum if its different
+        YARN_CHECKSUM_BEHAVIOR: "update"
+        # Use local cache folder to keep downloaded archives
+        YARN_ENABLE_GLOBAL_CACHE: "false"
+        # Prevent populating global cache for caches misses (local cache only)
+        YARN_ENABLE_MIRROR: "false"
+        # Reduce node_modules size
+        YARN_NM_MODE: "hardlinks-local"
+        # Disable interactive prompts
+        YARN_PREFER_INTERACTIVE: "false"
+      shell: bash
+      run: yarn install --inline-builds --immutable

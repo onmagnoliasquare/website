@@ -1,18 +1,19 @@
+import js from '@eslint/js'
+import sanityEslintConfig from '@sanity/eslint-config-studio'
 import svelte from 'eslint-plugin-svelte'
+import globals from 'globals'
 // import * as svelteParser from 'svelte-eslint-parser'
 import ts from 'typescript-eslint'
+
 import svelteConfig from './packages/frontend/svelte.config.js'
-import globals from 'globals'
-import sanityEslintConfig from '@sanity/eslint-config-studio'
-import js from '@eslint/js'
 
 export default [
   {
     ignores: [
       './**/*/.DS_Store',
       './**/*/node_modules',
-      'packages/backend/.sanity',
-      'packages/backend/dist',
+      'packages/cms/.sanity',
+      'packages/cms/dist',
       'packages/frontend/.svelte-kit',
       'packages/frontend/test-results',
       './**/*/static',
@@ -50,7 +51,7 @@ export default [
     },
   },
   {
-    files: ['packages/backend/**/*.ts'],
+    files: ['packages/cms/**/*.ts'],
   },
   ...sanityEslintConfig,
 ]

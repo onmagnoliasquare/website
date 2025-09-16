@@ -1,6 +1,7 @@
 {
-  "name": "backend",
+  "name": "cms",
   "main": "package.json",
+  "version": "0.6.5",
   "scripts": {
     "dev": "sanity dev",
     "start": "sanity start",

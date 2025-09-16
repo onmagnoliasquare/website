@@ -7496,28 +7496,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"backend@workspace:packages/backend":
-  version: 0.0.0-use.local
-  resolution: "backend@workspace:packages/backend"
-  dependencies:
-    "@sanity/cli": "npm:^4.8.1"
-    "@sanity/eslint-config-studio": "npm:^5.0.2"
-    "@sanity/icons": "npm:^3.7.4"
-    "@sanity/ui": "npm:^3.1.0"
-    "@sanity/vision": "npm:^4.8.1"
-    "@superside-oss/sanity-plugin-copy-paste": "npm:^1.0.3"
-    "@types/react": "npm:^19.1.13"
-    archiver-utils: "npm:^5.0.2"
-    eslint: "npm:^9.35.0"
-    react: "npm:^19.1.1"
-    react-dom: "npm:^19.1.1"
-    react-is: "npm:^19.1.1"
-    sanity: "npm:^4.8.1"
-    sanity-plugin-media: "npm:^4.0.0"
-    styled-components: "npm:^6.1.19"
-  languageName: unknown
-  linkType: soft
-
 "balanced-match@npm:^1.0.0":
   version: 1.0.2
   resolution: "balanced-match@npm:1.0.2"
@@ -8074,6 +8052,28 @@ __metadata:
   checksum: 10c0/c4c8eb865f8c82baab07e71bfa8897c73454881c4f99d6bc81585aecd7c441746c1399d08363dc096c550cceaf97bd4ce1e8854e1771e9998d9f94c4fe075839
   languageName: node
   linkType: hard
+
+"cms@workspace:packages/cms":
+  version: 0.0.0-use.local
+  resolution: "cms@workspace:packages/cms"
+  dependencies:
+    "@sanity/cli": "npm:^4.8.1"
+    "@sanity/eslint-config-studio": "npm:^5.0.2"
+    "@sanity/icons": "npm:^3.7.4"
+    "@sanity/ui": "npm:^3.1.0"
+    "@sanity/vision": "npm:^4.8.1"
+    "@superside-oss/sanity-plugin-copy-paste": "npm:^1.0.3"
+    "@types/react": "npm:^19.1.13"
+    archiver-utils: "npm:^5.0.2"
+    eslint: "npm:^9.35.0"
+    react: "npm:^19.1.1"
+    react-dom: "npm:^19.1.1"
+    react-is: "npm:^19.1.1"
+    sanity: "npm:^4.8.1"
+    sanity-plugin-media: "npm:^4.0.0"
+    styled-components: "npm:^6.1.19"
+  languageName: unknown
+  linkType: soft
 
 "codemirror@npm:^6.0.0":
   version: 6.0.1
@@ -10351,41 +10351,6 @@ __metadata:
   checksum: 10c0/f87f7a2e4513244d551454a7f8324ef1f7837864a8701c536417286ec19ff4915606b1dfa8909a21b7591ebd8440ffde3642f7c303690b9a4d7c832d62248aa1
   languageName: node
   linkType: hard
-
-"frontend@workspace:packages/frontend":
-  version: 0.0.0-use.local
-  resolution: "frontend@workspace:packages/frontend"
-  dependencies:
-    "@axe-core/playwright": "npm:^4.10.2"
-    "@playwright/test": "npm:^1.55.0"
-    "@portabletext/svelte": "npm:^3.0.1"
-    "@sanity/client": "npm:^7.11.1"
-    "@sanity/image-url": "npm:^1.2.0"
-    "@sveltejs/adapter-auto": "npm:^6.1.0"
-    "@sveltejs/adapter-cloudflare": "npm:^7.2.3"
-    "@sveltejs/kit": "npm:^2.41.0"
-    "@sveltejs/vite-plugin-svelte": "npm:^6.2.0"
-    "@tailwindcss/vite": "npm:^4.1.13"
-    "@testing-library/jest-dom": "npm:^6.8.0"
-    "@testing-library/svelte": "npm:^5.2.8"
-    "@unpic/placeholder": "npm:^0.1.2"
-    "@unpic/svelte": "npm:^1.0.0"
-    eslint: "npm:^9.35.0"
-    eslint-plugin-svelte: "npm:^3.12.3"
-    groq: "npm:^4.8.1"
-    playwright-core: "npm:^1.55.0"
-    prettier: "npm:^3.6.2"
-    prettier-plugin-svelte: "npm:^3.4.0"
-    svelte: "npm:^5.38.10"
-    svelte-check: "npm:^4.3.1"
-    svelte-meta-tags: "npm:^4.4.1"
-    tailwind-merge: "npm:^3.3.1"
-    tailwindcss: "npm:^4.1.13"
-    typescript: "npm:^5.9.2"
-    vite: "npm:^7.1.5"
-    wrangler: "npm:^4.37.0"
-  languageName: unknown
-  linkType: soft
 
 "fs-constants@npm:^1.0.0":
   version: 1.0.0
@@ -15914,6 +15879,41 @@ __metadata:
   languageName: node
   linkType: hard
 
+"site@workspace:packages/frontend":
+  version: 0.0.0-use.local
+  resolution: "site@workspace:packages/frontend"
+  dependencies:
+    "@axe-core/playwright": "npm:^4.10.2"
+    "@playwright/test": "npm:^1.55.0"
+    "@portabletext/svelte": "npm:^3.0.1"
+    "@sanity/client": "npm:^7.11.1"
+    "@sanity/image-url": "npm:^1.2.0"
+    "@sveltejs/adapter-auto": "npm:^6.1.0"
+    "@sveltejs/adapter-cloudflare": "npm:^7.2.3"
+    "@sveltejs/kit": "npm:^2.41.0"
+    "@sveltejs/vite-plugin-svelte": "npm:^6.2.0"
+    "@tailwindcss/vite": "npm:^4.1.13"
+    "@testing-library/jest-dom": "npm:^6.8.0"
+    "@testing-library/svelte": "npm:^5.2.8"
+    "@unpic/placeholder": "npm:^0.1.2"
+    "@unpic/svelte": "npm:^1.0.0"
+    eslint: "npm:^9.35.0"
+    eslint-plugin-svelte: "npm:^3.12.3"
+    groq: "npm:^4.8.1"
+    playwright-core: "npm:^1.55.0"
+    prettier: "npm:^3.6.2"
+    prettier-plugin-svelte: "npm:^3.4.0"
+    svelte: "npm:^5.38.10"
+    svelte-check: "npm:^4.3.1"
+    svelte-meta-tags: "npm:^4.4.1"
+    tailwind-merge: "npm:^3.3.1"
+    tailwindcss: "npm:^4.1.13"
+    typescript: "npm:^5.9.2"
+    vite: "npm:^7.1.5"
+    wrangler: "npm:^4.37.0"
+  languageName: unknown
+  linkType: soft
+
 "slash@npm:^3.0.0":
   version: 3.0.0
   resolution: "slash@npm:3.0.0"
@@ -17812,6 +17812,7 @@ __metadata:
     "@commitlint/cli": "npm:^19.8.1"
     "@commitlint/config-conventional": "npm:^19.8.1"
     "@ianvs/prettier-plugin-sort-imports": "npm:^4.7.0"
+    "@sanity/eslint-config-studio": "npm:^5.0.2"
     "@types/eslint": "npm:^9.6.1"
     "@typescript-eslint/eslint-plugin": "npm:^8.44.0"
     "@typescript-eslint/parser": "npm:^8.44.0"

@@ -30,8 +30,8 @@ jobs:
       - name: Build frontend for production
         run: yarn workspace frontend build:production
 
-      - name: Build backend for production
-        run: yarn workspace backend build
+      - name: Build cms for production
+        run: yarn workspace cms build
 
       # Cache the build after all is said and done.
       # This build will be used in the following jobs.
