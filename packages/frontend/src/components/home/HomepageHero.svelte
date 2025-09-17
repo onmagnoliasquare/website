@@ -20,7 +20,6 @@
 		<span class="italic">The latest scoop as of</span>
 		<b><time datetime={article.date}>{dateFormatter(article.date, locale)}</time></b>
 		<span class="italic">by</span>
-
 		<b>{authorString}</b>:
 	</p>
 </div>

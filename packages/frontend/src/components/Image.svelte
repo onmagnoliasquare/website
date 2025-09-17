@@ -12,7 +12,7 @@ urlBuilder API.
 		CropMode,
 		SanityImageSource
 	} from '@sanity/image-url/lib/types/types';
-	import type { ImageUrlBuilder } from 'sanity';
+	import type { ImageUrlBuilder } from '@sanity/image-url/lib/types/builder';
 	import { Image } from '@unpic/svelte';
 	import { blurhashToCssGradientString } from '@unpic/placeholder';
 
