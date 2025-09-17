@@ -42,6 +42,7 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.10.2",
     "@playwright/test": "^1.55.0",
+    "@sanity/types": "4.9.0",
     "@sveltejs/adapter-auto": "^6.1.0",
     "@sveltejs/adapter-cloudflare": "^7.2.3",
     "@sveltejs/kit": "^2.41.0",
