@@ -1,7 +1,7 @@
-import groq from 'groq';
+import groq from 'groq'
 
 export const homepageArticles =
-	() => groq`*[_type == "article" && category.slug.current != "multimedia"] | order(date desc) [0..15] {
+  () => groq`*[_type == "article" && category.slug.current != "multimedia"] | order(date desc) [0..15] {
 			_id,
 			title,
 			subtitle,
@@ -26,10 +26,10 @@ export const homepageArticles =
   				}
 			}
 		}
-`;
+`
 
 export const articlePage = (): string =>
-	groq`*[_type == "article" && category->slug.current == $category && slug.current == $slug]{
+  groq`*[_type == "article" && category->slug.current == $category && slug.current == $slug]{
 		title,
 		subtitle,
 		date,
@@ -72,7 +72,7 @@ export const articlePage = (): string =>
 		},
 		series->{name, slug}
 	}[0]
-`;
+`
 
 export const relatedArticlesTypeA = (): string => groq`
 		*[_type == "article" && slug.current != "$slug"] | score(
@@ -103,14 +103,14 @@ export const relatedArticlesTypeA = (): string => groq`
   				}
 			}
 		} //[ _score > 0 ]
-`;
+`
 
 export const sitemapAuthors = (): string => groq`
 	*[type == "member"] {
 		slug,
 		updatedAt
 	}
-`;
+`
 
 export const sitemapArticles = (): string => groq`
 	*[type == "article"] {
@@ -119,17 +119,17 @@ export const sitemapArticles = (): string => groq`
 		date,
 		updatedDate,
 	}
-`;
+`
 
 export const sitemapSeries = (): string => groq`
 	*[type == "series"] {
 		slug,
 		date
 	}
-`;
+`
 export const sitemapTags = (): string => groq`
 	*[type == "tag"] {
 		slug,
 		date
 	}
-`;
+`

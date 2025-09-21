@@ -7,33 +7,33 @@
 /* @import "tailwindcss"; */
 
 @theme {
-	--font-display: 'Noto Serif', 'Noto Serif SC', 'Nanum Myeongjo', serif;
-	--font-serif: 'Noto Serif', 'Noto Serif SC', 'Nanum Myeongjo', serif;
-	--font-sans: 'Archivo', 'Noto Sans SC', 'Nanum Gothic', sans-serif;
+  --font-display: 'Noto Serif', 'Noto Serif SC', 'Nanum Myeongjo', serif;
+  --font-serif: 'Noto Serif', 'Noto Serif SC', 'Nanum Myeongjo', serif;
+  --font-sans: 'Archivo', 'Noto Sans SC', 'Nanum Gothic', sans-serif;
 
-	--font-mono: 'Space Mono', monospace;
+  --font-mono: 'Space Mono', monospace;
 
-	--tracking-wide: 0.0225rem;
+  --tracking-wide: 0.0225rem;
 
-	--color-black: #090808;
-	--color-white: #fbfdf9;
+  --color-black: #090808;
+  --color-white: #fbfdf9;
 
-	--color-nyu-purple-100: oklch(0.6705 0.1062 311.67);
-	--color-nyu-purple-400: oklch(0.4315 0.1816 296.89);
+  --color-nyu-purple-100: oklch(0.6705 0.1062 311.67);
+  --color-nyu-purple-400: oklch(0.4315 0.1816 296.89);
 }
 
 .hyp {
-	/* Retrieved from: https://clagnut.com/blog/2395 */
-	hyphenate-limit-chars: 6 3 3;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-	-ms-hyphens: auto;
-	-webkit-hyphens: auto;
-	-moz-hyphens: auto;
-	hyphens: auto;
+  /* Retrieved from: https://clagnut.com/blog/2395 */
+  hyphenate-limit-chars: 6 3 3;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  -ms-hyphens: auto;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
 }
 
 .center {
-	margin-left: auto;
-	margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }

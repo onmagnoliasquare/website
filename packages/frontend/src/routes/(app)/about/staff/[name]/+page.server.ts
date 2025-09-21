@@ -1,89 +1,62 @@
-import { dev } from '$app/environment';
+import { dev } from '$app/environment'
 
-export const csr = dev;
+export const csr = dev
 
-import { error, type ServerLoadEvent } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
-import type { MetaTagsProps } from 'svelte-meta-tags';
-import { filler, site } from '$lib/constants';
-import type { Article, Member } from '$lib/schema';
-import { createSiteTitle } from '$lib/helpers';
+import { error, type ServerLoadEvent } from '@sveltejs/kit'
+import type { PageServerLoad } from './$types'
+import type { MetaTagsProps } from 'svelte-meta-tags'
+import { filler, site } from '$lib/constants'
+import type { Article, Member } from '$lib/schema'
+import { createSiteTitle, getMetaTags } from '$lib/helpers'
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
-	// Get name from URL.
-	const { name } = event.params;
+  const { name } = event.params
 
-	/**
-	 * Execute queries.
-	 *
-	 * The two queries below can probably be combined into one query,
-	 * where the second query is a sub query of the first. I haven't
-	 * figured this out yet, though.
-	 */
+  /**
+   * Execute queries.
+   *
+   * The two queries below can probably be combined into one query,
+   * where the second query is a sub query of the first. I haven't
+   * figured this out yet, though.
+   */
 
-	const req = await event.fetch(`/api/member/${name}`);
-	const member: Member | undefined = await req.json();
+  // TODO: I think the second query is just fine by itself.
 
-	/**
-	 * Build page information.
-	 */
+  const req = await event.fetch(`/api/member/${name}`)
+  const member = (await req.json()) as Member | undefined
 
-	if (member) {
-		// Attempt to retrieve the member's articles.
-		const req = await event.fetch(`/api/member/${name}?articles=true`);
-		const articles: Article[] = await req.json();
+  if (member) {
+    // Attempt to retrieve the member's articles.
+    const req = await event.fetch(`/api/member/${name}?articles=true`)
+    const articles = (await req.json()) as Article[]
 
-		const title = member.name;
+    const { title, description } = getMetaTags(
+      member.metaInfo,
+      createSiteTitle(site.name, `About ${member.name}`),
+      member.bio ?? `${member.name} ${filler.memberDescription}.`
+    )
 
-		let ogTitle = createSiteTitle(site.name, `About ${member.name}`);
-		let ogDescription = member.bio ? member.bio : `${title} ${filler.memberDescription}.`;
+    const pageMetaTags = Object.freeze({
+      title: createSiteTitle(`About ${member.name}`),
+      description,
+      openGraph: {
+        type: 'profile',
+        title,
+        description,
+      },
+      twitter: {
+        title,
+        description,
+      },
+    }) satisfies MetaTagsProps
 
-		if (member.metaInfo) {
-			if (member.metaInfo.ogTitle) {
-				ogTitle = member.metaInfo.ogTitle;
-			}
+    return {
+      title: member.name,
+      member,
+      articles,
+      pageMetaTags,
+    }
+  }
 
-			if (member.metaInfo.ogDescription) {
-				ogDescription = member.metaInfo.ogDescription;
-			}
-			if (member.metaInfo.ogDescription) {
-				ogDescription = member.metaInfo.ogDescription;
-			}
-
-			if (member.metaInfo.ogImage) {
-				// TODO
-			}
-		}
-
-		const pageMetaTags = Object.freeze({
-			title: createSiteTitle(`About ${member.name}`),
-			description: ogDescription,
-			openGraph: {
-				type: 'profile',
-				title: ogTitle,
-				description: ogDescription
-			},
-			twitter: {
-				title: ogTitle,
-				description: ogDescription
-			}
-		}) satisfies MetaTagsProps;
-
-		/**
-		 * Return page data.
-		 */
-
-		/**
-		 * Return page data.
-		 */
-
-		return {
-			title,
-			member,
-			articles,
-			pageMetaTags
-		};
-	}
-
-	error(404, 'Member not found...');
-}) satisfies PageServerLoad;
+  error(404, 'Member not found...')
+}) satisfies PageServerLoad

@@ -30,16 +30,16 @@ const { content } = $props()
       link: ArticleLink,
       leadIn: ArticleLeadIn,
       superscript: ArticleSuperscript,
-      subscript: ArticleSubscript
+      subscript: ArticleSubscript,
     },
     block: ArticleSingleArticleBlock,
     types: {
       image: ArticleImage,
-      embeddedLink: EmbeddedLink
+      embeddedLink: EmbeddedLink,
     },
     list: ArticleBodyList,
     listItem: {
-      normal: ArticleBodyListItem
-    }
+      normal: ArticleBodyListItem,
+    },
   }}
 />

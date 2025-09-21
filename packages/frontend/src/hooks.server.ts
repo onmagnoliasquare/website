@@ -21,29 +21,29 @@
  * This ensures clarity.
  */
 
-import { hasUppercase } from '$lib/helpers';
-import { redirect, type Handle } from '@sveltejs/kit';
-import { sequence } from '@sveltejs/kit/hooks';
-import { dev } from '$app/environment';
+import { hasUppercase } from '$lib/helpers'
+import { redirect, type Handle } from '@sveltejs/kit'
+import { sequence } from '@sveltejs/kit/hooks'
+import { dev } from '$app/environment'
 
 /**
  * redirectHome redirects `/home` to `/`.
  * @returns `Response`
  */
 const redirectHome: Handle = async ({ event, resolve }) => {
-	const isHome = event.url.pathname.startsWith('/home');
-	if (isHome) {
-		if (dev) {
-			console.log('redirecting /home to /');
-		}
+  const isHome = event.url.pathname.startsWith('/home')
+  if (isHome) {
+    if (dev) {
+      console.log('redirecting /home to /')
+    }
 
-		redirect(301, '/');
-	}
+    redirect(301, '/')
+  }
 
-	const response = await resolve(event);
+  const response = await resolve(event)
 
-	return response;
-};
+  return response
+}
 
 /**
  * redirectTag redirects paths of the form `/tags/(tag-slug)/(article-slug)`
@@ -125,15 +125,15 @@ const redirectHome: Handle = async ({ event, resolve }) => {
  * @returns `Resolve`
  */
 const redirectCaps: Handle = async ({ event, resolve }) => {
-	const uppercase: boolean = hasUppercase(event.url.pathname);
-	if (uppercase) {
-		redirect(307, event.url.pathname.toLowerCase());
-	}
+  const uppercase: boolean = hasUppercase(event.url.pathname)
+  if (uppercase) {
+    redirect(307, event.url.pathname.toLowerCase())
+  }
 
-	const response = await resolve(event);
+  const response = await resolve(event)
 
-	return response;
-};
+  return response
+}
 
 /**
  * preflightOptions returns a 200-ok response for OPTIONS requests.
@@ -142,10 +142,10 @@ const redirectCaps: Handle = async ({ event, resolve }) => {
  * @returns `Response`
  */
 export const preflightOptions: Handle = async ({ event, resolve }) => {
-	if (event.request.method !== 'OPTIONS') return await resolve(event);
+  if (event.request.method !== 'OPTIONS') return await resolve(event)
 
-	return new Response(new Blob(), { status: 200 });
-};
+  return new Response(new Blob(), { status: 200 })
+}
 
 /**
  * logSpeed logs a speed of route access. It only runs in development
@@ -154,29 +154,29 @@ export const preflightOptions: Handle = async ({ event, resolve }) => {
  * @returns `Response`
  */
 const logSpeed: Handle = async ({ event, resolve }) => {
-	if (dev) {
-		const route = event.url;
+  if (dev) {
+    const route = event.url
 
-		const start = performance.now();
-		const response = await resolve(event);
-		const end = performance.now();
+    const start = performance.now()
+    const response = await resolve(event)
+    const end = performance.now()
 
-		const responseTime = end - start;
+    const responseTime = end - start
 
-		if (responseTime > 2000) {
-			console.log(`🐢 ${route} took ${responseTime.toFixed(2)} ms`);
-		}
+    if (responseTime > 2000) {
+      console.log(`🐢 ${route} took ${responseTime.toFixed(2)} ms`)
+    }
 
-		if (responseTime < 1000) {
-			console.log(`🚀 ${route} took ${responseTime.toFixed(2)} ms`);
-		}
+    if (responseTime < 1000) {
+      console.log(`🚀 ${route} took ${responseTime.toFixed(2)} ms`)
+    }
 
-		return response;
-	}
+    return response
+  }
 
-	const response = await resolve(event);
+  const response = await resolve(event)
 
-	return response;
-};
+  return response
+}
 
-export const handle = sequence(redirectCaps, redirectHome, preflightOptions, logSpeed);
+export const handle = sequence(redirectCaps, redirectHome, preflightOptions, logSpeed)

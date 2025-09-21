@@ -10,7 +10,7 @@ import type {
   FitMode,
   ImageFormat,
   CropMode,
-  SanityImageSource
+  SanityImageSource,
 } from '@sanity/image-url/lib/types/types'
 import type { ImageUrlBuilder } from '@sanity/image-url/lib/types/builder'
 import { Image } from '@unpic/svelte'
@@ -45,7 +45,7 @@ let {
   aspectRatio,
   priority = false,
   loading = 'lazy',
-  blurHash
+  blurHash,
 }: Props = $props()
 
 // svelte-ignore non_reactive_update

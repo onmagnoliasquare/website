@@ -1,30 +1,26 @@
-import type { SanityClient } from '@sanity/client';
+import type { SanityClient } from '@sanity/client'
 
-type databaseClient = SanityClient; // & otherDatabaseClient (if needed in the future!)
+type databaseClient = SanityClient // & otherDatabaseClient (if needed in the future!)
 
-export interface QueryParameters {
-	[key: string]: unknown;
-}
+export type QueryParameters = Record<string, unknown>
 
 export class Database {
-	private client: databaseClient;
+  private client: databaseClient
 
-	constructor(client: databaseClient) {
-		this.client = client;
-	}
+  constructor(client: databaseClient) {
+    this.client = client
+  }
 
-	async fetch<T>(query: string, params?: QueryParameters): Promise<T> {
-		let res;
-		try {
-			res = this.client.fetch<T>(query, { ...params });
-		} catch (err: unknown) {
-			if (err instanceof Error) {
-				res = Promise.reject(new Error(`Query failed, review query: ${query} - ${err.message}`));
-			}
-
-			res = Promise.reject(new Error(`Query failed, review query: ${query} - Unknown error`));
-		}
-
-		return res;
-	}
+  async fetch<T>(query: string, params?: QueryParameters): Promise<T> {
+    let res: T
+    try {
+      res = await this.client.fetch<T>(query, { ...params })
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        res = await Promise.reject(new Error('query failure', { cause: err.message }))
+      }
+      res = await Promise.reject(new Error(`Query failed, review query: ${query} - Unknown error`))
+    }
+    return res
+  }
 }

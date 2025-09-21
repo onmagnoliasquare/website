@@ -20,10 +20,7 @@ const config = {
   semi: false,
   tabWidth: 2,
   singleQuote: true,
-  plugins: [
-    'prettier-plugin-tailwindcss',
-    // '@ianvs/prettier-plugin-sort-imports',
-  ],
+  plugins: ['prettier-plugin-tailwindcss'],
   // importOrder: ['^@lib/(.*)$', '', '^@components/(.*)$', '', '^[./]'],
   // importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
   // importOrderTypeScriptVersion: '5.0.0',

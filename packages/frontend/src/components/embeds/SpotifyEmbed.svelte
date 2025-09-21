@@ -18,7 +18,7 @@ let {
 			border-radius: 0.8rem;
 			height: ${height};
 			width: ${width};
-		`
+		`,
 }: Props = $props()
 </script>
 

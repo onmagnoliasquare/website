@@ -1,13 +1,13 @@
 <script lang="ts">
 /**
  * ======== ROOT LAYOUT ========
- * */
+ */
 
 import { Footer } from '$lib'
 import type { Snippet } from 'svelte'
 import type { LayoutData } from './$types'
 
-import { page } from '$app/stores'
+import { page } from '$app/state'
 import { MetaTags, deepMerge } from 'svelte-meta-tags'
 
 // CSS styling
@@ -20,7 +20,8 @@ interface Props {
 
 let { data, children }: Props = $props()
 
-let metaTags = $derived(deepMerge(data.baseMetaTags, $page.data.pageMetaTags))
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+let metaTags = $derived(deepMerge(data.baseMetaTags, page.data.pageMetaTags))
 </script>
 
 <MetaTags {...metaTags} />

@@ -1,60 +1,52 @@
-import { error } from '@sveltejs/kit';
-import { buildSanityQuery, sanityFetch } from '$lib/sanity';
-import type { PageServerLoad } from './$types';
-import type { MetaTagsProps } from 'svelte-meta-tags';
-import type { Tag } from '$lib/schema';
+import { error } from '@sveltejs/kit'
+import { buildSanityQuery, sanityFetch } from '$lib/sanity'
+import type { PageServerLoad } from './$types'
+import type { MetaTagsProps } from 'svelte-meta-tags'
+import type { Tag } from '$lib/schema'
+import { dev } from '$app/environment'
 
 export const load: PageServerLoad = (async () => {
-	let sanityQuery: string;
-	let tags: Tag[] | undefined;
+  let tags: Tag[] | undefined
 
-	/**
-	 * Retrieve all tags.
-	 */
+  const sanityQuery = buildSanityQuery({
+    type: 'tag',
+    attributes: ['name', 'slug'],
+    order: 'lower(name)',
+  })
 
-	try {
-		sanityQuery = buildSanityQuery({
-			type: 'tag',
-			attributes: ['name', 'slug'],
-			order: 'lower(name)'
-		});
+  try {
+    tags = (await sanityFetch(sanityQuery)) as Tag[] | undefined
+  } catch (err) {
+    if (dev) {
+      console.log(err)
+    }
+    error(500, 'Server error')
+  }
 
-		tags = await sanityFetch(sanityQuery);
-	} catch (err) {
-		console.log(err);
-		error(500, 'Server network error...');
-	}
+  if (tags) {
+    const title = 'Archive'
 
-	/**
-	 * Build page information.
-	 */
+    const ogTitle = title
+    const ogDescription = `Browse our articles, tags, and content.`
 
-	if (tags) {
-		const title = 'Archive';
+    const pageMetaTags = Object.freeze({
+      description: ogDescription,
+      openGraph: {
+        title: ogTitle,
+        description: ogDescription,
+      },
+      twitter: {
+        title: ogTitle,
+        description: ogDescription,
+      },
+    }) satisfies MetaTagsProps
 
-		const ogTitle = title;
-		const ogDescription = `Browse our articles, tags, and content.`;
+    return {
+      tags,
+      pageMetaTags,
+      title,
+    }
+  }
 
-		const pageMetaTags = Object.freeze({
-			description: ogDescription,
-			openGraph: {
-				title: ogTitle,
-				description: ogDescription
-			},
-			twitter: {
-				title: ogTitle,
-				description: ogDescription
-			}
-		}) satisfies MetaTagsProps;
-
-		if (tags) {
-			return {
-				tags,
-				pageMetaTags,
-				title
-			};
-		}
-	}
-
-	error(404, 'Not found');
-}) satisfies PageServerLoad;
+  error(404, 'Not found')
+}) satisfies PageServerLoad

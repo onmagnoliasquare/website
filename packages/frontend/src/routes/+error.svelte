@@ -1,9 +1,10 @@
 <script lang="ts">
-import { page } from '$app/stores'
+import { page } from '$app/state'
 import MainLayout from '$components/MainLayout.svelte'
 import { site } from '$lib/constants'
-export const msg = $page.error!.message
-export const status = $page.status
+
+let msg = page.error?.message
+let status = page.status
 </script>
 
 <svelte:head>

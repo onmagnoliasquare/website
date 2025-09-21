@@ -3,20 +3,20 @@
  * NO SIDE EFFECTS PLEASE.
  */
 
-import type { Member } from './schema';
+import type { CustomImageAsset, Member, MetaInfo } from './schema'
 
 // Retrieved from:
 // https://medium.com/@sungbinkim98/is-your-javascript-date-one-day-off-c56afb37e4bc
 function parseDateString(dateString: string) {
-	const dateOnlyRegex =
-		/^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])))$/;
+  const dateOnlyRegex =
+    /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])))$/
 
-	if (dateOnlyRegex.test(dateString as string)) {
-		const utcDate = new Date(dateString);
-		const localDate = new Date(utcDate.getTime() + utcDate.getTimezoneOffset() * 60000);
-		return localDate;
-	}
-	return new Date(dateString);
+  if (dateOnlyRegex.test(dateString)) {
+    const utcDate = new Date(dateString)
+    const localDate = new Date(utcDate.getTime() + utcDate.getTimezoneOffset() * 60000)
+    return localDate
+  }
+  return new Date(dateString)
 }
 
 /**
@@ -29,33 +29,31 @@ function parseDateString(dateString: string) {
  * @returns `string` formatted date
  */
 export const dateFormatter = (
-	date: string,
-	locale?: Intl.LocalesArgument,
-	options?: Intl.DateTimeFormatOptions
+  date: string,
+  locale?: Intl.LocalesArgument,
+  options?: Intl.DateTimeFormatOptions
 ): string => {
-	const utcDate = parseDateString(date);
+  const utcDate = parseDateString(date)
 
-	// Using options.
-	// See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_options
-	if (!options) {
-		options = {
-			weekday: 'short',
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric'
-		};
-	}
+  // Using options.
+  // See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_options
+  options ??= {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }
 
-	let localeDate: Intl.DateTimeFormat;
+  let localeDate: Intl.DateTimeFormat
 
-	if (!locale) {
-		localeDate = new Intl.DateTimeFormat('UTC', options);
-	} else {
-		localeDate = new Intl.DateTimeFormat(locale as string, options);
-	}
+  if (!locale) {
+    localeDate = new Intl.DateTimeFormat('UTC', options)
+  } else {
+    localeDate = new Intl.DateTimeFormat(locale as string, options)
+  }
 
-	return localeDate.format(utcDate);
-};
+  return localeDate.format(utcDate)
+}
 
 /**
  * hasUppercase checks if there are any uppercase characters
@@ -64,9 +62,9 @@ export const dateFormatter = (
  * @returns `boolean`
  */
 export const hasUppercase = (p: string): boolean => {
-	const m: RegExpMatchArray | null = p.match(/[A-Z]/);
-	return m ? true : false;
-};
+  const m: RegExpMatchArray | null = /[A-Z]/.exec(p)
+  return m ? true : false
+}
 
 /**
  * createAuthorString creates an author string from
@@ -75,16 +73,16 @@ export const hasUppercase = (p: string): boolean => {
  * @returns `string`
  */
 export const createAuthorString = (a: Member[]): string => {
-	let authorString = '';
+  let authorString = ''
 
-	for (let i = 0; i < a.length; i++) {
-		authorString = authorString.concat(a[i].name, ', ');
-	}
+  for (const author of a) {
+    authorString = authorString.concat(author.name, ', ')
+  }
 
-	authorString = authorString.slice(0, -2);
+  authorString = authorString.slice(0, -2)
 
-	return authorString;
-};
+  return authorString
+}
 
 /**
  * createAuthorLink generates a URL to an author's profile page.
@@ -93,8 +91,8 @@ export const createAuthorString = (a: Member[]): string => {
  * @returns A string representing the full URL to the author's profile page
  */
 export const createAuthorLink = (url: string, slug: string): string => {
-	return `${url}/about/staff/${slug}`;
-};
+  return `${url}/about/staff/${slug}`
+}
 
 /**
  * createSiteTitle creates a formatted site title by appending
@@ -105,14 +103,14 @@ export const createAuthorLink = (url: string, slug: string): string => {
  * @returns A formatted string representing the complete site title
  */
 export const createSiteTitle = (name: string, title?: string): string => {
-	if (title) {
-		// The dash below is an EN-DASH (U+2013)
-		// More: https://www.fileformat.info/info/unicode/char/2013/index.htm
-		return `${title} – ${name}`;
-	}
+  if (title) {
+    // The dash below is an EN-DASH (U+2013)
+    // More: https://www.fileformat.info/info/unicode/char/2013/index.htm
+    return `${title} – ${name}`
+  }
 
-	return name;
-};
+  return name
+}
 
 /**
  * getFlagEmoji retrieves the flag emoji of a specified
@@ -123,13 +121,13 @@ export const createSiteTitle = (name: string, title?: string): string => {
  * @returns `string` flag emoji
  */
 export const getFlagEmoji = (countryCode: string): string => {
-	return (
-		countryCode
-			.toUpperCase()
-			//@ts-expect-error for nonsense.
-			.replace(/./g, (char) => String.fromCodePoint(127397 + char.charCodeAt()))
-	);
-};
+  return (
+    countryCode
+      .toUpperCase()
+      //@ts-expect-error for nonsense.
+      .replace(/./g, char => String.fromCodePoint(127397 + char.charCodeAt()))
+  )
+}
 
 /**
  * getCountryName retrieves the country name of
@@ -141,9 +139,9 @@ export const getFlagEmoji = (countryCode: string): string => {
  * @returns `string` country name
  */
 export const getCountryName = (countryCode: string, locale: string): string | undefined => {
-	const name = new Intl.DisplayNames([locale], { type: 'region' });
-	return name.of(countryCode);
-};
+  const name = new Intl.DisplayNames([locale], { type: 'region' })
+  return name.of(countryCode)
+}
 
 /**
  * parseEmbedLink returns a string that is usable by the
@@ -160,68 +158,68 @@ export const getCountryName = (countryCode: string, locale: string): string | un
  * @returns `string` formatted link
  */
 export const parseEmbedLink = (url: string): EmbeddedLinkAttributes => {
-	// This builds a long string of `or` boolean expressions for
-	// `RegExp()` parameter input.
-	const domainNames = sourcesList.join('|');
+  // This builds a long string of `or` boolean expressions for
+  // `RegExp()` parameter input.
+  const domainNames = sourcesList.join('|')
 
-	// Defines the regex expression to seek for what we want.
-	const name = new RegExp(`(${domainNames})(/*)?`, 'i');
+  // Defines the regex expression to seek for what we want.
+  const name = new RegExp(`(${domainNames})(/*)?`, 'i')
 
-	// Search the string for a name from the list of domain names.
-	const match = url.match(name)!;
+  // Search the string for a name from the list of domain names.
+  const match = name.exec(url)
 
-	// If there's no match...
-	if (!match) {
-		return {
-			name: url,
-			path: url
-		};
-	}
+  // If there's no match...
+  if (!match) {
+    return {
+      name: url,
+      path: url,
+    }
+  }
 
-	// switch statements are faster than 'if'.
-	switch (match[0]) {
-		case 'anchorfm':
-		case 'buzzsprout':
-		case 'codepen':
-		case 'deezer':
-		case 'gist':
-		case 'guild':
-		case 'relive':
-		case 'simplecast':
-		case 'slides':
-		case 'spotify':
-			return {
-				name: match[0],
+  // switch statements are faster than 'if'.
+  switch (match[0]) {
+    case 'anchorfm':
+    case 'buzzsprout':
+    case 'codepen':
+    case 'deezer':
+    case 'gist':
+    case 'guild':
+    case 'relive':
+    case 'simplecast':
+    case 'slides':
+    case 'spotify':
+      return {
+        name: match[0],
 
-				// Extracts the last part of the spotify URL.
-				path: url.split('/').slice(-2).join('/')
-			};
-		case 'stackblitz':
+        // Extracts the last part of the spotify URL.
+        path: url.split('/').slice(-2).join('/'),
+      }
+    case 'stackblitz':
 
-		/**
-		 * TikTok requires the extraction of the `webid`, which
-		 * is just a query in the URL. The very last part.
-		 */
-		// eslint-disable-next-line no-fallthrough
-		case 'tiktok':
-		case 'toot':
-		case 'tweet':
-		case 'vimeo':
-		case 'youtube':
-		case 'zencastr':
-		case 'soundcloud':
-		case 'genericembed':
-		default:
-			return {
-				name: url,
-				path: url
-			};
-	}
-};
+    /**
+     * TikTok requires the extraction of the `webid`, which
+     * is just a query in the URL. The very last part.
+     */
+    // eslint-disable-next-line no-fallthrough
+    case 'tiktok':
+    case 'toot':
+    case 'tweet':
+    case 'vimeo':
+    case 'youtube':
+    case 'zencastr':
+    case 'soundcloud':
+    case 'genericembed':
+    default:
+      return {
+        name: url,
+        path: url,
+      }
+  }
+}
 
 interface EmbeddedLinkAttributes {
-	name?: string;
-	path?: string;
+  name?: string
+  path?: string
 }
 
 /**
@@ -231,27 +229,27 @@ interface EmbeddedLinkAttributes {
  * use their embed API.
  */
 export const sourcesList = [
-	'anchorfm',
-	'bluesky',
-	'buzzsprout',
-	'codepen',
-	'deezer',
-	'genericembed',
-	'gist',
-	'guild',
-	'relive',
-	'simplecast',
-	'slides',
-	'soundcloud',
-	'spotify',
-	'stackblitz',
-	'tiktok',
-	'toot',
-	'tweet',
-	'vimeo',
-	'youtube',
-	'zencastr'
-];
+  'anchorfm',
+  'bluesky',
+  'buzzsprout',
+  'codepen',
+  'deezer',
+  'genericembed',
+  'gist',
+  'guild',
+  'relive',
+  'simplecast',
+  'slides',
+  'soundcloud',
+  'spotify',
+  'stackblitz',
+  'tiktok',
+  'toot',
+  'tweet',
+  'vimeo',
+  'youtube',
+  'zencastr',
+]
 
 /**
  * domainFromUrl strips a URL of any extra paths or protocols using a
@@ -262,20 +260,20 @@ export const sourcesList = [
  * @returns domain name and TLD
  */
 export const domainFromUrl = (url: string): string => {
-	let parts = new URL(url).hostname.split('.');
+  let parts = new URL(url).hostname.split('.')
 
-	// Remove initial www. In fact, who even uses this
-	// anymore? It's for old heads.
-	if (parts[0] === 'www' || parts[0] === 'www1') {
-		parts = parts.slice(1);
-	}
+  // Remove initial www. In fact, who even uses this
+  // anymore? It's for old heads.
+  if (parts[0] === 'www' || parts[0] === 'www1') {
+    parts = parts.slice(1)
+  }
 
-	if (parts.length >= 2) {
-		return `${parts.slice(-parts.length).join('.')}`;
-	}
+  if (parts.length >= 2) {
+    return parts.slice(-parts.length).join('.')
+  }
 
-	return 'website';
-};
+  return 'website'
+}
 
 /**
  * buildSiteTags compares two string arrays, which are compared using the ref,
@@ -286,14 +284,50 @@ export const domainFromUrl = (url: string): string => {
  * @returns new string array containing elements of ref and cmp
  */
 export const buildSiteTags = (ref: string[], cmp: string[]): string[] => {
-	// This is written very imperatively.
-	const newTags: string[] = [...ref];
+  // This is written very imperatively.
+  const newTags: string[] = [...ref]
 
-	for (const v of cmp) {
-		if (!newTags.includes(v)) {
-			newTags.push(v);
-		}
-	}
+  for (const v of cmp) {
+    if (!newTags.includes(v)) {
+      newTags.push(v)
+    }
+  }
 
-	return newTags;
-};
+  return newTags
+}
+
+/**
+ * getMetaTags abstracts logic for selecting whether metadata is to be used.
+ */
+export const getMetaTags = (
+  meta: MetaInfo | undefined,
+  title: string,
+  description: string,
+  image?: CustomImageAsset,
+  tags?: Set<string>
+): { title: string; description: string; image?: CustomImageAsset; tags: Set<string> } => {
+  let newTitle = title
+  let newDescription = description
+  let newImage = image
+  let newTags = tags
+  if (meta) {
+    if (meta.ogTitle) {
+      newTitle = meta.ogTitle
+    }
+    if (meta.ogDescription) {
+      newDescription = meta.ogDescription
+    }
+    if (meta.ogImage) {
+      newImage = meta.ogImage
+    }
+    if (meta.ogTags) {
+      newTags = newTags?.union(new Set(meta.ogTags))
+    }
+  }
+  return {
+    title: newTitle,
+    description: newDescription,
+    image: newImage,
+    tags: newTags ?? new Set<string>(),
+  }
+}

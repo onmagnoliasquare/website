@@ -1,80 +1,62 @@
-import { error, type ServerLoadEvent } from '@sveltejs/kit';
-import { buildSanityQuery, sanityFetch } from '$lib/sanity';
-import type { MetaTagsProps } from 'svelte-meta-tags';
-import type { Article, Category } from '$lib/schema';
-import type { LayoutServerLoad } from './$types';
+import { error, type ServerLoadEvent } from '@sveltejs/kit'
+import { buildSanityQuery, sanityFetch } from '$lib/sanity'
+import type { MetaTagsProps } from 'svelte-meta-tags'
+import type { Article, Category } from '$lib/schema'
+import type { LayoutServerLoad } from './$types'
+import { dev } from '$app/environment'
+import { getMetaTags } from '$lib/helpers'
 
 export const load: LayoutServerLoad = (async (event: ServerLoadEvent) => {
-	let sanityQuery: string;
-	let articles: Article[] | undefined;
+  let articles: Article[] | undefined
 
-	// Retrieve the name of the category from the URL.
-	const { category } = event.params!;
+  const { category } = event.params
 
-	// Get category information.
+  const req = await event.fetch(`/api/category/${category}`)
+  const cat = (await req.json()) as Category | undefined
 
-	const req = await event.fetch(`/api/category/${category}`);
-	const cat: Category | undefined = await req.json();
+  if (cat) {
+    const sanityQuery = buildSanityQuery(
+      {
+        type: 'article',
+        attributes: ['_id', 'title', 'subtitle', 'date', 'slug', 'media'],
+        customAttrs: ['authors[]->{name}', 'category->', '"asset": media.asset->{metadata}'],
+        conditions: [`category->slug.current == '${category}'`],
+        order: 'date desc',
+      },
+      [0, 20]
+    )
 
-	if (!cat) error(404, "That category doesn't exist...");
+    try {
+      articles = (await sanityFetch(sanityQuery)) as Article[] | undefined
+    } catch (err) {
+      if (dev) {
+        console.error(err)
+      }
+      error(500)
+    }
 
-	// Get articles from the category in question.
-	try {
-		sanityQuery = buildSanityQuery(
-			{
-				type: 'article',
-				attributes: ['_id', 'title', 'subtitle', 'date', 'slug', 'media'],
-				customAttrs: ['authors[]->{name}', 'category->', '"asset": media.asset->{metadata}'],
-				conditions: [`category->slug.current == '${category as string}'`],
-				order: 'date desc'
-			},
-			[0, 20]
-		);
+    if (articles) {
+      const { title, description } = getMetaTags(cat.metaInfo, cat.name, cat.description)
+      const pageMetaTags = Object.freeze({
+        description,
+        openGraph: {
+          title,
+          description,
+        },
+        twitter: {
+          title,
+          description,
+        },
+      }) satisfies MetaTagsProps
 
-		articles = await sanityFetch(sanityQuery);
-	} catch (err) {
-		console.error(err);
-		error(500, 'Server network error...');
-	}
+      return {
+        articles,
+        cat,
+        title: cat.name,
+        pageMetaTags,
+      }
+    }
+  }
 
-	if (articles) {
-		const title = cat.name;
-		let ogTitle = title;
-		let ogDescription = cat.description;
-
-		if (cat.metaInfo) {
-			if (cat.metaInfo.ogTitle) {
-				ogTitle = cat.metaInfo.ogTitle;
-			}
-
-			if (cat.metaInfo.ogDescription) {
-				ogDescription = cat.metaInfo.ogDescription;
-			}
-
-			if (cat.metaInfo.ogImage) {
-				// TODO
-			}
-		}
-
-		const pageMetaTags = Object.freeze({
-			description: ogDescription,
-			openGraph: {
-				title: ogTitle,
-				description: ogDescription
-			},
-			twitter: {
-				title: ogTitle,
-				description: ogDescription
-			}
-		}) satisfies MetaTagsProps;
-
-		return {
-			articles,
-			cat,
-			title,
-			pageMetaTags
-		};
-	}
-
-	error(404, "That category doesn't exist...");
-}) satisfies LayoutServerLoad;
+  error(404, "That category doesn't exist...")
+}) satisfies LayoutServerLoad

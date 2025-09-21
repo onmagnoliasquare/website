@@ -10,7 +10,7 @@ const ethicsText = [
   "All opinions published reflect the journalist's opinions and not those of the OMS publication.",
   "Non-English articles are translated to the best of our ability, and we strive to maintain the original language's meaning and intent.",
   'We do not tolerate plagiarism and any writer caught plagiarizing will be immediately removed from the staff.',
-  'We do not accept anonymous sources and attribution. All attribution must include full names of sources.'
+  'We do not accept anonymous sources and attribution. All attribution must include full names of sources.',
 ]
 </script>
 

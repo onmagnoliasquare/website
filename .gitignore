@@ -63,10 +63,13 @@ $RECYCLE.BIN/
 
 # Node
 node_modules
-packages/frontend/build
-packages/frontend/.svelte-kit
-packages/frontend/package
-packages/frontend/.wrangler
+build
+.svelte-kit
+package
+.wrangler
+
+.sanity
+dist
 
 .env
 .env.local

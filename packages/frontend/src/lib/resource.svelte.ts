@@ -1,8 +1,11 @@
 // See: https://dev.to/jdgamble555/async-fetching-in-svelte-5-826
 
-export const resource = <T>(getter: () => RequestInfo | URL, initialValue?: T) => {
+export const resource = <T>(
+	getter: () => RequestInfo | URL,
+	initialValue?: T,
+) => {
 	const _rune = $state<{ value: T | undefined }>({
-		value: initialValue
+		value: initialValue,
 	});
 
 	const controller = new AbortController();

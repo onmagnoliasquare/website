@@ -2,7 +2,7 @@
 /**
  * ======== MAIN LAYOUT ========
  * */
-import { page } from '$app/stores'
+import { page } from '$app/state'
 import type { Snippet } from 'svelte'
 import { createSiteTitle } from '$lib/helpers'
 import { site } from '$lib/constants'
@@ -13,10 +13,11 @@ interface Props {
 }
 
 let { children }: Props = $props()
+const title = $derived(page.data.title as string)
 </script>
 
 <svelte:head>
-  <title>{createSiteTitle(site.title, $page.data.title)}</title>
+  <title>{createSiteTitle(site.title, title)}</title>
 </svelte:head>
 
 <!-- This is the main layout for the entire website. -->

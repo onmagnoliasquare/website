@@ -1,77 +1,69 @@
-import { error, type ServerLoadEvent } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
-import type { MetaTagsProps } from 'svelte-meta-tags';
-import { site } from '$lib/constants';
-import type { Article, Tag } from '$lib/schema';
-import { createSiteTitle } from '$lib/helpers';
+import { error, type ServerLoadEvent } from '@sveltejs/kit'
+import type { PageServerLoad } from './$types'
+import type { MetaTagsProps } from 'svelte-meta-tags'
+import { site } from '$lib/constants'
+import type { Article, Tag } from '$lib/schema'
+import { createSiteTitle, getMetaTags } from '$lib/helpers'
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
-	// Get tagName from URL.
-	const { tagName } = event.params;
+  // Get tagName from URL.
+  const { tagName } = event.params
 
-	const req = await event.fetch(`/api/tag/${tagName}`);
-	const tag: Tag | undefined = await req.json();
+  const req = await event.fetch(`/api/tag/${tagName}`)
+  const tag = (await req.json()) as Tag | undefined
 
-	/**
-	 * Build page information.
-	 */
+  /**
+   * Build page information.
+   */
 
-	if (tag) {
-		// Get articles from the series.
-		const req = await event.fetch(`/api/tag/${tagName}?articles=true`);
-		const articles: Article[] = await req.json();
+  if (tag) {
+    let req: Response | undefined
+    let articles: Article[] | undefined
 
-		const title = createSiteTitle(site.title, `#${tagName}`);
+    try {
+      req = await event.fetch(`/api/tag/${tagName}?articles=true`)
+    } catch (error) {
+      console.error(error)
+    }
 
-		let ogTitle = title;
-		let ogDescription = `Browse the #${title} archives at ${site.name}`;
+    const { title, description } = getMetaTags(
+      tag.metaInfo,
+      createSiteTitle(site.title, `#${tagName}`),
+      `Browse the #${tag.name} archives at ${site.name}`
+    )
 
-		if (tag.metaInfo) {
-			if (tag.metaInfo.ogTitle) {
-				ogTitle = tag.metaInfo.ogTitle;
-			}
+    const pageMetaTags = Object.freeze({
+      title: title,
+      description: description,
+      openGraph: {
+        title: title,
+        description: description,
+      },
+      twitter: {
+        title: title,
+        description: description,
+      },
+    }) satisfies MetaTagsProps
 
-			if (tag.metaInfo.ogDescription) {
-				ogDescription = tag.metaInfo.ogDescription;
-			}
+    if (req) {
+      articles = (await req.json()) as Article[]
+    }
 
-			if (tag.metaInfo.ogImage) {
-				// TODO
-			}
-		}
+    if (articles) {
+      return {
+        articles,
+        tag,
+        pageMetaTags,
+        title: tag.name,
+      }
+    }
 
-		const pageMetaTags = Object.freeze({
-			title: ogTitle,
-			description: ogDescription,
-			openGraph: {
-				title: ogTitle,
-				description: ogDescription
-			},
-			twitter: {
-				title: ogTitle,
-				description: ogDescription
-			}
-		}) satisfies MetaTagsProps;
+    return {
+      tag,
+      pageMetaTags,
+      title: tagName,
+    }
+  }
 
-		/**
-		 * Return page data.
-		 */
-
-		if (articles) {
-			return {
-				articles,
-				tag,
-				pageMetaTags,
-				title
-			};
-		}
-
-		return {
-			tag,
-			pageMetaTags,
-			title
-		};
-	}
-
-	error(404, 'Not found');
-}) satisfies PageServerLoad;
+  error(404, 'Not found')
+}) satisfies PageServerLoad

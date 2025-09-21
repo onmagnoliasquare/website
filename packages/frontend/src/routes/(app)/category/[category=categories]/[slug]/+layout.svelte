@@ -40,14 +40,14 @@ async function getRelatedArticles(): Promise<FetchScoredArticleQueryResults> {
   const relatedArticles = await fetchRelatedArticles(
     {
       slug: data.article.slug.current,
-      authors: authors
+      authors: authors,
     },
     {
       title: data.article.title,
       date: date,
       content: contentText,
       categoryId: catId,
-      authors: authors
+      authors: authors,
     }
   )
 

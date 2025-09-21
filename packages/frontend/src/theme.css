@@ -1,12 +1,12 @@
 @theme default {
-	--font-sans:
-		ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-		'Noto Color Emoji';
-	--font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
-	--font-mono:
-		ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
-		monospace;
-	/*
+  --font-sans:
+    ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
+  --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
+  /*
     --color-red-50: oklch(0.971 0.013 17.38);
     --color-red-100: oklch(0.936 0.032 17.717);
     --color-red-200: oklch(0.885 0.062 18.334);
@@ -31,118 +31,118 @@
     --color-orange-900: oklch(0.408 0.123 38.172);
     --color-orange-950: oklch(0.266 0.079 36.259); */
 
-	--color-amber-50: oklch(0.987 0.022 95.277);
-	--color-amber-100: oklch(0.962 0.059 95.617);
-	--color-amber-200: oklch(0.924 0.12 95.746);
-	--color-amber-300: oklch(0.879 0.169 91.605);
-	--color-amber-400: oklch(0.828 0.189 84.429);
-	--color-amber-500: oklch(0.769 0.188 70.08);
-	--color-amber-600: oklch(0.666 0.179 58.318);
-	--color-amber-700: oklch(0.555 0.163 48.998);
-	--color-amber-800: oklch(0.473 0.137 46.201);
-	--color-amber-900: oklch(0.414 0.112 45.904);
-	--color-amber-950: oklch(0.279 0.077 45.635);
+  --color-amber-50: oklch(0.987 0.022 95.277);
+  --color-amber-100: oklch(0.962 0.059 95.617);
+  --color-amber-200: oklch(0.924 0.12 95.746);
+  --color-amber-300: oklch(0.879 0.169 91.605);
+  --color-amber-400: oklch(0.828 0.189 84.429);
+  --color-amber-500: oklch(0.769 0.188 70.08);
+  --color-amber-600: oklch(0.666 0.179 58.318);
+  --color-amber-700: oklch(0.555 0.163 48.998);
+  --color-amber-800: oklch(0.473 0.137 46.201);
+  --color-amber-900: oklch(0.414 0.112 45.904);
+  --color-amber-950: oklch(0.279 0.077 45.635);
 
-	--color-neutral-50: oklch(0.985 0 0);
-	--color-neutral-100: oklch(0.97 0 0);
-	--color-neutral-200: oklch(0.922 0 0);
-	--color-neutral-300: oklch(0.87 0 0);
-	--color-neutral-400: oklch(0.708 0 0);
-	--color-neutral-500: oklch(0.556 0 0);
-	--color-neutral-600: oklch(0.439 0 0);
-	--color-neutral-700: oklch(0.371 0 0);
-	--color-neutral-800: oklch(0.269 0 0);
-	--color-neutral-900: oklch(0.205 0 0);
-	--color-neutral-950: oklch(0.145 0 0);
+  --color-neutral-50: oklch(0.985 0 0);
+  --color-neutral-100: oklch(0.97 0 0);
+  --color-neutral-200: oklch(0.922 0 0);
+  --color-neutral-300: oklch(0.87 0 0);
+  --color-neutral-400: oklch(0.708 0 0);
+  --color-neutral-500: oklch(0.556 0 0);
+  --color-neutral-600: oklch(0.439 0 0);
+  --color-neutral-700: oklch(0.371 0 0);
+  --color-neutral-800: oklch(0.269 0 0);
+  --color-neutral-900: oklch(0.205 0 0);
+  --color-neutral-950: oklch(0.145 0 0);
 
-	--color-black: #000;
-	--color-white: #fff;
+  --color-black: #000;
+  --color-white: #fff;
 
-	--spacing: 0.25rem;
+  --spacing: 0.25rem;
 
-	--breakpoint-sm: 40rem;
-	--breakpoint-md: 48rem;
-	--breakpoint-lg: 64rem;
-	--breakpoint-xl: 80rem;
-	--breakpoint-2xl: 96rem;
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
 
-	--container-3xs: 16rem;
-	--container-2xs: 18rem;
-	--container-xs: 20rem;
-	--container-sm: 24rem;
-	--container-md: 28rem;
-	--container-lg: 32rem;
-	--container-xl: 36rem;
-	--container-2xl: 42rem;
-	--container-3xl: 48rem;
-	--container-4xl: 56rem;
-	--container-5xl: 64rem;
-	--container-6xl: 72rem;
-	--container-7xl: 80rem;
+  --container-3xs: 16rem;
+  --container-2xs: 18rem;
+  --container-xs: 20rem;
+  --container-sm: 24rem;
+  --container-md: 28rem;
+  --container-lg: 32rem;
+  --container-xl: 36rem;
+  --container-2xl: 42rem;
+  --container-3xl: 48rem;
+  --container-4xl: 56rem;
+  --container-5xl: 64rem;
+  --container-6xl: 72rem;
+  --container-7xl: 80rem;
 
-	/* Follows OMS typography guide */
-	--text-xs: 0.677;
-	--text-xs--line-height: calc(0.677 / 0.75);
-	/* Caption */
-	--text-sm: 0.9em;
-	--text-sm--line-height: calc(0.9 / 0.9);
-	/* Text Base */
-	--text-base: 1.125em;
-	--text-base--line-height: calc(1.125 / 1);
-	/* Base Bigger */
-	--text-lg: 1.406rem;
-	--text-lg--line-height: calc(1.406 / 1.125);
-	/* H4 */
-	--text-xl: 1.688rem;
-	--text-xl--line-height: calc(1.688 / 1.406);
-	/* Base Biggest */
-	--text-2xl: 1.758rem;
-	--text-2xl--line-height: calc(1.758 / 1.688);
-	--text-3xl: 1.875rem;
-	--text-3xl--line-height: calc(2.197 / 1.758);
-	/* H4 */
-	--text-4xl: 2.197rem;
-	--text-4xl--line-height: calc(2.531 / 2.197);
-	/* H3 */
-	--text-5xl: 2.531rem;
-	--text-5xl--line-height: 1.44;
-	/* H2 */
-	--text-6xl: 3.797rem;
-	--text-6xl--line-height: 1.44;
-	/* H1 / Twig Bombshell */
-	--text-7xl: 5.695rem;
-	--text-7xl--line-height: 0.96;
-	/* Twig Normal / Twig Giant */
-	--text-8xl: 8.543rem;
-	--text-8xl--line-height: 1.04;
-	/* Twig Vogue */
-	--text-9xl: 12.814rem;
-	--text-9xl--line-height: 1;
+  /* Follows OMS typography guide */
+  --text-xs: 0.677;
+  --text-xs--line-height: calc(0.677 / 0.75);
+  /* Caption */
+  --text-sm: 0.9em;
+  --text-sm--line-height: calc(0.9 / 0.9);
+  /* Text Base */
+  --text-base: 1.125em;
+  --text-base--line-height: calc(1.125 / 1);
+  /* Base Bigger */
+  --text-lg: 1.406rem;
+  --text-lg--line-height: calc(1.406 / 1.125);
+  /* H4 */
+  --text-xl: 1.688rem;
+  --text-xl--line-height: calc(1.688 / 1.406);
+  /* Base Biggest */
+  --text-2xl: 1.758rem;
+  --text-2xl--line-height: calc(1.758 / 1.688);
+  --text-3xl: 1.875rem;
+  --text-3xl--line-height: calc(2.197 / 1.758);
+  /* H4 */
+  --text-4xl: 2.197rem;
+  --text-4xl--line-height: calc(2.531 / 2.197);
+  /* H3 */
+  --text-5xl: 2.531rem;
+  --text-5xl--line-height: 1.44;
+  /* H2 */
+  --text-6xl: 3.797rem;
+  --text-6xl--line-height: 1.44;
+  /* H1 / Twig Bombshell */
+  --text-7xl: 5.695rem;
+  --text-7xl--line-height: 0.96;
+  /* Twig Normal / Twig Giant */
+  --text-8xl: 8.543rem;
+  --text-8xl--line-height: 1.04;
+  /* Twig Vogue */
+  --text-9xl: 12.814rem;
+  --text-9xl--line-height: 1;
 
-	--font-weight-thin: 100;
-	--font-weight-extralight: 200;
-	--font-weight-light: 300;
-	--font-weight-normal: 400;
-	--font-weight-medium: 500;
-	--font-weight-semibold: 600;
-	--font-weight-bold: 700;
-	--font-weight-extrabold: 800;
-	--font-weight-black: 900;
+  --font-weight-thin: 100;
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
 
-	--tracking-tighter: -0.05em;
-	--tracking-tight: -0.025em;
-	--tracking-normal: 0em;
-	--tracking-wide: 0.025em;
-	--tracking-wider: 0.05em;
-	--tracking-widest: 0.1em;
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
 
-	--leading-tight: 1.25;
-	--leading-snug: 1.375;
-	--leading-normal: 1.52;
-	--leading-relaxed: 1.625;
-	--leading-loose: 2;
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.52;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
 
-	/* --radius-xs: 0.125rem;
+  /* --radius-xs: 0.125rem;
     --radius-sm: 0.25rem;
     --radius-md: 0.375rem;
     --radius-lg: 0.5rem;
@@ -151,89 +151,89 @@
     --radius-3xl: 1.5rem;
     --radius-4xl: 2rem; */
 
-	--shadow-2xs: 0 1px rgb(0 0 0 / 0.05);
-	--shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-	--shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-	--shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-	--shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-	--shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-	--shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --shadow-2xs: 0 1px rgb(0 0 0 / 0.05);
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
 
-	--inset-shadow-2xs: inset 0 1px rgb(0 0 0 / 0.05);
-	--inset-shadow-xs: inset 0 1px 1px rgb(0 0 0 / 0.05);
-	--inset-shadow-sm: inset 0 2px 4px rgb(0 0 0 / 0.05);
+  --inset-shadow-2xs: inset 0 1px rgb(0 0 0 / 0.05);
+  --inset-shadow-xs: inset 0 1px 1px rgb(0 0 0 / 0.05);
+  --inset-shadow-sm: inset 0 2px 4px rgb(0 0 0 / 0.05);
 
-	--drop-shadow-xs: 0 1px 1px rgb(0 0 0 / 0.05);
-	--drop-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.15);
-	--drop-shadow-md: 0 3px 3px rgb(0 0 0 / 0.12);
-	--drop-shadow-lg: 0 4px 4px rgb(0 0 0 / 0.15);
-	--drop-shadow-xl: 0 9px 7px rgb(0 0 0 / 0.1);
-	--drop-shadow-2xl: 0 25px 25px rgb(0 0 0 / 0.15);
+  --drop-shadow-xs: 0 1px 1px rgb(0 0 0 / 0.05);
+  --drop-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.15);
+  --drop-shadow-md: 0 3px 3px rgb(0 0 0 / 0.12);
+  --drop-shadow-lg: 0 4px 4px rgb(0 0 0 / 0.15);
+  --drop-shadow-xl: 0 9px 7px rgb(0 0 0 / 0.1);
+  --drop-shadow-2xl: 0 25px 25px rgb(0 0 0 / 0.15);
 
-	--ease-in: cubic-bezier(0.4, 0, 1, 1);
-	--ease-out: cubic-bezier(0, 0, 0.2, 1);
-	--ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 
-	--animate-spin: spin 1s linear infinite;
-	--animate-ping: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-	--animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-	--animate-bounce: bounce 1s infinite;
+  --animate-spin: spin 1s linear infinite;
+  --animate-ping: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-bounce: bounce 1s infinite;
 
-	@keyframes spin {
-		to {
-			transform: rotate(360deg);
-		}
-	}
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
 
-	@keyframes ping {
-		75%,
-		100% {
-			transform: scale(2);
-			opacity: 0;
-		}
-	}
+  @keyframes ping {
+    75%,
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
 
-	@keyframes pulse {
-		50% {
-			opacity: 0.5;
-		}
-	}
+  @keyframes pulse {
+    50% {
+      opacity: 0.5;
+    }
+  }
 
-	@keyframes bounce {
-		0%,
-		100% {
-			transform: translateY(-25%);
-			animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-		}
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: translateY(-25%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
 
-		50% {
-			transform: none;
-			animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-		}
-	}
+    50% {
+      transform: none;
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
 
-	--blur-xs: 4px;
-	--blur-sm: 8px;
-	--blur-md: 12px;
-	--blur-lg: 16px;
-	--blur-xl: 24px;
-	--blur-2xl: 40px;
-	--blur-3xl: 64px;
+  --blur-xs: 4px;
+  --blur-sm: 8px;
+  --blur-md: 12px;
+  --blur-lg: 16px;
+  --blur-xl: 24px;
+  --blur-2xl: 40px;
+  --blur-3xl: 64px;
 
-	--perspective-dramatic: 100px;
-	--perspective-near: 300px;
-	--perspective-normal: 500px;
-	--perspective-midrange: 800px;
-	--perspective-distant: 1200px;
+  --perspective-dramatic: 100px;
+  --perspective-near: 300px;
+  --perspective-normal: 500px;
+  --perspective-midrange: 800px;
+  --perspective-distant: 1200px;
 
-	--aspect-video: 16 / 9;
+  --aspect-video: 16 / 9;
 
-	--default-transition-duration: 150ms;
-	--default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-	--default-font-family: var(--font-sans);
-	--default-font-feature-settings: var(--font-sans--font-feature-settings);
-	--default-font-variation-settings: var(--font-sans--font-variation-settings);
-	--default-mono-font-family: var(--font-mono);
-	--default-mono-font-feature-settings: var(--font-mono--font-feature-settings);
-	--default-mono-font-variation-settings: var(--font-mono--font-variation-settings);
+  --default-transition-duration: 150ms;
+  --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --default-font-family: var(--font-sans);
+  --default-font-feature-settings: var(--font-sans--font-feature-settings);
+  --default-font-variation-settings: var(--font-sans--font-variation-settings);
+  --default-mono-font-family: var(--font-mono);
+  --default-mono-font-feature-settings: var(--font-mono--font-feature-settings);
+  --default-mono-font-variation-settings: var(--font-mono--font-variation-settings);
 }

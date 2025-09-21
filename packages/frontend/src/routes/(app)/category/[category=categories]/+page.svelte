@@ -21,7 +21,7 @@ let { data }: Props = $props()
  * `$derived` is used here rather than `$state` because `$derived` is for
  * values that are derived from state changes, like API data.
  */
-let category = $derived(data.cat!)
+let category = $derived(data.cat)
 let articles = $derived(data.articles)
 let categoryName = $derived(category.name)
 </script>

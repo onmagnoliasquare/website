@@ -17,7 +17,7 @@ let { locale = 'en-US', date }: Props = $props()
       // dayPeriod: 'short',
       year: 'numeric',
       month: 'short',
-      day: '2-digit'
+      day: '2-digit',
     })}</time
   >
 </P>

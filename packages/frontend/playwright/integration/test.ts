@@ -53,7 +53,7 @@ test.describe('Basic routing', { tag: '@integration' }, () => {
     await page.goto(`/category/news/${v0_5_x_Article.article?.slug.current}`)
     await expect(
       page.getByRole('heading', {
-        name: `v0.5 Article Feature Set: What a blast!`
+        name: `v0.5 Article Feature Set: What a blast!`,
       })
     ).toBeVisible()
 

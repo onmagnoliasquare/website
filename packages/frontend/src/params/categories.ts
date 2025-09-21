@@ -1,14 +1,7 @@
-import type { ParamMatcher } from '@sveltejs/kit';
+import type { ParamMatcher } from '@sveltejs/kit'
 
-const categories: Array<string> = [
-	'culture',
-	'multimedia',
-	'news',
-	'opinion',
-	'people',
-	'professors'
-];
+const categories: string[] = ['culture', 'multimedia', 'news', 'opinion', 'people', 'professors']
 
 export const match: ParamMatcher = (param: string) => {
-	return categories.includes(param);
-};
+  return categories.includes(param)
+}

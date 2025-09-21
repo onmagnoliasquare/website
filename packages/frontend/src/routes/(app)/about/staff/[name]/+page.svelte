@@ -24,8 +24,7 @@ let articles = $derived(data.articles)
 
 <header class="mb-4 pb-4 w-full">
   <h1
-    class="font-display font-black text-4xl md:text-6xl lg:text-8xl tracking-tight sm:p-1 select-none font-stretch-condensed"
-  >
+    class="font-display font-black text-4xl md:text-6xl lg:text-8xl tracking-tight sm:p-1 select-none font-stretch-condensed">
     {member.name}
   </h1>
 </header>
@@ -43,8 +42,7 @@ let articles = $derived(data.articles)
             loading="eager"
             blurHash={member.asset.metadata.blurHash}
             alt={`${member.name}'s portrait image`}
-            class={`center max-w-2xl md:w-full md:h-full mb-4`}
-          />
+            class={`center max-w-2xl md:w-full md:h-full mb-4`} />
         </div>
       {/if}
       <div class="sm:p-1 tracking-wide">
@@ -82,18 +80,16 @@ let articles = $derived(data.articles)
                       icon="/icons/linkedin.svg"
                       title={member.name}
                       link={`https://linkedin.com/in/${handles.linkedin}`}
-                      alt="Visit Contributor's LinkedIn"
-                    />
+                      alt="Visit Contributor's LinkedIn" />
                   </li>
                 {/if}
                 {#if handles.instagram}
                   <li class="mb-1">
                     <ContactIcons
                       icon="/icons/instagram.svg"
-                      title={`${handles.instagram}`}
+                      title={handles.instagram}
                       link={`https://instagram.com/${handles.instagram}`}
-                      alt="Visit Contributor's Instagram"
-                    />
+                      alt="Visit Contributor's Instagram" />
                   </li>
                 {/if}
                 {#if handles.twitter}
@@ -102,8 +98,7 @@ let articles = $derived(data.articles)
                       icon="/icons/twitter.svg"
                       title={handles.twitter}
                       link={`https://twitter.com/${handles.twitter}`}
-                      alt="Visit Contributor's Twitter"
-                    />
+                      alt="Visit Contributor's Twitter" />
                   </li>
                 {/if}
                 {#if handles.facebook}
@@ -112,8 +107,7 @@ let articles = $derived(data.articles)
                       icon="/icons/facebook.svg"
                       title={handles.facebook}
                       link={`https://facebook.com/${handles.facebook}`}
-                      alt="Visit Contributor's Facebook"
-                    />
+                      alt="Visit Contributor's Facebook" />
                   </li>
                 {/if}
                 {#if handles.github}
@@ -122,8 +116,7 @@ let articles = $derived(data.articles)
                       icon="/icons/github.svg"
                       title={handles.github}
                       link={`https://github.com/${handles.github}`}
-                      alt="Visit Contributor's GitHub"
-                    />
+                      alt="Visit Contributor's GitHub" />
                   </li>
                 {/if}
                 {#if handles.website}
@@ -131,9 +124,8 @@ let articles = $derived(data.articles)
                     <ContactIcons
                       icon="/icons/www.svg"
                       title={domainFromUrl(handles.website)}
-                      link={`${handles.website}`}
-                      alt="Visit Contributor's Website"
-                    />
+                      link={handles.website}
+                      alt="Visit Contributor's Website" />
                   </li>
                 {/if}
               </ul>
@@ -156,13 +148,11 @@ let articles = $derived(data.articles)
                   <a
                     data-sveltekit-preload-code="viewport"
                     data-sveltekit-preload-data="tap"
-                    href={`/category/${article.category.slug.current}/${article.slug.current}`}
-                  >
+                    href={`/category/${article.category.slug.current}/${article.slug.current}`}>
                     <HoverDim>
                       <article class="p-1 md:m-1 md:p-2">
                         <h1
-                          class="text-4xl font-display font-bold mb-2 pb-4 hover:underline font-stretch-condensed"
-                        >
+                          class="text-4xl font-display font-bold mb-2 pb-4 hover:underline font-stretch-condensed">
                           {article.title}
                         </h1>
                         {#if article.subtitle}
@@ -173,8 +163,7 @@ let articles = $derived(data.articles)
                         <footer>
                           <P class="text-gray-600 tracking-wide font-semibold">
                             <time datetime={article.date}
-                              >{dateFormatter(article.date, data.userLocale)}</time
-                            >
+                              >{dateFormatter(article.date, data.userLocale)}</time>
                           </P>
                         </footer>
                       </article>

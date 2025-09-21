@@ -31,7 +31,7 @@ let observer: IntersectionObserver | null =
         },
         {
           rootMargin: '0px',
-          threshold
+          threshold,
         }
       )
     : null

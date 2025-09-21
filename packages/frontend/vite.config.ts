@@ -16,25 +16,25 @@ const tstConfig = testConfig({
     isolate: false,
     poolOptions: {
       forks: {
-        singleFork: true
-      }
+        singleFork: true,
+      },
     },
     server: {
       deps: {
-        inline: [`@sveltejs/kit`]
-      }
-    }
-  }
+        inline: [`@sveltejs/kit`],
+      },
+    },
+  },
 })
 
 const config = defineConfig({
   plugins: [tailwindcss(), sveltekit(), svelteTesting({ autoCleanup: true })],
   define: {
-    __ONMAGNOLIASQUARE_FRONTEND_VERSION__: `"${pkg.version}"`
-  }
+    __ONMAGNOLIASQUARE_FRONTEND_VERSION__: `"${pkg.version}"`,
+  },
 })
 
 export default {
   ...tstConfig,
-  ...config
+  ...config,
 }

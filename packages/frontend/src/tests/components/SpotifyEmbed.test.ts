@@ -16,7 +16,7 @@ describe('Spotify', () => {
     const spotifyPath = 'playlist/37i9dQZF1E4ZoJ6VjC6TJL'
     const { getByTestId } = render(SpotifyEmbed, {
       spotifyPath,
-      disable_observer: true
+      disable_observer: true,
     })
     const iframe = getByTestId('spotify')
     const expected_src = `https://open.spotify.com/embed/${spotifyPath}`
@@ -28,7 +28,7 @@ describe('Spotify', () => {
       spotifyPath: 'album/0yL5CjKtIVrWtLZnFJHfjz',
       height: '300px',
       width: '80%',
-      disable_observer: true
+      disable_observer: true,
     })
     const iframe = container.querySelector('iframe')
 
@@ -39,7 +39,7 @@ describe('Spotify', () => {
   it('renders with a GeneralObserver', async () => {
     const { getByTestId } = render(SpotifyEmbed, {
       spotifyPath: 'artist/2ye2Wgw4gimLv2eAKyk1NB',
-      disable_observer: false
+      disable_observer: false,
     })
     const general_observer = getByTestId('general-observer')
     expect(general_observer).toBeTruthy()

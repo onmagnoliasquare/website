@@ -1,10 +1,10 @@
-import { type ClientConfig, createClient } from '@sanity/client';
-import imageUrlBuilder from '@sanity/image-url';
+import { type ClientConfig, createClient } from "@sanity/client";
+import imageUrlBuilder from "@sanity/image-url";
 
 // Environment variables, found in ".env". Check ".env.example" for explanation.
-import type { Query } from './schema';
-import { dev } from '$app/environment';
-import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
+import type { Query } from "./schema";
+import { dev } from "$app/environment";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 // if (!SANITY_PROJECT_ID || !SANITY_DATASET) {
 // 	throw new Error('Did you forget to run yarn run -T sanity init --env?');
@@ -17,18 +17,18 @@ import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 // It's okay to expose projectId
 // See: https://www.sanity.io/answers/hello-quick-question-is-it-safe-to-commit-p1609342625280000
 const config: ClientConfig = {
-	projectId: '1ah7xxlt',
-	dataset: 'production',
+	projectId: "1ah7xxlt",
+	dataset: "production",
 	useCdn: true,
-	apiVersion: '2024-09-20'
+	apiVersion: "2024-09-20",
 };
 
 // Change the dataset if it is a development environment.
-if (dev || import.meta.env.MODE === 'development') {
-	config.dataset = 'development';
+if (dev || import.meta.env.MODE === "development") {
+	config.dataset = "development";
 	config.useCdn = false;
-} else if (import.meta.env.MODE === 'staging') {
-	config.dataset = 'staging';
+} else if (import.meta.env.MODE === "staging") {
+	config.dataset = "staging";
 	config.useCdn = false;
 }
 
@@ -56,13 +56,17 @@ export function urlFor(source: SanityImageSource) {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function sanityFetch(q: string): Promise<any> {
 	try {
-		return client.fetch(q);
+		return await client.fetch(q);
 	} catch (err: unknown) {
 		if (err instanceof Error) {
-			return Promise.reject(new Error(`Query failed, review query: ${q} - ${err.message}`));
+			return Promise.reject(
+				new Error(`Query failed, review query: ${q} - ${err.message}`),
+			);
 		}
 
-		return Promise.reject(new Error(`Query failed, review query: ${q} - Unknown error`));
+		return Promise.reject(
+			new Error(`Query failed, review query: ${q} - Unknown error`),
+		);
 	}
 }
 
@@ -73,7 +77,7 @@ export async function sanityFetch(q: string): Promise<any> {
  * @returns A GROQ query string of the form `leftSide == rightSide`.
  */
 export function equal(leftSide: string, rightSide: string | boolean): string {
-	if (typeof rightSide === 'boolean') {
+	if (typeof rightSide === "boolean") {
 		return `${leftSide} == ${rightSide}`;
 	}
 
@@ -87,7 +91,7 @@ export function equal(leftSide: string, rightSide: string | boolean): string {
  * @returns A GROQ query string of the form `leftSide != rightSide`.
  */
 export function unequal(leftSide: string, rightSide: string | boolean): string {
-	if (typeof rightSide === 'boolean') {
+	if (typeof rightSide === "boolean") {
 		return `${leftSide} != ${rightSide}`;
 	}
 
@@ -107,29 +111,29 @@ export function unequal(leftSide: string, rightSide: string | boolean): string {
  * @returns a serialized query string.
  */
 export function buildSanityQuery(sq: Query, resultsNum?: number[]): string {
-	const type = sq.type ? `_type == "${sq.type}"` : '';
-	const conditions = sq.conditions ? getConditions(sq.conditions) : '';
+	const type = sq.type ? `_type == "${sq.type}"` : "";
+	const conditions = sq.conditions ? getConditions(sq.conditions) : "";
 
-	const idx = sq.idx ? getIdx(sq.idx) : '';
+	const idx = sq.idx ? getIdx(sq.idx) : "";
 
 	// Combine both attributes and customAttributes.
 	const allAttrs = getAttrs([
-		...(sq.attributes ? sq.attributes : []),
-		...(sq.customAttrs ? sq.customAttrs : [])
+		...(sq.attributes ?? []),
+		...(sq.customAttrs ?? []),
 	]);
 
-	const order = sq.order ? getOrder(sq.order) : '';
+	const order = sq.order ? getOrder(sq.order) : "";
 
-	const results = resultsNum ? ` [${resultsNum[0]}...${resultsNum[1]}]` : '';
+	const results = resultsNum ? ` [${resultsNum[0]}...${resultsNum[1]}]` : "";
 
-	const outerSelection = sq.outer ? `.${sq.outer} ` : ' ';
+	const outerSelection = sq.outer ? `.${sq.outer} ` : " ";
 
 	// `${[type, conditions].join(' && ')}` combines the type and
 	// condition variables into a single string separated by the boolean
 	// `and` operator.
 	let query = `*[${
-		conditions.length > 0 ? [type, conditions].join(' && ') : type
-	}]${order}${results}${allAttrs.length != 0 ? `{${allAttrs}}` : ' '}${idx}`;
+		conditions.length > 0 ? [type, conditions].join(" && ") : type
+	}]${order}${results}${allAttrs.length != 0 ? `{${allAttrs}}` : " "}${idx}`;
 
 	if (sq.function) {
 		query = `${sq.function}(${query}${outerSelection})`;
@@ -150,7 +154,7 @@ export function getConditions(conditions: string[]): string {
 		return c.trim();
 	});
 
-	return newConditions.join(' && ');
+	return newConditions.join(" && ");
 }
 
 /**
@@ -184,7 +188,7 @@ export function getAttrs(attrs: string[]): string {
 		return a.trim();
 	});
 
-	return newAttrs.join(',');
+	return newAttrs.join(",");
 }
 
 /**

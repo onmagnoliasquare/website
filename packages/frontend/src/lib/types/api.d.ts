@@ -1,17 +1,24 @@
-import type { Category, Image, Member, MetaInfo, Series, Tag } from '$lib/schema';
-import type { PortableTextBlock } from '@portabletext/types';
-import type { Slug } from '@sanity/types';
+import type {
+	Category,
+	Image,
+	Member,
+	MetaInfo,
+	Series,
+	Tag,
+} from "$lib/schema";
+import type { PortableTextBlock } from "@portabletext/types";
+import type { Slug } from "@sanity/types";
 
-export type BasicArticleQueryResult = {
+export interface BasicArticleQueryResult {
 	_id: string;
 	title: string;
-	subtitle: string;
+	subtitle?: string;
 	authors: Member[];
 	slug: Slug;
 	date: string;
 	category: Category;
 	media?: Image;
-};
+}
 
 export type FetchBasicArticleQueryResult = BasicArticleQueryResult;
 export type BasicArticleQueryResults = BasicArticleQueryResult[];

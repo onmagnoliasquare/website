@@ -1,7 +1,7 @@
-import type { ParamMatcher } from '@sveltejs/kit';
+import type { ParamMatcher } from '@sveltejs/kit'
 
-const archives: Array<string> = ['date', 'tags'];
+const archives: string[] = ['date', 'tags']
 
 export const match: ParamMatcher = (param: string) => {
-	return archives.includes(param);
-};
+  return archives.includes(param)
+}

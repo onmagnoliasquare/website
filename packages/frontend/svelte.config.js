@@ -9,18 +9,18 @@ const config = {
   preprocess: vitePreprocess(),
   kit: {
     adapter: adapterCloudflare({
-      config: './wrangler.toml'
+      config: './wrangler.toml',
     }),
     alias: {
-      $components: 'src/components/*'
+      $components: 'src/components/*',
 
       // If you're looking for the `$lib` alias, that is automatically
       // defined by Svelte and does NOT need to be defined here.
     },
     version: {
-      name: child_process.execSync('git rev-parse HEAD').toString().trim()
-    }
-  }
+      name: child_process.execSync('git rev-parse HEAD').toString().trim(),
+    },
+  },
 }
 
 export default config
