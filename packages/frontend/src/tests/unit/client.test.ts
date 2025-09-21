@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 
-import { getFlagEmoji } from '$lib/helpers';
-import { describe, expect, it } from 'vitest';
+import { getFlagEmoji } from '$lib/helpers'
+import { describe, expect, it } from 'vitest'
 
 /**
  * The reason for many test cases in dateFormatter is because of,
@@ -103,47 +103,47 @@ import { describe, expect, it } from 'vitest';
 // });
 
 describe('getFlagEmoji', () => {
-	it('handles lowercase input by returning the correct emoji', () => {
-		expect(getFlagEmoji('us')).toBe('🇺🇸');
-	});
+  it('handles lowercase input by returning the correct emoji', () => {
+    expect(getFlagEmoji('us')).toBe('🇺🇸')
+  })
 
-	it('returns 🇺🇸 for country code "US"', () => {
-		expect(getFlagEmoji('US')).toBe('🇺🇸');
-	});
+  it('returns 🇺🇸 for country code "US"', () => {
+    expect(getFlagEmoji('US')).toBe('🇺🇸')
+  })
 
-	it('returns 🇨🇦 for country code "CA"', () => {
-		expect(getFlagEmoji('CA')).toBe('🇨🇦');
-	});
+  it('returns 🇨🇦 for country code "CA"', () => {
+    expect(getFlagEmoji('CA')).toBe('🇨🇦')
+  })
 
-	it('returns 🇬🇧 for country code "GB"', () => {
-		expect(getFlagEmoji('GB')).toBe('🇬🇧');
-	});
+  it('returns 🇬🇧 for country code "GB"', () => {
+    expect(getFlagEmoji('GB')).toBe('🇬🇧')
+  })
 
-	it('returns 🇯🇵 for country code "JP"', () => {
-		expect(getFlagEmoji('JP')).toBe('🇯🇵');
-	});
+  it('returns 🇯🇵 for country code "JP"', () => {
+    expect(getFlagEmoji('JP')).toBe('🇯🇵')
+  })
 
-	it('returns 🇨🇳 for country code "CN"', () => {
-		expect(getFlagEmoji('CN')).toBe('🇨🇳');
-	});
+  it('returns 🇨🇳 for country code "CN"', () => {
+    expect(getFlagEmoji('CN')).toBe('🇨🇳')
+  })
 
-	it('returns 🇰🇪 for country code "KE"', () => {
-		expect(getFlagEmoji('KE')).toBe('🇰🇪');
-	});
+  it('returns 🇰🇪 for country code "KE"', () => {
+    expect(getFlagEmoji('KE')).toBe('🇰🇪')
+  })
 
-	it('returns 🇳🇬 for country code "NG"', () => {
-		expect(getFlagEmoji('NG')).toBe('🇳🇬');
-	});
+  it('returns 🇳🇬 for country code "NG"', () => {
+    expect(getFlagEmoji('NG')).toBe('🇳🇬')
+  })
 
-	it('returns 🇿🇦 for country code "ZA"', () => {
-		expect(getFlagEmoji('ZA')).toBe('🇿🇦');
-	});
+  it('returns 🇿🇦 for country code "ZA"', () => {
+    expect(getFlagEmoji('ZA')).toBe('🇿🇦')
+  })
 
-	it('returns 🇹🇼 for country code "TW"', () => {
-		expect(getFlagEmoji('TW')).toBe('🇹🇼');
-	});
+  it('returns 🇹🇼 for country code "TW"', () => {
+    expect(getFlagEmoji('TW')).toBe('🇹🇼')
+  })
 
-	it('returns 🇮🇳 for country code "IN"', () => {
-		expect(getFlagEmoji('IN')).toBe('🇮🇳');
-	});
-});
+  it('returns 🇮🇳 for country code "IN"', () => {
+    expect(getFlagEmoji('IN')).toBe('🇮🇳')
+  })
+})

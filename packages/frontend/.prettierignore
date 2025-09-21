@@ -10,6 +10,11 @@ yarn.lock
 # dependencies.
 .svelte-kit
 node_modules
+.wrangler
+test-results
+
+*.svg
+*._
 
 # === CSS ===
 # This should be ignored because it is imported from the

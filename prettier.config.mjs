@@ -21,18 +21,13 @@ const config = {
   tabWidth: 2,
   singleQuote: true,
   plugins: [
-    'prettier-plugin-svelte',
     'prettier-plugin-tailwindcss',
-    '@ianvs/prettier-plugin-sort-imports',
+    // '@ianvs/prettier-plugin-sort-imports',
   ],
-  svelteSortOrder: 'options-styles-scripts-markup',
-  svelteBracketNewLine: false,
-  svelteAllowShorthand: false,
-  svelteIndentScriptAndStyle: false,
-  importOrder: ['^@lib/(.*)$', '', '^@components/(.*)$', '', '^[./]'],
-  importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
-  importOrderTypeScriptVersion: '5.0.0',
-  importOrderCaseSensitive: false,
+  // importOrder: ['^@lib/(.*)$', '', '^@components/(.*)$', '', '^[./]'],
+  // importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
+  // importOrderTypeScriptVersion: '5.0.0',
+  // importOrderCaseSensitive: false,
   overrides: [
     {
       files: '*.html',
@@ -65,15 +60,10 @@ const config = {
       },
     },
     {
-      files: '*.svelte',
-      options: {
-        parser: 'svelte',
-      },
-    },
-    {
       files: '*.json',
       options: {
         parser: 'json',
+        tabWidth: 4,
       },
     },
     {

@@ -1,36 +1,36 @@
 <script lang="ts">
-	import type { MarkComponentProps } from '@portabletext/svelte';
+import type { MarkComponentProps } from '@portabletext/svelte'
 
-	interface Props {
-		portableText: MarkComponentProps;
-		children?: import('svelte').Snippet;
-	}
+interface Props {
+  portableText: MarkComponentProps
+  children?: import('svelte').Snippet
+}
 
-	let { portableText, children }: Props = $props();
+let { portableText, children }: Props = $props()
 
-	let { markType } = $derived(portableText);
+let { markType } = $derived(portableText)
 </script>
 
 {#if markType === 'strong'}
-	<strong>
-		{@render children?.()}
-	</strong>
+  <strong>
+    {@render children?.()}
+  </strong>
 {:else if markType === 'em'}
-	<em>
-		{@render children?.()}
-	</em>
+  <em>
+    {@render children?.()}
+  </em>
 {:else if markType === 'code'}
-	<code>
-		{@render children?.()}
-	</code>
+  <code>
+    {@render children?.()}
+  </code>
 {:else if markType === 'underline'}
-	<span class="underline">
-		{@render children?.()}
-	</span>
+  <span class="underline">
+    {@render children?.()}
+  </span>
 {:else if markType === 'strike-through'}
-	<del>
-		{@render children?.()}
-	</del>
+  <del>
+    {@render children?.()}
+  </del>
 {:else}
-	{@render children?.()}
+  {@render children?.()}
 {/if}

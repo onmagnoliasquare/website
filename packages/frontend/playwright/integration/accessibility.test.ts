@@ -1,6 +1,6 @@
-import { expect, test } from '@playwright/test';
-import AxeBuilder from '@axe-core/playwright';
-import { pages } from '../parameters.ts';
+import { expect, test } from '@playwright/test'
+import AxeBuilder from '@axe-core/playwright'
+import { pages } from '../parameters.ts'
 
 /**
  * We'll disable color contrast for now. This will be fixed
@@ -13,13 +13,13 @@ import { pages } from '../parameters.ts';
  */
 
 for (const p of pages) {
-	test(`${p.testDescription} has no accessibility issues`, async ({ page }) => {
-		await page.goto(p.testUrl);
+  test(`${p.testDescription} has no accessibility issues`, async ({ page }) => {
+    await page.goto(p.testUrl)
 
-		const accessibilityScanResults = await new AxeBuilder({ page })
-			.disableRules(['color-contrast'])
-			.analyze();
+    const accessibilityScanResults = await new AxeBuilder({ page })
+      .disableRules(['color-contrast'])
+      .analyze()
 
-		expect(accessibilityScanResults.violations).toHaveLength(0);
-	});
+    expect(accessibilityScanResults.violations).toHaveLength(0)
+  })
 }
