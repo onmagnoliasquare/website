@@ -1,13 +1,29 @@
 import { db } from '$lib/database';
 import type {
+	ArticleSlugsQueryResults,
 	DetailedArticleQueryResult,
+	FetchArticleSlugsQueryResults,
 	FetchDetailedArticleQueryResult,
 	FetchHomepageArticleQueryResult,
+	FetchMemberSlugsQueryResult,
 	FetchScoredArticleQueryResults,
+	FetchSeriesSlugsQueryResults,
+	FetchTagSlugsQueryResults,
 	HomepageArticleQueryResult,
-	ScoredArticleQueryResults
+	MemberSlugsQueryResult,
+	ScoredArticleQueryResults,
+	SeriesSlugsQueryResults,
+	TagSlugsQueryResults
 } from '$lib/types/api';
-import { articlePage, homepageArticles, relatedArticlesTypeA } from './queries';
+import {
+	articlePage,
+	homepageArticles,
+	relatedArticlesTypeA,
+	sitemapArticles,
+	sitemapAuthors,
+	sitemapSeries,
+	sitemapTags
+} from './queries';
 
 export const fetchArticlePage = async (
 	slug: string,
@@ -37,4 +53,20 @@ export const fetchRelatedArticles = async (
 
 export const fetchHomepageArticles = async (): Promise<FetchHomepageArticleQueryResult> => {
 	return db.fetch<HomepageArticleQueryResult>(homepageArticles());
+};
+
+export const fetchMemberSlugs = async (): Promise<FetchMemberSlugsQueryResult> => {
+	return db.fetch<MemberSlugsQueryResult>(sitemapAuthors());
+};
+
+export const fetchTagSlugs = async (): Promise<FetchTagSlugsQueryResults> => {
+	return db.fetch<TagSlugsQueryResults>(sitemapTags());
+};
+
+export const fetchArticleSlugs = async (): Promise<FetchArticleSlugsQueryResults> => {
+	return db.fetch<ArticleSlugsQueryResults>(sitemapArticles());
+};
+
+export const fetchSeriesSlugs = async (): Promise<FetchSeriesSlugsQueryResults> => {
+	return db.fetch<SeriesSlugsQueryResults>(sitemapSeries());
 };

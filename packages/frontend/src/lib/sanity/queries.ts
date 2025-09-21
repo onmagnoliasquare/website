@@ -104,3 +104,32 @@ export const relatedArticlesTypeA = (): string => groq`
 			}
 		} //[ _score > 0 ]
 `;
+
+export const sitemapAuthors = (): string => groq`
+	*[type == "member"] {
+		slug,
+		updatedAt
+	}
+`;
+
+export const sitemapArticles = (): string => groq`
+	*[type == "article"] {
+		slug,
+		category->{slug->},
+		date,
+		updatedDate,
+	}
+`;
+
+export const sitemapSeries = (): string => groq`
+	*[type == "series"] {
+		slug,
+		date
+	}
+`;
+export const sitemapTags = (): string => groq`
+	*[type == "tag"] {
+		slug,
+		date
+	}
+`;

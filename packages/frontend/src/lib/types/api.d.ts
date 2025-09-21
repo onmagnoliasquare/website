@@ -14,11 +14,9 @@ export type BasicArticleQueryResult = {
 };
 
 export type FetchBasicArticleQueryResult = BasicArticleQueryResult;
-
 export type BasicArticleQueryResults = BasicArticleQueryResult[];
 
 export type FetchBasicArticleQueryResults = BasicArticleQueryResults;
-
 export type DetailedArticleQueryResult = BasicArticleQueryResult & {
 	updatedDate?: string;
 	content?: PortableTextBlock[];
@@ -26,7 +24,6 @@ export type DetailedArticleQueryResult = BasicArticleQueryResult & {
 	series?: Series;
 	metaInfo?: MetaInfo;
 };
-
 export type FetchDetailedArticleQueryResult = DetailedArticleQueryResult;
 
 export type ScoredArticleQueryResult = BasicArticleQueryResult & {
@@ -36,9 +33,24 @@ export type ScoredArticleQueryResult = BasicArticleQueryResult & {
 export type FetchScoredArticleQueryResult = ScoredArticleQueryResult;
 
 export type ScoredArticleQueryResults = ScoredArticleQueryResult[];
-
 export type FetchScoredArticleQueryResults = ScoredArticleQueryResults;
 
 export type HomepageArticleQueryResult = BasicArticleQueryResults;
-
 export type FetchHomepageArticleQueryResult = HomepageArticleQueryResult;
+
+export type MemberSlugsQueryResult = { slug: Slug }[];
+export type FetchMemberSlugsQueryResult = MemberSlugsQueryResult;
+
+export type TagSlugsQueryResults = { slug: Slug }[];
+export type FetchTagSlugsQueryResults = TagSlugQueryResults;
+
+export type ArticleSlugsQueryResults = {
+	slug: Slug;
+	date: string;
+	updatedDate?: string;
+	category: Category;
+}[];
+export type FetchArticleSlugsQueryResults = ArticleSlugsQueryResults;
+
+export type SeriesSlugsQueryResults = { slug: Slug }[];
+export type FetchSeriesSlugsQueryResults = SeriesSlugsQueryResults;
