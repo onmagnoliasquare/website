@@ -21,21 +21,21 @@
   },
   "dependencies": {
     "@sanity/icons": "^3.7.4",
-    "@sanity/ui": "^3.1.0",
-    "@sanity/vision": "^4.8.1",
+    "@sanity/ui": "^3.1.4",
+    "@sanity/vision": "^4.9.0",
     "@superside-oss/sanity-plugin-copy-paste": "^1.0.3",
     "archiver-utils": "^5.0.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-is": "^19.1.1",
-    "sanity": "^4.8.1",
+    "sanity": "^4.9.0",
     "sanity-plugin-media": "^4.0.0",
     "styled-components": "^6.1.19"
   },
   "devDependencies": {
-    "@sanity/cli": "^4.8.1",
+    "@sanity/cli": "^4.9.0",
     "@sanity/eslint-config-studio": "^5.0.2",
     "@types/react": "^19.1.13",
-    "eslint": "^9.35.0"
+    "eslint": "^9.36.0"
   }
 }
