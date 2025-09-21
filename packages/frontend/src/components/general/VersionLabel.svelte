@@ -5,26 +5,29 @@ information.
 -->
 
 <script lang="ts">
-	import { version as commitSha, dev } from '$app/environment';
+	import { version as commitSha } from '$app/environment';
 
-	const development = dev || import.meta.env.MODE === 'development';
+	const development = import.meta.env.DEV || import.meta.env.MODE === 'development';
 	const staging = import.meta.env.MODE === 'staging';
+	const production = import.meta.env.MODE === 'production' || import.meta.env.PROD;
 
 	// eslint-disable-next-line no-undef
 	const semver = __ONMAGNOLIASQUARE_FRONTEND_VERSION__;
 	const sha = commitSha.slice(0, 12);
 </script>
 
-<div class="font-mono text-sm">
-	{#if development}
-		<a href={`https://github.com/onmagnoliasquare/website`} target="_blank">dev@HEAD</a>
+<div id="site-version" class="font-mono text-sm">
+	{#if production}
+		<a href={`https://github.com/onmagnoliasquare/website/releases/tag/${semver}`} target="_blank">
+			<span>v{semver}</span>
+		</a>
 	{:else if staging}
 		<a href={`https://github.com/onmagnoliasquare/website/tree/staging`} target="_blank">
 			<span>staging@{sha}</span>
 		</a>
+	{:else if development}
+		<a href={`https://github.com/onmagnoliasquare/website`} target="_blank">dev@HEAD</a>
 	{:else}
-		<a href={`https://github.com/onmagnoliasquare/website/releases/tag/${semver}`} target="_blank">
-			<span>v{semver}</span>
-		</a>
+		Invalid environment
 	{/if}
 </div>

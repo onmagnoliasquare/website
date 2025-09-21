@@ -9192,6 +9192,7 @@ __metadata:
     tailwindcss: "npm:^4.1.13"
     typescript: "npm:^5.9.2"
     vite: "npm:^7.1.6"
+    vitest: "npm:^3.2.4"
     wrangler: "npm:^4.38.0"
   languageName: unknown
   linkType: soft
