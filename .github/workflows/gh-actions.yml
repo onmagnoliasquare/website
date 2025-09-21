@@ -1,0 +1,77 @@
+name: "GH Actions"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - dev
+    paths:
+      - ".github/workflows/**"
+      - ".github/actions/**/*"
+  pull_request:
+    branches:
+      - dev
+    paths:
+      - ".github/workflows/**"
+      - ".github/actions/**/*"
+  merge_group:
+    branches:
+      - dev
+# ==============================================================================
+# SPDX-SnippetBegin
+# SPDX-FileCopyrightText: 2025 Google LLC <https://www.google.com>
+# SPDX-License-Identifier: Apache-2.0
+permissions:
+  checks: "write"
+  contents: "read"
+  statuses: "write"
+defaults:
+  run:
+    shell: "bash"
+env:
+  ACTIONLINT_VERSION: "1.7.7"
+  SHELLCHECK_VERSION: "0.11.0"
+  YAMLLINT_VERSION: "1.37.1"
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  lint:
+    name: "Lint"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8" # ratchet:actions/checkout@v5
+        with:
+          fetch-depth: 1
+      - name: "Install shellcheck" # Actionlint uses shellcheck
+        run: |-
+          mkdir -p "${RUNNER_TEMP}/shellcheck"
+          curl -sSLo "${RUNNER_TEMP}/.shellcheck.txz" "https://github.com/koalaman/shellcheck/releases/download/v${SHELLCHECK_VERSION}/shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz"
+          tar -xf "${RUNNER_TEMP}/.shellcheck.txz" -C "${RUNNER_TEMP}/shellcheck" --strip-components=1
+          echo "${RUNNER_TEMP}/shellcheck" >> "${GITHUB_PATH}"
+      - name: "Install actionlint"
+        run: |-
+          mkdir -p "${RUNNER_TEMP}/actionlint"
+          curl -sSLo "${RUNNER_TEMP}/.actionlint.tgz" "https://github.com/rhysd/actionlint/releases/download/v${ACTIONLINT_VERSION}/actionlint_${ACTIONLINT_VERSION}_linux_amd64.tar.gz"
+          tar -xzf "${RUNNER_TEMP}/.actionlint.tgz" -C "${RUNNER_TEMP}/actionlint"
+          echo "${RUNNER_TEMP}/actionlint" >> "${GITHUB_PATH}"
+      # For actionlint, we specifically ignore shellcheck rules that are
+      # annoying or unhelpful. See the shellcheck action for a description.
+      - name: "Run actionlint"
+        run: |-
+          actionlint \
+            -color \
+            -format '{{range $err := .}}::error file={{$err.Filepath}},line={{$err.Line}},col={{$err.Column}}::{{$err.Filepath}}@{{$err.Line}} {{$err.Message}}%0A```%0A{{replace $err.Snippet "\\n" "%0A"}}%0A```\n{{end}}' \
+            -ignore 'SC2002:' \
+            -ignore 'SC2016:' \
+            -ignore 'SC2129:' \
+            -ignore 'label ".+" is unknown'
+      - name: "Run ratchet"
+        uses: "sethvargo/ratchet@8b4ca256dbed184350608a3023620f267f0a5253" # ratchet:sethvargo/ratchet@v0.11.4
+        with:
+          files: |-
+            .github/workflows/*.yml
+            .github/actions/**/*.yml
+
+# SPDX-SnippetEnd
+# ==============================================================================
