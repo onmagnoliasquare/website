@@ -8,4 +8,4 @@ interface Props {
 let { children }: Props = $props()
 </script>
 
-<div class="center">{@render children?.()}</div>
+<div class="center">{@render children()}</div>

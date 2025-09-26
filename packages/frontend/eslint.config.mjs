@@ -24,7 +24,10 @@ export default defineConfig([
     ],
     languageOptions: {
       parser: svelteParser,
-      // Parse the `<script>` in `.svelte` as TypeScript by adding the following configuration.
+      /**
+       * Declare some parser options to parse the `<script>` portions of
+       * `.svelte` type files.
+       */
       parserOptions: {
         tsconfigRootDir: import.meta.dirname,
         parser: tsParser,

@@ -15,7 +15,7 @@ export const load: PageServerLoad = (async () => {
   })
 
   try {
-    tags = (await sanityFetch(sanityQuery)) as Tag[] | undefined
+    tags = (await sanityFetch(sanityQuery))
   } catch (err) {
     if (dev) {
       console.log(err)

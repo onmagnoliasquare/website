@@ -35,7 +35,7 @@ export const GET: RequestHandler = async ({ url, params }) => {
   }
 
   try {
-    seriesPage = (await sanityFetch(sanityQuery)) as Series | Article[]
+    seriesPage = (await sanityFetch(sanityQuery))
   } catch (err) {
     if (dev) {
       console.error(err)

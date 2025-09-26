@@ -20,7 +20,7 @@ interface Props {
 
 let { data, children }: Props = $props()
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+// @ts-expect-error -- this follows the documentation for svelte-meta-tags.
 let metaTags = $derived(deepMerge(data.baseMetaTags, page.data.pageMetaTags))
 </script>
 

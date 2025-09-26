@@ -7,7 +7,14 @@ const config = {
   // Consult https://kit.svelte.dev/docs/integrations#preprocessors
   // for more information about preprocessors
   preprocess: vitePreprocess(),
+  compilerOptions: {
+    dev: true,
+    modernAst: true,
+  },
   kit: {
+    paths: {
+      relative: true,
+    },
     adapter: adapterCloudflare({
       config: './wrangler.toml',
     }),

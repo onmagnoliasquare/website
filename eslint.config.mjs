@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import js from '@eslint/js'
 import globals from 'globals'
-import { defineConfig } from 'eslint/config'
+import { defineConfig, globalIgnores } from 'eslint/config'
 import { includeIgnoreFile } from '@eslint/compat'
 import ts from 'typescript-eslint'
 import { fileURLToPath } from 'node:url'
@@ -12,6 +14,9 @@ const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url))
 
 export default defineConfig([
   includeIgnoreFile(gitignorePath),
+  // Ignore test files because they follow a particular DSL that doesn't
+  // conform to ESLint's proclivities.
+  globalIgnores(['**/*.test.ts', '**/playwright/**']),
   {
     languageOptions: {
       parser: tsParser,

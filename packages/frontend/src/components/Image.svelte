@@ -69,9 +69,8 @@ let ImageBuilder: ImageUrlBuilder = urlFor(media)
   alt={alt}
   layout="constrained"
   class={className}
-  aspectRatio={aspectRatio ? aspectRatio : width / height}
+  aspectRatio={aspectRatio ?? width / height}
   width={width}
   priority={priority}
   loading={loading}
-  background={placeholder}
-/>
+  background={placeholder} />

@@ -25,7 +25,7 @@ let observer: IntersectionObserver | null =
           entries.forEach(entry => {
             if (entry.intersectionRatio >= threshold) {
               loaded = true
-              observer!.disconnect()
+              observer?.disconnect()
             }
           })
         },

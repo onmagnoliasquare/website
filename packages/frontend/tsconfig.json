@@ -1,5 +1,5 @@
 {
-    "extends": ["./.svelte-kit/tsconfig.json", "../../tsconfig.base.json"],
+    "extends": ["./.svelte-kit/tsconfig.json"],
     "compilerOptions": {
         "allowJs": true,
         "checkJs": true,
@@ -14,13 +14,16 @@
         "noUnusedLocals": true,
         "allowImportingTsExtensions": true,
         "verbatimModuleSyntax": true,
-        "types": ["@testing-library/jest-dom"]
+        "types": ["@testing-library/jest-dom", "vitest/globals"]
     },
-    "include": ["./**/*"],
-    "exclude": ["node_modules", ".vscode", "dist", ".svelte-kit", "coverage", ".wrangler"]
+    "include": ["./**/*", "../../../eslint.config.mjs", "../../../lint-staged.config.mjs"],
+    "exclude": ["node_modules/**/*", ".vscode/", "dist/", "coverage/", ".wrangler/"]
     // Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
     //
-    // If you want to overwrite includes/excludes, make sure to copy over the relevant includes/excludes
-    // from the referenced tsconfig.json - TypeScript does not merge them in
-    //ou can try setting the 'moduleResolution' option to 'node' in your tsconfig.json file or adding aliases to the 'paths' option to resolve this issue.
+    // If you want to overwrite includes/excludes, make sure to copy over the
+    // relevant includes/excludes from the referenced tsconfig.json as
+    // TypeScript does not merge them in. You can try setting the
+    // 'moduleResolution' option to 'node' in your tsconfig.json file or
+    // adding aliases to the 'paths' option to resolve
+    // this issue.
 }

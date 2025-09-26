@@ -25,7 +25,7 @@ import type {
  *   - Tag slugs
  */
 
-export const GET: RequestHandler = async ({ params }) => {
+export const GET: RequestHandler = async (/*{ params }*/) => {
   let memberSlugs: MemberSlugsQueryResult
   let tagSlugs: TagSlugsQueryResults
   let articleSlugs: ArticleSlugsQueryResults
@@ -48,7 +48,6 @@ export const GET: RequestHandler = async ({ params }) => {
 
   const config: SitemapConfig = {
     origin: site.url,
-    page: params.page,
     paramValues: {
       '/about/staff/[slug]': [...memberSlugs.map(v => v.slug.current)],
       '/archive/tags/[slug]': [

@@ -7,12 +7,11 @@
   padding: 0;
   align-items: end;
 }
-
-.breadcrumb li:not(:first-child)::before {
-  content: '→';
-  margin-right: 3px;
-  margin-left: 3px;
-}
+/* .breadcrumb li:not(:first-child)::before { */
+/*   content: '→'; */
+/*   margin-right: 3px; */
+/*   margin-left: 3px; */
+/* } */
 </style>
 
 <script lang="ts">
@@ -27,6 +26,6 @@ const { children }: Props = $props()
 
 <div class="p-1">
   <ol aria-label="breadcrumbs" class="breadcrumb text-sm font-medium text-neutral-600">
-    {@render children?.()}
+    {@render children()}
   </ol>
 </div>

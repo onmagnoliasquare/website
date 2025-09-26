@@ -17,6 +17,7 @@ let { authors }: Props = $props()
   </a>
 {/snippet}
 
+<!-- eslint-disable @typescript-eslint/no-confusing-void-expression -->
 {#if authors.length === 1}
   {@render authorElm(authors[0])}
 {:else if authors.length === 2}

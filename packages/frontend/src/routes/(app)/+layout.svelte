@@ -1,7 +1,7 @@
 <script lang="ts">
 /**
  * ======== MAIN LAYOUT ========
- * */
+ */
 import { page } from '$app/state'
 import type { Snippet } from 'svelte'
 import { createSiteTitle } from '$lib/helpers'
@@ -13,7 +13,7 @@ interface Props {
 }
 
 let { children }: Props = $props()
-const title = $derived(page.data.title as string)
+const title = $derived(page.data.title ?? site.title)
 </script>
 
 <svelte:head>
