@@ -8,14 +8,13 @@ derivatives, but rather topical pages like categories.
 import type { Snippet } from 'svelte'
 
 interface Props {
-  children?: Snippet
+  children: Snippet
 }
 
 let { children }: Props = $props()
 </script>
 
 <h1
-  class="font-display font-black text-4xl lg:text-8xl tracking-tight p-1 select-none font-stretch-condensed w-fit"
->
-  {@render children?.()}
+  class="font-display font-black text-4xl lg:text-8xl tracking-tight p-1 select-none font-stretch-condensed w-fit">
+  {@render children()}
 </h1>

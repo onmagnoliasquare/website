@@ -97,7 +97,7 @@ async function getRelatedArticles(): Promise<FetchScoredArticleQueryResults> {
         <P>{error}</P>
       {/await}
     </div>
-    <aside class="sm:sticky top-4 h-fit col-span-2" aria-label="Recent Articles">
+    <div class="sm:sticky top-4 h-fit col-span-2" aria-label="Recent Articles">
       <h2 class="text-lg font-display p-4 font-bold">Recent {categoryName}</h2>
       <ol class="p-2">
         {#each recent() as r}
@@ -116,6 +116,6 @@ async function getRelatedArticles(): Promise<FetchScoredArticleQueryResults> {
           </li>
         {/each}
       </ol>
-    </aside>
+    </div>
   </div>
 </aside>

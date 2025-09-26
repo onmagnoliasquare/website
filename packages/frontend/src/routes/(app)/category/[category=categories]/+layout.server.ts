@@ -27,10 +27,10 @@ export const load: LayoutServerLoad = (async (event: ServerLoadEvent) => {
     [0, 20]
   )
 
-  let articlesReq: Response
+  let articles: Article[] | null
 
   try {
-    articlesReq = (await sanityFetch(sanityQuery))
+    articles = await sanityFetch<Article[] | null>(sanityQuery)
   } catch (err: unknown) {
     if (dev) {
       console.error(err)
@@ -38,7 +38,6 @@ export const load: LayoutServerLoad = (async (event: ServerLoadEvent) => {
     error(500)
   }
 
-  const articles = (await articlesReq.json()) as Article[] | null
   if (!articles) {
     error(404)
   }

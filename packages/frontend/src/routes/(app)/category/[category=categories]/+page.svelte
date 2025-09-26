@@ -10,17 +10,8 @@ interface Props {
 
 let { data }: Props = $props()
 
-/**
- * In Svelte versions below v5, `$` was needed for dynamic routes
- * to reload the content of the pages.
- * See: https://stackoverflow.com/questions/75756247/dynamic-routes-dont-refresh-when-navigation-between-them
- * Nowadays, use the `$derived` and `$state` syntax. See:
- * https://svelte.dev/docs/kit/state-management#Component-and-page-state-is-preserved.
- * `$derived` is used here rather than `$state` because `$derived` is for
- * values that are derived from state changes, like API data.
- */
-let category = $derived(data.cat)
-let articles = $derived(data.articles)
+const category = $derived(data.cat)
+const articles = $derived(data.articles)
 </script>
 
 <div class="m-2 p-2">
@@ -29,7 +20,7 @@ let articles = $derived(data.articles)
   {#key category._id}
     <div class="flex flex-row space-x-1">
       <div class="inline">
-        <PageHeader>{data.category}</PageHeader>
+        <PageHeader>{category.name}</PageHeader>
       </div>
     </div>
     <div class="m-1 p-2 max-w-3xl">
