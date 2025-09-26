@@ -132,6 +132,8 @@ jobs:
 
       - name: Frontend linting
         if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
+        env:
+          NODE_OPTIONS: "--max-old-space-size=8192"
         run: yarn lint:front
 
       # Check if there are any errors in the SvelteKit code.
