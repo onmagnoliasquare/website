@@ -146,7 +146,7 @@ jobs:
         run: yarn workspace frontend build:development
 
       - name: cms linting
-        if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
+        if: ${{ needs.changes.outputs.cms == 'true' && github.event_name == 'pull_request' }}
         run: yarn lint:cms
 
       - name: Build cms for development
