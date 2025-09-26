@@ -87,3 +87,5 @@ vite.config.ts.timestamp-*
 # Testing
 coverage
 test-results
+
+cspell.json
