@@ -17,7 +17,7 @@ let cityName: string | undefined = $state()
 
 if (location.country) {
   flagEmoji = getFlagEmoji(location.country)
-  countryName = getCountryName(location.country, locale) as string
+  countryName = getCountryName(location.country, locale) ?? 'Somewhere in the world...'
 }
 
 if (location.region) {

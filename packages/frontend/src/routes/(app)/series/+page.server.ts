@@ -18,7 +18,7 @@ export const load: PageServerLoad = (async () => {
   })
 
   try {
-    series = (await sanityFetch(sanityQuery)) as Series[] | undefined
+    series = (await sanityFetch(sanityQuery))
   } catch (err) {
     console.error(err)
     error(500, 'Server network error...')

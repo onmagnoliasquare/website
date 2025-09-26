@@ -38,7 +38,7 @@ export const GET: RequestHandler = async ({ url, params }) => {
   }
 
   try {
-    memberPage = (await sanityFetch(sanityQuery)) as Member | Article[]
+    memberPage = await sanityFetch(sanityQuery)
   } catch (err) {
     if (dev) {
       console.error(err)

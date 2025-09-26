@@ -1,9 +1,10 @@
 <script lang="ts">
 import type { ListComponentProps } from '@portabletext/svelte'
+import type { Snippet } from 'svelte'
 
 interface Props {
   portableText: ListComponentProps
-  children?: import('svelte').Snippet
+  children: Snippet
 }
 
 let { portableText, children }: Props = $props()
@@ -14,8 +15,8 @@ let { listItem } = $derived(value)
 
 <div class="p-1 sm:m-1">
   {#if listItem === 'number'}
-    <ol class="list list-inside list-decimal">{@render children?.()}</ol>
+    <ol class="list list-inside list-decimal">{@render children()}</ol>
   {:else}
-    <ul class="list list-inside list-disc">{@render children?.()}</ul>
+    <ul class="list list-inside list-disc">{@render children()}</ul>
   {/if}
 </div>

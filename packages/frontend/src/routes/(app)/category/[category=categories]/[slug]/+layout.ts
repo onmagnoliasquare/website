@@ -16,16 +16,17 @@ export const load: LayoutLoad = (async (event: LayoutLoadEvent) => {
    */
   try {
     req = await event.fetch(`/api/article?category=${category}&slug=${slug}`)
-  } catch (err) {
-    if (dev) {
-      console.log(err)
+  } catch (err: unknown) {
+    if (dev && err instanceof Error) {
+      console.log(err.name, err.message, err.cause)
     }
     error(404, 'Article not found 🔍')
   }
 
-  const article = (await req.json()) as DetailedArticleQueryResult | undefined
-
-  // Extract article text.
+  const article = (await req.json()) as DetailedArticleQueryResult | null
+  if (!article) {
+    error(404, 'Article not found 🔍')
+  }
 
   return {
     article,

@@ -42,7 +42,7 @@ export const GET: RequestHandler = async ({ url, params }) => {
   }
 
   try {
-    tagPage = (await sanityFetch(sanityQuery)) as Tag
+    tagPage = await sanityFetch(sanityQuery)
   } catch (err) {
     if (dev) {
       console.error(err)

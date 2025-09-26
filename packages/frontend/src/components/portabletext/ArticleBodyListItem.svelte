@@ -11,6 +11,6 @@ let { children }: Props = $props()
 
 <li class="mb-1 pb-1">
   <P class="leading-6 sm:leading-7 inline">
-    {@render children?.()}
+    {@render children()}
   </P>
 </li>

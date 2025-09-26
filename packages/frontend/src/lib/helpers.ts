@@ -5,12 +5,12 @@
 
 import type { CustomImageAsset, Member, MetaInfo } from './schema'
 
+const dateOnlyRegex =
+  /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])))$/
+
 // Retrieved from:
 // https://medium.com/@sungbinkim98/is-your-javascript-date-one-day-off-c56afb37e4bc
 function parseDateString(dateString: string) {
-  const dateOnlyRegex =
-    /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])))$/
-
   if (dateOnlyRegex.test(dateString)) {
     const utcDate = new Date(dateString)
     const localDate = new Date(utcDate.getTime() + utcDate.getTimezoneOffset() * 60000)
@@ -90,9 +90,7 @@ export const createAuthorString = (a: Member[]): string => {
  * @param slug The author's unique slug string from Sanity
  * @returns A string representing the full URL to the author's profile page
  */
-export const createAuthorLink = (url: string, slug: string): string => {
-  return `${url}/about/staff/${slug}`
-}
+export const createAuthorLink = (url: string, slug: string): string => `${url}/about/staff/${slug}`
 
 /**
  * createSiteTitle creates a formatted site title by appending
@@ -102,15 +100,10 @@ export const createAuthorLink = (url: string, slug: string): string => {
  * @param title - An optional title to append
  * @returns A formatted string representing the complete site title
  */
-export const createSiteTitle = (name: string, title?: string): string => {
-  if (title) {
-    // The dash below is an EN-DASH (U+2013)
-    // More: https://www.fileformat.info/info/unicode/char/2013/index.htm
-    return `${title} – ${name}`
-  }
-
-  return name
-}
+export const createSiteTitle = (name: string, title?: string): string =>
+  // The dash below is an EN-DASH (U+2013)
+  // More: https://www.fileformat.info/info/unicode/char/2013/index.htm
+  title ? `${title} – ${name}` : name
 
 /**
  * getFlagEmoji retrieves the flag emoji of a specified
@@ -120,14 +113,11 @@ export const createSiteTitle = (name: string, title?: string): string => {
  * @param countryCode ISO-3166 alpha-2 format country code
  * @returns `string` flag emoji
  */
-export const getFlagEmoji = (countryCode: string): string => {
-  return (
-    countryCode
-      .toUpperCase()
-      //@ts-expect-error for nonsense.
-      .replace(/./g, char => String.fromCodePoint(127397 + char.charCodeAt()))
-  )
-}
+export const getFlagEmoji = (countryCode: string): string =>
+  countryCode
+    .toUpperCase()
+    //@ts-expect-error for nonsense.
+    .replace(/./g, char => String.fromCodePoint(127397 + char.charCodeAt()))
 
 /**
  * getCountryName retrieves the country name of

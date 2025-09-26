@@ -12,11 +12,10 @@ function toggleNavbar() {
 
 <header>
   <div class="w-full max-w-7xl center border-0 lg:border-x-1 lg:border-dotted pt-4 sm:mb-0 sm:pb-0">
-    <div
-      class="flex flex-row sm:block md:border-b-0 {showMenu
-        ? 'border-b-0'
-        : 'border-b-1'} sm:border-0 items-center pb-4 sm:pb-0"
-    >
+    <div>
+      <!-- eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -->
+      class="flex flex-row sm:block md:border-b-0 {showMenu ? 'border-b-0' : 'border-b-1'} sm:border-0
+      items-center pb-4 sm:pb-0">
       <div class="p-2 my-2 ml-1">
         <SiteTitle />
       </div>
@@ -31,13 +30,11 @@ function toggleNavbar() {
             viewBox="0 0 24 24"
             stroke-width="2.5"
             stroke="currentColor"
-            class="w-6 h-6"
-          >
+            class="w-6 h-6">
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-            />
+              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
           </svg>
         </button>
       </div>

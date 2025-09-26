@@ -15,6 +15,10 @@ let link = parseEmbedLink(portableText.value.contentUrl)
 
 <div class="my-1 py-2">
   {#if link.name == 'spotify'}
-    <SpotifyEmbed spotifyPath={link.path!} />
+    {#if link.path}
+      <SpotifyEmbed spotifyPath={link.path} />
+    {:else}
+      <p>Link path not provided :(</p>
+    {/if}
   {/if}
 </div>

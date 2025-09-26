@@ -16,10 +16,10 @@ export class Database {
     try {
       res = await this.client.fetch<T>(query, { ...params })
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        res = await Promise.reject(new Error('query failure', { cause: err.message }))
-      }
-      res = await Promise.reject(new Error(`Query failed, review query: ${query} - Unknown error`))
+      res =
+        err instanceof Error
+          ? await Promise.reject(new Error('query failure', { cause: err.message }))
+          : await Promise.reject(new Error('query failure', { cause: 'unknown' }))
     }
     return res
   }
