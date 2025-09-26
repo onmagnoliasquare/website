@@ -130,16 +130,16 @@ jobs:
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
 
+      # Check if there are any errors in the SvelteKit code.
+      - name: SvelteKit check
+        if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
+        run: yarn workspace frontend check
+
       - name: Frontend linting
         if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
         env:
           NODE_OPTIONS: "--max-old-space-size=8192"
         run: yarn workspace frontend lint
-
-      # Check if there are any errors in the SvelteKit code.
-      - name: SvelteKit check
-        if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
-        run: yarn workspace frontend check
 
       - name: Build frontend for development
         if: ${{ needs.changes.outputs.frontend == 'true' }}
