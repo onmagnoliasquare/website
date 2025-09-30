@@ -130,7 +130,7 @@ jobs:
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
 
-      # Check if there are any errors in the SvelteKit code.
+      # Run this BEFORE Eslint, since `check` generates a tsconfig.
       - name: SvelteKit check
         if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
         run: yarn workspace frontend check
@@ -299,7 +299,7 @@ jobs:
 
   deploy-development:
     name: Deploy to development environment
-    if: ${{ github.event_name == 'push' && github.ref_name == 'dev' }}
+    if: ${{ (github.event_name == 'push' || github.event_name == 'merge_queue') && github.ref_name == 'dev' }}
     env:
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
@@ -337,7 +337,7 @@ jobs:
 
   merge-dev-to-staging:
     name: Fast-Forward Merge dev to staging
-    if: ${{ github.event_name == 'push' && github.ref_name == 'dev' }}
+    if: ${{ (github.event_name == 'push' || github.event_name == 'merge_queue') && github.ref_name == 'dev' }}
     needs: [deploy-development, test-int, test-e2e]
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
     permissions:
@@ -366,7 +366,7 @@ jobs:
 
   deploy-staging:
     name: Deploy to staging environment
-    if: ${{ github.event_name == 'push' && github.ref_name == 'dev' }}
+    if: ${{ (github.event_name == 'push' || github.event_name == 'merge_queue') && github.ref_name == 'dev' }}
     needs: [changes, merge-dev-to-staging]
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
     environment: staging
