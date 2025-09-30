@@ -1,4 +1,4 @@
-import {defineType} from 'sanity'
+import {defineType, type Image} from 'sanity'
 import requiredFormattedString from '../primitives/requiredFormattedString'
 import formattedText from '../primitives/formattedText'
 import formattedString from '../primitives/formattedString'
@@ -22,9 +22,9 @@ export default defineType({
           name: 'alt',
           type: requiredFormattedString.name,
           title: 'Alt text',
-          hidden: ({parent}) => !parent?.asset,
+          hidden: ({parent}) => !(parent as Image)?.asset,
           // See: https://www.wcag.com/blog/good-alt-text-bad-alt-text-making-your-content-perceivable/
-          validation: (rule) =>
+          validation: rule =>
             rule.max(125).warning('Try to keep alt text less than 125 characters.'),
         },
         {
@@ -32,14 +32,14 @@ export default defineType({
           type: formattedText.name,
           title: 'Description',
           description: 'Optional description.',
-          hidden: ({parent}) => !parent?.asset,
+          hidden: ({parent}) => !(parent as Image)?.asset,
         },
         {
           name: 'attributions',
           type: formattedString.name,
           title: 'Attributions',
           description: 'Image credits.',
-          hidden: ({parent}) => !parent?.asset,
+          hidden: ({parent}) => !(parent as Image)?.asset,
         },
       ],
     },

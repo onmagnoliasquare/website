@@ -10,5 +10,5 @@ import checkBannedTags from '../../lib/checkBannedTags'
 export default defineType({
   name: 'seoMetadataTagText',
   type: 'string',
-  validation: (rule) => rule.required().custom(checkWhitespace()).custom(checkBannedTags()).error(),
+  validation: rule => rule.required().custom(checkWhitespace()).custom(checkBannedTags()).error(),
 })

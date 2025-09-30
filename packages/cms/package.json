@@ -7,17 +7,13 @@
     "start": "sanity start",
     "preview": "wrangler dev dist",
     "build": "sanity build",
+    "lint": "eslint .",
+    "format": "prettier --write .",
     "test": "run -T vitest",
     "test-ci:unit": "run -T vitest run --pool forks --poolOptions.forks.singleFork",
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy",
     "copy-prod-to-dev": "npx sanity dataset export production ./prod_data.tar.gz && npx sanity dataset delete development && npx sanity dataset create development && npx sanity dataset import ./prod_data.tar.gz development --replace "
-  },
-  "prettier": {
-    "semi": false,
-    "printWidth": 100,
-    "bracketSpacing": false,
-    "singleQuote": true
   },
   "dependencies": {
     "@sanity/icons": "^3.7.4",
@@ -34,9 +30,12 @@
   },
   "devDependencies": {
     "@sanity/cli": "^4.10.1",
-    "@sanity/eslint-config-studio": "^5.0.2",
+    "@sanity/eslint-config-studio": "5.0.2",
+    "@sanity/prettier-config": "2.0.1",
     "@types/react": "^19.1.16",
     "eslint": "^9.36.0",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14",
     "wrangler": "^4.40.2"
   }
 }

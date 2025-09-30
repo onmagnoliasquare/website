@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import {defineField, defineType, type Image} from 'sanity'
 import {HtmlDescription} from '../../components/HtmlDescription'
 import requiredFormattedString from '../primitives/requiredFormattedString'
 import formattedText from '../primitives/formattedText'
@@ -56,8 +56,9 @@ export default defineType({
       description:
         'Optional. Text in this field becomes the <meta> description of the web page. If not set, a generic default description will be used.',
       type: formattedText.name,
-      //@ts-expect-error ts(2353)
-      rows: 2,
+      options: {
+        rows: 2,
+      },
       validation: (rule) => rule.max(160),
     }),
 
@@ -72,7 +73,7 @@ export default defineType({
           name: 'alt',
           type: requiredFormattedString.name,
           title: 'Alt text',
-          hidden: ({parent}) => !parent?.asset,
+          hidden: ({parent}) => !(parent as Image)?.asset,
         },
       ],
     }),

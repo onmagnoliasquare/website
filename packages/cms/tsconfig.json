@@ -1,7 +1,6 @@
 {
-	"extends": ["../../tsconfig.base.json"],
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -9,13 +8,23 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "incremental": true,
+    "composite": true
   },
-  "include": ["./**/*"],
-  "exclude": ["node_modules", "dist", ".sanity"]
+  "include": ["./**/*.ts", "./**/*.tsx"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    ".sanity",
+    "scripts/**/*",
+    "eslint.config.mjs",
+    "lint-staged.config.mjs"
+  ]
 }

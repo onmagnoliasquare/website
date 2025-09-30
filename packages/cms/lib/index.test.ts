@@ -29,7 +29,7 @@ describe('abbreviateName', () => {
     '%s -> %s',
     (input, output) => {
       expect(abbreviateName(input)).toBe(output)
-    },
+    }
   )
 })
 
@@ -59,7 +59,7 @@ describe('checkBannedTags', () => {
     '%s -> %s',
     (input, output) => {
       expect(validator(input)).toBe(output)
-    },
+    }
   )
 })
 
@@ -92,7 +92,7 @@ describe('checkWhitespace', () => {
     //@ts-expect-error TS(2345)
     (input, output) => {
       expect(validator(input)).toBe(output)
-    },
+    }
   )
 })
 

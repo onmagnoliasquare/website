@@ -1,10 +1,10 @@
 import {UsersIcon} from '@sanity/icons'
+import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 import {defineField, defineType} from 'sanity'
 import slugValidator from '../../lib/slugValidator'
-import requiredFormattedText from '../primitives/requiredFormattedText'
 import metadataInformation from '../objects/metadataInformation'
 import requiredFormattedString from '../primitives/requiredFormattedString'
-import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
+import requiredFormattedText from '../primitives/requiredFormattedText'
 
 export default defineType({
   name: 'committee',

@@ -4,7 +4,7 @@
  * catch user errors creating incorrect formatting in the frontend, and
  * essentially sanitizing the dataset of useless whitespace. This function is
  * used in Sanity schemas as an argument to `rule.custom()`.
- * @returns boolean or string
+ * @returns CustomValidatorResult
  */
 export default function checkWhitespace() {
   return function checkWhitespaceValidator<RuleType>(value: RuleType) {
@@ -13,9 +13,9 @@ export default function checkWhitespace() {
     }
 
     if ((value as string).trim().length !== (value as string).length) {
-      return 'Remove spaces before or after string'
+      return {message: 'Remove spaces before or after string'}
     }
 
-    return value && true
+    return true
   }
 }

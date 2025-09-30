@@ -3,7 +3,7 @@ import defineStructure from '../lib/defineStructure'
 import {TagIcon, StackIcon, CalendarIcon, SearchIcon, TiersIcon, UserIcon} from '@sanity/icons'
 import {studioApiVersion} from '../lib/environment'
 
-export default defineStructure<ListItemBuilder>((S) =>
+export default defineStructure<ListItemBuilder>(S =>
   S.listItem()
     .title('Browse Articles')
     .icon(SearchIcon)
@@ -17,13 +17,13 @@ export default defineStructure<ListItemBuilder>((S) =>
             .child(
               S.documentTypeList('member')
                 .title('Authors')
-                .child((authorId) =>
+                .child(authorId =>
                   S.documentList()
                     .title('Articles')
                     .apiVersion(studioApiVersion)
                     .filter('_type == "article" && $authorId in authors[]._ref')
-                    .params({authorId}),
-                ),
+                    .params({authorId})
+                )
             ),
           S.listItem()
             .title('Category')
@@ -31,13 +31,13 @@ export default defineStructure<ListItemBuilder>((S) =>
             .child(
               S.documentTypeList('category')
                 .title('Categories')
-                .child((categoryId) =>
+                .child(categoryId =>
                   S.documentList()
                     .title('Articles')
                     .apiVersion(studioApiVersion)
                     .filter('_type == "article" && $categoryId == category._ref')
-                    .params({categoryId}),
-                ),
+                    .params({categoryId})
+                )
             ),
           S.listItem()
             .title('Series')
@@ -45,13 +45,13 @@ export default defineStructure<ListItemBuilder>((S) =>
             .child(
               S.documentTypeList('series')
                 .title('Series')
-                .child((seriesId) =>
+                .child(seriesId =>
                   S.documentList()
                     .title('Articles')
                     .apiVersion(studioApiVersion)
                     .filter('_type == "article" && $seriesId == series._ref')
-                    .params({seriesId}),
-                ),
+                    .params({seriesId})
+                )
             ),
           S.listItem()
             .title('Tag')
@@ -59,26 +59,26 @@ export default defineStructure<ListItemBuilder>((S) =>
             .child(
               S.documentTypeList('tag')
                 .title('Tags')
-                .child((tagId) =>
+                .child(tagId =>
                   S.documentList()
                     .title('Articles')
                     .apiVersion(studioApiVersion)
                     .filter('_type == "article" && $tagId in tags[]._ref')
-                    .params({tagId}),
-                ),
+                    .params({tagId})
+                )
             ),
           S.listItem()
             .title('Year')
             .icon(CalendarIcon)
             .child(S.list().title('Years').items(generateYearList(S))),
-        ]),
-    ),
+        ])
+    )
 )
 
 const generateYearList = (
   S: StructureBuilder,
   firstYear: Date = new Date('2014-02-01T00:00:00Z'),
-  currentYear: Date = new Date(),
+  currentYear: Date = new Date()
 ) => {
   const fy = firstYear.getFullYear()
   const yearDifference = currentYear.getFullYear() - firstYear.getFullYear()
@@ -120,8 +120,8 @@ const generateYearList = (
                 title: 'Title descending',
                 by: [{field: 'title', direction: 'desc'}],
               }),
-            ]),
-        ),
+            ])
+        )
     )
   }
 

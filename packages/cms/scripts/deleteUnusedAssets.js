@@ -20,7 +20,7 @@ const query = `
 
 client
   .fetch(query)
-  .then((ids) => {
+  .then(ids => {
     if (!ids.length) {
       console.log('No assets to delete')
       return true
@@ -32,7 +32,7 @@ client
       .commit({visibility: 'async'})
       .then(() => console.log('Done!'))
   })
-  .catch((err) => {
+  .catch(err => {
     if (err.message.includes('Insufficient permissions')) {
       console.error(err.message)
       console.error('Did you forget to pass `--with-user-token`?')

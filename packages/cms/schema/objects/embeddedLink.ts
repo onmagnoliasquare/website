@@ -19,7 +19,7 @@ export default defineType({
       name: 'contentUrl',
       description: 'Share URL of the content from the site to embed.',
       type: 'url',
-      validation: (rule) => rule.required(),
+      validation: rule => rule.required(),
     },
   ],
   preview: {

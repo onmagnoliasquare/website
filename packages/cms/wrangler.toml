@@ -1,4 +1,4 @@
-name = "cms"
-pages_build_output_dir = "dist"
-compatibility_flags = ["nodejs_compat"]
-compatibility_date = "2025-01-10"
+name = 'cms'
+pages_build_output_dir = 'dist'
+compatibility_flags = ['nodejs_compat']
+compatibility_date = '2025-01-10'
