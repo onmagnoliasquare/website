@@ -63,3 +63,5 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: "packages/frontend"
           command: deploy --env production
+      - name: Deploy to Sanity Studio
+        run: yarn workspace cms sanity deploy
