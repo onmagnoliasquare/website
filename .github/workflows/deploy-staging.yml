@@ -40,7 +40,7 @@ jobs:
       # Cache the build after all is said and done.
       # This build will be used in the following jobs.
       - name: Cache build
-        uses: actions/cache@0400d5f644dc74513175e3cd8d07132dd4860809 # ratchet:actions/cache@v4
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # ratchet:actions/cache@v4
         with:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}
@@ -59,7 +59,7 @@ jobs:
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
       - name: Restore build
-        uses: actions/cache@0400d5f644dc74513175e3cd8d07132dd4860809 # ratchet:actions/cache@v4
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # ratchet:actions/cache@v4
         with:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}
