@@ -16,7 +16,7 @@ export default function checkBannedTags(bannedTags: string[] = defaultBannedTags
     }
 
     if (bannedTags.includes(value.toLowerCase().trim())) {
-      return {message: `Cannot use tag '${value}'`}
+      return `Cannot use tag '${value}'`
     }
 
     return true

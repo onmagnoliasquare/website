@@ -64,7 +64,6 @@ describe('checkBannedTags', () => {
 })
 
 describe('checkWhitespace', () => {
-  // Extracts the inner validator function
   const validator = checkWhitespace()
 
   const nonStrings = [
@@ -85,7 +84,7 @@ describe('checkWhitespace', () => {
     [`Barack Obama`, true],
   ]
 
-  const emptyStrings = [[``, '']]
+  const emptyStrings = [[``, true]]
 
   test.each([...nonStrings, ...leadingOrTrailingWhitespace, ...noWhitespaces, ...emptyStrings])(
     '%s -> %s',

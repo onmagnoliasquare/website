@@ -13,7 +13,7 @@ export default function checkWhitespace() {
     }
 
     if ((value as string).trim().length !== (value as string).length) {
-      return {message: 'Remove spaces before or after string'}
+      return 'Remove spaces before or after string'
     }
 
     return true
