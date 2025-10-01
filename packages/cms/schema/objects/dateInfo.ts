@@ -14,7 +14,7 @@ export default defineType({
         //@ts-expect-error ignore TS(2353)
         calendarTodayLabel: 'Today',
       },
-      validation: (rule) => rule.required().min('2014-02-01T00:00:00.000Z'),
+      validation: rule => rule.required().min('2014-02-01T00:00:00.000Z'),
     }),
 
     // updatedDate defines an optional date at when an article was

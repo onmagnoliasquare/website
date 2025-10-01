@@ -1,0 +1,27 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cms",
+  "preview_urls": false,
+  "workers_dev": true,
+  "compatibility_date": "2025-09-30",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true,
+  },
+  "placement": {
+    "mode": "smart",
+  },
+  // https://www.sanity.io/docs/studio/deployment#ed3cd78ea4eb
+  // https://developers.cloudflare.com/workers/static-assets/routing/single-page-application/
+  "assets": {
+    "directory": "./dist/",
+    "not_found_handling": "single-page-application",
+  },
+  "env": {
+    "staging": {
+      "vars": {
+        "ENVIRONMENT": "staging",
+      },
+    },
+  },
+}

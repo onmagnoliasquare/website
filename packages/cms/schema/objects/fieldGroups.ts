@@ -1,5 +1,5 @@
 import {CogIcon, ComposeIcon, InfoOutlineIcon} from '@sanity/icons'
-import {FieldGroupDefinition} from 'sanity'
+import type {FieldGroupDefinition} from 'sanity'
 
 export const InfoGroup: FieldGroupDefinition = {
   name: 'info',

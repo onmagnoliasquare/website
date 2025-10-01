@@ -3,7 +3,7 @@ import defineStructure from '../lib/defineStructure'
 import {DocumentsIcon} from '@sanity/icons'
 import {studioApiVersion} from '../lib/environment'
 
-export default defineStructure<ListItemBuilder>((S) =>
+export default defineStructure<ListItemBuilder>(S =>
   S.listItem()
     .title('All Articles')
     .icon(DocumentsIcon)
@@ -33,6 +33,6 @@ export default defineStructure<ListItemBuilder>((S) =>
             title: 'Title descending',
             by: [{field: 'title', direction: 'desc'}],
           }),
-        ]),
-    ),
+        ])
+    )
 )

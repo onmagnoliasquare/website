@@ -5,10 +5,10 @@
  */
 
 import {
+  type DocumentActionComponent,
+  type DocumentActionsResolver,
   definePlugin,
-  DocumentActionComponent,
-  DocumentActionsResolver,
-  NewDocumentOptionsResolver,
+  type NewDocumentOptionsResolver,
 } from 'sanity'
 
 import {LOCKED_DOCUMENT_TYPES} from '../../lib/constants'

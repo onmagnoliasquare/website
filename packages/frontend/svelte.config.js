@@ -16,7 +16,7 @@ const config = {
       relative: true,
     },
     adapter: adapterCloudflare({
-      config: './wrangler.toml',
+      config: './wrangler.jsonc',
     }),
     alias: {
       $components: 'src/components/*',

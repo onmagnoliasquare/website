@@ -95,8 +95,9 @@ export default defineType({
       title: 'Bio',
       type: formattedText.name,
       description: 'Optional personal description.',
-      //@ts-expect-error TS(2353)
-      rows: 3,
+      options: {
+        rows: 3,
+      },
       group: ContentGroup.name,
     }),
 

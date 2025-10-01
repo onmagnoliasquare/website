@@ -1,12 +1,13 @@
 import {DocumentTextIcon, TagsIcon} from '@sanity/icons'
-import {defineArrayMember, defineField, defineType} from 'sanity'
-import slugValidator from '../../lib/slugValidator'
+import type {ReactNode} from 'react'
+import {defineArrayMember, defineField, defineType, type Image} from 'sanity'
 import abbreviateName from '../../lib/abbreviateName'
-import {ContentGroup, InfoGroup, SeoGroup} from '../objects/fieldGroups'
-import requiredFormattedString from '../primitives/requiredFormattedString'
-import formattedText from '../primitives/formattedText'
-import metadataInformation from '../objects/metadataInformation'
+import slugValidator from '../../lib/slugValidator'
 import blockContent from '../objects/blockContent'
+import {ContentGroup, InfoGroup, SeoGroup} from '../objects/fieldGroups'
+import metadataInformation from '../objects/metadataInformation'
+import formattedText from '../primitives/formattedText'
+import requiredFormattedString from '../primitives/requiredFormattedString'
 
 // Portable text editor configuration on Sanity docs:
 // https://www.sanity.io/docs/portable-text-editor-configuration
@@ -46,8 +47,9 @@ export default defineType({
       description:
         'This is a subtitle that is displayed under the title of an article. Although optional, it is highly recommended to add one. The optional criteria is to accommodate old articles that never had a subtitle in the first place.',
       type: formattedText.name,
-      //@ts-expect-error TS(2353)
-      rows: 2,
+      options: {
+        rows: 2,
+      },
       group: InfoGroup.name,
     }),
 
@@ -58,7 +60,7 @@ export default defineType({
       type: 'date',
       options: {
         dateFormat: 'YYYY-MM-DD',
-        //@ts-expect-error - ignore TS(2353)
+        // @ts-expect-error this is fine.
         calendarTodayLabel: 'Today',
       },
       validation: (rule) => rule.required().min('2014-02-01'),
@@ -81,7 +83,7 @@ export default defineType({
       type: 'date',
       options: {
         dateFormat: 'YYYY-MM-DD',
-        //@ts-expect-error - ignore TS(2353)
+        // @ts-expect-error this is fine.
         calendarTodayLabel: 'Today',
       },
       group: InfoGroup.name,
@@ -155,9 +157,9 @@ export default defineType({
         {
           name: 'alt',
           type: requiredFormattedString.name,
-          hidden: ({parent}) => !parent?.asset,
+          hidden: ({parent}) => !(parent as Image)?.asset,
           validation: (rule) =>
-            rule.max(125).warning('Try to keep alt text less than 125 characters.'),
+            rule.max(125).warning('Try to keep alt text fewer than 125 characters.'),
         },
       ],
       group: ContentGroup.name,
@@ -168,8 +170,9 @@ export default defineType({
       title: 'Summary',
       type: formattedText.name,
       description: 'Optional summary for the article that appears before the article body.',
-      //@ts-expect-error TS(2353)
-      rows: 3,
+      options: {
+        rows: 3,
+      },
       group: ContentGroup.name,
     }),
 
@@ -225,13 +228,22 @@ export default defineType({
       media: 'media',
       date: 'date',
     },
-    prepare: ({title, author0, author1, author2, author3, media, date}) => {
-      const authors: string[] = [author0, author1, author2, author3].filter(Boolean)
+    prepare: (selection: {
+      title?: string
+      author0?: string
+      author1?: string
+      author2?: string
+      author3?: string
+      media?: ReactNode
+      date?: string
+    }) => {
+      const {title, author0, author1, author2, author3, date} = selection
+      const authors = [author0, author1, author2, author3].filter(Boolean) as string[]
       const authorList = `${abbreviateName(authors[0])}${authors.length > 1 ? `+${authors.slice(1).length}` : ''}`
       return {
-        title,
-        subtitle: `${authorList} on ${date}`,
-        media,
+        title: title || '',
+        subtitle: `${authorList} on ${date || ''}`,
+        media: selection.media,
       }
     },
   },

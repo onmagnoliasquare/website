@@ -1,7 +1,9 @@
 {
-  "compilerOptions": {
-    "customConditions": ["source"],
-    "composite": true
-  },
-  "exclude": ["**/node_modules/**/*"]
+    "compilerOptions": {
+        "customConditions": ["source"],
+        "allowUnreachableCode": false,
+        "moduleResolution": "nodenext",
+        "composite": true
+    },
+    "exclude": ["**/node_modules/**/*"]
 }

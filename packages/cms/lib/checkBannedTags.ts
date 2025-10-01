@@ -19,7 +19,7 @@ export default function checkBannedTags(bannedTags: string[] = defaultBannedTags
       return `Cannot use tag '${value}'`
     }
 
-    return value && true
+    return true
   }
 }
 

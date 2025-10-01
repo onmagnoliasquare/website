@@ -7,7 +7,7 @@ import articles from './articlesStructure'
 
 export const structure: StructureResolver = (
   S: StructureBuilder,
-  context: StructureResolverContext,
+  context: StructureResolverContext
 ) =>
   S.list()
     .title('Content')

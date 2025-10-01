@@ -43,8 +43,9 @@ export default defineType({
       title: 'Description',
       type: requiredFormattedText.name,
       description: 'What is this category about?',
-      //@ts-expect-error TS(2353)
-      rows: 4,
+      options: {
+        rows: 4,
+      },
       group: InfoGroup.name,
     }),
 

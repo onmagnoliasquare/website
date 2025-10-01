@@ -29,7 +29,7 @@ describe('abbreviateName', () => {
     '%s -> %s',
     (input, output) => {
       expect(abbreviateName(input)).toBe(output)
-    },
+    }
   )
 })
 
@@ -59,12 +59,11 @@ describe('checkBannedTags', () => {
     '%s -> %s',
     (input, output) => {
       expect(validator(input)).toBe(output)
-    },
+    }
   )
 })
 
 describe('checkWhitespace', () => {
-  // Extracts the inner validator function
   const validator = checkWhitespace()
 
   const nonStrings = [
@@ -85,14 +84,14 @@ describe('checkWhitespace', () => {
     [`Barack Obama`, true],
   ]
 
-  const emptyStrings = [[``, '']]
+  const emptyStrings = [[``, true]]
 
   test.each([...nonStrings, ...leadingOrTrailingWhitespace, ...noWhitespaces, ...emptyStrings])(
     '%s -> %s',
     //@ts-expect-error TS(2345)
     (input, output) => {
       expect(validator(input)).toBe(output)
-    },
+    }
   )
 })
 
