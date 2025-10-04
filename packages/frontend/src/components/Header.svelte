@@ -1,3 +1,8 @@
+<!--
+@component
+`Header` is the header component for the entire website. It contains the Navbar.
+-->
+
 <script>
 import MobileNavbar from './general/MobileNavbar.svelte'
 import Navbar from './general/Navbar.svelte'
@@ -10,19 +15,20 @@ function toggleNavbar() {
 }
 </script>
 
+<!-- eslint-disable @typescript-eslint/no-unnecessary-condition -->
 <header>
   <div class="w-full max-w-7xl center border-0 lg:border-x-1 lg:border-dotted pt-4 sm:mb-0 sm:pb-0">
-    <div>
-      <!-- eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -->
-      class="flex flex-row sm:block md:border-b-0 {showMenu ? 'border-b-0' : 'border-b-1'} sm:border-0
-      items-center pb-4 sm:pb-0">
+    <div
+      class={[
+        'flex flex-row sm:block md:border-b-0 sm:border-0 items-center pb-4 sm:pb-0',
+        showMenu ? 'border-b-0' : 'border-b-1',
+      ]}>
       <div class="p-2 my-2 ml-1">
         <SiteTitle />
       </div>
 
-      <!-- Menu Button -->
-      <div class="absolute right-2 sm:hidden">
-        <!-- svelte-ignore a11y_consider_explicit_label -->
+      <!-- Mobile Menu Button -->
+      <div class="absolute right-2 sm:hidden" role="menu">
         <button type="button" title="Menu" class="text-gray-800 p-1" onclick={toggleNavbar}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
