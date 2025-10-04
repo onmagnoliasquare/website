@@ -48,8 +48,7 @@ let {
   blurHash,
 }: Props = $props()
 
-// svelte-ignore non_reactive_update
-let placeholder: string
+let placeholder = $state('')
 
 if (blurHash) {
   placeholder = blurhashToCssGradientString(blurHash)
