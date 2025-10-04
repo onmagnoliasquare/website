@@ -1,12 +1,10 @@
 // @vitest-environment jsdom
 
-import { cleanup, render } from '@testing-library/svelte/svelte5'
-import { afterEach, describe, expect, it } from 'vitest'
+import { render } from '@testing-library/svelte/svelte5'
+import { describe, expect, it } from 'vitest'
 import SpotifyEmbed from '$components/embeds/SpotifyEmbed.svelte'
 
 describe('Spotify', () => {
-  afterEach(cleanup)
-
   it('mounts with default props', async () => {
     const { container } = render(SpotifyEmbed)
     expect(container).toBeTruthy()

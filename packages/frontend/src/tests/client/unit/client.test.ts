@@ -1,5 +1,3 @@
-// @vitest-environment jsdom
-
 import { getFlagEmoji } from '$lib/helpers'
 import { describe, expect, it } from 'vitest'
 

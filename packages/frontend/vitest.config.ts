@@ -10,12 +10,12 @@ const config = mergeConfig(
   defineConfig({
     test: {
       ...configDefaults,
-      include: ['src/**/*.{test,spec}.{js,ts}'],
-      environment: 'node',
       setupFiles: ['./vitest-setup.js'],
+      exclude: ['playwright/**/*', 'node_modules'],
       restoreMocks: true,
       pool: 'forks',
       isolate: false,
+      environment: 'jsdom',
       poolOptions: {
         forks: {
           singleFork: true,
@@ -26,6 +26,25 @@ const config = mergeConfig(
           inline: [`@sveltejs/kit`],
         },
       },
+      projects: [
+        {
+          extends: true,
+          test: {
+            name: { label: 'server', color: 'blue' },
+            environment: 'node',
+            include: ['src/tests/server/**/*.{test,spec}.ts'],
+            exclude: ['src/tests/client/**/*.{test,spec}.ts'],
+          },
+        },
+        {
+          extends: true,
+          test: {
+            name: { label: 'client', color: 'green' },
+            include: ['src/tests/client/**/*.{test,spec}.ts'],
+            exclude: ['src/tests/server/**/*.{test,spec}.ts'],
+          },
+        },
+      ],
     },
   }) as UserConfig
 )

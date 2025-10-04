@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { preflightOptions } from '../../hooks.server'
+import { preflightOptions } from '../../../hooks.server'
 
 describe('preflightOptions', () => {
   it('should return 200 OK for OPTIONS requests', async () => {
@@ -8,7 +8,7 @@ describe('preflightOptions', () => {
       request: {
         method: 'OPTIONS',
       },
-    } as never // Cast as any to mock event shape
+    } as never
 
     // Mock the resolve function.
     const mockResolve = vi.fn()

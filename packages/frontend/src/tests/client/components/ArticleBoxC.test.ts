@@ -1,13 +1,11 @@
 // @vitest-environment jsdom
 
-import { cleanup, queryByTestId, render } from '@testing-library/svelte/svelte5'
-import { afterEach, describe, expect, it } from 'vitest'
+import { queryByTestId, render } from '@testing-library/svelte/svelte5'
+import { describe, expect, it } from 'vitest'
 import ArticleBoxC from '$components/home/ArticleBoxC.svelte'
 import type { Article } from '$lib/schema'
 
 describe('ArticleBoxC', () => {
-  afterEach(cleanup)
-
   const newArticle: Article = {
     title: 'This is a new article',
     authors: [
