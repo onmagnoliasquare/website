@@ -17,13 +17,14 @@ const sha = commitSha.slice(0, 12)
 </script>
 
 <div id="site-version" class="font-mono text-sm">
-  {#if production}
-    <a href={`https://github.com/onmagnoliasquare/website/releases/tag/${semver}`} target="_blank">
-      <span>v{semver}</span>
-    </a>
-  {:else if staging}
+  <!-- Order matters here. -->
+  {#if staging}
     <a href={`https://github.com/onmagnoliasquare/website/tree/staging`} target="_blank">
       <span>staging@{sha}</span>
+    </a>
+  {:else if production}
+    <a href={`https://github.com/onmagnoliasquare/website/releases/tag/v${semver}`} target="_blank">
+      <span>v{semver}</span>
     </a>
   {:else if development}
     <a href={`https://github.com/onmagnoliasquare/website`} target="_blank">dev@HEAD</a>
