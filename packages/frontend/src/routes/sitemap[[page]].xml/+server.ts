@@ -14,6 +14,7 @@ import type {
   SeriesSlugsQueryResults,
   TagSlugsQueryResults,
 } from '$lib/types/api'
+import { categories } from '../../params/categories'
 
 /**
  * Query sanity for:
@@ -25,11 +26,12 @@ import type {
  *   - Tag slugs
  */
 
-export const GET: RequestHandler = async (/*{ params }*/) => {
+export const GET: RequestHandler = async ({ params }) => {
   let memberSlugs: MemberSlugsQueryResult
   let tagSlugs: TagSlugsQueryResults
   let articleSlugs: ArticleSlugsQueryResults
   let seriesSlugs: SeriesSlugsQueryResults
+
   try {
     ;[memberSlugs, tagSlugs, articleSlugs, seriesSlugs] = (await Promise.all([
       fetchMemberSlugs(),
@@ -48,19 +50,21 @@ export const GET: RequestHandler = async (/*{ params }*/) => {
 
   const config: SitemapConfig = {
     origin: site.url,
+    page: params.page,
     paramValues: {
-      '/about/staff/[slug]': [...memberSlugs.map(v => v.slug.current)],
-      '/archive/tags/[slug]': [
+      '/about/staff/[name]': [...memberSlugs.map(v => v.slug.current)],
+      '/archive/tags/[tagName]': [
         ...tagSlugs.map(v => {
           return { values: [v.slug.current] }
         }),
       ],
-      '/series/[slug]': [...seriesSlugs.map(v => v.slug.current)],
-      '/category/[category]/[slug]': [
+      '/series/[series]': [...seriesSlugs.map(v => v.slug.current)],
+      '/category/[category=categories]': [...categories],
+      '/category/[category=categories]/[slug]': [
         ...articleSlugs.map(v => {
-          const date = v.updatedDate ?? v.date
-          const category = v.category.slug.current
-          const slug = v.slug.current
+          const date = v.date
+          const category = v.category
+          const slug = v.slug
           return { values: [category, slug], lastmod: date }
         }),
       ],
