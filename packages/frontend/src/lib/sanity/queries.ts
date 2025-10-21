@@ -106,29 +106,28 @@ export const relatedArticlesTypeA = (): string => groq`
 `
 
 export const sitemapAuthors = (): string => groq`
-	*[type == "member"] {
+	*[_type == "member"] {
 		slug,
 		updatedAt
 	}
 `
 
 export const sitemapArticles = (): string => groq`
-	*[type == "article"] {
-		slug,
-		category->{slug->},
-		date,
-		updatedDate,
+	*[_type == "article"] {
+		'slug': slug.current,
+		'category': category->slug.current,
+		'date': coalesce(updatedDate, date),
 	}
 `
 
 export const sitemapSeries = (): string => groq`
-	*[type == "series"] {
+	*[_type == "series"] {
 		slug,
 		date
 	}
 `
 export const sitemapTags = (): string => groq`
-	*[type == "tag"] {
+	*[_type == "tag"] {
 		slug,
 		date
 	}
