@@ -28,7 +28,7 @@ function toggleNavbar() {
       </div>
 
       <!-- Mobile Menu Button -->
-      <div class="absolute right-2 sm:hidden" role="menu">
+      <div class="absolute right-2 sm:hidden">
         <button type="button" title="Menu" class="text-gray-800 p-1" onclick={toggleNavbar}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
