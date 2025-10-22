@@ -1,0 +1,34 @@
+import { expect, test } from '@playwright/test'
+import { siteUrl } from './parameters'
+
+test('/sitemap.xml is valid', async ({ page }) => {
+  // Modified from: https://github.com/jasongitmail/super-sitemap#playwright-test
+
+  const response = await page.goto(siteUrl('/sitemap.xml'))
+  expect(response).toBeDefined()
+  expect(response?.status()).toBe(200)
+
+  // Ensure XML is valid. Playwright parses the XML here and will error if it
+  // cannot be parsed.
+
+  const urls = await page.$$eval('url', urls =>
+    urls.map(url => ({
+      loc: url.querySelector('loc')?.textContent,
+      // changefreq: url.querySelector('changefreq').textContent,
+      // priority: url.querySelector('priority').textContent,
+    }))
+  )
+
+  // Sanity check.
+
+  expect(urls.length).toBeGreaterThan(5)
+
+  // Ensure entries are in a valid format.
+
+  for (const url of urls) {
+    expect(url.loc).toBeTruthy()
+    expect(() => new URL(url.loc as string)).not.toThrow()
+    // expect(url.changefreq).toBe('daily')
+    // expect(url.priority).toBe('0.7')
+  }
+})
