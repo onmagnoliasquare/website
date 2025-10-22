@@ -25,6 +25,9 @@ const config: PlaywrightTestConfig = {
     baseURL: process.env.CI ? 'http://localhost:8787' : 'http://localhost:5173/',
   },
 
+  // Production tests only run on CI on a scheduled interval.
+  testIgnore: ['playwright/production/**'],
+
   projects: [
     {
       name: 'chromium',
