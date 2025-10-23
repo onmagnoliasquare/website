@@ -31,7 +31,8 @@ let headlineMediaBlurHash = $derived(data.articles[0].media?.blurHash)
 </svelte:head>
 
 <div class="grow">
-  <header>
+  <!-- Don't strip this testid please, its for automated tests. -->
+  <header data-testid="headline">
     <div class="hidden sm:block">
       <DesktopLanding article={headlineArticle} locale={locale} />
       <div class="hidden sm:block pb-4">
@@ -52,8 +53,7 @@ let headlineMediaBlurHash = $derived(data.articles[0].media?.blurHash)
             {splitTitle[1]}
           </h1>
           <h1
-            class="w-full h-fit m-1 p-2 font-serif leading-8 text-6xl font-stretch-condensed pb-8"
-          >
+            class="w-full h-fit m-1 p-2 font-serif leading-8 text-6xl font-stretch-condensed pb-8">
             {splitTitle[2]}
           </h1>
         </div>
@@ -65,8 +65,7 @@ let headlineMediaBlurHash = $derived(data.articles[0].media?.blurHash)
                   href={route.path}
                   id="heroLinks"
                   title={route.name}
-                  class="hover:underline tracking-wide font-semibold"
-                >
+                  class="hover:underline tracking-wide font-semibold">
                   {route.name}
                 </a>
               </li>
@@ -89,15 +88,13 @@ let headlineMediaBlurHash = $derived(data.articles[0].media?.blurHash)
                 <div>
                   <div class="absolute -top-4 -left-2 w-fit h-12 overflow-visible -rotate-12">
                     <div
-                      class="left-2 bg-amber-300 h-12 w-12 rounded-full grid gird-cols-1 place-items-center z-10 antialiased"
-                    >
+                      class="left-2 bg-amber-300 h-12 w-12 rounded-full grid gird-cols-1 place-items-center z-10 antialiased">
                       <p class="font-serif text-lg">最近</p>
                     </div>
                   </div>
                   <div class="flex flex-col">
                     <h2
-                      class="text-left font-display text-5xl font-stretch-condensed font-bold leading-12"
-                    >
+                      class="text-left font-display text-5xl font-stretch-condensed font-bold leading-12">
                       {headlineArticle.title}
                     </h2>
                     <Subtitle class="pl-0">{headlineArticle.subtitle}</Subtitle>
@@ -118,8 +115,7 @@ let headlineMediaBlurHash = $derived(data.articles[0].media?.blurHash)
           width={1920}
           height={1080}
           blurHash={headlineMediaBlurHash}
-          fit={'crop'}
-        />
+          fit={'crop'} />
       </div>
     {/if}
   </header>
