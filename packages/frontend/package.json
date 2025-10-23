@@ -28,7 +28,7 @@
     "test:ci": "vitest run",
     "test:ci-no-pool": "vitest run --pool forks --poolOptions.forks.singleFork",
     "test:ui": "playwright test --ui .",
-    "test-ci:production": "playwright test playwright/production/",
+    "test-ci:production": "playwright test --project=production",
     "coverage": "vitest run --coverage"
   },
   "dependencies": {

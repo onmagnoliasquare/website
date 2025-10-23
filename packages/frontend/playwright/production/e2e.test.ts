@@ -1,23 +1,22 @@
 import { test, expect } from '@playwright/test'
-import { siteUrl } from './parameters'
 import AxeBuilder from '@axe-core/playwright'
 
 test('Homepage to a category', async ({ page }) => {
-  await page.goto(siteUrl())
+  await page.goto('/')
   await page.locator('#mainNav').getByRole('link', { name: 'News' }).click()
 
   await expect(page.getByRole('heading', { name: 'News', exact: true })).toBeVisible()
 })
 
 test('News -> Opinion categories', async ({ page }) => {
-  await page.goto(siteUrl('/category/news'))
+  await page.goto('/category/news')
   await page.locator('#mainNav').getByRole('link', { name: 'Opinion' }).click()
 
   await expect(page.getByRole('heading', { name: 'Opinion', exact: true })).toBeVisible()
 })
 
 test('News -> Opinion -> People -> Culture -> Multimedia categories', async ({ page }) => {
-  await page.goto(siteUrl('/category/news'))
+  await page.goto('/category/news')
   await page.locator('#mainNav').getByRole('link', { name: 'Opinion' }).click()
 
   await expect.soft(page.getByRole('heading', { name: 'Opinion', exact: true })).toBeVisible()
@@ -36,14 +35,14 @@ test('News -> Opinion -> People -> Culture -> Multimedia categories', async ({ p
 })
 
 test('Homepage -> About page', async ({ page }) => {
-  await page.goto(siteUrl())
+  await page.goto('/')
   await page.locator('#mainNav').getByRole('link', { name: 'About' }).click()
 
   await expect(page.getByRole('heading', { name: 'Who are we?', exact: true })).toBeVisible()
 })
 
 test('Version label does not return 404', async ({ page }) => {
-  await page.goto(siteUrl())
+  await page.goto('/')
 
   const responseFromSite = page.waitForResponse(response => response.status() === 200)
 
@@ -54,7 +53,7 @@ test('Version label does not return 404', async ({ page }) => {
 })
 
 test('Headline article is accessible', async ({ page }) => {
-  await page.goto(siteUrl())
+  await page.goto('/')
   await page.getByTestId('headline').click()
 
   const accessibilityScanResults = await new AxeBuilder({ page })
@@ -67,8 +66,8 @@ test('Headline article is accessible', async ({ page }) => {
   expect(page.getByLabel('Related Articles').locator('ol')).toBeVisible()
 })
 
-test('No homepage accessibility violations', async ({ page }) => {
-  await page.goto(siteUrl())
+test('Homepage has no accessibility violations', async ({ page }) => {
+  await page.goto('/')
 
   const accessibilityScanResults = await new AxeBuilder({ page })
     .disableRules(['color-contrast'])

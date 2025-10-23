@@ -1,10 +1,9 @@
 import { expect, test } from '@playwright/test'
-import { siteUrl } from './parameters'
 
 test('/sitemap.xml is valid', async ({ page }) => {
   // Modified from: https://github.com/jasongitmail/super-sitemap#playwright-test
 
-  const response = await page.goto(siteUrl('/sitemap.xml'))
+  const response = await page.goto('/sitemap.xml')
   expect(response).toBeDefined()
   expect(response?.status()).toBe(200)
 

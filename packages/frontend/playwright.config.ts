@@ -1,5 +1,8 @@
 import { devices, type PlaywrightTestConfig } from '@playwright/test'
 
+const localPreviewURL = 'http://localhost:8787'
+const localDevURL = 'http://localhost:5173'
+
 const config: PlaywrightTestConfig = {
   testDir: 'playwright',
   testMatch: /(.+\.)?(test|spec)\.[jt]s/,
@@ -22,21 +25,23 @@ const config: PlaywrightTestConfig = {
   // reporter: 'html'
 
   use: {
-    baseURL: process.env.CI ? 'http://localhost:8787' : 'http://localhost:5173/',
+    baseURL: process.env.CI ? localPreviewURL : localDevURL,
   },
 
   // Production tests only run on CI on a scheduled interval.
-  testIgnore: ['playwright/production/**'],
+  // testIgnore: ['**/production/**/*'],
 
   projects: [
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+      testIgnore: ['**/production/**/*'],
     },
 
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
+      testIgnore: ['**/production/**/*'],
     },
 
     {
@@ -45,6 +50,7 @@ const config: PlaywrightTestConfig = {
       // Disabled for now because for some reason, these tests don't pass
       // on Webkit/Safari.
       testIgnore: [
+        '**/production/**/*',
         'playwright/integration/tagPage.test.ts',
         'playwright/integration/sitemap.test.ts',
       ],
@@ -53,14 +59,19 @@ const config: PlaywrightTestConfig = {
     /* Test against mobile viewports. */
     {
       name: 'Mobile Chrome',
-      use: { ...devices['Pixel 5'] },
-      testIgnore: ['playwright/e2e/**/*'],
+      use: { ...devices['Pixel 7'] },
+      testIgnore: [
+        '**/production/**/*',
+        'playwright/e2e/**/*',
+        'playwright/integration/sitemap.test.ts',
+      ],
     },
 
     {
       name: 'Mobile Safari',
-      use: { ...devices['iPhone 12'] },
+      use: { ...devices['iPhone 15'] },
       testIgnore: [
+        '**/production/**/*',
         'playwright/e2e/**/*',
         'playwright/integration/tagPage.test.ts',
         'playwright/integration/sitemap.test.ts',
@@ -71,11 +82,20 @@ const config: PlaywrightTestConfig = {
     {
       name: 'Microsoft Edge',
       use: { ...devices['Desktop Edge'], channel: 'msedge' },
+      testIgnore: '**/production/**/*',
     },
 
     {
       name: 'Google Chrome',
       use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+      testIgnore: '**/production/**/*',
+    },
+
+    {
+      name: 'production',
+      use: { browserName: 'chromium', baseURL: 'https://onmagnoliasquare.com' },
+      retries: 0,
+      testDir: 'playwright/production',
     },
   ],
 
@@ -88,7 +108,7 @@ const config: PlaywrightTestConfig = {
     // URL must use 'localhost'!!! Otherwise, playwright
     // will boot the server but hang in the process.
     // See: https://github.com/microsoft/playwright/issues/16834#issuecomment-1699124292
-    url: process.env.CI ? 'http://localhost:8787' : 'http://localhost:5173/',
+    url: process.env.CI ? localPreviewURL : localDevURL,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000, // 2 minutes timeout for server startup
     stdout: 'ignore',
