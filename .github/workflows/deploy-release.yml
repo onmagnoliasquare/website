@@ -64,4 +64,6 @@ jobs:
           workingDirectory: "packages/frontend"
           command: deploy --env production
       - name: Deploy to Sanity Studio
-        run: yarn workspace cms sanity deploy
+        env:
+          SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+        run: "yarn workspace cms sanity deploy"
