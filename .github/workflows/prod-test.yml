@@ -3,7 +3,9 @@ name: "Production Testing"
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * *" # Everyday at 00:00.
+    # Everyday 5 AM China Standard Time.
+    # See: https://savvytime.com/converter/cst-asia-to-utc-hi-honolulu
+    - cron: "0 21 * * *"
 
 jobs:
   test:
@@ -15,7 +17,7 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: "Install playwright"
-        run: yarn workspace frontend playwright install --with-deps
+        run: "yarn workspace frontend playwright install --with-deps chromium"
 
       - name: "Execute tests"
         run: "yarn workspace frontend test-ci:production"

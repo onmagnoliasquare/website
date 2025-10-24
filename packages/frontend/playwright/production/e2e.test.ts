@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
 
 test('Homepage to a category', async ({ page }) => {
@@ -54,16 +54,34 @@ test('Version label does not return 404', async ({ page }) => {
 
 test('Headline article is accessible', async ({ page }) => {
   await page.goto('/')
-  await page.getByTestId('headline').click()
 
-  const accessibilityScanResults = await new AxeBuilder({ page })
-    .disableRules(['color-contrast'])
-    .analyze()
+  await expect(page.getByTestId('headline')).toBeVisible()
 
-  expect.soft(accessibilityScanResults.violations).toHaveLength(0)
+  const responseFromSite = page.waitForResponse(response => response.status() === 200)
+  await page.getByTestId('headline-article').click()
+  const response = await responseFromSite
 
-  // Related articles is not blank. If there is no `<ol>`, error.
-  expect(page.getByLabel('Related Articles').locator('ol')).toBeVisible()
+  expect(response.ok()).toBeTruthy()
+})
+
+test.describe('Headline article', () => {
+  // Go to the headline article before all tests run.
+  test.beforeAll(async ({ page }) => {
+    await page.goto('/')
+    await page.getByTestId('headline-article').click()
+  })
+
+  test('No accessibility violations', async ({page})=> {
+    const accessibilityScanResults = await new AxeBuilder({ page })
+      .disableRules(['color-contrast'])
+      .analyze()
+
+    expect(accessibilityScanResults.violations).toHaveLength(0)
+  })
+
+  test('Related articles are visible', async ({page}) => {
+    await expect(page.getByLabel('Related Articles').locator('ol')).toBeVisible()
+  })
 })
 
 test('Homepage has no accessibility violations', async ({ page }) => {
