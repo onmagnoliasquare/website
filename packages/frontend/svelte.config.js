@@ -10,6 +10,9 @@ const config = {
   compilerOptions: {
     dev: true,
     modernAst: true,
+    experimental: {
+      async: true,
+    },
   },
   kit: {
     paths: {
