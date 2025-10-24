@@ -14,5 +14,8 @@ jobs:
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
 
+      - name: "Install playwright"
+        run: yarn workspace frontend playwright install --with-deps
+
       - name: "Execute tests"
         run: "yarn workspace frontend test-ci:production"
