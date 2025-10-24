@@ -6,5 +6,8 @@ export default defineCliConfig({
     projectId: studioProjectId,
     dataset: studioDataset,
   },
-  studioHost: 'onmagnoliasquare',
+  deployment: {
+    appId: '3d49ade815b8590d16cb61e0',
+    autoUpdates: false, // Let's keep updating a package.json thing...
+  },
 })
