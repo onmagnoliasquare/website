@@ -1,8 +1,14 @@
-import {defineProject} from 'vitest/config'
+import {defineConfig} from 'vite'
 
-export default defineProject({
-  test: {
-    include: ['lib/**/*.{test,spec}.{js,ts}'],
-    environment: 'jsdom',
+import pkg from './package.json' with { type: 'json' }
+
+export default defineConfig({
+  resolve: {
+    alias: {
+      '@': __dirname,
+    },
   },
+  define: {
+    __OMS_CMS_VERSION__: `"${pkg.version}"`
+  }
 })

@@ -53,7 +53,7 @@ export default defineType({
         maxLength: 200,
         slugify: (input: string) => slugValidator(input),
       },
-      validation: (rule) => rule.required(),
+      validation: rule => rule.required(),
       group: InfoGroup.name,
     }),
 
@@ -64,7 +64,7 @@ export default defineType({
       description: 'Optional member join year.',
 
       // The only valid inputs would be the organization's founding up to the current year.
-      validation: (rule) => rule.integer().min(2013).max(new Date().getFullYear()),
+      validation: rule => rule.integer().min(2013).max(new Date().getFullYear()),
       group: ContentGroup.name,
     }),
 

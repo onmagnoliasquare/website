@@ -17,15 +17,15 @@ export const resolveDocumentActions: DocumentActionsResolver = (prev, {schemaTyp
   if (LOCKED_DOCUMENT_TYPES.includes(schemaType)) {
     prev = prev.filter(
       (previousAction: DocumentActionComponent) =>
-        previousAction.action === 'publish' || previousAction.action === 'discardChanges',
+        previousAction.action === 'publish' || previousAction.action === 'discardChanges'
     )
   }
 
   return prev
 }
 
-export const resolveNewDocumentOptions: NewDocumentOptionsResolver = (prev) => {
-  const options = prev.filter((previousOption) => {
+export const resolveNewDocumentOptions: NewDocumentOptionsResolver = prev => {
+  const options = prev.filter(previousOption => {
     return !LOCKED_DOCUMENT_TYPES.includes(previousOption.templateId)
   })
 

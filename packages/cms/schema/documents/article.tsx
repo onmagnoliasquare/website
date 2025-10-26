@@ -37,7 +37,7 @@ export default defineType({
         maxLength: 200,
         slugify: (input: string) => slugValidator(input),
       },
-      validation: (rule) => rule.required(),
+      validation: rule => rule.required(),
       group: InfoGroup.name,
     }),
 
@@ -63,7 +63,7 @@ export default defineType({
         // @ts-expect-error this is fine.
         calendarTodayLabel: 'Today',
       },
-      validation: (rule) => rule.required().min('2014-02-01'),
+      validation: rule => rule.required().min('2014-02-01'),
       group: InfoGroup.name,
     }),
 
@@ -95,7 +95,7 @@ export default defineType({
       type: 'reference',
       to: [{type: 'category'}],
       options: {disableNew: true},
-      validation: (rule) => rule.required(),
+      validation: rule => rule.required(),
       group: InfoGroup.name,
     }),
 
@@ -141,7 +141,7 @@ export default defineType({
           options: {disableNew: true},
         }),
       ],
-      validation: (rule) => rule.required(),
+      validation: rule => rule.required(),
       group: InfoGroup.name,
     }),
 
@@ -158,7 +158,7 @@ export default defineType({
           name: 'alt',
           type: requiredFormattedString.name,
           hidden: ({parent}) => !(parent as Image)?.asset,
-          validation: (rule) =>
+          validation: rule =>
             rule.max(125).warning('Try to keep alt text fewer than 125 characters.'),
         },
       ],

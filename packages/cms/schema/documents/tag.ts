@@ -35,7 +35,7 @@ export default defineType({
         maxLength: 200,
         slugify: (input: string) => slugValidator(input),
       },
-      validation: (rule) => rule.required(),
+      validation: rule => rule.required(),
       group: InfoGroup.name,
     }),
 

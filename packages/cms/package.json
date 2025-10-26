@@ -1,7 +1,7 @@
 {
   "name": "cms",
   "main": "package.json",
-  "version": "0.6.5",
+  "version": "0.7.2",
   "scripts": {
     "dev": "sanity dev",
     "start": "sanity start",
@@ -16,26 +16,27 @@
     "copy-prod-to-dev": "npx sanity dataset export production ./prod_data.tar.gz && npx sanity dataset delete development && npx sanity dataset create development && npx sanity dataset import ./prod_data.tar.gz development --replace "
   },
   "dependencies": {
+    "@sanity/cross-dataset-duplicator": "1.5.0",
     "@sanity/icons": "^3.7.4",
-    "@sanity/ui": "^3.1.10",
-    "@sanity/vision": "^4.10.3",
+    "@sanity/ui": "^3.1.11",
+    "@sanity/vision": "^4.11.0",
     "@superside-oss/sanity-plugin-copy-paste": "^1.0.3",
     "archiver-utils": "^5.0.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-is": "^19.2.0",
-    "sanity": "^4.10.3",
+    "sanity": "^4.11.0",
     "sanity-plugin-media": "^4.0.0",
     "styled-components": "^6.1.19"
   },
   "devDependencies": {
-    "@sanity/cli": "^4.10.3",
+    "@sanity/cli": "^4.11.0",
     "@sanity/eslint-config-studio": "5.0.2",
     "@sanity/prettier-config": "2.0.1",
     "@types/react": "^19.2.2",
     "eslint": "^9.38.0",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.7.1",
-    "wrangler": "^4.44.0"
+    "wrangler": "^4.45.0"
   }
 }

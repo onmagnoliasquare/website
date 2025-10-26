@@ -43,7 +43,7 @@ export default defineType({
           type: seoMetadataTagText.name,
         },
       ],
-      validation: (rule) => rule.max(8),
+      validation: rule => rule.max(8),
 
       // Hide this field if the parent document is NOT an article.
       // Open Graph only allows tags on article types.
@@ -59,7 +59,7 @@ export default defineType({
       options: {
         rows: 2,
       },
-      validation: (rule) => rule.max(160),
+      validation: rule => rule.max(160),
     }),
 
     defineField({
