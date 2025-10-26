@@ -15,6 +15,7 @@ let { children }: Props = $props()
 </script>
 
 <h1
-  class="font-display font-black text-4xl lg:text-8xl tracking-tight p-1 select-none font-stretch-condensed w-fit">
+  class="font-display font-black text-4xl lg:text-8xl tracking-tight p-1 select-none font-stretch-condensed w-fit"
+>
   {@render children()}
 </h1>

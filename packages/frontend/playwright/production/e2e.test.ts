@@ -71,7 +71,7 @@ test.describe('Headline article', () => {
     await page.getByTestId('headline-article').click()
   })
 
-  test('No accessibility violations', async ({page})=> {
+  test('No accessibility violations', async ({ page }) => {
     const accessibilityScanResults = await new AxeBuilder({ page })
       .disableRules(['color-contrast'])
       .analyze()
@@ -79,7 +79,7 @@ test.describe('Headline article', () => {
     expect(accessibilityScanResults.violations).toHaveLength(0)
   })
 
-  test('Related articles are visible', async ({page}) => {
+  test('Related articles are visible', async ({ page }) => {
     await expect(page.getByLabel('Related Articles').locator('ol')).toBeVisible()
   })
 })

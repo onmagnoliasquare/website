@@ -80,7 +80,8 @@ const splitTitle = site.title.split(' ')
     <DesktopLandingNavbar />
   </div>
   <div
-    class="size-full col-span-7 row-span-1 bg-white border-t-1 flex flex-col p-4 items-center text-black">
+    class="size-full col-span-7 row-span-1 bg-white border-t-1 flex flex-col p-4 items-center text-black"
+  >
     <p id="quip" class="text-center font-display p-4 text-2xl border-1 border-dashed w-fit">
       The latest scoop by <span class="italic font-semibold">{authorString}</span>
       on
@@ -90,7 +91,8 @@ const splitTitle = site.title.split(' ')
     </p>
     <a
       href="category/{headlineArticle.category.name.toLowerCase()}/{headlineArticle.slug.current}"
-      class="border-b-1 border-dotted">
+      class="border-b-1 border-dotted"
+    >
       <h2 class="text-center font-serif text-6xl font-stretch-condensed font-bold p-4">
         {headlineArticle.title}
       </h2>

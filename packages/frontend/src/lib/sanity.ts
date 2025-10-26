@@ -54,7 +54,7 @@ export function urlFor(source: SanityImageSource) {
  * @param q The GROQ query string to run against the Sanity API.
  * @returns The result of the query as a JSON object.
  */
- 
+
 export async function sanityFetch<T>(q: string): Promise<T> {
   try {
     return await client.fetch<T>(q)

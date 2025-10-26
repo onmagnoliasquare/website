@@ -16,7 +16,8 @@ import EmailClickable from '$components/EmailClickable.svelte'
         <a
           href={route.path}
           title={route.name}
-          class="hover:underline tracking-wider font-semibold">
+          class="hover:underline tracking-wider font-semibold"
+        >
           <small>
             {route.name}
           </small>
@@ -32,7 +33,8 @@ import EmailClickable from '$components/EmailClickable.svelte'
 
 <!-- eslint-disable @typescript-eslint/no-confusing-void-expression -->
 <footer
-  class="flex flex-col sm:flex-wrap border-t-1 space-x-2 items-baseline border-dotted p-4 sm:p-8 w-full">
+  class="flex flex-col sm:flex-wrap border-t-1 space-x-2 items-baseline border-dotted p-4 sm:p-8 w-full"
+>
   <div class="w-full max-w-7xl center">
     <h1 class="mb-6 font-black tracking-wide border-1 w-fit p-2">
       <a href="/">

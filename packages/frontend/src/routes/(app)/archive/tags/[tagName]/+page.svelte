@@ -30,7 +30,8 @@ const articles: Article[] | undefined = $derived(data.articles)
               data-sveltekit-preload-code="viewport"
               data-sveltekit-preload-data="tap"
               href={`/category/${article.category.slug.current}/${article.slug.current}`}
-              class="hover:underline">
+              class="hover:underline"
+            >
               {article.title} <span class="italic text-neutral-400">{article.date}</span>
             </a>
           </li>

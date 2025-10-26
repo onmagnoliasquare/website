@@ -25,7 +25,8 @@ import { CardLink, CodeOfEthics } from '$lib'
         <div class="">
           <span class="font-display font-stretch-condensed">
             <P
-              class="text-4xl sm:text-5xl lg:text-6xl leading-10 sm:leading-12 lg:leading-18 tracking-normal mb-8 max-w-7xl">
+              class="text-4xl sm:text-5xl lg:text-6xl leading-10 sm:leading-12 lg:leading-18 tracking-normal mb-8 max-w-7xl"
+            >
               On Magnolia Square produces truthful, balanced, timely, and engaging news and
               information to better serve the community at <a
                 href="https://shanghai.nyu.edu"
@@ -53,7 +54,8 @@ import { CardLink, CodeOfEthics } from '$lib'
       >Did you know our web code—for both this site and our content management system—is open
       source? Check it out <a
         href="https://github.com/onmagnoliasquare/website"
-        class="text-nyu-purple-100 hover:underline">here on GitHub!</a> Project documentation and CI/CD
-      is also there too.</P>
+        class="text-nyu-purple-100 hover:underline">here on GitHub!</a
+      > Project documentation and CI/CD is also there too.</P
+    >
   </div>
 </div>

@@ -72,4 +72,5 @@ let ImageBuilder: ImageUrlBuilder = urlFor(media)
   width={width}
   priority={priority}
   loading={loading}
-  background={placeholder} />
+  background={placeholder}
+/>

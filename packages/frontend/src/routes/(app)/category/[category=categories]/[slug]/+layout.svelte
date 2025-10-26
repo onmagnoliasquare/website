@@ -25,7 +25,7 @@ const recent = () => {
   return categoryArticles.filter(a => a._id !== data.article._id).slice(0, 3)
 }
 
-async function getRelatedArticles(): Promise<FetchScoredArticleQueryResults> {
+const getRelatedArticles = async (): Promise<FetchScoredArticleQueryResults> => {
   // String together portable text spans into one string. If content doesn't exist, just return an empty string.
   let relatedArticles
   const contentText =
@@ -55,6 +55,8 @@ async function getRelatedArticles(): Promise<FetchScoredArticleQueryResults> {
         authors: authors,
       }
     )
+
+    console.log(relatedArticles)
   } catch (error: unknown) {
     if (dev && error instanceof Error) {
       console.error(error.name, error.message, error.cause)
@@ -66,9 +68,7 @@ async function getRelatedArticles(): Promise<FetchScoredArticleQueryResults> {
   })
 
   // Removes the article with the same name as this current page from the related section.
-  return relatedArticles.filter(v => {
-    return !catArticleIds.includes(v.title)
-  })
+  return relatedArticles.filter(v => !catArticleIds.includes(v.title))
 }
 </script>
 
@@ -94,7 +94,7 @@ async function getRelatedArticles(): Promise<FetchScoredArticleQueryResults> {
         </ol>
       {:catch error}
         {@debug error}
-        <P>{error}</P>
+        <P class="m-4 pl-4">Uh oh... something wrong happened :(</P>
       {/await}
     </div>
     <div class="sm:sticky top-4 h-fit col-span-2" aria-label="Recent Articles">

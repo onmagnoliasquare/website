@@ -60,7 +60,8 @@ let articleSlug = article.slug.current
       data-sveltekit-preload-code="viewport"
       data-sveltekit-preload-data="tap"
       data-sveltekit-reload
-      href="/category/{articleCategory.toLowerCase()}/{articleSlug}">
+      href="/category/{articleCategory.toLowerCase()}/{articleSlug}"
+    >
       <div class="flow flow-col lg:grid lg:grid-cols-3 items-center gap-2 mb-4">
         {#if media && showImage}
           <div class="col-span-1 lg:col-span-2">
@@ -81,7 +82,8 @@ let articleSlug = article.slug.current
                 quality={20}
                 fit="crop"
                 alt={mediaAlt}
-                blurHash={mediaBlurHash} />
+                blurHash={mediaBlurHash}
+              />
             </div>
           </div>
         {:else}
