@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { type ClientConfig, createClient } from '@sanity/client'
 import imageUrlBuilder from '@sanity/image-url'
+import type { PortableTextBlock, PortableTextSpan } from '@portabletext/types'
 
 // Environment variables, found in ".env". Check ".env.example" for explanation.
 import type { Query } from './schema'
 import { dev } from '$app/environment'
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
+import { isPortableTextSpan } from '@sanity/types'
 
 // if (!SANITY_PROJECT_ID || !SANITY_DATASET) {
 // 	throw new Error('Did you forget to run yarn run -T sanity init --env?');
@@ -193,4 +195,31 @@ export function getAttrs(attrs: string[]): string {
  */
 export function getOrder(order: string): string {
   return `| order(${order})`
+}
+
+/**
+ * `blocksToText` strings together portable text spans into one string. If content doesn't exist,
+ * it just returns an empty string. Slightly modified from:
+ * https://www.sanity.io/docs/developer-guides/presenting-block-text
+ * @param content
+ */
+export function blocksToText(content?: PortableTextBlock[]) {
+  return (
+    content
+      ?.map(block => {
+        // This `if` block fixes issue #337. Also, no second check because its always falsy.
+        if (block._type !== 'block' /* && !block.children */) {
+          return ''
+        }
+        return (
+          block.children
+            // Technically some generic typing is not needed to be so explicit, but it makes things
+            // more obvious to read in this short portable text pipeline.
+            .filter<PortableTextSpan>(child => isPortableTextSpan(child))
+            .map<string>(child => child.text)
+            .join('')
+        )
+      })
+      .join('\n\n') ?? ''
+  )
 }

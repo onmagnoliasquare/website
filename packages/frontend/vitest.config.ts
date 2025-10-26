@@ -1,6 +1,6 @@
-import { defineConfig, mergeConfig, configDefaults } from 'vitest/config'
+import { configDefaults, defineConfig, mergeConfig } from 'vitest/config'
 import viteConfig from './vite.config.ts'
-import type { UserConfig } from 'vite'
+// import type { UserConfig } from 'vite'
 
 // For how I created this setup, see the link below.
 // See: https://github.com/vitest-dev/vitest/discussions/3042#discussioncomment-6449044
@@ -16,11 +16,11 @@ const config = mergeConfig(
       pool: 'forks',
       isolate: false,
       environment: 'jsdom',
-      poolOptions: {
-        forks: {
-          singleFork: true,
-        },
-      },
+      // poolOptions: {
+      //   forks: {
+      //     singleFork: true,
+      //   },
+      // },
       server: {
         deps: {
           inline: [`@sveltejs/kit`],
@@ -46,7 +46,7 @@ const config = mergeConfig(
         },
       ],
     },
-  }) as UserConfig
+  })
 )
 
 export default config

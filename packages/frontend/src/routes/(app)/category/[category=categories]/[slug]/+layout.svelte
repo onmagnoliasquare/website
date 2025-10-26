@@ -6,8 +6,7 @@ import { fetchRelatedArticles } from '$lib/sanity/repository.ts'
 import P from '$components/defaults/P.svelte'
 import HoverDim from '$components/general/HoverDim.svelte'
 import ArticleBoxC from '$components/home/ArticleBoxC.svelte'
-import type { PortableTextSpan } from '@sanity/types'
-import { isPortableTextSpan } from '@sanity/types'
+import { blocksToText } from '$lib/sanity'
 import { dev } from '$app/environment'
 import DateLine from '$components/article/DateLine.svelte'
 
@@ -19,56 +18,53 @@ interface Props {
 let { data, children }: Props = $props()
 
 const categoryArticles = $derived(data.parentData.articles)
+const article = $derived(data.article)
 const categoryName = $derived(data.article.category.name)
+const date = $derived(data.article.date.slice(0, 4))
 
-const recent = () => {
-  return categoryArticles.filter(a => a._id !== data.article._id).slice(0, 3)
-}
+// recent is the three most recent articles in this current article's category.
+const recent = () => categoryArticles.filter(a => a._id !== article._id).slice(0, 3)
 
 const getRelatedArticles = async (): Promise<FetchScoredArticleQueryResults> => {
-  // String together portable text spans into one string. If content doesn't exist, just return an empty string.
   let relatedArticles
-  const contentText =
-    data.article.content
-      ?.map(block =>
-        block.children
-          .filter<PortableTextSpan>(child => isPortableTextSpan(child))
-          .map<string>((child: PortableTextSpan) => child.text)
-          .join('')
-      )
-      .join(' ') ?? ''
-  const authors = data.article.authors.map(val => `"${val._id}"`)
-  const date = data.article.date.slice(0, 4)
-  const catId = data.article.category._id
+
+  const content = blocksToText(article.content)
+  const authors = article.authors.map(val => `"${val._id}"`)
 
   try {
     relatedArticles = await fetchRelatedArticles(
       {
-        slug: data.article.slug.current,
-        authors: authors,
+        slug: article.slug.current,
+        authors,
       },
       {
-        title: data.article.title,
+        title: article.title,
         date: date,
-        content: contentText,
-        categoryId: catId,
-        authors: authors,
+        content,
+        categoryId: article.category._id,
+        authors,
       }
     )
 
-    console.log(relatedArticles)
+    if (dev) {
+      console.debug(relatedArticles)
+    }
   } catch (error: unknown) {
     if (dev && error instanceof Error) {
       console.error(error.name, error.message, error.cause)
     }
     return Promise.reject(new Error('failed to fetch related articles'))
   }
-  const catArticleIds: string[] = recent().map(v => {
-    return v.title
-  })
 
   // Removes the article with the same name as this current page from the related section.
-  return relatedArticles.filter(v => !catArticleIds.includes(v.title))
+  return relatedArticles.filter(
+    v =>
+      // From recent, extract only an array of titles, then check if this current article's
+      // title is in that array.
+      !recent()
+        .map(v => v.title)
+        .includes(v.title)
+  )
 }
 </script>
 
@@ -94,7 +90,14 @@ const getRelatedArticles = async (): Promise<FetchScoredArticleQueryResults> => 
         </ol>
       {:catch error}
         {@debug error}
-        <P class="m-4 pl-4">Uh oh... something wrong happened :(</P>
+        <P class="m-4 pl-4">Uh oh... something got messed up :(</P>
+        <P class="m-4 pl-4"
+          ><a
+            class="text-nyu-purple-100 font-bold"
+            href="https://github.com/onmagnoliasquare/website/issues/new?template=05-bug.yml"
+            >Let us know by submitting a bug report!</a
+          ></P
+        >
       {/await}
     </div>
     <div class="sm:sticky top-4 h-fit col-span-2" aria-label="Recent Articles">
