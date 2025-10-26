@@ -90,6 +90,7 @@ const splitTitle = site.title.split(' ')
       </em>
     </p>
     <a
+      data-testid="headline-article"
       href="category/{headlineArticle.category.name.toLowerCase()}/{headlineArticle.slug.current}"
       class="border-b-1 border-dotted"
     >

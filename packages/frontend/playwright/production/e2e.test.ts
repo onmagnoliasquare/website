@@ -64,24 +64,25 @@ test('Headline article is accessible', async ({ page }) => {
   expect(response.ok()).toBeTruthy()
 })
 
-test.describe('Headline article', () => {
-  // Go to the headline article before all tests run.
-  test.beforeAll(async ({ page }) => {
-    await page.goto('/')
-    await page.getByTestId('headline-article').click()
-  })
+test('Related articles are visible', async ({ page }) => {
+  await page.goto('/')
+  const el = page.getByTestId('headline-article')
+  await el.scrollIntoViewIfNeeded()
+  await el.click()
+  await expect(page.getByLabel('Related Articles').getByRole('list')).toBeVisible()
+})
 
-  test('No accessibility violations', async ({ page }) => {
-    const accessibilityScanResults = await new AxeBuilder({ page })
-      .disableRules(['color-contrast'])
-      .analyze()
+test('Headline article has no accessibility violations', async ({ page }) => {
+  await page.goto('/')
+  const el = page.getByTestId('headline-article')
+  await el.scrollIntoViewIfNeeded()
+  await el.click()
+  await page.getByTestId('headline-article').click()
+  const accessibilityScanResults = await new AxeBuilder({ page })
+    .disableRules(['color-contrast'])
+    .analyze()
 
-    expect(accessibilityScanResults.violations).toHaveLength(0)
-  })
-
-  test('Related articles are visible', async ({ page }) => {
-    await expect(page.getByLabel('Related Articles').locator('ol')).toBeVisible()
-  })
+  expect(accessibilityScanResults.violations).toHaveLength(0)
 })
 
 test('Homepage has no accessibility violations', async ({ page }) => {
