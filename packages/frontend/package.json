@@ -1,7 +1,6 @@
 {
   "name": "frontend",
   "type": "module",
-  "version": "0.7.1",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
@@ -67,4 +66,5 @@
     "vitest": "^3.2.4",
     "wrangler": "^4.44.0"
   }
+    "version": "0.7.2",
 }
