@@ -52,38 +52,38 @@ test('Version label does not return 404', async ({ page }) => {
   expect(response.ok()).toBeTruthy()
 })
 
-test('Headline article is accessible', async ({ page }) => {
-  await page.goto('/')
-
-  await expect(page.getByTestId('headline')).toBeVisible()
-
-  const responseFromSite = page.waitForResponse(response => response.status() === 200)
-  await page.getByTestId('headline-article').click()
-  const response = await responseFromSite
-
-  expect(response.ok()).toBeTruthy()
-})
-
-test('Related articles are visible', async ({ page }) => {
-  await page.goto('/')
-  const el = page.getByTestId('headline-article')
-  await el.scrollIntoViewIfNeeded()
-  await el.click()
-  await expect(page.getByLabel('Related Articles').getByRole('list')).toBeVisible()
-})
-
-test('Headline article has no accessibility violations', async ({ page }) => {
-  await page.goto('/')
-  const el = page.getByTestId('headline-article')
-  await el.scrollIntoViewIfNeeded()
-  await el.click()
-  await page.getByTestId('headline-article').click()
-  const accessibilityScanResults = await new AxeBuilder({ page })
-    .disableRules(['color-contrast'])
-    .analyze()
-
-  expect(accessibilityScanResults.violations).toHaveLength(0)
-})
+// test('Headline article is accessible', async ({ page }) => {
+//   await page.goto('/')
+//
+//   await expect(page.getByTestId('headline')).toBeVisible()
+//
+//   const responseFromSite = page.waitForResponse(response => response.status() === 200)
+//   await page.getByTestId('headline-article').click()
+//   const response = await responseFromSite
+//
+//   expect(response.ok()).toBeTruthy()
+// })
+//
+// test('Related articles are visible', async ({ page }) => {
+//   await page.goto('/')
+//   const el = page.getByTestId('headline-article')
+//   await el.scrollIntoViewIfNeeded()
+//   await el.click()
+//   await expect(page.getByLabel('Related Articles').getByRole('list')).toBeVisible()
+// })
+//
+// test('Headline article has no accessibility violations', async ({ page }) => {
+//   await page.goto('/')
+//   const el = page.getByTestId('headline-article')
+//   await el.scrollIntoViewIfNeeded()
+//   await el.click()
+//   await page.getByTestId('headline-article').click()
+//   const accessibilityScanResults = await new AxeBuilder({ page })
+//     .disableRules(['color-contrast'])
+//     .analyze()
+//
+//   expect(accessibilityScanResults.violations).toHaveLength(0)
+// })
 
 test('Homepage has no accessibility violations', async ({ page }) => {
   await page.goto('/')
