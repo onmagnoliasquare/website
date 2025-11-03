@@ -5412,9 +5412,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sveltejs/kit@npm:^2.47.3":
-  version: 2.47.3
-  resolution: "@sveltejs/kit@npm:2.47.3"
+"@sveltejs/kit@npm:^2.48.4":
+  version: 2.48.4
+  resolution: "@sveltejs/kit@npm:2.48.4"
   dependencies:
     "@standard-schema/spec": "npm:^1.0.0"
     "@sveltejs/acorn-typescript": "npm:^1.0.5"
@@ -5439,7 +5439,7 @@ __metadata:
       optional: true
   bin:
     svelte-kit: svelte-kit.js
-  checksum: 10c0/76923bad9fe2618842f175e63de90f462b12af06f3956c8d9c43d9b4a2986eefc37ea0f42d0e1937064724b2799df267205c5318610c0a53936ab85a7f993453
+  checksum: 10c0/1795e8ef7e098508582b3b114399fef25f19123ff162e2acffc1af182115574c645d6f1ce8a82631364caf7d26a7ba0c724a64c8e15980a6eef1a8dc56231950
   languageName: node
   linkType: hard
 
@@ -9966,7 +9966,7 @@ __metadata:
     "@sanity/types": "npm:4.11.0"
     "@sveltejs/adapter-auto": "npm:^7.0.0"
     "@sveltejs/adapter-cloudflare": "npm:^7.2.4"
-    "@sveltejs/kit": "npm:^2.47.3"
+    "@sveltejs/kit": "npm:^2.48.4"
     "@sveltejs/vite-plugin-svelte": "npm:6.2.1"
     "@tailwindcss/vite": "npm:^4.1.16"
     "@testing-library/jest-dom": "npm:^6.9.1"
