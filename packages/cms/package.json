@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "run -T vitest",
-    "test-ci:unit": "run -T vitest run --pool forks --poolOptions.forks.singleFork",
+    "test-ci:unit": "run -T vitest run",
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy",
     "copy-prod-to-dev": "npx sanity dataset export production ./prod_data.tar.gz && npx sanity dataset delete development && npx sanity dataset create development && npx sanity dataset import ./prod_data.tar.gz development --replace "
@@ -19,24 +19,24 @@
     "@sanity/cross-dataset-duplicator": "1.5.0",
     "@sanity/icons": "^3.7.4",
     "@sanity/ui": "^3.1.11",
-    "@sanity/vision": "^4.11.0",
+    "@sanity/vision": "^4.14.2",
     "@superside-oss/sanity-plugin-copy-paste": "^1.0.3",
     "archiver-utils": "^5.0.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-is": "^19.2.0",
-    "sanity": "^4.11.0",
+    "sanity": "^4.14.2",
     "sanity-plugin-media": "^4.0.0",
     "styled-components": "^6.1.19"
   },
   "devDependencies": {
-    "@sanity/cli": "^4.11.0",
+    "@sanity/cli": "^4.14.2",
     "@sanity/eslint-config-studio": "5.0.2",
     "@sanity/prettier-config": "2.0.1",
     "@types/react": "^19.2.2",
-    "eslint": "^9.38.0",
+    "eslint": "^9.39.1",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.7.1",
-    "wrangler": "^4.45.0"
+    "wrangler": "^4.46.0"
   }
 }
