@@ -36,7 +36,7 @@
     "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
     "@sanity/eslint-config-studio": "^5.0.2",
     "@types/eslint": "^9.6.1",
-    "@typescript-eslint/eslint-plugin": "^8.46.3",
+    "@typescript-eslint/eslint-plugin": "^8.47.0",
     "@typescript-eslint/parser": "^8.46.3",
     "@vitest/coverage-v8": "^4.0.8",
     "@vitest/ui": "^4.0.8",
