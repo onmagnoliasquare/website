@@ -16,7 +16,7 @@ jobs:
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
     steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # ratchet:actions/checkout@v5
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # ratchet:actions/checkout@v5
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
 
@@ -48,7 +48,7 @@ jobs:
       deployments: write
 
     steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # ratchet:actions/checkout@v5
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # ratchet:actions/checkout@v5
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
       - name: Restore build
