@@ -65,7 +65,7 @@
 
         commonPackages = with pkgs; [
           pkgs.ratchet
-          nodejs_24
+          nodejs_25
           yarn-berry
           typescript
           typescript-language-server

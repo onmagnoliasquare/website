@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { type ClientConfig, createClient } from '@sanity/client'
-import imageUrlBuilder from '@sanity/image-url'
+import { createImageUrlBuilder, type SanityImageSource } from '@sanity/image-url'
 import type { PortableTextBlock, PortableTextSpan } from '@portabletext/types'
 
 // Environment variables, found in ".env". Check ".env.example" for explanation.
 import type { Query } from './schema'
 import { dev } from '$app/environment'
-import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
 import { isPortableTextSpan } from '@sanity/types'
 
 // if (!SANITY_PROJECT_ID || !SANITY_DATASET) {
@@ -39,7 +38,7 @@ export const client = createClient(config)
 
 // Helps transform images from Sanity.
 // See: https://www.sanity.io/docs/presenting-images#mY9Be3Ph
-const builder = imageUrlBuilder(client)
+const builder = createImageUrlBuilder(client)
 
 export function urlFor(source: SanityImageSource) {
   return builder.image(source)
@@ -107,6 +106,7 @@ export function unequal(leftSide: string, rightSide: string | boolean): string {
  * - It would require learning a new library.
  *
  * @param sq The sanity query to execute.
+ * @param resultsNum number of results to return.
  * @returns a serialized query string.
  */
 export function buildSanityQuery(sq: Query, resultsNum?: number[]): string {

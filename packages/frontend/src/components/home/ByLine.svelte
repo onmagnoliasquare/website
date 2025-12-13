@@ -1,16 +1,16 @@
 <script lang="ts">
-import P from '$components/defaults/P.svelte'
-import { createAuthorString } from '$lib/helpers'
-import type { Member } from '$lib/schema'
+	import P from '$components/defaults/P.svelte';
+	import { createAuthorString } from '$lib/helpers';
+	import type { Member } from '$lib/schema';
 
-interface Props {
-  authors: Member[]
-}
+	interface Props {
+		authors: Member[];
+	}
 
-let { authors }: Props = $props()
-let authorString = createAuthorString(authors)
+	let { authors }: Props = $props();
+	let authorString = $derived(createAuthorString(authors));
 </script>
 
 <P class="text-sm md:text-sm font-semibold">
-  {authorString}
+	{authorString}
 </P>
