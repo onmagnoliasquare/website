@@ -30,7 +30,7 @@
     "styled-components": "^6.1.19"
   },
   "devDependencies": {
-    "@sanity/cli": "^4.21.1",
+    "@sanity/cli": "^5.0.1",
     "@sanity/eslint-config-studio": "5.0.2",
     "@sanity/prettier-config": "3.0.0",
     "@types/react": "^19.2.7",
