@@ -43,7 +43,7 @@ let headlineMediaBlurHash = $derived(data.articles[0].media?.blurHash)
 
       <!-- Mobile header -->
     </div>
-    <div class="block sm:hidden h-screen">
+    <div class="block sm:hidden min-h-screen">
       <div class="flex flex-col h-full">
         <div class="flex flex-col min-h-xl grow items-end p-3">
           <h1 class="w-full h-fit m-1 p-2 font-serif leading-8 text-6xl font-stretch-condensed">
