@@ -97,7 +97,7 @@ jobs:
       frontend: ${{ steps.filter.outputs.frontend }}
       cms: ${{ steps.filter.outputs.cms }}
     steps:
-      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # ratchet:actions/checkout@v5
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v5
       - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # ratchet:dorny/paths-filter@v3
         id: filter
         with:
@@ -126,7 +126,7 @@ jobs:
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
     if: ${{ (needs.changes.outputs.cms == 'true' || needs.changes.outputs.frontend == 'true') }}
     steps:
-      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # ratchet:actions/checkout@v5
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v5
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
 
@@ -172,7 +172,7 @@ jobs:
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
 
     steps:
-      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # ratchet:actions/checkout@v5
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v5
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
       - name: Restore build
@@ -200,7 +200,7 @@ jobs:
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
 
     steps:
-      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # ratchet:actions/checkout@v5
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v5
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
       - name: Restore build
@@ -224,7 +224,7 @@ jobs:
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
 
     steps:
-      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # ratchet:actions/checkout@v5
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v5
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
       - name: Restore build
@@ -252,7 +252,7 @@ jobs:
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
 
     steps:
-      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # ratchet:actions/checkout@v5
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v5
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
       - name: Restore build
@@ -280,7 +280,7 @@ jobs:
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
 
     steps:
-      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # ratchet:actions/checkout@v5
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v5
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
       - name: Restore build
@@ -310,7 +310,7 @@ jobs:
     needs: [changes, build, test-unit, test-comp, test-func]
 
     steps:
-      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # ratchet:actions/checkout@v5
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v5
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
       - name: Restore build
@@ -345,7 +345,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # ratchet:actions/checkout@v5
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v5
         with:
           fetch-depth: 0 # Ensure full history is fetched for merging
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -377,7 +377,7 @@ jobs:
 
     steps:
       - name: Checkout staging branch
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # ratchet:actions/checkout@v5
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v5
         with:
           ref: staging
 
