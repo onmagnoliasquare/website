@@ -10048,6 +10048,7 @@ __metadata:
     "@unpic/placeholder": "npm:^0.1.2"
     "@unpic/svelte": "npm:^1.0.1"
     eslint: "npm:^9.39.2"
+    eslint-config-prettier: "npm:^10.1.8"
     eslint-plugin-svelte: "npm:^3.13.1"
     groq: "npm:^4.21.1"
     playwright-core: "npm:^1.57.0"
