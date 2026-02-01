@@ -59,7 +59,7 @@
     "prettier-plugin-svelte": "^3.4.0",
     "super-sitemap": "1.0.5",
     "svelte": "^5.46.0",
-    "svelte-check": "^4.3.4",
+    "svelte-check": "^4.3.5",
     "svelte-eslint-parser": "1.4.1",
     "svelte-meta-tags": "^4.5.0",
     "tailwindcss": "^4.1.18",
