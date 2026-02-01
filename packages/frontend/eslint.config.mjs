@@ -5,6 +5,7 @@ import svelte from 'eslint-plugin-svelte'
 import baseConfig from '../../eslint.config.mjs'
 import svelteConfig from './svelte.config.js'
 import ts from 'typescript-eslint'
+import eslintConfigPrettier from 'eslint-config-prettier'
 
 export default defineConfig([
   ...baseConfig,
@@ -31,10 +32,13 @@ export default defineConfig([
       parserOptions: {
         tsconfigRootDir: import.meta.dirname,
         parser: tsParser,
-        projectService: true,
+        projectService: {
+          allowDefaultProject: ['*.js'],
+        },
         extraFileExtensions: ['.svelte'],
         svelteConfig,
       },
     },
   },
+  eslintConfigPrettier,
 ])

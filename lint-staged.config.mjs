@@ -5,7 +5,7 @@ export default {
     title: 'Format/Lint TS/React/Svelte',
     task: async (/** @type {string[]} */ files) => [
       `prettier --write ${files.join(' ')}`,
-      `eslint --fix ${files.join(' ')}`,
+      `eslint --fix --cache --no-warn-ignored ${files.join(' ')}`,
     ],
   },
   '**/*.(html|css|json|yaml|yml)': {
