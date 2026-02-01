@@ -4636,17 +4636,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sanity/client@npm:^6.28.3":
-  version: 6.29.1
-  resolution: "@sanity/client@npm:6.29.1"
-  dependencies:
-    "@sanity/eventsource": "npm:^5.0.2"
-    get-it: "npm:^8.6.7"
-    rxjs: "npm:^7.0.0"
-  checksum: 10c0/1244ab2d9f9a457fc4577b145fc62432e61bd55a724ee3f6dfee09281b2426d5f7d44179f419c33ea35032718d7400ff508172577b152b5d99512dea5da9f0a1
-  languageName: node
-  linkType: hard
-
 "@sanity/client@npm:^7.13.0, @sanity/client@npm:^7.13.2":
   version: 7.13.2
   resolution: "@sanity/client@npm:7.13.2"
@@ -7801,7 +7790,7 @@ __metadata:
     react-dom: "npm:^19.2.3"
     react-is: "npm:^19.2.3"
     sanity: "npm:^4.21.1"
-    sanity-plugin-media: "npm:^4.1.0"
+    sanity-plugin-media: "npm:^4.1.1"
     styled-components: "npm:^6.1.19"
     wrangler: "npm:^4.54.0"
   languageName: unknown
@@ -10222,7 +10211,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-it@npm:^8.6.10, get-it@npm:^8.6.7, get-it@npm:^8.6.9":
+"get-it@npm:^8.6.10, get-it@npm:^8.6.9":
   version: 8.6.10
   resolution: "get-it@npm:8.6.10"
   dependencies:
@@ -15007,13 +14996,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sanity-plugin-media@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "sanity-plugin-media@npm:4.1.0"
+"sanity-plugin-media@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "sanity-plugin-media@npm:4.1.1"
   dependencies:
     "@hookform/resolvers": "npm:^3.1.1"
     "@reduxjs/toolkit": "npm:^2.6.0"
-    "@sanity/client": "npm:^6.28.3"
+    "@sanity/client": "npm:^7.13.2"
     "@sanity/color": "npm:^3.0.6"
     "@sanity/icons": "npm:^3.7.0"
     "@sanity/incompatible-plugin": "npm:^1.0.5"
@@ -15041,9 +15030,9 @@ __metadata:
     react: ^18.3 || ^19
     react-dom: ^18.3 || ^19
     react-is: ^18.3 || ^19
-    sanity: ^3.78 || ^4.0.0-0
+    sanity: ^3.78 || ^4.0.0-0 || ^5
     styled-components: ^6.1
-  checksum: 10c0/cba1e022141b1c71a0de856f246077765f32970b0747b02fe287dfd6e80adea61c7bc926e20ab020e29707184f5b2b215cf36695f250ae4eaf4664abe8a2e097
+  checksum: 10c0/1364225d7ac4cfd379bc18dedaf1a216edf9b03c3acdc19355fee20c420a7dd168bdd67e1cf480b48a0aee66cd9124ac1f9554e3b76ed8b7467d537bb8cdd27a
   languageName: node
   linkType: hard
 
