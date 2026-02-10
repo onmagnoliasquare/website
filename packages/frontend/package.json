@@ -35,6 +35,7 @@
     "@portabletext/svelte": "^3.0.1",
     "@sanity/client": "^7.26.0",
     "@sanity/image-url": "^2.1.1",
+    "@sveltejs/enhanced-img": "0.10.4",
     "@unpic/placeholder": "^0.1.2",
     "@unpic/svelte": "^1.0.1",
     "groq": "^6.8.0",
