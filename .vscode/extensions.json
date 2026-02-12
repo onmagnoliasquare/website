@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "sanity-io.vscode-sanity",
+        "streetsidesoftware.code-spell-checker-cspell-bundled-dictionaries",
+        "dbaeumer.vscode-eslint",
+        "editorconfig.editorconfig",
+        "jnoortheen.nix-ide",
+        "esbenp.prettier-vscode",
+        "svelte.svelte-vscode",
+        "bradlc.vscode-tailwindcss"
+    ]
+}

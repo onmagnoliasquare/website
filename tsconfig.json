@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "composite": false
+    "composite": false,
+    "module": "nodenext"
   }
 }

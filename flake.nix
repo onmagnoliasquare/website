@@ -69,7 +69,7 @@
           yarn-berry
           typescript
           typescript-language-server
-          nixfmt-rfc-style
+          nixfmt
           nixd
           prettierd
           typescript-language-server

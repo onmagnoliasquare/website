@@ -2,7 +2,7 @@ export const csr = false
 
 import { error } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
-import { buildSanityQuery, sanityFetch } from '$lib/sanity'
+import { buildSanityQuery, sanityFetch } from '$lib/sanity/builder'
 import type { MetaTagsProps } from 'svelte-meta-tags'
 import { site } from '$lib/constants'
 import type { Member } from '$lib/schema'

@@ -1,5 +1,5 @@
 import { dev } from '$app/environment'
-import { buildSanityQuery, equal, sanityFetch } from '$lib/sanity'
+import { buildSanityQuery, equal, sanityFetch } from '$lib/sanity/builder'
 import type { Tag } from '$lib/schema'
 import { json, type RequestHandler } from '@sveltejs/kit'
 

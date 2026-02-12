@@ -1,23 +1,26 @@
-import { dev } from '$app/environment'
-import { type ClientConfig, createClient } from '@sanity/client'
-import { Database } from './database'
+import type { SanityClient } from '@sanity/client'
 
-const config: ClientConfig = {
-  projectId: '1ah7xxlt',
-  dataset: 'production',
-  useCdn: true,
-  apiVersion: '2024-09-20',
+type databaseClient = SanityClient // & otherDatabaseClient (if needed in the future!)
+
+export type QueryParameters = Record<string, unknown>
+
+export class Database {
+  private client: databaseClient
+
+  constructor(client: databaseClient) {
+    this.client = client
+  }
+
+  async fetch<T>(query: string, params?: QueryParameters): Promise<T> {
+    let res: T
+    try {
+      res = await this.client.fetch<T>(query, { ...params })
+    } catch (err: unknown) {
+      res =
+        err instanceof Error
+          ? await Promise.reject(new Error('query failure', { cause: err.message }))
+          : await Promise.reject(new Error('query failure', { cause: 'unknown' }))
+    }
+    return res
+  }
 }
-
-// Change the dataset if it is a development environment.
-if (dev || import.meta.env.MODE === 'development') {
-  config.dataset = 'development'
-  config.useCdn = false
-} else if (import.meta.env.MODE === 'staging') {
-  config.dataset = 'staging'
-  config.useCdn = false
-}
-
-const withSanityClient = createClient(config)
-
-export const db = new Database(withSanityClient)
