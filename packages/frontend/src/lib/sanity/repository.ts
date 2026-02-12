@@ -1,4 +1,4 @@
-import { db } from '$lib/database'
+import { db } from './index.ts'
 import type {
   ArticleSlugsQueryResults,
   DetailedArticleQueryResult,

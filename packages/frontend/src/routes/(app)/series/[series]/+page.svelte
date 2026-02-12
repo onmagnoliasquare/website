@@ -10,9 +10,9 @@ interface Props {
 }
 
 let { data }: Props = $props()
-let articles: Article[] = data.articles
-let title: string = data.title
-let description: string = data.description
+let articles: Article[] = $derived(data.articles)
+let title: string = $derived(data.title)
+let description: string = $derived(data.description)
 </script>
 
 <span class="inline text-2xl font-display italic font-stretch-condensed">Series</span>

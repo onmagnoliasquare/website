@@ -1,4 +1,4 @@
-import { equal, getAttrs, getConditions, getIdx, getOrder, unequal } from '$lib/sanity'
+import { equal, getAttrs, getConditions, getIdx, getOrder, unequal } from '$lib/sanity/builder'
 import { describe, it, expect } from 'vitest'
 
 /**

@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit'
-import { buildSanityQuery, sanityFetch } from '$lib/sanity'
+import { buildSanityQuery, sanityFetch } from '$lib/sanity/builder'
 import type { PageServerLoad } from './$types'
 import type { MetaTagsProps } from 'svelte-meta-tags'
 import type { Tag } from '$lib/schema'

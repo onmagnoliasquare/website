@@ -96,15 +96,14 @@ const getRelatedArticles = async (): Promise<FetchScoredArticleQueryResults> => 
             class="text-nyu-purple-100 font-bold"
             href="https://github.com/onmagnoliasquare/website/issues/new?template=05-bug.yml"
             >Let us know by submitting a bug report!</a
-          ></P
-        >
+          ></P>
       {/await}
     </div>
     <div class="sm:sticky top-4 h-fit col-span-2" aria-label="Recent Articles">
       <h2 class="text-lg font-display p-4 font-bold">Recent {categoryName}</h2>
       <ol class="p-2">
         {#each recent() as r}
-          <li class="p-2 py-6 border-t-1 border-dotted">
+          <li class="p-2 py-6 border-t border-dotted">
             <HoverDim>
               <a data-sveltekit-reload href="/category/{r.category.slug.current}/{r.slug.current}">
                 <h3 class="text-lg font-display font-bold pb-2 leading-tight hover:underline">
