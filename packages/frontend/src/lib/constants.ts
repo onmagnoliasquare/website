@@ -1,6 +1,3 @@
-// Release version.
-export const semVer = '0.6.5'
-
 /**
  * `site` is an object used in various components and server
  * code that contains metadata defaults. These fields exist in this
