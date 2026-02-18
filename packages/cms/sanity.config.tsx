@@ -1,18 +1,18 @@
-import {BookIcon, RobotIcon} from '@sanity/icons'
-import {visionTool} from '@sanity/vision'
-import {copyPastePlugin} from '@superside-oss/sanity-plugin-copy-paste'
-import type {Config, WorkspaceOptions} from 'sanity'
-import {defineConfig, isDev, type NavbarProps, useWorkspace} from 'sanity'
-import {structureTool} from 'sanity/structure'
-import {media} from 'sanity-plugin-media'
-import {studioDataset, studioProjectId, studioTitle} from './lib/environment'
-import {customDocumentActions} from './plugins/customDocumentActions'
-import {schemaTypes} from './schema'
-import {structure} from './structure'
-import {crossDatasetDuplicator} from '@sanity/cross-dataset-duplicator'
+import { BookIcon, RobotIcon } from '@sanity/icons'
+import { visionTool } from '@sanity/vision'
+import { copyPastePlugin } from '@superside-oss/sanity-plugin-copy-paste'
+import type { Config, WorkspaceOptions } from 'sanity'
+import { defineConfig, isDev, type NavbarProps, useWorkspace } from 'sanity'
+import { structureTool } from 'sanity/structure'
+import { media } from 'sanity-plugin-media'
+import { studioDataset, studioProjectId, studioTitle } from './lib/environment'
+import { customDocumentActions } from './plugins/customDocumentActions'
+import { schemaTypes } from './schema'
+import { structure } from './structure'
+import { crossDatasetDuplicator } from '@sanity/cross-dataset-duplicator'
 import React from 'react'
-import {Card, Stack, Text} from '@sanity/ui'
-import {ThemeColorCardToneKey} from '@sanity/ui/theme'
+import { Card, Stack, Text } from '@sanity/ui'
+import { ThemeColorCardToneKey } from '@sanity/ui/theme'
 
 import pkg from './package.json' with { type: 'json' }
 
@@ -21,7 +21,7 @@ const devOnlyPlugins = [
   visionTool(),
   // Duplicator is off-limits for regular users in production. Sorry~!
   crossDatasetDuplicator({
-    types: ['article', 'member', 'tag']
+    types: ['article', 'member', 'tag'],
   }),
 ]
 
@@ -30,7 +30,7 @@ const CustomNavbar = (
 ): ((props: NavbarProps) => React.ReactElement<NavbarProps>) => {
   return props => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const {dataset} = useWorkspace()
+    const { dataset } = useWorkspace()
     return (
       <Stack>
         <Card padding={3} tone={tone}>
@@ -50,7 +50,7 @@ const baseWorkspace: Config = {
   projectId: studioProjectId,
   dataset: studioDataset,
   plugins: [
-    structureTool({structure: structure}),
+    structureTool({ structure: structure }),
     media({
       creditLine: {
         enabled: true,
@@ -70,13 +70,13 @@ const baseWorkspace: Config = {
 
 const prodConfig: Config = {
   ...baseWorkspace,
-  title: "Publishing@OMS",
+  title: 'Publishing@OMS',
   icon: BookIcon,
   projectId: studioProjectId,
   dataset: 'production',
   studio: {
     components: {
-      navbar: props =>(
+      navbar: props => (
         <Stack>
           <Card padding={3} tone={'transparent'}>
             <Text size={1}>
@@ -85,7 +85,7 @@ const prodConfig: Config = {
           </Card>
           {props.renderDefault(props)} {/* Render the default navbar */}
         </Stack>
-      ) ,
+      ),
     },
   },
 }
@@ -124,14 +124,24 @@ const devConfig: WorkspaceOptions[] = [
       components: {
         navbar: CustomNavbar('caution'),
         layout: props => {
-          return <>
-            {props.renderDefault(props)}
-            <div style={{ position: 'absolute', bottom: 50, left: 10, zIndex: 20, backgroundColor: 'red'}}>
-              <p style={{color: 'white', fontWeight: 'bold', padding: 10}}>
-                <em>THIS IS A LIVE DATASET!</em>
-              </p>
-            </div>
-          </>
+          return (
+            <>
+              {props.renderDefault(props)}
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: 50,
+                  left: 10,
+                  zIndex: 20,
+                  backgroundColor: 'red',
+                }}
+              >
+                <p style={{ color: 'white', fontWeight: 'bold', padding: 10 }}>
+                  <em>THIS IS A LIVE DATASET!</em>
+                </p>
+              </div>
+            </>
+          )
         },
       },
     },

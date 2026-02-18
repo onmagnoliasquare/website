@@ -13,7 +13,8 @@
     "test-ci:unit": "run -T vitest run",
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy",
-    "copy-prod-to-dev": "npx sanity dataset export production ./prod_data.tar.gz && npx sanity dataset delete development && npx sanity dataset create development && npx sanity dataset import ./prod_data.tar.gz development --replace "
+    "copy-prod-to-dev": "npx sanity dataset export production ./prod_data.tar.gz && npx sanity dataset delete development && npx sanity dataset create development && npx sanity dataset import ./prod_data.tar.gz development --replace ",
+    "sanity:typegen": "yarn sanity schema extract && yarn sanity typegen generate"
   },
   "dependencies": {
     "@sanity/cross-dataset-duplicator": "1.5.1",
@@ -31,9 +32,10 @@
   },
   "devDependencies": {
     "@sanity/cli": "^5.10.0",
-    "@sanity/eslint-config-studio": "6.0.0",
+    "@sanity/eslint-config-studio": "^6.0.0",
     "@sanity/prettier-config": "3.0.0",
     "@types/react": "^19.2.14",
+    "baseline-browser-mapping": "2.9.19",
     "eslint": "^10.0.0",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",

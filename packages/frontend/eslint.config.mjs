@@ -1,5 +1,5 @@
 import svelteParser from 'svelte-eslint-parser'
-import { defineConfig } from 'eslint/config'
+import { defineConfig, globalIgnores } from 'eslint/config'
 import tsParser from '@typescript-eslint/parser'
 import svelte from 'eslint-plugin-svelte'
 import baseConfig from '../../eslint.config.mjs'
@@ -9,6 +9,7 @@ import eslintConfigPrettier from 'eslint-config-prettier'
 
 export default defineConfig([
   ...baseConfig,
+  globalIgnores(['./src/lib/sanity/cms.types.ts']),
   // Other config for non-Svelte files
   ts.configs.strictTypeChecked,
   ts.configs.stylisticTypeChecked,
