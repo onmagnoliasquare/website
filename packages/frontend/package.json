@@ -54,7 +54,7 @@
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-svelte": "^3.13.1",
-    "playwright-core": "^1.57.0",
+    "playwright-core": "^1.58.2",
     "prettier": "^3.7.4",
     "prettier-plugin-svelte": "^3.4.0",
     "super-sitemap": "1.0.5",
