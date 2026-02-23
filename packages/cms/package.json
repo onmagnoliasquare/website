@@ -16,7 +16,7 @@
     "copy-prod-to-dev": "npx sanity dataset export production ./prod_data.tar.gz && npx sanity dataset delete development && npx sanity dataset create development && npx sanity dataset import ./prod_data.tar.gz development --replace "
   },
   "dependencies": {
-    "@sanity/cross-dataset-duplicator": "1.5.0",
+    "@sanity/cross-dataset-duplicator": "1.5.1",
     "@sanity/icons": "^3.7.4",
     "@sanity/ui": "^3.1.11",
     "@sanity/vision": "^4.21.1",
