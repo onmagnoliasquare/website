@@ -9,4 +9,9 @@ export default defineConfig([
   {
     ignores: ['scripts/**/*', 'prettier.config.mjs', 'eslint.config.mjs', 'lint-staged.config.mjs'],
   },
+  {
+    settings: {
+      react: {version: '19'},
+    },
+  },
 ])
