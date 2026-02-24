@@ -12,7 +12,7 @@
 		children: Snippet;
 	}
 
-	let { threshold = 0.5, disable_observer = false, children }: Props = $props();
+	let { threshold = 0.5, disable_observer, children }: Props = $props();
 
 	let loaded = $state(() => disable_observer);
 	let root: HTMLElement;

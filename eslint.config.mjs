@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import js from '@eslint/js'
 import globals from 'globals'
 import { defineConfig, globalIgnores } from 'eslint/config'
@@ -16,7 +14,13 @@ export default defineConfig([
   includeIgnoreFile(gitignorePath),
   // Ignore test files because they follow a particular DSL that doesn't
   // conform to ESLint's proclivities.
-  globalIgnores(['**/*.test.ts', '**/playwright/**']),
+  globalIgnores([
+    '**/*.test.ts',
+    '**/playwright/**',
+    '**/dist/**/*',
+    '**/*.mjs',
+    'eslint.config.mjs',
+  ]),
   {
     languageOptions: {
       parser: tsParser,

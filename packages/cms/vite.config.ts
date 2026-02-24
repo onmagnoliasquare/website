@@ -1,6 +1,6 @@
 import {defineConfig} from 'vite'
 
-import pkg from './package.json' with { type: 'json' }
+import pkg from './package.json' with {type: 'json'}
 
 export default defineConfig({
   resolve: {
@@ -9,6 +9,6 @@ export default defineConfig({
     },
   },
   define: {
-    __OMS_CMS_VERSION__: `"${pkg.version}"`
-  }
+    __OMS_CMS_VERSION__: `"${pkg.version}"`,
+  },
 })
