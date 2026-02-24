@@ -37,7 +37,7 @@
     "@sanity/image-url": "^2.0.3",
     "@unpic/placeholder": "^0.1.2",
     "@unpic/svelte": "^1.0.1",
-    "groq": "^5.10.0",
+    "groq": "^5.11.0",
     "tailwind-merge": "^3.4.1"
   },
   "devDependencies": {
