@@ -1,9 +1,9 @@
 import { type ClientConfig, createClient } from '@sanity/client'
 import { createImageUrlBuilder, type SanityImageSource } from '@sanity/image-url'
-import type { PortableTextBlock, PortableTextSpan } from '@portabletext/types'
 import { dev } from '$app/environment'
 import { isPortableTextSpan } from '@sanity/types'
 import { Database } from '$lib/database'
+import type { Content } from './types.generated'
 
 // It's okay to expose projectId
 // See: https://www.sanity.io/answers/hello-quick-question-is-it-safe-to-commit-p1609342625280000
@@ -12,6 +12,7 @@ const config: ClientConfig = {
   dataset: 'production',
   useCdn: true,
   apiVersion: '2024-09-20',
+  // stega: { }
 }
 
 // Change the dataset if it is a development environment.
@@ -41,7 +42,7 @@ export function urlFor(source: SanityImageSource) {
  * https://www.sanity.io/docs/developer-guides/presenting-block-text
  * @param content
  */
-export function blocksToText(content?: PortableTextBlock[]) {
+export function blocksToText(content: Content): string {
   return (
     content
       ?.map(block => {
@@ -49,14 +50,12 @@ export function blocksToText(content?: PortableTextBlock[]) {
         if (block._type !== 'block' /* && !block.children */) {
           return ''
         }
-        return (
-          block.children
-            // Technically some generic typing is not needed to be so explicit, but it makes things
-            // more obvious to read in this short portable text pipeline.
-            .filter<PortableTextSpan>(child => isPortableTextSpan(child))
-            .map<string>(child => child.text)
-            .join('')
-        )
+        return block.children
+          ? block.children
+              .filter(child => isPortableTextSpan(child))
+              .map<string>(child => child.text)
+              .join('')
+          : ''
       })
       .join('\n\n') ?? ''
   )

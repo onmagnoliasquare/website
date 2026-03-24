@@ -1,10 +1,11 @@
-// import baseConfig from '../../prettier.config.mjs'
+import baseConfig from '../../prettier.config.mjs'
 
 /**
  * @see https://prettier.io/docs/configuration
  * @type {import("prettier").Config}
  */
 const config = {
+  ...baseConfig,
   useTabs: false,
   tabWidth: 2,
   singleQuote: true,

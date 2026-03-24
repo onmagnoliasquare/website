@@ -1,9 +1,7 @@
-import { db } from './index.ts'
+import { client, db } from './index.ts'
 import type {
   ArticleSlugsQueryResults,
-  DetailedArticleQueryResult,
   FetchArticleSlugsQueryResults,
-  FetchDetailedArticleQueryResult,
   FetchHomepageArticleQueryResult,
   FetchMemberSlugsQueryResult,
   FetchScoredArticleQueryResults,
@@ -16,7 +14,7 @@ import type {
   TagSlugsQueryResults,
 } from '$lib/types/api'
 import {
-  articlePage,
+  articlePageQuery,
   homepageArticles,
   relatedArticlesTypeA,
   sitemapArticles,
@@ -24,12 +22,19 @@ import {
   sitemapSeries,
   sitemapTags,
 } from './queries'
+import type { ArticlePageQueryResult } from './types.generated.ts'
 
+// export const fetchArticlePage = async (
+//   slug: string,
+//   category: string
+// ): Promise<FetchDetailedArticleQueryResult> => {
+//   return db.fetch<DetailedArticleQueryResult>(articlePage(), { category, slug })
+// }
 export const fetchArticlePage = async (
   slug: string,
   category: string
-): Promise<FetchDetailedArticleQueryResult> => {
-  return db.fetch<DetailedArticleQueryResult>(articlePage(), { category, slug })
+): Promise<ArticlePageQueryResult> => {
+  return client.fetch(articlePageQuery, { slug, category })
 }
 
 export const fetchRelatedArticles = async (

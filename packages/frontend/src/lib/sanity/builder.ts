@@ -19,11 +19,9 @@ export async function sanityFetch<T>(q: string): Promise<T> {
   try {
     return await client.fetch<T>(q)
   } catch (err: unknown) {
-    if (err instanceof Error) {
-      return Promise.reject(new Error(`Query failed, review query: ${q} - ${err.message}`))
-    }
-
-    return Promise.reject(new Error(`Query failed, review query: ${q} - Unknown error`))
+    return err instanceof Error
+      ? Promise.reject(new Error(`Query failed, review query: ${q} - ${err.message}`))
+      : Promise.reject(new Error(`Query failed, review query: ${q} - Unknown error`))
   }
 }
 
