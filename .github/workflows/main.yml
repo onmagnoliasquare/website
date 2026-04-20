@@ -320,7 +320,7 @@ jobs:
           key: ${{ github.sha }}-${{ github.run_number }}
       - name: Deploy frontend to Cloudflare Workers
         if: ${{ needs.changes.outputs.frontend == 'true' }}
-        uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # ratchet:cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # ratchet:cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -328,7 +328,7 @@ jobs:
           command: deploy --env dev
       - name: Deploy cms to Cloudflare Pages
         if: ${{ needs.changes.outputs.cms == 'true' }}
-        uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # ratchet:cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # ratchet:cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -394,7 +394,7 @@ jobs:
 
       - name: Deploy frontend to Cloudflare Workers (staging)
         if: ${{ needs.changes.outputs.frontend == 'true' }}
-        uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # ratchet:cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # ratchet:cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -403,7 +403,7 @@ jobs:
 
       - name: Deploy cms to Cloudflare Pages (staging)
         if: ${{ needs.changes.outputs.cms == 'true' }}
-        uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # ratchet:cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # ratchet:cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
