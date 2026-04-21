@@ -1,12 +1,10 @@
 <script lang="ts">
 import P from '$components/defaults/P.svelte'
 import HoverDim from '$components/general/HoverDim.svelte'
-
-// import Image from '$components/Image.svelte';
-import type { Member } from '$lib/schema'
+import type { AllMembers } from '$lib/sanity/types'
 
 interface Props {
-  member: Member
+  member: AllMembers[number]
 }
 
 let { member }: Props = $props()
@@ -15,7 +13,7 @@ let { member }: Props = $props()
 <a
   data-sveltekit-preload-code="viewport"
   data-sveltekit-preload-data="tap"
-  href={`/about/staff/${member.slug.current}`}
+  href={`/about/staff/${member.slug}`}
   class="hover:underline w-fit hover:bg-amber-100"
 >
   <HoverDim>

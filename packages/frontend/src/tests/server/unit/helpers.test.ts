@@ -1,5 +1,5 @@
 import { hasUppercase, buildSiteTags, getMetaTags } from '$lib/helpers'
-import type { MetaInfo } from '$lib/schema'
+import type { MetaInfo } from '$lib/sanity/types.generated'
 import { describe, expect, it } from 'vitest'
 
 describe('hasUppercase', () => {
@@ -64,43 +64,46 @@ describe('buildSiteTags', () => {
 
 describe('getMetaTags', () => {
   it('selects title without MetaInfo.ogTitle', () => {
-    const metaInfo = undefined
-    const { title } = getMetaTags(metaInfo, 'the truman show', '')
+    const metaInfo = null
+    const { title } = getMetaTags('the truman show', '', metaInfo)
     expect.soft(title).toBe('the truman show')
   })
   it('selects description without MetaInfo.ogDescription', () => {
-    const metaInfo = undefined
-    const { description } = getMetaTags(metaInfo, '', 'a really good movie apparently')
+    const metaInfo = null
+    const { description } = getMetaTags('', 'a really good movie apparently', metaInfo)
     expect.soft(description).toBe('a really good movie apparently')
   })
   it('selects MetaInfo.ogTitle with MetaInfo.ogTitle', () => {
     const metaInfo: MetaInfo = {
       ogTitle: 'lifetime movie',
+      _type: 'metaInfo',
     }
-    const { title } = getMetaTags(metaInfo, 'finesse', '')
+    const { title } = getMetaTags('finesse', '', metaInfo)
     expect.soft(title).toBe('lifetime movie')
   })
   it('selects MetaInfo.ogDescription with MetaInfo.ogDescription', () => {
     const metaInfo: MetaInfo = {
       ogDescription: 'hotel? trivago',
+      _type: 'metaInfo',
     }
-    const { description } = getMetaTags(metaInfo, '', 'doggo')
+    const { description } = getMetaTags('', 'doggo', metaInfo)
     expect.soft(description).toBe('hotel? trivago')
   })
   it('selects tags without MetaInfo.ogTags', () => {
-    const metaInfo = undefined
+    const metaInfo = null
     const image = undefined
     const testTags = new Set<string>(['a', 'b', 'c'])
-    const { tags } = getMetaTags(metaInfo, '', '', image, testTags)
+    const { tags } = getMetaTags('', '', metaInfo, image, testTags)
     expect.soft(tags).toStrictEqual(testTags)
   })
   it('selects MetaInfo.ogTags with MetaInfo.ogTags', () => {
-    const metaInfo = {
-      ogTags: ['a', 'b', 'c', 'd', 'e', 'cat'],
+    const metaInfo: MetaInfo = {
+      ogTags: ['a', 'b', 'c', 'd', 'e', 'cat'] as MetaInfo['ogTags'],
+      _type: 'metaInfo',
     }
     const image = undefined
     const testTags = new Set<string>(['a', 'b', 'c', 'x'])
-    const { tags } = getMetaTags(metaInfo, '', '', image, testTags)
+    const { tags } = getMetaTags('', '', metaInfo, image, testTags)
     expect.soft(tags).toStrictEqual(new Set(['a', 'b', 'c', 'd', 'e', 'cat', 'x']))
   })
 })

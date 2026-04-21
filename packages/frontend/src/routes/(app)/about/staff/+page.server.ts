@@ -1,33 +1,19 @@
 export const csr = false
 
-import { error } from '@sveltejs/kit'
+import { error, type ServerLoadEvent } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
-import { buildSanityQuery, sanityFetch } from '$lib/sanity/builder'
 import type { MetaTagsProps } from 'svelte-meta-tags'
 import { site } from '$lib/constants'
-import type { Member } from '$lib/schema'
 import { createSiteTitle } from '$lib/helpers'
+import type { AllMembers } from '$lib/sanity/types'
+import { dev } from '$app/environment'
 
-export const load: PageServerLoad = (async () => {
-  let members: Member[] | undefined
-
-  const sanityQuery = buildSanityQuery({
-    type: 'member',
-    attributes: ['name', 'bio', 'slug', 'portrait'],
-    order: 'lower(name)',
-  })
-
+export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
   try {
-    members = await sanityFetch(sanityQuery)
-  } catch (err) {
-    console.error(err)
-    error(500, 'Server network error...')
-  }
+    const req = await event.fetch('/api/members')
+    const members = (await req.json()) as AllMembers
 
-  if (members) {
-    const title = 'Staff'
-
-    const ogTitle = createSiteTitle(site.name, title)
+    const ogTitle = createSiteTitle(site.name, 'Staff')
     const ogDescription = `Staff and contributors at ${site.name}.`
 
     const pageMetaTags = Object.freeze({
@@ -44,11 +30,14 @@ export const load: PageServerLoad = (async () => {
     }) satisfies MetaTagsProps
 
     return {
-      title,
+      title: 'Staff',
       members,
       pageMetaTags,
     }
+  } catch (err) {
+    if (dev) {
+      console.error(err)
+    }
+    error(500, 'Server error')
   }
-
-  error(404, 'Not found')
 }) satisfies PageServerLoad

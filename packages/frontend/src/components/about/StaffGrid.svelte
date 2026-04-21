@@ -1,9 +1,9 @@
 <script lang="ts">
-import type { Member } from '$lib/schema'
+import type { AllMembers } from '$lib/sanity/types'
 import StaffClickable from './StaffClickable.svelte'
 
 interface Props {
-  members: Member[]
+  members: AllMembers
 }
 
 let { members }: Props = $props()

@@ -3,51 +3,33 @@
 import { queryByTestId, render } from '@testing-library/svelte/svelte5'
 import { describe, expect, it } from 'vitest'
 import ArticleBoxC from '$components/home/ArticleBoxC.svelte'
-import type { Article } from '$lib/schema'
+import type { SingleArticleQuery } from '$lib/sanity/types'
 
 describe('ArticleBoxC', () => {
-  const newArticle: Article = {
+  const newArticle: SingleArticleQuery = {
     title: 'This is a new article',
     authors: [
       {
         name: 'Neo Alabastro',
-        _type: 'member',
         _id: '',
-        slug: {
-          current: 'neo-alabastro',
-          _type: 'slug',
-        },
-        metaInfo: {},
+        slug: 'neo-alabastro',
       },
     ],
     _id: '',
     _type: 'article',
-    _createdAt: '',
     updatedDate: '',
     subtitle: '',
     date: '2025-01-01',
-    slug: {
-      _type: 'slug',
-      current: 'new-article',
-    },
+    slug: 'new-article',
     category: {
       _id: '',
-      _type: 'category',
-      _createdAt: '',
       name: 'News',
-      slug: {
-        _type: 'slug',
-        current: 'news',
-      },
-      description: '',
-      metaInfo: {},
+      slug: 'news',
     },
     tags: [],
-    metaInfo: {},
-    error: {
-      message: '',
-      status: 0,
-    },
+    series: null,
+    media: null,
+    metaInfo: null,
   }
 
   it('mounts with default props', async () => {

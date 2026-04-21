@@ -3,7 +3,11 @@
  * NO SIDE EFFECTS PLEASE.
  */
 
-import type { CustomImageAsset, Member, MetaInfo } from './schema'
+import type { ImageAsset } from '@sanity/types'
+import type { MetaInfo } from './sanity/types.generated'
+import type { MemberQuery } from './sanity/types'
+import type { APIError } from './types'
+import { json } from '@sveltejs/kit'
 
 const dateOnlyRegex =
   /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])))$/
@@ -26,6 +30,7 @@ function parseDateString(dateString: string) {
  * that can be displayed on a page.
  * @param date  string in YYYY/MM/DD format
  * @param locale locale language code, such as 'en-US', or an array of multiple. Check out documentation on documentation on the [locale argument](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locales_argument). If locale is undefined, the browser's default locale is used.
+ * @param options
  * @returns `string` formatted date
  */
 export const dateFormatter = (
@@ -63,25 +68,21 @@ export const dateFormatter = (
  */
 export const hasUppercase = (p: string): boolean => {
   const m: RegExpMatchArray | null = /[A-Z]/.exec(p)
-  return m ? true : false
+  return !!m
 }
 
 /**
  * createAuthorString creates an author string from
  * an array of authors.
- * @param a authors array
+ * @param authors authors array
  * @returns `string`
  */
-export const createAuthorString = (a: Member[]): string => {
+export const createAuthorString = (authors: MemberQuery[]): string => {
   let authorString = ''
-
-  for (const author of a) {
+  for (const author of authors) {
     authorString = authorString.concat(author.name, ', ')
   }
-
-  authorString = authorString.slice(0, -2)
-
-  return authorString
+  return authorString.slice(0, -2)
 }
 
 /**
@@ -290,12 +291,12 @@ export const buildSiteTags = (ref: string[], cmp: string[]): string[] => {
  * getMetaTags abstracts logic for selecting whether metadata is to be used.
  */
 export const getMetaTags = (
-  meta: MetaInfo | undefined,
   title: string,
   description: string,
-  image?: CustomImageAsset,
+  meta: MetaInfo | null,
+  image?: ImageAsset,
   tags?: Set<string>
-): { title: string; description: string; image?: CustomImageAsset; tags: Set<string> } => {
+): { title: string; description: string; image?: ImageAsset; tags: Set<string> } => {
   let newTitle = title
   let newDescription = description
   let newImage = image
@@ -308,7 +309,7 @@ export const getMetaTags = (
       newDescription = meta.ogDescription
     }
     if (meta.ogImage) {
-      newImage = meta.ogImage
+      newImage = meta.ogImage as MetaInfo['ogImage'] & ImageAsset
     }
     if (meta.ogTags) {
       newTags = newTags?.union(new Set(meta.ogTags))
@@ -320,4 +321,8 @@ export const getMetaTags = (
     image: newImage,
     tags: newTags ?? new Set<string>(),
   }
+}
+
+export function newAPIError(message: string, status: number): Response {
+  return json({ error: message } as APIError, { status })
 }

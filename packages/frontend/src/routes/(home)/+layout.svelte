@@ -22,8 +22,8 @@ let locale = $derived(data.userLocale)
 let headlineArticle = $derived(data.articles[0])
 let authorString = $derived(createAuthorString(data.articles[0].authors))
 let headlineMedia = $derived(data.articles[0].media)
-let headlineArticleSlug = $derived(data.articles[0].slug.current)
-let headlineMediaBlurHash = $derived(data.articles[0].media?.blurHash)
+let headlineArticleSlug = $derived(data.articles[0].slug)
+let headlineMediaBlurHash = $derived(data.articles[0].media?.asset?.metadata?.blurHash)
 </script>
 
 <svelte:head>
@@ -53,8 +53,7 @@ let headlineMediaBlurHash = $derived(data.articles[0].media?.blurHash)
             {splitTitle[1]}
           </h1>
           <h1
-            class="w-full h-fit m-1 p-2 font-serif leading-8 text-6xl font-stretch-condensed pb-8"
-          >
+            class="w-full h-fit m-1 p-2 font-serif leading-8 text-6xl font-stretch-condensed pb-8">
             {splitTitle[2]}
           </h1>
         </div>
@@ -66,15 +65,14 @@ let headlineMediaBlurHash = $derived(data.articles[0].media?.blurHash)
                   href={route.path}
                   id="heroLinks"
                   title={route.name}
-                  class="hover:underline tracking-wide font-semibold"
-                >
+                  class="hover:underline tracking-wide font-semibold">
                   {route.name}
                 </a>
               </li>
             {/each}
           </ul>
         </nav>
-        <div class="px-2 py-3 border-y-1">
+        <div class="px-2 py-3 border-y">
           <p class="font-serif sm:text-lg xl:text-xl tracking-tight text-center">
             The latest scoop by <span class="italic font-semibold">{authorString}</span>
             on
@@ -87,21 +85,18 @@ let headlineMediaBlurHash = $derived(data.articles[0].media?.blurHash)
           <div class="relative">
             <a
               data-testid="headline-article"
-              href="category/{headlineArticle.category.name.toLowerCase()}/{headlineArticleSlug}"
-            >
+              href="category/{headlineArticle.category.name.toLowerCase()}/{headlineArticleSlug}">
               <div class="relative flex flex-col grow m-2 p-2">
                 <div>
                   <div class="absolute -top-4 -left-2 w-fit h-12 overflow-visible -rotate-12">
                     <div
-                      class="left-2 bg-amber-300 h-12 w-12 rounded-full grid gird-cols-1 place-items-center z-10 antialiased"
-                    >
+                      class="left-2 bg-amber-300 h-12 w-12 rounded-full grid gird-cols-1 place-items-center z-10 antialiased">
                       <p class="font-serif text-lg">最近</p>
                     </div>
                   </div>
                   <div class="flex flex-col">
                     <h2
-                      class="text-left font-display text-5xl font-stretch-condensed font-bold leading-12"
-                    >
+                      class="text-left font-display text-5xl font-stretch-condensed font-bold leading-12">
                       {headlineArticle.title}
                     </h2>
                     <Subtitle class="pl-0">{headlineArticle.subtitle}</Subtitle>
@@ -114,7 +109,7 @@ let headlineMediaBlurHash = $derived(data.articles[0].media?.blurHash)
       </div>
     </div>
     {#if headlineMedia}
-      <div class="sm:p-2 pb-4 border-b-1">
+      <div class="sm:p-2 pb-4 border-b">
         <Image
           media={headlineMedia}
           loading="lazy"
@@ -122,8 +117,7 @@ let headlineMediaBlurHash = $derived(data.articles[0].media?.blurHash)
           width={1920}
           height={1080}
           blurHash={headlineMediaBlurHash}
-          fit={'crop'}
-        />
+          fit={'crop'} />
       </div>
     {/if}
   </header>

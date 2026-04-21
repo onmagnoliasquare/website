@@ -2,7 +2,6 @@
 import P from '$components/defaults/P.svelte'
 import ArticleBoxC from '$components/home/ArticleBoxC.svelte'
 import PageHeader from '$components/PageHeader.svelte'
-import type { Article } from '$lib/schema'
 import type { PageData } from './$types'
 
 interface Props {
@@ -10,9 +9,10 @@ interface Props {
 }
 
 let { data }: Props = $props()
-let articles: Article[] = $derived(data.articles)
-let title: string = $derived(data.title)
-let description: string = $derived(data.description)
+
+let articles = $derived(data.articles)
+let title = $derived(data.title)
+let description = $derived(data.description)
 </script>
 
 <span class="inline text-2xl font-display italic font-stretch-condensed">Series</span>

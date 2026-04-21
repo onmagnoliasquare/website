@@ -3,6 +3,7 @@ import P from '$components/defaults/P.svelte'
 import PageHeader from '$components/PageHeader.svelte'
 import type { PageData } from './$types'
 import ArticleBoxC from '$components/home/ArticleBoxC.svelte'
+import { dev } from '$app/environment'
 
 interface Props {
   data: PageData
@@ -10,8 +11,14 @@ interface Props {
 
 let { data }: Props = $props()
 
-const category = $derived(data.cat)
+const category = $derived(data.category)
 const articles = $derived(data.articles)
+if (dev) {
+  // svelte-ignore state_referenced_locally
+  console.log(category)
+  // svelte-ignore state_referenced_locally
+  console.log(articles)
+}
 </script>
 
 <div class="m-2 p-2">

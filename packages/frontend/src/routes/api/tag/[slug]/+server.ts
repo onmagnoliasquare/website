@@ -1,57 +1,24 @@
 import { dev } from '$app/environment'
-import { buildSanityQuery, equal, sanityFetch } from '$lib/sanity/builder'
-import type { Tag } from '$lib/schema'
+import { newAPIError } from '$lib/helpers'
+import { fetchTagPage } from '$lib/sanity/repository'
 import { json, type RequestHandler } from '@sveltejs/kit'
 
-export const GET: RequestHandler = async ({ url, params }) => {
-  let sanityQuery: string
-
-  let tagPage: Tag | undefined
-
+export const GET: RequestHandler = async ({ params }) => {
   const { slug } = params
-
   if (!slug) {
-    return json({ error: 'Missing tag slug' }, { status: 400 })
-  }
-
-  const getArticles = url.searchParams.get('articles')
-
-  if (getArticles && getArticles === 'true') {
-    sanityQuery = buildSanityQuery({
-      type: 'article',
-      conditions: [
-        buildSanityQuery({
-          type: 'tag',
-          function: 'references',
-          conditions: [equal('slug.current', slug)],
-          outer: '_id',
-        }),
-      ],
-      attributes: ['title', 'subtitle', 'date', 'slug', 'media'],
-      customAttrs: ['authors[]->{name}', 'category->'],
-      order: 'date desc',
-    })
-  } else {
-    // Get series information.
-    sanityQuery = buildSanityQuery({
-      type: 'tag',
-      conditions: [equal('slug.current', slug)],
-      idx: [0],
-      attributes: ['name', 'slug', 'description', 'metaInfo'],
-    })
+    return newAPIError('missing slug', 400)
   }
 
   try {
-    tagPage = await sanityFetch(sanityQuery)
+    const tagPage = await fetchTagPage(slug)
+    if (!tagPage) {
+      return newAPIError('tag not found', 404)
+    }
+    return json(tagPage)
   } catch (err) {
     if (dev) {
       console.error(err)
     }
-    return json(
-      { message: 'Failed to fetch series', error: (err as Error).message },
-      { status: 500 }
-    )
+    return newAPIError('failed to fetch tag', 500)
   }
-
-  return json(tagPage)
 }

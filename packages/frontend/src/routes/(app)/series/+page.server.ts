@@ -1,32 +1,21 @@
-import { error } from '@sveltejs/kit'
-import { buildSanityQuery, sanityFetch } from '$lib/sanity/builder'
+import { dev } from '$app/environment'
+import { error, type ServerLoadEvent } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
-import type { Series } from '$lib/schema'
 import type { MetaTagsProps } from 'svelte-meta-tags'
 import { site } from '$lib/constants'
 import { createSiteTitle } from '$lib/helpers'
+import type { AllSeries } from '$lib/sanity/types'
+import { isAPIError, type APIError } from '$lib/types'
 
-export const load: PageServerLoad = (async () => {
-  let series: Series[] | undefined
-
-  // Retrieve any series that has articles greater than or equal to 1.
-  const sanityQuery = buildSanityQuery({
-    type: 'series',
-    conditions: ["count(*[_type == 'article' && references(^._id)]) >= 1"],
-    attributes: ['name', 'description', 'slug'],
-    customAttrs: ['authors[]->{name}'],
-  })
-
+export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
   try {
-    series = await sanityFetch(sanityQuery)
-  } catch (err) {
-    console.error(err)
-    error(500, 'Server network error...')
-  }
+    const res = await event.fetch('/api/series')
+    const series = (await res.json()) as AllSeries | APIError
+    if (isAPIError(series)) {
+      error(500, 'Something went wrong')
+    }
 
-  if (series) {
     const title = 'Series'
-
     const ogTitle = createSiteTitle(site.title, title)
     const ogDescription = `View more contributor series at ${site.name}`
 
@@ -47,7 +36,10 @@ export const load: PageServerLoad = (async () => {
       title,
       pageMetaTags,
     }
+  } catch (err: unknown) {
+    if (dev) {
+      console.error(err)
+    }
+    error(500, 'Server network error...')
   }
-
-  error(404, 'Not found')
 }) satisfies PageServerLoad

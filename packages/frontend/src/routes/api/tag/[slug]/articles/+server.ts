@@ -1,6 +1,6 @@
 import { dev } from '$app/environment'
 import { newAPIError } from '$lib/helpers'
-import { fetchSeriesPage } from '$lib/sanity/repository'
+import { fetchTagPageArticles } from '$lib/sanity/repository'
 import { json, type RequestHandler } from '@sveltejs/kit'
 
 export const GET: RequestHandler = async ({ params }) => {
@@ -10,15 +10,12 @@ export const GET: RequestHandler = async ({ params }) => {
   }
 
   try {
-    const seriesPage = await fetchSeriesPage(slug)
-    if (!seriesPage) {
-      return newAPIError('series not found', 404)
-    }
-    return json(seriesPage)
+    const articles = await fetchTagPageArticles(slug)
+    return json(articles)
   } catch (err) {
     if (dev) {
       console.error(err)
     }
-    return newAPIError('failed to fetch series', 500)
+    return newAPIError('failed to fetch tag articles', 500)
   }
 }

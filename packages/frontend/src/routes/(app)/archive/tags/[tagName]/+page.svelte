@@ -1,20 +1,21 @@
 <script lang="ts">
-import type { PageData } from './$types'
-import type { Article } from '$lib/schema'
 import { dev } from '$app/environment'
 import PageHeader from '$components/PageHeader.svelte'
+import type { TagPage, TagPageInitialArticles } from '$lib/sanity/types'
+import type { PageData } from './$types'
 
 interface Props {
   data: PageData
 }
 
 let { data }: Props = $props()
-const articles: Article[] | undefined = $derived(data.articles)
+const tag: TagPage = $derived(data.tag)
+const articles: TagPageInitialArticles = $derived(data.articles)
 </script>
 
 <header>
-  <PageHeader>{data.tag.name}</PageHeader>
-  <p class="tracked-02">{data.tag.description}</p>
+  <PageHeader>{tag.name}</PageHeader>
+  <p class="tracked-02">{tag.description}</p>
   {#if dev}
     <p class="opacity-50">key: 🔻 – no category</p>
   {/if}
@@ -29,7 +30,7 @@ const articles: Article[] | undefined = $derived(data.articles)
             <a
               data-sveltekit-preload-code="viewport"
               data-sveltekit-preload-data="tap"
-              href={`/category/${article.category.slug.current}/${article.slug.current}`}
+              href={`/category/${article.category.slug}/${article.slug}`}
               class="hover:underline"
             >
               {article.title} <span class="italic text-neutral-400">{article.date}</span>
@@ -37,8 +38,7 @@ const articles: Article[] | undefined = $derived(data.articles)
           </li>
         {:else if dev}
           <li class="opacity-25">
-            🔻 {article.title} //
-            {article.slug.current}
+            🔻 {article.title} // {article.slug}
           </li>
         {/if}
       {/each}

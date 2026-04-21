@@ -1,6 +1,6 @@
 import { dev } from '$app/environment'
 import { newAPIError } from '$lib/helpers'
-import { fetchSeriesPage } from '$lib/sanity/repository'
+import { fetchSeriesPageInitialArticles } from '$lib/sanity/repository'
 import { json, type RequestHandler } from '@sveltejs/kit'
 
 export const GET: RequestHandler = async ({ params }) => {
@@ -9,12 +9,11 @@ export const GET: RequestHandler = async ({ params }) => {
     return newAPIError('missing slug', 400)
   }
 
+  // url.searchParams.get() for pagination!
+
   try {
-    const seriesPage = await fetchSeriesPage(slug)
-    if (!seriesPage) {
-      return newAPIError('series not found', 404)
-    }
-    return json(seriesPage)
+    const seriesArticles = await fetchSeriesPageInitialArticles(slug)
+    return json(seriesArticles)
   } catch (err) {
     if (dev) {
       console.error(err)

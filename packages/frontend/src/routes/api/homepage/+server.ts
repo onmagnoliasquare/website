@@ -2,7 +2,7 @@ import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 import { dev } from '$app/environment'
 import { fetchHomepageArticles } from '$lib/sanity/repository.ts'
-import type { HomepageArticleQueryResult } from '$lib/types/api'
+import type { HomepageArticleQueryResult } from '$lib/sanity/types.generated'
 
 export const GET: RequestHandler = async () => {
   let articles: HomepageArticleQueryResult | undefined

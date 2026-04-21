@@ -2,8 +2,6 @@ import { type ClientConfig, createClient } from '@sanity/client'
 import { createImageUrlBuilder, type SanityImageSource } from '@sanity/image-url'
 import { dev } from '$app/environment'
 import { isPortableTextSpan } from '@sanity/types'
-import { Database } from '$lib/database'
-import type { Content } from './types.generated'
 
 // It's okay to expose projectId
 // See: https://www.sanity.io/answers/hello-quick-question-is-it-safe-to-commit-p1609342625280000
@@ -26,8 +24,6 @@ if (dev || import.meta.env.MODE === 'development') {
 
 export const client = createClient(config)
 
-export const db = new Database(client)
-
 // Helps transform images from Sanity.
 // See: https://www.sanity.io/docs/presenting-images#mY9Be3Ph
 const imgBuilder = createImageUrlBuilder(client)
@@ -42,21 +38,19 @@ export function urlFor(source: SanityImageSource) {
  * https://www.sanity.io/docs/developer-guides/presenting-block-text
  * @param content
  */
-export function blocksToText(content: Content): string {
-  return (
-    content
-      ?.map(block => {
-        // This `if` block fixes issue #337. Also, no second check because its always falsy.
-        if (block._type !== 'block' /* && !block.children */) {
-          return ''
-        }
-        return block.children
-          ? block.children
-              .filter(child => isPortableTextSpan(child))
-              .map<string>(child => child.text)
-              .join('')
-          : ''
-      })
-      .join('\n\n') ?? ''
-  )
+export function blocksToText(content: { _type: string; children?: { text?: string }[] }[]): string {
+  return content
+    .map(block => {
+      // This `if` block fixes issue #337. Also, no second check because its always falsy.
+      if (block._type !== 'block' /* && !block.children */) {
+        return ''
+      }
+      return block.children
+        ? block.children
+            .filter(child => isPortableTextSpan(child))
+            .map<string>(child => child.text)
+            .join('')
+        : ''
+    })
+    .join('\n\n')
 }

@@ -6,34 +6,29 @@ import { error, type ServerLoadEvent } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 import type { MetaTagsProps } from 'svelte-meta-tags'
 import { filler, site } from '$lib/constants'
-import type { Article, Member } from '$lib/schema'
 import { createSiteTitle, getMetaTags } from '$lib/helpers'
+import type { MemberPageQuery, SingleMemberAllArticles } from '$lib/sanity/types'
+import { isAPIError, type APIError } from '$lib/types'
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
   const { name } = event.params
 
-  /**
-   * Execute queries.
-   *
-   * The two queries below can probably be combined into one query,
-   * where the second query is a sub query of the first. I haven't
-   * figured this out yet, though.
-   */
+  try {
+    const memberReq = await event.fetch(`/api/members/${name}`)
+    const member = (await memberReq.json()) as MemberPageQuery | APIError
+    if (isAPIError(member)) {
+      error(404, 'Member not found')
+    }
 
-  // TODO: I think the second query is just fine by itself.
-
-  const req = await event.fetch(`/api/member/${name}`)
-  const member = (await req.json()) as Member | undefined
-
-  if (member) {
     // Attempt to retrieve the member's articles.
-    const req = await event.fetch(`/api/member/${name}?articles=true`)
-    const articles = (await req.json()) as Article[]
+    const articleReq = await event.fetch(`/api/members/${name}/articles`)
+    const articlesRes = (await articleReq.json()) as SingleMemberAllArticles | APIError
+    const articles: SingleMemberAllArticles = isAPIError(articlesRes) ? [] : articlesRes
 
     const { title, description } = getMetaTags(
-      member.metaInfo,
       createSiteTitle(site.name, `About ${member.name}`),
-      member.bio ?? `${member.name} ${filler.memberDescription}.`
+      member.bio ?? `${member.name} ${filler.memberDescription}.`,
+      member.metaInfo
     )
 
     const pageMetaTags = Object.freeze({
@@ -56,7 +51,10 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
       articles,
       pageMetaTags,
     }
+  } catch (err: unknown) {
+    if (dev) {
+      console.error(err)
+    }
+    error(404, 'Member not found')
   }
-
-  error(404, 'Member not found...')
 }) satisfies PageServerLoad

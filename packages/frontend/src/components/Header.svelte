@@ -17,11 +17,11 @@ function toggleNavbar() {
 
 <!-- eslint-disable @typescript-eslint/no-unnecessary-condition -->
 <header>
-  <div class="w-full max-w-7xl center border-0 lg:border-x-1 lg:border-dotted pt-4 sm:mb-0 sm:pb-0">
+  <div class="w-full max-w-7xl center border-0 lg:border-x lg:border-dotted pt-4 sm:mb-0 sm:pb-0">
     <div
       class={[
         'flex flex-row sm:block md:border-b-0 sm:border-0 items-center pb-4 sm:pb-0',
-        showMenu ? 'border-b-0' : 'border-b-1',
+        showMenu ? 'border-b-0' : 'border-b',
       ]}
     >
       <div class="p-2 my-2 ml-1">

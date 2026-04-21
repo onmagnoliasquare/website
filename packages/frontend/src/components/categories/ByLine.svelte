@@ -1,14 +1,14 @@
 <script lang="ts">
 import P from '$components/defaults/P.svelte'
 import { createAuthorString } from '$lib/helpers'
-import type { Member } from '$lib/schema'
+import type { MemberQuery } from '$lib/sanity/types'
 
 interface Props {
-  authors: Member[]
+  authors: MemberQuery[]
 }
 
 let { authors }: Props = $props()
-let authorString = createAuthorString(authors)
+let authorString = $derived(createAuthorString(authors))
 </script>
 
 <P class="text-left font-bold text-slate-600">
