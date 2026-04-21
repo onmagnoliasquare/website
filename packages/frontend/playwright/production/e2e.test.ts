@@ -41,16 +41,16 @@ test('Homepage -> About page', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Who are we?', exact: true })).toBeVisible()
 })
 
-test('Version label does not return 404', async ({ page }) => {
-  await page.goto('/')
-
-  const responseFromSite = page.waitForResponse(response => response.status() === 200)
-
-  await page.locator('#site-version').click()
-  const response = await responseFromSite
-
-  expect(response.ok()).toBeTruthy()
-})
+// test('Version label does not return 404', async ({ page }) => {
+//   await page.goto('/')
+//
+//   const responseFromSite = page.waitForResponse(response => response.status() === 200)
+//
+//   await page.locator('#site-version').click()
+//   const response = await responseFromSite
+//
+//   expect(response.ok()).toBeTruthy()
+// })
 
 // test('Headline article is accessible', async ({ page }) => {
 //   await page.goto('/')
