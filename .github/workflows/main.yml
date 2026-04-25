@@ -348,11 +348,6 @@ jobs:
       SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
 
     steps:
-      - name: Checkout staging branch
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # ratchet:actions/checkout@v5
-        with:
-          ref: staging
-
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
 
