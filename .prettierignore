@@ -6,6 +6,9 @@ node_modules
 packages/frontend/src/styles/*
 packages/frontend/static/*
 
+*.generated.*
+*-generated.*
+
 
 **/*.png
 **/*.jpg
