@@ -2,6 +2,7 @@
 import type { PageData } from './$types'
 import ArticleBoxC from '$components/home/ArticleBoxC.svelte'
 import ArticleBoxB from '$components/home/ArticleBoxB.svelte'
+import type { SingleArticleQuery } from '$lib/sanity/types'
 
 let { data }: { data: PageData } = $props()
 </script>
@@ -12,8 +13,8 @@ let { data }: { data: PageData } = $props()
 <div class="m-2 p-2">
   <div class="w-full">
     <div class="flex flex-col sm:grid sm:grid-cols-2 space-y-4 space-x-4">
-      <ArticleBoxB article={data.articles[1]} locale={data.userLocale} />
-      <ArticleBoxB article={data.articles[2]} locale={data.userLocale} />
+      <ArticleBoxB article={data.articles[1] as SingleArticleQuery} locale={data.userLocale} />
+      <ArticleBoxB article={data.articles[2] as SingleArticleQuery} locale={data.userLocale} />
     </div>
     <div class="flex flex-row max-w-full space-x-2 space-y-2">
       <div class="flex flex-col md:grid md:grid-cols-2 items-top space-y-4 w-5/4">
@@ -31,8 +32,7 @@ let { data }: { data: PageData } = $props()
                 article={article}
                 locale={data.userLocale}
                 showSubtitle={true}
-                showImage={true}
-              />
+                showImage />
             </li>
           {/each}
         </ol>

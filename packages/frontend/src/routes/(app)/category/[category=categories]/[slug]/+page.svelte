@@ -40,6 +40,8 @@ import ArticleContent from '$components/article/ArticleContent.svelte'
 import { createAuthorString } from '$lib/helpers.ts'
 import EmailClickable from '$components/EmailClickable.svelte'
 
+import type { SanityImageSource } from '@sanity/image-url'
+
 interface Props {
   data: PageData
 }
@@ -47,12 +49,11 @@ interface Props {
 let { data }: Props = $props()
 
 let headerMedia = $derived(data.article.media)
-let headerMediaBlurHash = $derived(data.article.media?.blurHash)
-let headerMediaCreditLine = $derived(data.article.media?.creditLine)
+let headerMediaCreditLine = $derived(data.article.media?.asset?.creditLine)
 let headerMediaAlt = $derived(data.article.media?.alt)
 
 let tags = $derived(data.article.tags)
-let title = $derived(data.article.title)
+let title = $derived(data.title)
 let subtitle = $derived(data.article.subtitle)
 let authors = $derived(data.article.authors)
 let date = $derived(data.article.date)
@@ -66,8 +67,7 @@ let content = $derived(data.article.content)
   <div class="flex flex-col-reverse sm:flex-col">
     <div class="w-fit p-2">
       <h1
-        class="text-4xl sm:text-5xl lg:text-7xl font-display font-black font-stretch-condensed tracking-tight pb-8 sm:mb-8 sm:pb-4 antialiased leading-tight sm:leading-24"
-      >
+        class="text-4xl sm:text-5xl lg:text-7xl font-display font-black font-stretch-condensed tracking-tight pb-8 sm:mb-8 sm:pb-4 antialiased leading-tight sm:leading-24">
         {title}
       </h1>
       {#if subtitle}
@@ -83,14 +83,13 @@ let content = $derived(data.article.content)
         <figure role="group" class="mb-1 pb-1 sm:pb-4 sm:mb-4 center">
           <div class="mb-2">
             <Image
-              media={headerMedia}
+              media={headerMedia.asset as SanityImageSource}
               alt={headerMediaAlt}
               width={1920}
               height={1080}
               priority={true}
-              blurHash={headerMediaBlurHash}
-              loading="eager"
-            />
+              blurHash={headerMedia.asset?.metadata?.blurHash}
+              loading="eager" />
           </div>
           {#if headerMediaCreditLine}
             <figcaption class="sm:p-1 pt-1 p-3">
@@ -110,17 +109,15 @@ let content = $derived(data.article.content)
       {#if series}
         <a
           class="italic font-serif text-sm font-bold"
-          href="/series/{series.slug.current}"
-          title="{series.name} series"
-        >
+          href="/series/{series.slug}"
+          title="{series.name} series">
           {series.name}
         </a>
       {:else}
         <a
           class="text-sm tracking-wider font-semibold hover:underline"
-          href="/category/{category.slug.current}"
-          title={category.name}
-        >
+          href="/category/{category.slug}"
+          title={category.name}>
           {category.name}
         </a>
       {/if}
@@ -155,7 +152,7 @@ let content = $derived(data.article.content)
       <ul class="list flex flex-wrap items-center justify-left space-x-1">
         {#each tags as tag}
           <li class="pr-1 inline">
-            <a href="/archive/tags/{tag.slug.current}">
+            <a href="/archive/tags/{tag.slug}">
               <Tag tagName={tag.name} />
             </a>
           </li>

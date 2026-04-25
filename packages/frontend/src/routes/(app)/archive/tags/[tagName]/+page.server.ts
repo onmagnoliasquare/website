@@ -2,68 +2,54 @@ import { error, type ServerLoadEvent } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 import type { MetaTagsProps } from 'svelte-meta-tags'
 import { site } from '$lib/constants'
-import type { Article, Tag } from '$lib/schema'
 import { createSiteTitle, getMetaTags } from '$lib/helpers'
+import type { TagPage, TagPageInitialArticles } from '$lib/sanity/types'
+import { isAPIError, type APIError } from '$lib/types'
+import { dev } from '$app/environment'
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
-  // Get tagName from URL.
   const { tagName } = event.params
 
-  const req = await event.fetch(`/api/tag/${tagName}`)
-  const tag = (await req.json()) as Tag | undefined
-
-  /**
-   * Build page information.
-   */
-
-  if (tag) {
-    let req: Response | undefined
-    let articles: Article[] | undefined
-
-    try {
-      req = await event.fetch(`/api/tag/${tagName}?articles=true`)
-    } catch (error) {
-      console.error(error)
+  try {
+    const req = await event.fetch(`/api/tag/${tagName}`)
+    const tagPage = (await req.json()) as TagPage | APIError
+    if (isAPIError(tagPage)) {
+      error(404, 'Tag not found')
     }
 
+    const articlesReq = await event.fetch(`/api/tag/${tagName}/articles`)
+    const articles = (await articlesReq.json()) as TagPageInitialArticles
+
     const { title, description } = getMetaTags(
-      tag.metaInfo,
       createSiteTitle(site.title, `#${tagName}`),
-      `Browse the #${tag.name} archives at ${site.name}`
+      `Browse the #${tagPage.name} archives at ${site.name}.`,
+      tagPage.metaInfo,
+      undefined
     )
 
     const pageMetaTags = Object.freeze({
-      title: title,
-      description: description,
+      title,
+      description,
       openGraph: {
-        title: title,
-        description: description,
+        title,
+        description,
       },
       twitter: {
-        title: title,
-        description: description,
+        title,
+        description,
       },
     }) satisfies MetaTagsProps
 
-    if (req) {
-      articles = (await req.json()) as Article[]
-    }
-
-    if (articles) {
-      return {
-        articles,
-        tag,
-        pageMetaTags,
-        title: tag.name,
-      }
-    }
-
     return {
-      tag,
+      articles,
+      tag: tagPage,
       pageMetaTags,
-      title: tagName,
+      title: tagPage.name,
     }
+  } catch (err: unknown) {
+    if (dev) {
+      console.error(err)
+    }
+    error(500)
   }
-
-  error(404, 'Not found')
 }) satisfies PageServerLoad

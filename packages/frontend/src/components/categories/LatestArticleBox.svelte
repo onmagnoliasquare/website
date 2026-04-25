@@ -1,12 +1,12 @@
 <script lang="ts">
 import Image from '$components/Image.svelte'
-import type { Article } from '$lib/schema'
 import DateLine from './DateLine.svelte'
 import ByLine from './ByLine.svelte'
 import { twMerge } from 'tailwind-merge'
+import type { SingleArticleQuery } from '$lib/sanity/types'
 
 interface Props {
-  article: Article
+  article: SingleArticleQuery
   locale?: string
   titleClass?: string
   subtitleClass?: string
@@ -18,8 +18,7 @@ let { article, locale = 'en-US', titleClass = '', subtitleClass = '' }: Props = 
 <a
   data-sveltekit-preload-code="viewport"
   data-sveltekit-preload-data="tap"
-  href={`/category/${article.category.name.toLowerCase()}/${article.slug.current}`}
->
+  href={`/category/${article.category.name.toLowerCase()}/${article.slug}`}>
   <article class="w-full min-h-72 grid grid-cols-3 overflow-clip place-items-center p-8">
     <div class="col-span-2 h-fit">
       <div class="grid grid-rows-2 grid-cols-5">
@@ -31,8 +30,7 @@ let { article, locale = 'en-US', titleClass = '', subtitleClass = '' }: Props = 
             {#if article.subtitle}
               <div class="mb-2">
                 <p
-                  class={twMerge('font-display text-3xl tracking-tight font-light', subtitleClass)}
-                >
+                  class={twMerge('font-display text-3xl tracking-tight font-light', subtitleClass)}>
                   {article.subtitle}
                 </p>
               </div>
@@ -56,8 +54,7 @@ let { article, locale = 'en-US', titleClass = '', subtitleClass = '' }: Props = 
           quality={50}
           fit={'clip'}
           alt={article.media.alt}
-          class="h-full w-full object-cover"
-        />
+          class="h-full w-full object-cover" />
       {/if}
     </div>
   </article>

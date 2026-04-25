@@ -1,65 +1,57 @@
 import { error, type ServerLoadEvent } from '@sveltejs/kit'
-import { buildSanityQuery, sanityFetch } from '$lib/sanity/builder'
 import type { MetaTagsProps } from 'svelte-meta-tags'
-import type { Article, Category } from '$lib/schema'
 import type { LayoutServerLoad } from './$types'
 import { dev } from '$app/environment'
 import { getMetaTags } from '$lib/helpers'
+import type { CategoryPage, CategoryPageInitialArticles } from '$lib/sanity/types'
+import { isAPIError, type APIError } from '$lib/types'
 
 export const load: LayoutServerLoad = (async (event: ServerLoadEvent) => {
-  const { category } = event.params
-
-  const req = await event.fetch(`/api/category/${category}`)
-  const cat = (await req.json()) as Category | null
-
-  if (!cat) {
-    error(404, "That category doesn't exist...")
-  }
-
-  const sanityQuery = buildSanityQuery(
-    {
-      type: 'article',
-      attributes: ['_id', 'title', 'subtitle', 'date', 'slug', 'media'],
-      customAttrs: ['authors[]->{name}', 'category->', '"asset": media.asset->{metadata}'],
-      conditions: [`category->slug.current == '${category}'`],
-      order: 'date desc',
-    },
-    [0, 20]
-  )
-
-  let articles: Article[] | null
+  const { category: categoryPathValue } = event.params
 
   try {
-    articles = await sanityFetch<Article[] | null>(sanityQuery)
-  } catch (err: unknown) {
+    const initCatReq = await event.fetch(`/api/category/${categoryPathValue}`)
+    const category = (await initCatReq.json()) as CategoryPage | APIError
+    if (isAPIError(category)) {
+      error(404, 'Category not found')
+    }
+
+    const initArticlesReq = await event.fetch(`/api/category/${categoryPathValue}/articles`)
+    const articles = (await initArticlesReq.json()) as CategoryPageInitialArticles | APIError
+    if (isAPIError(articles)) {
+      error(500, 'Failed to get category')
+    }
+    if (articles.length < 1) {
+      error(404, 'No articles found')
+    }
+
+    const { title, description } = getMetaTags(
+      category.name,
+      category.description,
+      category.metaInfo
+    )
+    const pageMetaTags = Object.freeze({
+      description,
+      openGraph: {
+        title,
+        description,
+      },
+      twitter: {
+        title,
+        description,
+      },
+    }) satisfies MetaTagsProps
+
+    return {
+      title,
+      articles,
+      category,
+      pageMetaTags,
+    }
+  } catch (err) {
     if (dev) {
       console.error(err)
     }
     error(500)
-  }
-
-  if (!articles) {
-    error(404)
-  }
-
-  const { title, description } = getMetaTags(cat.metaInfo, cat.name, cat.description)
-  const pageMetaTags = Object.freeze({
-    description,
-    openGraph: {
-      title,
-      description,
-    },
-    twitter: {
-      title,
-      description,
-    },
-  }) satisfies MetaTagsProps
-
-  return {
-    articles,
-    category,
-    cat,
-    title: cat.name,
-    pageMetaTags,
   }
 }) satisfies LayoutServerLoad

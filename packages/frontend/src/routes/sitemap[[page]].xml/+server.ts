@@ -8,13 +8,13 @@ import {
   fetchSeriesSlugs,
   fetchTagSlugs,
 } from '$lib/sanity/repository.ts'
-import type {
-  ArticleSlugsQueryResults,
-  MemberSlugsQueryResult,
-  SeriesSlugsQueryResults,
-  TagSlugsQueryResults,
-} from '$lib/types/api'
 import { categories } from '../../params/categories'
+import type {
+  SitemapArticlesQueryResult,
+  SitemapAuthorsQueryResult,
+  SitemapSeriesQueryResult,
+  SitemapTagsQueryResult,
+} from '$lib/sanity/types.generated'
 
 /**
  * Query sanity for:
@@ -27,10 +27,10 @@ import { categories } from '../../params/categories'
  */
 
 export const GET: RequestHandler = async ({ params }) => {
-  let memberSlugs: MemberSlugsQueryResult
-  let tagSlugs: TagSlugsQueryResults
-  let articleSlugs: ArticleSlugsQueryResults
-  let seriesSlugs: SeriesSlugsQueryResults
+  let memberSlugs: SitemapAuthorsQueryResult
+  let tagSlugs: SitemapTagsQueryResult
+  let articleSlugs: SitemapArticlesQueryResult
+  let seriesSlugs: SitemapSeriesQueryResult
 
   try {
     ;[memberSlugs, tagSlugs, articleSlugs, seriesSlugs] = (await Promise.all([
@@ -38,12 +38,7 @@ export const GET: RequestHandler = async ({ params }) => {
       fetchTagSlugs(),
       fetchArticleSlugs(),
       fetchSeriesSlugs(),
-    ])) as [
-      MemberSlugsQueryResult,
-      TagSlugsQueryResults,
-      ArticleSlugsQueryResults,
-      SeriesSlugsQueryResults,
-    ]
+    ]))
   } catch (err) {
     error(500, err as Error)
   }
@@ -52,13 +47,13 @@ export const GET: RequestHandler = async ({ params }) => {
     origin: site.url,
     page: params.page,
     paramValues: {
-      '/about/staff/[name]': [...memberSlugs.map(v => v.slug.current)],
+      '/about/staff/[name]': [...memberSlugs.map(v => v.slug)],
       '/archive/tags/[tagName]': [
         ...tagSlugs.map(v => {
-          return { values: [v.slug.current] }
+          return { values: [v.slug] }
         }),
       ],
-      '/series/[series]': [...seriesSlugs.map(v => v.slug.current)],
+      '/series/[series]': [...seriesSlugs.map(v => v.slug)],
       '/category/[category=categories]': [...categories],
       '/category/[category=categories]/[slug]': [
         ...articleSlugs.map(v => {

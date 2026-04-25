@@ -10,9 +10,9 @@ export const load: PageLoad = (async (event: PageLoadEvent) => {
     article.subtitle ?? `An article by ${createAuthorString(article.authors)} at ${site.title}`
 
   const { title, description, tags } = getMetaTags(
-    article.metaInfo,
     article.title,
     subtitle,
+    article.metaInfo,
     undefined,
     new Set<string>(article.tags?.map(v => v.name) ?? []).union(site.tags)
   )
@@ -20,7 +20,7 @@ export const load: PageLoad = (async (event: PageLoadEvent) => {
   // Create an array of links to author's profile pages.
   const ogAuthorLinks = [
     ...article.authors.map(n => {
-      return createAuthorLink(site.url, n.slug.current)
+      return createAuthorLink(site.url, n.slug)
     }),
   ]
 

@@ -21,7 +21,7 @@ let { data }: Props = $props()
       <a
         data-sveltekit-preload-code="viewport"
         data-sveltekit-preload-data="tap"
-        href={`/archive/tags/${tag.slug.current}`}
+        href={`/archive/tags/${tag.slug}`}
         title={tag.name}
         class=" w-fit"
       >

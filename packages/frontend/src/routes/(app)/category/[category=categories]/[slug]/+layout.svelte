@@ -1,7 +1,6 @@
 <script lang="ts">
 import type { Snippet } from 'svelte'
 import type { LayoutData } from './$types'
-import type { FetchScoredArticleQueryResults } from '$lib/types/api'
 import { fetchRelatedArticles } from '$lib/sanity/repository.ts'
 import P from '$components/defaults/P.svelte'
 import HoverDim from '$components/general/HoverDim.svelte'
@@ -9,6 +8,7 @@ import ArticleBoxC from '$components/home/ArticleBoxC.svelte'
 import { blocksToText } from '$lib/sanity'
 import { dev } from '$app/environment'
 import DateLine from '$components/article/DateLine.svelte'
+import type { RelatedArticlesTypeAResult } from '$lib/sanity/types.generated'
 
 interface Props {
   data: LayoutData
@@ -19,13 +19,14 @@ let { data, children }: Props = $props()
 
 const categoryArticles = $derived(data.parentData.articles)
 const article = $derived(data.article)
-const categoryName = $derived(data.article.category.name)
+
+const categoryName = $derived<string>(data.article.category.name)
 const date = $derived(data.article.date.slice(0, 4))
 
 // recent is the three most recent articles in this current article's category.
 const recent = () => categoryArticles.filter(a => a._id !== article._id).slice(0, 3)
 
-const getRelatedArticles = async (): Promise<FetchScoredArticleQueryResults> => {
+const getRelatedArticles = async (): Promise<RelatedArticlesTypeAResult> => {
   let relatedArticles
 
   const content = blocksToText(article.content)
@@ -34,7 +35,7 @@ const getRelatedArticles = async (): Promise<FetchScoredArticleQueryResults> => 
   try {
     relatedArticles = await fetchRelatedArticles(
       {
-        slug: article.slug.current,
+        slug: article.slug,
         authors,
       },
       {
@@ -105,7 +106,7 @@ const getRelatedArticles = async (): Promise<FetchScoredArticleQueryResults> => 
         {#each recent() as r}
           <li class="p-2 py-6 border-t border-dotted">
             <HoverDim>
-              <a data-sveltekit-reload href="/category/{r.category.slug.current}/{r.slug.current}">
+              <a data-sveltekit-reload href="/category/{r.category.slug}/{r.slug}">
                 <h3 class="text-lg font-display font-bold pb-2 leading-tight hover:underline">
                   {r.title}
                 </h3>

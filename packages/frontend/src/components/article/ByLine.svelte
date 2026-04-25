@@ -1,16 +1,16 @@
 <script lang="ts">
 import { createAuthorLink } from '$lib/helpers'
-import type { Member } from '$lib/schema'
+import type { MemberQuery } from '$lib/sanity/types'
 
 interface Props {
-  authors: Member[]
+  authors: MemberQuery[]
 }
 
 let { authors }: Props = $props()
 </script>
 
-{#snippet authorElm(author: Member)}
-  <a href={createAuthorLink('', author.slug.current)} class="hover:underline">
+{#snippet authorElm(author: MemberQuery)}
+  <a href={createAuthorLink('', author.slug)} class="hover:underline">
     <p class="font-semibold text-sm inline tracking-wider">
       {author.name}
     </p>

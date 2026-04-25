@@ -5,16 +5,15 @@ h3 {
 </style>
 
 <script lang="ts">
-import type { Article } from '$lib/schema'
 import Image from '$components/Image.svelte'
 import ByLine from './ByLine.svelte'
 import DateLine from '$components/article/DateLine.svelte'
 import HoverDim from '$components/general/HoverDim.svelte'
 import P from '$components/defaults/P.svelte'
-import type { BasicArticleQueryResult } from '$lib/types/api'
+import type { SingleArticleQuery } from '$lib/sanity/types'
 
 interface Props {
-  article: Article | BasicArticleQueryResult
+  article: SingleArticleQuery
   locale?: string
 }
 
@@ -25,9 +24,9 @@ let articleSubtitle = $derived(article.subtitle)
 let articleDate = $derived(article.date)
 let articleMedia = $derived(article.media)
 let articleMediaAlt = $derived(article.media?.alt)
-let articleBlurHash = $derived(article.media?.blurHash)
+let articleBlurHash = $derived(article.media?.asset?.metadata?.blurHash)
 let articleCategory = $derived(article.category.name)
-let articleSlug = $derived(article.slug.current)
+let articleSlug = $derived(article.slug)
 let articleAuthors = $derived(article.authors)
 </script>
 
@@ -36,9 +35,8 @@ let articleAuthors = $derived(article.authors)
     <a
       data-sveltekit-preload-code="viewport"
       data-sveltekit-preload-data="tap"
-      href="/category/{articleCategory.toLowerCase()}/{articleSlug}"
-    >
-      <div class="sm:m-2 sm:p-2 max-w-2xl border-t-1 border-dotted">
+      href="/category/{articleCategory.toLowerCase()}/{articleSlug}">
+      <div class="sm:m-2 sm:p-2 max-w-2xl border-t border-dotted">
         <div class="m-2 pb-2">
           {#if articleMedia}
             <Image
@@ -48,8 +46,7 @@ let articleAuthors = $derived(article.authors)
               height={1080}
               quality={20}
               fit="crop"
-              alt={articleMediaAlt}
-            />
+              alt={articleMediaAlt} />
           {/if}
         </div>
         <div class="mb-2 pb-2 w-full">

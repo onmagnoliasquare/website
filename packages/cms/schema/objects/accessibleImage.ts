@@ -17,6 +17,10 @@ export default defineType({
     {
       name: 'media',
       type: 'image',
+      options: {
+        hotspot: true,
+        metadata: ['blurhash', 'image']
+      },
       fields: [
         {
           name: 'alt',

@@ -1,10 +1,10 @@
-import {DocumentTextIcon, TagsIcon} from '@sanity/icons'
-import type {ReactNode} from 'react'
-import {defineArrayMember, defineField, defineType, type Image} from 'sanity'
+import { DocumentTextIcon, TagsIcon } from '@sanity/icons'
+import type { ReactNode } from 'react'
+import { defineArrayMember, defineField, defineType, type Image } from 'sanity'
 import abbreviateName from '../../lib/abbreviateName'
 import slugValidator from '../../lib/slugValidator'
 import blockContent from '../objects/blockContent'
-import {ContentGroup, InfoGroup, SeoGroup} from '../objects/fieldGroups'
+import { ContentGroup, InfoGroup, SeoGroup } from '../objects/fieldGroups'
 import metadataInformation from '../objects/metadataInformation'
 import formattedText from '../primitives/formattedText'
 import requiredFormattedString from '../primitives/requiredFormattedString'
@@ -93,8 +93,8 @@ export default defineType({
       name: 'category',
       title: 'Category',
       type: 'reference',
-      to: [{type: 'category'}],
-      options: {disableNew: true},
+      to: [{ type: 'category' }],
+      options: { disableNew: true },
       validation: rule => rule.required(),
       group: InfoGroup.name,
     }),
@@ -104,8 +104,8 @@ export default defineType({
       title: 'Series',
       description: 'Series of this article, if any.',
       type: 'reference',
-      to: [{type: 'series'}],
-      options: {disableNew: true},
+      to: [{ type: 'series' }],
+      options: { disableNew: true },
       group: InfoGroup.name,
     }),
 
@@ -121,7 +121,7 @@ export default defineType({
           name: 'tag',
           title: 'Reference a tag',
           type: 'reference',
-          to: [{type: 'tag'}],
+          to: [{ type: 'tag' }],
         }),
       ],
       group: [InfoGroup.name, SeoGroup.name],
@@ -137,8 +137,8 @@ export default defineType({
           name: 'author',
           title: 'Author',
           type: 'reference',
-          to: [{type: 'member'}],
-          options: {disableNew: true},
+          to: [{ type: 'member' }],
+          options: { disableNew: true },
         }),
       ],
       validation: rule => rule.required(),
@@ -152,12 +152,13 @@ export default defineType({
       type: 'image',
       options: {
         hotspot: true,
+        metadata: ['blurhash']
       },
       fields: [
         {
           name: 'alt',
           type: requiredFormattedString.name,
-          hidden: ({parent}) => !(parent as Image)?.asset,
+          hidden: ({ parent }) => !(parent as Image)?.asset,
           validation: rule =>
             rule.max(125).warning('Try to keep alt text fewer than 125 characters.'),
         },
@@ -182,6 +183,7 @@ export default defineType({
       name: 'content',
       type: blockContent.name,
       group: ContentGroup.name,
+      validation: rule => rule.required(),
     }),
 
     defineField({
@@ -208,12 +210,12 @@ export default defineType({
     {
       title: 'Latest Written',
       name: 'publishDateDesc',
-      by: [{field: 'date', direction: 'desc'}],
+      by: [{ field: 'date', direction: 'desc' }],
     },
     {
       title: 'Oldest Written',
       name: 'publishDateAsc',
-      by: [{field: 'date', direction: 'asc'}],
+      by: [{ field: 'date', direction: 'asc' }],
     },
   ],
 
@@ -237,7 +239,7 @@ export default defineType({
       media?: ReactNode
       date?: string
     }) => {
-      const {title, author0, author1, author2, author3, date} = selection
+      const { title, author0, author1, author2, author3, date } = selection
       const authors = [author0, author1, author2, author3].filter(Boolean) as string[]
       const authorList = `${abbreviateName(authors[0])}${authors.length > 1 ? `+${authors.slice(1).length}` : ''}`
       return {
