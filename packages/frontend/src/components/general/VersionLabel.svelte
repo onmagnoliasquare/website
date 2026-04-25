@@ -19,7 +19,7 @@ const sha = commitSha.slice(0, 12)
 <div id="site-version" class="font-mono text-sm">
   <!-- Order matters here. -->
   {#if staging}
-    <a href={`https://github.com/onmagnoliasquare/website/tree/staging`} target="_blank">
+    <a href={`https://github.com/onmagnoliasquare/website/tree/dev`} target="_blank">
       <span>staging@{sha}</span>
     </a>
   {:else if production}
