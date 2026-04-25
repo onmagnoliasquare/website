@@ -335,44 +335,16 @@ jobs:
           workingDirectory: "packages/cms"
           command: pages deploy --project-name=cms
 
-  merge-dev-to-staging:
-    name: Fast-Forward Merge dev to staging
-    if: ${{ (github.event_name == 'push' || github.event_name == 'merge_queue') && github.ref_name == 'dev' }}
-    needs: [deploy-development, test-int, test-e2e]
-    runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
-    permissions:
-      contents: write
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # ratchet:actions/checkout@v5
-        with:
-          fetch-depth: 0 # Ensure full history is fetched for merging
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Configure Git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Fast-Forward Merge
-        run: |
-          git checkout staging
-          git merge --ff-only origin/dev || {
-            echo "Fast-forward merge failed. Ensure dev branch is up-to-date.";
-            exit 1;
-          }
-          git push origin staging
-
   deploy-staging:
     name: Deploy to staging environment
     if: ${{ (github.event_name == 'push' || github.event_name == 'merge_queue') && github.ref_name == 'dev' }}
-    needs: [changes, merge-dev-to-staging]
+    needs: [changes, build-staging]
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
     environment: staging
     env:
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
+      SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
       SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
 
     steps:
@@ -401,32 +373,32 @@ jobs:
           workingDirectory: "packages/frontend"
           command: deploy --env staging
 
-      - name: Deploy cms to Cloudflare Pages (staging)
-        if: ${{ needs.changes.outputs.cms == 'true' }}
-        uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # ratchet:cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: "packages/cms"
-          command: pages deploy --project-name=cms
+      # - name: Deploy cms to Cloudflare Workers (staging)
+      #   if: ${{ needs.changes.outputs.cms == 'true' }}
+      #   uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # ratchet:cloudflare/wrangler-action@v3
+      #   with:
+      #     apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      #     accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      #     workingDirectory: "packages/cms"
+      #     command: deploy --env staging
 
   all-green:
     name: All Green
     if: always()
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
-    needs: [changes, build, test-unit, test-comp, test-int, test-func, test-e2e, deploy-development, merge-dev-to-staging, deploy-staging]
+    needs:
+      [
+        changes,
+        build,
+        test-unit,
+        test-comp,
+        test-int,
+        test-func,
+        test-e2e,
+        deploy-development,
+        build-staging,
+        deploy-staging,
+      ]
     steps:
       - if: ${{ always() && (contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')) }}
         run: exit 1
-
-
-
-
-
-
-
-
-
-
-
-
