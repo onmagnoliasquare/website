@@ -7,7 +7,13 @@ export default defineConfig([
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   ...studio,
   {
-    ignores: ['scripts/**/*', 'prettier.config.mjs', 'eslint.config.mjs', 'lint-staged.config.mjs'],
+    ignores: [
+      'scripts/**/*',
+      'prettier.config.mjs',
+      'eslint.config.mjs',
+      'lint-staged.config.mjs',
+      '*.generated.ts',
+    ],
   },
   {
     settings: {
