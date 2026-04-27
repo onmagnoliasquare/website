@@ -2,7 +2,7 @@ import {defineCliConfig} from 'sanity/cli'
 import {studioDataset, studioProjectId} from './lib/environment'
 import viteConfig from './vite.config'
 
-// const schemaExportPath = './schema-generated.json'
+const schemaExportPath = './schema-generated.json'
 
 export default defineCliConfig({
   api: {
@@ -12,7 +12,7 @@ export default defineCliConfig({
   reactStrictMode: true,
   schemaExtraction: {
     enabled: true,
-    // path: schemaExportPath,
+    path: schemaExportPath,
 
     // Set to 'production' for the real thing. Also, the schema doesn't differ
     // between workspaces.
