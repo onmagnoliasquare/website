@@ -21,9 +21,6 @@ export const load: LayoutServerLoad = (async (event: ServerLoadEvent) => {
     if (isAPIError(articles)) {
       error(500, 'Failed to get category')
     }
-    if (articles.length < 1) {
-      error(404, 'No articles found')
-    }
 
     const { title, description } = getMetaTags(
       category.name,

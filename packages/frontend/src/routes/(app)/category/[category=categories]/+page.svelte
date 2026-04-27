@@ -34,26 +34,27 @@ if (dev) {
       <P>{category.description}</P>
     </div>
     <div class="flex flex-row max-w-full space-x-2 space-y-2">
-      <div class="flex flex-col md:grid md:grid-cols-2 items-top space-y-4 w-5/4">
-        <ol class="list">
-          {#if articles}
+      {#if articles}
+        <div class="flex flex-col md:grid md:grid-cols-2 items-top space-y-4 w-5/4">
+          <ol class="list">
             {#each articles.slice(0, 10) as article}
               <li>
                 <ArticleBoxC article={article} locale={data.userLocale} />
               </li>
             {/each}
-          {/if}
-        </ol>
-        <ol class="list">
-          {#if articles}
+          </ol>
+          <ol class="list">
             {#each articles.slice(10, 20) as article}
               <li>
                 <ArticleBoxC article={article} locale={data.userLocale} />
               </li>
             {/each}
-          {/if}
-        </ol>
-      </div>
+          </ol>
+        </div>
+      {/if}
     </div>
+    {#if articles.length < 1}
+      <P class="pl-3 mt-4 text-left w-full text-neutral-500 italic">Nothing here yet...</P>
+    {/if}
   {/key}
 </div>
