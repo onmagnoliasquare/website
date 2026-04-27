@@ -7,6 +7,7 @@ export const categories: string[] = [
   'opinion',
   'people',
   'professors',
+  'travel',
 ]
 
 export const match: ParamMatcher = (param: string) => {
