@@ -338,16 +338,16 @@ jobs:
   deploy-staging:
     name: Deploy to staging environment
     if: ${{ (github.event_name == 'push' || github.event_name == 'merge_queue') && github.ref_name == 'dev' }}
-    needs: [changes, build]
+    needs: [changes, deploy-development]
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
     environment: staging
     env:
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
-      SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
       SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
 
     steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # ratchet:actions/checkout@v5
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
 
