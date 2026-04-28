@@ -89,13 +89,13 @@ export const maybeCategoryPageQuery = defineQuery(`
 
 // See: https://www.sanity.io/docs/developer-guides/paginating-with-groq#k3b34cbbe5153
 export const maybeCategoryPagePaginateArticlesQuery = defineQuery(`
-	*[_type == "article" && category->slug.current == $slug && (date > $lastDate || (date > $lastDate && _id > $lastId))] | order(date desc) [0..15] {
+	*[_type == "article" && category->slug.current == $slug && (date < $lastDate || (date == $lastDate && _id > $lastId))] | order(date desc) [0..19] {
 		${articleData}
 	}
 `)
 
 export const maybeCategoryPageInitialArticlesQuery = defineQuery(`
-	*[_type == "article" && category->slug.current == $slug] | order(date desc) [0..15] {
+	*[_type == "article" && category->slug.current == $slug] | order(date desc) [0..19] {
 		${articleData}
 	}
 `)
@@ -110,7 +110,7 @@ export const maybeSeriesPageQuery = defineQuery(`
 `)
 
 export const maybeSeriesPageInitialArticlesQuery = defineQuery(`
-	*[_type == "article" && series->slug.current == $slug] | order(date desc) [0..15] {
+	*[_type == "article" && series->slug.current == $slug] | order(date desc) [0..19] {
 		${articleData}
 	}
 `)
@@ -137,7 +137,7 @@ export const maybeTagPageQuery = defineQuery(`
 `)
 
 export const maybeTagPageInitialArticlesQuery = defineQuery(`
-	*[_type == "article" && $slug in tags[]->slug.current] | order(date desc) [0..15] {
+	*[_type == "article" && $slug in tags[]->slug.current] | order(date desc) [0..19] {
 		${articleData}
 	}
 `)
@@ -149,7 +149,7 @@ export const maybeSingleMemberArticlesQuery = defineQuery(`
 `)
 
 export const homepageArticleQuery = defineQuery(`
-	*[_type == "article" && category.slug.current != "multimedia"] | order(date desc) [0..15] {
+	*[_type == "article" && category.slug.current != "multimedia"] | order(date desc) [0..19] {
 		${articleData}
 	}
 `)

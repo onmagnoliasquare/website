@@ -14,7 +14,7 @@
 
 export declare const internalGroqTypeReferenceTo: unique symbol
 
-// Source: ../cms/schema.json
+// Source: ../cms/schema-generated.json
 export type MemberReference = {
   _ref: string
   _type: 'reference'
@@ -726,7 +726,7 @@ export type MaybeCategoryPageQueryResult = {
 
 // Source: src/lib/sanity/queries.ts
 // Variable: maybeCategoryPagePaginateArticlesQuery
-// Query: *[_type == "article" && category->slug.current == $slug && (date > $lastDate || (date > $lastDate && _id > $lastId))] | order(date desc) [0..15] {				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },	media,		media {		...,		asset->{			...,			creditLine    }	}	}
+// Query: *[_type == "article" && category->slug.current == $slug && (date < $lastDate || (date == $lastDate && _id > $lastId))] | order(date desc) [0..19] {				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },	media,		media {		...,		asset->{			...,			creditLine    }	}	}
 export type MaybeCategoryPagePaginateArticlesQueryResult = Array<{
   _id: string
   _type: 'article'
@@ -789,7 +789,7 @@ export type MaybeCategoryPagePaginateArticlesQueryResult = Array<{
 
 // Source: src/lib/sanity/queries.ts
 // Variable: maybeCategoryPageInitialArticlesQuery
-// Query: *[_type == "article" && category->slug.current == $slug] | order(date desc) [0..15] {				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },	media,		media {		...,		asset->{			...,			creditLine    }	}	}
+// Query: *[_type == "article" && category->slug.current == $slug] | order(date desc) [0..19] {				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },	media,		media {		...,		asset->{			...,			creditLine    }	}	}
 export type MaybeCategoryPageInitialArticlesQueryResult = Array<{
   _id: string
   _type: 'article'
@@ -864,7 +864,7 @@ export type MaybeSeriesPageQueryResult = {
 
 // Source: src/lib/sanity/queries.ts
 // Variable: maybeSeriesPageInitialArticlesQuery
-// Query: *[_type == "article" && series->slug.current == $slug] | order(date desc) [0..15] {				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },	media,		media {		...,		asset->{			...,			creditLine    }	}	}
+// Query: *[_type == "article" && series->slug.current == $slug] | order(date desc) [0..19] {				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },	media,		media {		...,		asset->{			...,			creditLine    }	}	}
 export type MaybeSeriesPageInitialArticlesQueryResult = Array<{
   _id: string
   _type: 'article'
@@ -957,7 +957,7 @@ export type MaybeTagPageQueryResult = {
 
 // Source: src/lib/sanity/queries.ts
 // Variable: maybeTagPageInitialArticlesQuery
-// Query: *[_type == "article" && $slug in tags[]->slug.current] | order(date desc) [0..15] {				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },	media,		media {		...,		asset->{			...,			creditLine    }	}	}
+// Query: *[_type == "article" && $slug in tags[]->slug.current] | order(date desc) [0..19] {				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },	media,		media {		...,		asset->{			...,			creditLine    }	}	}
 export type MaybeTagPageInitialArticlesQueryResult = Array<{
   _id: string
   _type: 'article'
@@ -1083,7 +1083,7 @@ export type MaybeSingleMemberArticlesQueryResult = Array<{
 
 // Source: src/lib/sanity/queries.ts
 // Variable: homepageArticleQuery
-// Query: *[_type == "article" && category.slug.current != "multimedia"] | order(date desc) [0..15] {				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },	media,		media {		...,		asset->{			...,			creditLine    }	}	}
+// Query: *[_type == "article" && category.slug.current != "multimedia"] | order(date desc) [0..19] {				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },	media,		media {		...,		asset->{			...,			creditLine    }	}	}
 export type HomepageArticleQueryResult = Array<{
   _id: string
   _type: 'article'
@@ -1435,16 +1435,16 @@ declare module '@sanity/client' {
     '\n\t*[_type == "member" && _id == $id] {\n\t\t\n\t_id,\n\tname,\n\t"slug": slug.current\n\n\t}[0]\n': MaybeMemberQueryResult
     '\n\t*[_type == "member" && slug.current == $slug] {\n\t\t\n\t_id,\n\tname,\n\t"slug": slug.current\n,\n\t\t\n\tyear,\n\tbio,\n\thandles,\n\tfrom,\n\tportrait { ..., asset-> },\n\tcommittee->{ name }\n,\n\t\tmetaInfo\n\t}[0]\n': MaybeMemberPageQueryResult
     '\n\t*[_type == "category" && slug.current == $slug] {\n\t\t\n\t_id,\n\tname,\n\t"slug": slug.current\n,\n\t\tdescription,\n\t\tuseCustomCss,\n\t\tmetaInfo\n\t}[0]\n': MaybeCategoryPageQueryResult
-    '\n\t*[_type == "article" && category->slug.current == $slug && (date > $lastDate || (date > $lastDate && _id > $lastId))] | order(date desc) [0..15] {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n\n\t}\n': MaybeCategoryPagePaginateArticlesQueryResult
-    '\n\t*[_type == "article" && category->slug.current == $slug] | order(date desc) [0..15] {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n\n\t}\n': MaybeCategoryPageInitialArticlesQueryResult
+    '\n\t*[_type == "article" && category->slug.current == $slug && (date < $lastDate || (date == $lastDate && _id > $lastId))] | order(date desc) [0..19] {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n\n\t}\n': MaybeCategoryPagePaginateArticlesQueryResult
+    '\n\t*[_type == "article" && category->slug.current == $slug] | order(date desc) [0..19] {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n\n\t}\n': MaybeCategoryPageInitialArticlesQueryResult
     '\n\t*[_type == "series" && slug.current == $slug] {\n\t\t\n\t_id,\n\tname,\n\t"slug": slug.current\n,\n\t\tdescription,\n\t\tuseCustomCss,\n\t\tmetaInfo\n\t}[0]\n': MaybeSeriesPageQueryResult
-    '\n\t*[_type == "article" && series->slug.current == $slug] | order(date desc) [0..15] {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n\n\t}\n': MaybeSeriesPageInitialArticlesQueryResult
+    '\n\t*[_type == "article" && series->slug.current == $slug] | order(date desc) [0..19] {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n\n\t}\n': MaybeSeriesPageInitialArticlesQueryResult
     '\n\t*[_type == "series" && count(*[_type == "article" && references(^._id)]) >= 1] | order(lower(name) asc) {\n\t\t\n\t_id,\n\tname,\n\t"slug": slug.current\n,\n\t\tdescription\n\t}\n': MaybeAllSeriesQueryResult
     '\n\t*[_type == "tag"] | order(lower(name) asc) {\n\t\t\n\t_id,\n\tname,\n\t"slug": slug.current\n\n\t}\n': MaybeAllTagsQueryResult
     '\n\t*[_type == "tag" && slug.current == $slug] {\n\t\t\n\t_id,\n\tname,\n\t"slug": slug.current\n,\n\t\tdescription,\n\t\tmetaInfo\n\t}[0]\n': MaybeTagPageQueryResult
-    '\n\t*[_type == "article" && $slug in tags[]->slug.current] | order(date desc) [0..15] {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n\n\t}\n': MaybeTagPageInitialArticlesQueryResult
+    '\n\t*[_type == "article" && $slug in tags[]->slug.current] | order(date desc) [0..19] {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n\n\t}\n': MaybeTagPageInitialArticlesQueryResult
     '\n\t*[_type == "article" && references(*[_type == "member" && slug.current == $slug]._id)] | order(date desc) {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n\n\t}\n': MaybeSingleMemberArticlesQueryResult
-    '\n\t*[_type == "article" && category.slug.current != "multimedia"] | order(date desc) [0..15] {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n\n\t}\n': HomepageArticleQueryResult
+    '\n\t*[_type == "article" && category.slug.current != "multimedia"] | order(date desc) [0..19] {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n\n\t}\n': HomepageArticleQueryResult
     "\n\t*[_type == \"article\"] {\n\t\t'slug': slug.current,\n\t\t'category': category->slug.current,\n\t\t'date': coalesce(updatedDate, date),\n\t}\n":
       | SitemapArticlesDataQueryResult
       | SitemapArticlesQueryResult
