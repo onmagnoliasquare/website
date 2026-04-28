@@ -35,10 +35,10 @@
     "@sanity/eslint-config-studio": "^6.0.0",
     "@sanity/prettier-config": "3.0.0",
     "@types/react": "^19.2.14",
-    "baseline-browser-mapping": "2.10.21",
+    "baseline-browser-mapping": "2.10.23",
     "eslint": "^10.2.1",
     "prettier": "^3.8.3",
-    "prettier-plugin-tailwindcss": "^0.7.3",
+    "prettier-plugin-tailwindcss": "^0.8.0",
     "wrangler": "^4.85.0"
   }
 }
