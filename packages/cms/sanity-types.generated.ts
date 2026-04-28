@@ -14,7 +14,7 @@
 
 export declare const internalGroqTypeReferenceTo: unique symbol
 
-// Source: schema.json
+// Source: schema-generated.json
 export type MemberReference = {
   _ref: string
   _type: 'reference'

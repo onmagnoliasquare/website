@@ -1,6 +1,6 @@
 import { defineCliConfig } from '@sanity/cli'
 
-const schemaExportPath = '../cms/schema.json'
+const schemaExportPath = '../cms/schema-generated.json'
 
 /**
  * This configuration is strictly for generating types and not for deployment
