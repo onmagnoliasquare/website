@@ -1,11 +1,7 @@
 <script lang="ts">
-import type { Snippet } from 'svelte'
+import type { LayoutProps } from './$types'
 
-interface Props {
-  children: Snippet
-}
-
-let { children }: Props = $props()
+let { children }: LayoutProps = $props()
 </script>
 
 <div class="m-2 p-2">

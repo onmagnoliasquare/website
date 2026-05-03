@@ -28,7 +28,7 @@ hr.dotted {
 </style>
 
 <script lang="ts">
-import type { PageData } from './$types'
+import type { PageProps } from './$types'
 
 import Tag from '$components/Tag.svelte'
 import Subtitle from '$components/defaults/Subtitle.svelte'
@@ -42,11 +42,7 @@ import EmailClickable from '$components/EmailClickable.svelte'
 
 import type { SanityImageSource } from '@sanity/image-url'
 
-interface Props {
-  data: PageData
-}
-
-let { data }: Props = $props()
+let { data }: PageProps = $props()
 
 let headerMedia = $derived(data.article.media)
 let headerMediaCreditLine = $derived(data.article.media?.asset?.creditLine)

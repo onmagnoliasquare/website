@@ -4,8 +4,7 @@
  */
 
 import { Footer } from '$lib'
-import type { Snippet } from 'svelte'
-import type { LayoutData } from './$types'
+import type { LayoutProps } from './$types'
 
 import { page } from '$app/state'
 import { MetaTags, deepMerge } from 'svelte-meta-tags'
@@ -13,12 +12,7 @@ import { MetaTags, deepMerge } from 'svelte-meta-tags'
 // CSS styling
 import '../app.css'
 
-interface Props {
-  data: LayoutData
-  children: Snippet
-}
-
-let { data, children }: Props = $props()
+let { data, children }: LayoutProps = $props()
 
 // @ts-expect-error -- this follows the documentation for svelte-meta-tags.
 let metaTags = $derived(deepMerge(data.baseMetaTags, page.data.pageMetaTags))

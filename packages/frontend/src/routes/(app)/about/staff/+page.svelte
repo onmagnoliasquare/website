@@ -1,13 +1,9 @@
 <script lang="ts">
 import StaffGrid from '$components/about/StaffGrid.svelte'
 import PageHeader from '$components/PageHeader.svelte'
-import type { PageData } from './$types'
+import type { PageProps } from './$types'
 
-interface Props {
-  data: PageData
-}
-
-let { data }: Props = $props()
+let { data }: PageProps = $props()
 </script>
 
 <div class="flex flex-row space-x-2">

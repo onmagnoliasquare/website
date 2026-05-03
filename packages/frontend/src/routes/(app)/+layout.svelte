@@ -3,16 +3,12 @@
  * ======== MAIN LAYOUT ========
  */
 import { page } from '$app/state'
-import type { Snippet } from 'svelte'
 import { createSiteTitle } from '$lib/helpers'
 import { site } from '$lib/constants'
 import MainLayout from '$components/MainLayout.svelte'
+import type { LayoutProps } from './$types'
 
-interface Props {
-  children: Snippet
-}
-
-let { children }: Props = $props()
+let { children }: LayoutProps = $props()
 const title = $derived(page.data.title ?? site.title)
 </script>
 

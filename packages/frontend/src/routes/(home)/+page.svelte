@@ -1,10 +1,10 @@
 <script lang="ts">
-import type { PageData } from './$types'
+import type { PageProps } from './$types'
 import ArticleBoxC from '$components/home/ArticleBoxC.svelte'
 import ArticleBoxB from '$components/home/ArticleBoxB.svelte'
 import type { SingleArticleQuery } from '$lib/sanity/types'
 
-let { data }: { data: PageData } = $props()
+let { data }: PageProps = $props()
 </script>
 
 <h2 class="hidden sm:block font-serif italic text-lg sm:text-xl font-bold tracking-tight">

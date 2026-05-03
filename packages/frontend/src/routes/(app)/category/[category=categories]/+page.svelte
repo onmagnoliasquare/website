@@ -1,17 +1,13 @@
 <script lang="ts">
 import P from '$components/defaults/P.svelte'
 import PageHeader from '$components/PageHeader.svelte'
-import type { PageData } from './$types'
+import type { PageProps } from './$types'
 import ArticleBoxC from '$components/home/ArticleBoxC.svelte'
 import { dev } from '$app/environment'
 import type { CategoryPagePaginateArticles } from '$lib/sanity/types'
 import { isAPIError, type APIError } from '$lib/types'
 
-interface Props {
-  data: PageData
-}
-
-let { data }: Props = $props()
+let { data }: PageProps = $props()
 
 const category = $derived(data.category)
 const articles = $derived(data.articles)

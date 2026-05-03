@@ -1,6 +1,5 @@
 <script lang="ts">
-import type { Snippet } from 'svelte'
-import type { LayoutData } from './$types'
+import type { LayoutProps } from './$types'
 import { fetchRelatedArticles } from '$lib/sanity/repository.ts'
 import P from '$components/defaults/P.svelte'
 import HoverDim from '$components/general/HoverDim.svelte'
@@ -10,12 +9,7 @@ import { dev } from '$app/environment'
 import DateLine from '$components/article/DateLine.svelte'
 import type { RelatedArticlesTypeAResult } from '$lib/sanity/types.generated'
 
-interface Props {
-  data: LayoutData
-  children: Snippet
-}
-
-let { data, children }: Props = $props()
+let { data, children }: LayoutProps = $props()
 
 const categoryArticles = $derived(data.parentData.articles)
 const article = $derived(data.article)

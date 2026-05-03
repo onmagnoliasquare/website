@@ -1,13 +1,9 @@
 <script lang="ts">
-import type { PageData } from './$types'
 import PageHeader from '$components/PageHeader.svelte'
 import HoverDim from '$components/general/HoverDim.svelte'
+import type { PageProps } from './$types'
 
-interface Props {
-  data: PageData
-}
-
-let { data }: Props = $props()
+let { data }: PageProps = $props()
 </script>
 
 <div class="flex flex-row">

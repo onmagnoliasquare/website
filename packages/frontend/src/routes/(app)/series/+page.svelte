@@ -1,13 +1,9 @@
 <script lang="ts">
-import type { PageData } from './$types'
+import type { PageProps } from './$types'
 import PageHeader from '$components/PageHeader.svelte'
 import SeriesLink from '$components/SeriesLink.svelte'
 
-interface Props {
-  data: PageData
-}
-
-let { data }: Props = $props()
+let { data }: PageProps = $props()
 let series = $derived(data.series)
 </script>
 

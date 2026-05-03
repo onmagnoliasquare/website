@@ -2,13 +2,9 @@
 import { dev } from '$app/environment'
 import PageHeader from '$components/PageHeader.svelte'
 import type { TagPage, TagPageInitialArticles } from '$lib/sanity/types'
-import type { PageData } from './$types'
+import type { PageProps } from './$types'
 
-interface Props {
-  data: PageData
-}
-
-let { data }: Props = $props()
+let { data }: PageProps = $props()
 const tag: TagPage = $derived(data.tag)
 const articles: TagPageInitialArticles = $derived(data.articles)
 </script>

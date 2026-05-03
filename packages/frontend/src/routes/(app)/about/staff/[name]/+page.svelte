@@ -6,13 +6,9 @@ import HoverDim from '$components/general/HoverDim.svelte'
 import Image from '$components/Image.svelte'
 import { dateFormatter, domainFromUrl } from '$lib/helpers'
 import { filler } from '$lib/constants'
-import type { PageData } from './$types'
+import type { PageProps } from './$types'
 
-interface Props {
-  data: PageData
-}
-
-let { data }: Props = $props()
+let { data }: PageProps = $props()
 
 let member = $derived(data.member)
 let handles = $derived(data.member.handles)
