@@ -7757,6 +7757,7 @@ __metadata:
     "@sanity/ui": "npm:^3.2.0"
     "@sanity/vision": "npm:^5.24.0"
     "@superside-oss/sanity-plugin-copy-paste": "npm:^1.0.3"
+    "@types/node": "npm:25.7.0"
     "@types/react": "npm:^19.2.14"
     archiver-utils: "npm:^5.0.2"
     baseline-browser-mapping: "npm:2.10.29"
