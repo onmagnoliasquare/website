@@ -9700,7 +9700,7 @@ __metadata:
     eslint: "npm:^10.3.0"
     eslint-config-prettier: "npm:^10.1.8"
     eslint-plugin-svelte: "npm:^3.17.1"
-    groq: "npm:^5.24.0"
+    groq: "npm:^5.25.0"
     playwright-core: "npm:^1.60.0"
     prettier: "npm:^3.8.3"
     prettier-plugin-svelte: "npm:^3.5.2"
@@ -10063,10 +10063,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"groq@npm:^5.23.0, groq@npm:^5.24.0":
+"groq@npm:^5.23.0":
   version: 5.24.0
   resolution: "groq@npm:5.24.0"
   checksum: 10c0/9c96676357592a02b423cd0b98170ad76ac360ebd8a88f143f0c92f2f372efe9e6c2f91a36b4103e0290f05b8c70282f29b8d7ff3f1db2a77dc69ecce2d8a64d
+  languageName: node
+  linkType: hard
+
+"groq@npm:^5.25.0":
+  version: 5.25.0
+  resolution: "groq@npm:5.25.0"
+  checksum: 10c0/689660a1b6a869c4de43a3bd39e475ef9bb44a8b38071d07546cbbfeb7aac6eabd23c4cb315f835bc44a65a879fd4697baca7a3c7a9e4cef95897226c1e6cac6
   languageName: node
   linkType: hard
 
