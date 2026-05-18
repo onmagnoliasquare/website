@@ -1737,13 +1737,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/config-conventional@npm:^21.0.0":
-  version: 21.0.0
-  resolution: "@commitlint/config-conventional@npm:21.0.0"
+"@commitlint/config-conventional@npm:^21.0.1":
+  version: 21.0.1
+  resolution: "@commitlint/config-conventional@npm:21.0.1"
   dependencies:
-    "@commitlint/types": "npm:^21.0.0"
+    "@commitlint/types": "npm:^21.0.1"
     conventional-changelog-conventionalcommits: "npm:^9.2.0"
-  checksum: 10c0/9f4356a70616b977328a8a3f558a287ec6ac3a2416aabbb72ae06525a25b34e781dd6d169afa03399b1df3d979d13faa8d311ff42b569ed1ecf84f5e36fae9b4
+  checksum: 10c0/b713491392ce561a882071435ccbdfe30c7adc389674d6e3f4ece4ddf0056e21310ec086e2e6433e9b6620c532b53bbadae59ff38220ba82fd34911e69e690b8
   languageName: node
   linkType: hard
 
@@ -1901,6 +1901,16 @@ __metadata:
     conventional-commits-parser: "npm:^6.3.0"
     picocolors: "npm:^1.1.1"
   checksum: 10c0/05f3afecfd09aacb732108a672a8ac91d5ba9d2e800cba642445ca642ea84d06286e0bb677492a34a367e851e9fb8f2cdc32d2781d6cc2d5b79bc2d7ba608af0
+  languageName: node
+  linkType: hard
+
+"@commitlint/types@npm:^21.0.1":
+  version: 21.0.1
+  resolution: "@commitlint/types@npm:21.0.1"
+  dependencies:
+    conventional-commits-parser: "npm:^6.3.0"
+    picocolors: "npm:^1.1.1"
+  checksum: 10c0/a9f46c2fc4d00e8970baea7bb7ad46422e16dcbda2e580003d65860e6cf5d98e48e60fc24aea9965a1e15174c2d945754dfb1efec69e1e38636a4f043d5116f9
   languageName: node
   linkType: hard
 
@@ -16501,7 +16511,7 @@ __metadata:
   resolution: "website@workspace:."
   dependencies:
     "@commitlint/cli": "npm:^21.0.0"
-    "@commitlint/config-conventional": "npm:^21.0.0"
+    "@commitlint/config-conventional": "npm:^21.0.1"
     "@eslint/compat": "npm:2.1.0"
     "@eslint/js": "npm:10.0.1"
     "@ianvs/prettier-plugin-sort-imports": "npm:^4.7.1"
