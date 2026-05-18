@@ -5338,9 +5338,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sanity/vision@npm:^5.24.0":
-  version: 5.24.0
-  resolution: "@sanity/vision@npm:5.24.0"
+"@sanity/vision@npm:^5.25.1":
+  version: 5.25.1
+  resolution: "@sanity/vision@npm:5.25.1"
   dependencies:
     "@codemirror/autocomplete": "npm:^6.20.0"
     "@codemirror/commands": "npm:^6.10.1"
@@ -5369,7 +5369,7 @@ __metadata:
     react: ^19.2.2
     sanity: ^4.0.0-0 || ^5.0.0-0
     styled-components: ^6.1.15
-  checksum: 10c0/41c96f9f5c90ced50a83f5b3ed363f4daa3372ceab05fd45cd681a5ae3ae0ef3cdad7f9bc3c9a5e680b50b0702ce63cf703901e96303c7406fc86bf97e9f7003
+  checksum: 10c0/523769347d79a1c7c9aba4d7d3864568fbcc0c438a4a2bb6c2356db9d5d2f8fea6a97e969220f902901384dbeaa0ca027b2659cb12e1839a11dc6f675ebc3d4b
   languageName: node
   linkType: hard
 
@@ -7755,7 +7755,7 @@ __metadata:
     "@sanity/icons": "npm:^3.7.4"
     "@sanity/prettier-config": "npm:3.0.0"
     "@sanity/ui": "npm:^3.2.0"
-    "@sanity/vision": "npm:^5.24.0"
+    "@sanity/vision": "npm:^5.25.1"
     "@superside-oss/sanity-plugin-copy-paste": "npm:^1.0.3"
     "@types/node": "npm:25.7.0"
     "@types/react": "npm:^19.2.14"
