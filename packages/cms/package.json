@@ -17,29 +17,29 @@
     "sanity:typegen": "yarn sanity schema extract && yarn sanity typegen generate"
   },
   "dependencies": {
-    "@sanity/cross-dataset-duplicator": "1.5.1",
-    "@sanity/icons": "^3.7.4",
-    "@sanity/ui": "^3.2.0",
-    "@sanity/vision": "^5.24.0",
+    "@sanity/cross-dataset-duplicator": "2.0.12",
+    "@sanity/icons": "^5.2.1",
+    "@sanity/ui": "^3.5.1",
+    "@sanity/vision": "^6.8.0",
     "@superside-oss/sanity-plugin-copy-paste": "^1.0.3",
     "archiver-utils": "^5.0.2",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
-    "react-is": "^19.2.6",
-    "sanity": "5.24.0",
-    "sanity-plugin-media": "^4.2.0",
-    "styled-components": "^6.4.1"
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-is": "^19.2.8",
+    "sanity": "6.8.0",
+    "sanity-plugin-media": "^6.0.9",
+    "styled-components": "^6.4.4"
   },
   "devDependencies": {
-    "@sanity/cli": "^6.5.1",
+    "@sanity/cli": "^7.15.1",
     "@sanity/eslint-config-studio": "^6.0.0",
     "@sanity/prettier-config": "3.0.0",
-    "@types/node": "25.7.0",
-    "@types/react": "^19.2.14",
-    "baseline-browser-mapping": "2.10.29",
-    "eslint": "^10.3.0",
-    "prettier": "^3.8.3",
-    "prettier-plugin-tailwindcss": "^0.8.0",
-    "wrangler": "^4.90.0"
+    "@types/node": "26.1.2",
+    "@types/react": "^19.2.18",
+    "baseline-browser-mapping": "2.11.9",
+    "eslint": "^10.8.0",
+    "prettier": "^3.9.6",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "wrangler": "^4.118.0"
   }
 }
