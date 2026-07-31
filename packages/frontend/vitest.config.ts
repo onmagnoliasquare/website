@@ -14,7 +14,6 @@ const config = mergeConfig(
       restoreMocks: true,
       pool: 'forks',
       isolate: false,
-      environment: 'jsdom',
       server: {
         deps: {
           inline: [`@sveltejs/kit`],
@@ -34,6 +33,7 @@ const config = mergeConfig(
           extends: true,
           test: {
             name: { label: 'client', color: 'green' },
+            environment: 'jsdom',
             include: ['src/tests/client/**/*.{test,spec}.ts'],
             exclude: ['src/tests/server/**/*.{test,spec}.ts'],
           },
