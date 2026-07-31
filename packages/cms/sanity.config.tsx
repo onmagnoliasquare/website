@@ -1,4 +1,5 @@
-import { BookIcon, RobotIcon } from '@sanity/icons'
+import { BookIcon } from '@sanity/icons/Book'
+import { RobotIcon } from '@sanity/icons/Robot'
 import { visionTool } from '@sanity/vision'
 import { copyPastePlugin } from '@superside-oss/sanity-plugin-copy-paste'
 import type { Config, WorkspaceOptions } from 'sanity'

@@ -1,6 +1,7 @@
 import {ListItemBuilder} from 'sanity/structure'
 import defineStructure from '../lib/defineStructure'
-import {EarthGlobeIcon, DocumentIcon} from '@sanity/icons'
+import { EarthGlobeIcon } from '@sanity/icons/EarthGlobe'
+import { DocumentIcon } from '@sanity/icons/Document'
 
 export default defineStructure <
   ListItemBuilder >

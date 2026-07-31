@@ -1,4 +1,4 @@
-import {TiersIcon} from '@sanity/icons'
+import {TiersIcon} from '@sanity/icons/Tiers'
 import {defineField, defineType} from 'sanity'
 import slugValidator from '../../lib/slugValidator'
 import {ContentGroup, InfoGroup, SeoGroup} from '../objects/fieldGroups'

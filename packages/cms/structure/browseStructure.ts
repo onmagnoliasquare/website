@@ -1,6 +1,11 @@
 import {ListItemBuilder, StructureBuilder} from 'sanity/structure'
 import defineStructure from '../lib/defineStructure'
-import {TagIcon, StackIcon, CalendarIcon, SearchIcon, TiersIcon, UserIcon} from '@sanity/icons'
+import {TagIcon} from '@sanity/icons/Tag'
+import {StackIcon} from '@sanity/icons/Stack'
+import {CalendarIcon} from '@sanity/icons/Calendar'
+import {SearchIcon} from '@sanity/icons/Search'
+import {TiersIcon} from '@sanity/icons/Tiers'
+import {UserIcon} from '@sanity/icons/User'
 import {studioApiVersion} from '../lib/environment'
 
 export default defineStructure<ListItemBuilder>(S =>
