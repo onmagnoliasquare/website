@@ -1,6 +1,6 @@
 import { error, type RequestHandler } from '@sveltejs/kit'
-import type { SitemapConfig } from 'super-sitemap'
-import * as sitemap from 'super-sitemap'
+import type { SitemapConfig } from 'super-sitemap/sveltekit'
+import * as sitemap from 'super-sitemap/sveltekit'
 import { site } from '$lib/constants.ts'
 import {
   fetchArticleSlugs,
@@ -33,12 +33,12 @@ export const GET: RequestHandler = async ({ params }) => {
   let seriesSlugs: SitemapSeriesQueryResult
 
   try {
-    ;[memberSlugs, tagSlugs, articleSlugs, seriesSlugs] = (await Promise.all([
+    ;[memberSlugs, tagSlugs, articleSlugs, seriesSlugs] = await Promise.all([
       fetchMemberSlugs(),
       fetchTagSlugs(),
       fetchArticleSlugs(),
       fetchSeriesSlugs(),
-    ]))
+    ])
   } catch (err) {
     error(500, err as Error)
   }
