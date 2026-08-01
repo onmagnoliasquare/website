@@ -1,6 +1,6 @@
 import { error, type RequestHandler } from '@sveltejs/kit'
-import type { SitemapConfig } from 'super-sitemap/sveltekit'
-import * as sitemap from 'super-sitemap/sveltekit'
+import type { SitemapConfig, ParamValue } from 'super-sitemap/sveltekit'
+import { response } from 'super-sitemap/sveltekit'
 import { site } from '$lib/constants.ts'
 import {
   fetchArticleSlugs,
@@ -54,18 +54,12 @@ export const GET: RequestHandler = async ({ params }) => {
         }),
       ],
       '/series/[series]': [...seriesSlugs.map(v => v.slug)],
-      '/category/[category=categories]': [...categories],
-      '/category/[category=categories]/[slug]': [
-        ...articleSlugs.map(v => {
-          const date = v.date
-          const category = v.category
-          const slug = v.slug
-          return { values: [category, slug], lastmod: date }
-        }),
-      ],
+      '/category/[category]': [...categories],
+      '/category/[category]/[slug]':
+        articleSlugs.map(v => ({ values: [v.category, v.slug], lastmod: v.date } as ParamValue)),
     },
     sort: 'alpha',
   }
 
-  return await sitemap.response(config)
+  return await response(config)
 }
