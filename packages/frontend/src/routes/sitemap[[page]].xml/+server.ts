@@ -47,16 +47,13 @@ export const GET: RequestHandler = async ({ params }) => {
     origin: site.url,
     page: params.page,
     paramValues: {
-      '/about/staff/[name]': [...memberSlugs.map(v => v.slug)],
-      '/archive/tags/[tagName]': [
-        ...tagSlugs.map(v => {
-          return { values: [v.slug] }
-        }),
-      ],
-      '/series/[series]': [...seriesSlugs.map(v => v.slug)],
-      '/category/[category]': [...categories],
-      '/category/[category]/[slug]':
-        articleSlugs.map(v => ({ values: [v.category, v.slug], lastmod: v.date } as ParamValue)),
+      '/about/staff/[name]': memberSlugs.map(v => v.slug),
+      '/archive/tags/[tagName]': tagSlugs.map(v => ({ values: [v.slug] } as ParamValue)),
+      '/series/[series]': seriesSlugs.map(v => v.slug),
+      '/category/[category=categories]': categories,
+      // TODO: Fix this monkey patch. Category must never be null.
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      '/category/[category=categories]/[slug]': articleSlugs.map(v => ({values: [v.category ?? 'news', v.slug], lastmod: v.date} as ParamValue)),
     },
     sort: 'alpha',
   }
