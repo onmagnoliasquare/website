@@ -1,6 +1,6 @@
 import { error, type RequestHandler } from '@sveltejs/kit'
-import type { SitemapConfig } from 'super-sitemap'
-import * as sitemap from 'super-sitemap'
+import type { SitemapConfig, ParamValue } from 'super-sitemap/sveltekit'
+import { response } from 'super-sitemap/sveltekit'
 import { site } from '$lib/constants.ts'
 import {
   fetchArticleSlugs,
@@ -33,12 +33,12 @@ export const GET: RequestHandler = async ({ params }) => {
   let seriesSlugs: SitemapSeriesQueryResult
 
   try {
-    ;[memberSlugs, tagSlugs, articleSlugs, seriesSlugs] = (await Promise.all([
+    ;[memberSlugs, tagSlugs, articleSlugs, seriesSlugs] = await Promise.all([
       fetchMemberSlugs(),
       fetchTagSlugs(),
       fetchArticleSlugs(),
       fetchSeriesSlugs(),
-    ]))
+    ])
   } catch (err) {
     error(500, err as Error)
   }
@@ -47,25 +47,16 @@ export const GET: RequestHandler = async ({ params }) => {
     origin: site.url,
     page: params.page,
     paramValues: {
-      '/about/staff/[name]': [...memberSlugs.map(v => v.slug)],
-      '/archive/tags/[tagName]': [
-        ...tagSlugs.map(v => {
-          return { values: [v.slug] }
-        }),
-      ],
-      '/series/[series]': [...seriesSlugs.map(v => v.slug)],
-      '/category/[category=categories]': [...categories],
-      '/category/[category=categories]/[slug]': [
-        ...articleSlugs.map(v => {
-          const date = v.date
-          const category = v.category
-          const slug = v.slug
-          return { values: [category, slug], lastmod: date }
-        }),
-      ],
+      '/about/staff/[name]': memberSlugs.map(v => v.slug),
+      '/archive/tags/[tagName]': tagSlugs.map(v => ({ values: [v.slug] } as ParamValue)),
+      '/series/[series]': seriesSlugs.map(v => v.slug),
+      '/category/[category=categories]': categories,
+      // TODO: Fix this monkey patch. Category must never be null.
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      '/category/[category=categories]/[slug]': articleSlugs.map(v => ({values: [v.category ?? 'news', v.slug], lastmod: v.date} as ParamValue)),
     },
     sort: 'alpha',
   }
 
-  return await sitemap.response(config)
+  return await response(config)
 }

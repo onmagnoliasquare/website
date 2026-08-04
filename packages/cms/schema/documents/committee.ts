@@ -1,4 +1,4 @@
-import {UsersIcon} from '@sanity/icons'
+import {UsersIcon} from '@sanity/icons/Users'
 import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 import {defineField, defineType} from 'sanity'
 import slugValidator from '../../lib/slugValidator'

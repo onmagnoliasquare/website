@@ -1,6 +1,9 @@
 import {ListItemBuilder} from 'sanity/structure'
 import defineStructure from '../lib/defineStructure'
-import {CogIcon, TagsIcon, FolderIcon} from '@sanity/icons'
+import { FolderIcon } from '@sanity/icons/Folder'
+import { CogIcon } from '@sanity/icons/Cog'
+import { TagsIcon } from '@sanity/icons/Tags'
+
 
 export default defineStructure <
   ListItemBuilder >

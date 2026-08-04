@@ -65,14 +65,13 @@
 
         commonPackages = with pkgs; [
           pkgs.ratchet
-          nodejs_25
+          nodejs_26
           yarn-berry
-          typescript
+          typescript-go
           typescript-language-server
           nixfmt
           nixd
           prettierd
-          typescript-language-server
           nil
           svelte-language-server
 
@@ -84,7 +83,7 @@
       in
       {
         devShell = pkgs.mkShell {
-          buildInputs = [ commonPackages ];
+          buildInputs = pkgs.lib.flatten [ commonPackages ];
           shellHook = ''
             # Initialize yarn
             yarn

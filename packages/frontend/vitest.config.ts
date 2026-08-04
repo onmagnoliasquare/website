@@ -1,5 +1,6 @@
 import { configDefaults, defineConfig, mergeConfig } from 'vitest/config'
 import viteConfig from './vite.config.ts'
+import { svelteTesting } from '@testing-library/svelte/vite'
 
 // For how I created this setup, see the link below.
 // See: https://github.com/vitest-dev/vitest/discussions/3042#discussioncomment-6449044
@@ -14,7 +15,6 @@ const config = mergeConfig(
       restoreMocks: true,
       pool: 'forks',
       isolate: false,
-      environment: 'jsdom',
       server: {
         deps: {
           inline: [`@sveltejs/kit`],
@@ -32,8 +32,10 @@ const config = mergeConfig(
         },
         {
           extends: true,
+          plugins: [svelteTesting({ autoCleanup: true })],
           test: {
             name: { label: 'client', color: 'green' },
+            environment: 'jsdom',
             include: ['src/tests/client/**/*.{test,spec}.ts'],
             exclude: ['src/tests/server/**/*.{test,spec}.ts'],
           },
