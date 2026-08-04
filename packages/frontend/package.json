@@ -44,6 +44,7 @@
     "@axe-core/playwright": "^4.12.1",
     "@playwright/test": "^1.62.1",
     "@sanity/cli": "^7.16.0",
+    "@sanity/codegen": "8.0.0",
     "@sanity/types": "6.8.0",
     "@sveltejs/adapter-auto": "^7.0.1",
     "@sveltejs/adapter-cloudflare": "^7.2.9",

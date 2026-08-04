@@ -5682,6 +5682,40 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sanity/codegen@npm:8.0.0":
+  version: 8.0.0
+  resolution: "@sanity/codegen@npm:8.0.0"
+  dependencies:
+    "@babel/core": "npm:^7.29.7"
+    "@babel/generator": "npm:^7.29.7"
+    "@babel/preset-env": "npm:^7.29.7"
+    "@babel/preset-react": "npm:^7.29.7"
+    "@babel/preset-typescript": "npm:^7.29.7"
+    "@babel/register": "npm:^7.29.7"
+    "@babel/traverse": "npm:^7.29.7"
+    "@babel/types": "npm:^7.29.7"
+    "@sanity/telemetry": "npm:^1.1.0"
+    "@sanity/worker-channels": "npm:^2.0.0"
+    chokidar: "npm:^3.6.0"
+    debug: "npm:^4.4.3"
+    globby: "npm:^11.1.0"
+    groq: "npm:^6.0.0"
+    groq-js: "npm:^2.0.0"
+    json5: "npm:^2.2.3"
+    lodash-es: "npm:^4.18.1"
+    prettier: "npm:^3.8.3"
+    reselect: "npm:^5.2.0"
+    tsconfig-paths: "npm:^4.2.0"
+    zod: "npm:^4.4.3"
+  peerDependencies:
+    oxfmt: "*"
+  peerDependenciesMeta:
+    oxfmt:
+      optional: true
+  checksum: 10c0/937cdfb4a5e110afc683bfd7796116d22956ed4caf753f98a3f5e1581b0f207e0ae3824696e01d6a72a04522a464cd9ee51b9d8c7324a08648d9a27baaac3f94
+  languageName: node
+  linkType: hard
+
 "@sanity/codegen@npm:^7.0.3":
   version: 7.0.3
   resolution: "@sanity/codegen@npm:7.0.3"
@@ -10962,6 +10996,7 @@ __metadata:
     "@portabletext/svelte": "npm:^3.0.1"
     "@sanity/cli": "npm:^7.16.0"
     "@sanity/client": "npm:^7.26.0"
+    "@sanity/codegen": "npm:8.0.0"
     "@sanity/image-url": "npm:^2.1.1"
     "@sanity/types": "npm:6.8.0"
     "@sveltejs/adapter-auto": "npm:^7.0.1"
