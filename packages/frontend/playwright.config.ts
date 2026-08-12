@@ -19,13 +19,15 @@ const config: PlaywrightTestConfig = {
   retries: process.env.CI ? 3 : 0,
 
   // Opt out of parallel tests on CI.
-  workers: process.env.CI ? 2 : undefined,
+  workers: process.env.CI ? 1 : undefined,
 
   // Reporter to use
-  // reporter: 'html'
+  reporter: 'html',
 
   use: {
     baseURL: process.env.CI ? localPreviewURL : localDevURL,
+    trace: 'on-first-retry',
+    screenshot: 'only-on-failure',
   },
 
   // Production tests only run on CI on a scheduled interval.

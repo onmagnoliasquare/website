@@ -35,7 +35,7 @@ test('News -> Opinion -> People -> Culture -> Multimedia categories', async ({ p
 
 test('Homepage -> About page', async ({ page }) => {
   await page.goto('/')
-  await page.locator('#mainNav').getByRole('link', { name: 'About' }).click()
+  await page.getByLabel('Main navigation').getByRole('link', { name: 'About' }).click();
 
   await expect(page.getByRole('heading', { name: 'Who are we?', exact: true })).toBeVisible()
 })
