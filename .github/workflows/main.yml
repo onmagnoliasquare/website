@@ -97,7 +97,7 @@ jobs:
       frontend: ${{ steps.filter.outputs.frontend }}
       cms: ${{ steps.filter.outputs.cms }}
     steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # ratchet:actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
       - uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # ratchet:dorny/paths-filter@v4
         id: filter
         with:
@@ -126,7 +126,7 @@ jobs:
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
     if: ${{ (needs.changes.outputs.cms == 'true' || needs.changes.outputs.frontend == 'true') }}
     steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # ratchet:actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
 
@@ -156,7 +156,7 @@ jobs:
       # Cache the build after all is said and done.
       # This build will be used in the following jobs.
       - name: Cache build
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # ratchet:actions/cache@v5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # ratchet:actions/cache@v6
         with:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}
@@ -172,11 +172,11 @@ jobs:
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
 
     steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # ratchet:actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
       - name: Restore build
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # ratchet:actions/cache@v5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # ratchet:actions/cache@v6
         with:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}
@@ -200,11 +200,11 @@ jobs:
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
 
     steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # ratchet:actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
       - name: Restore build
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # ratchet:actions/cache@v5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # ratchet:actions/cache@v6
         with:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}
@@ -225,11 +225,11 @@ jobs:
       DEBUG: "pw:api"
 
     steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # ratchet:actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
       - name: Restore build
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # ratchet:actions/cache@v5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # ratchet:actions/cache@v6
         with:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}
@@ -242,7 +242,7 @@ jobs:
         if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: yarn workspace frontend test-ci:integration
 
-      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # ratchet:actions/upload-artifact@v5
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # ratchet:actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: playwright-report-integration
@@ -261,11 +261,11 @@ jobs:
       DEBUG: "pw:api"
 
     steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # ratchet:actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
       - name: Restore build
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # ratchet:actions/cache@v5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # ratchet:actions/cache@v6
         with:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}
@@ -278,7 +278,7 @@ jobs:
         if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: yarn workspace frontend test-ci:functional
 
-      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # ratchet:actions/upload-artifact@v5
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # ratchet:actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: playwright-report-functional
@@ -297,11 +297,11 @@ jobs:
       DEBUG: "pw:api"
 
     steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # ratchet:actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
       - name: Restore build
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # ratchet:actions/cache@v5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # ratchet:actions/cache@v6
         with:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}
@@ -314,7 +314,7 @@ jobs:
         if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: yarn workspace frontend test-ci:e2e
 
-      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # ratchet:actions/upload-artifact@v5
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # ratchet:actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: playwright-report-e2e
@@ -334,17 +334,17 @@ jobs:
     needs: [changes, build, test-unit, test-comp, test-func]
 
     steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # ratchet:actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
       - name: Restore build
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # ratchet:actions/cache@v5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # ratchet:actions/cache@v6
         with:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}
       - name: Deploy frontend to Cloudflare Workers
         if: ${{ needs.changes.outputs.frontend == 'true' }}
-        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # ratchet:cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # ratchet:cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -352,7 +352,7 @@ jobs:
           command: deploy --env dev
       - name: Deploy cms to Cloudflare Pages
         if: ${{ needs.changes.outputs.cms == 'true' }}
-        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # ratchet:cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # ratchet:cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -371,7 +371,7 @@ jobs:
       SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
 
     steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # ratchet:actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
 
@@ -385,7 +385,7 @@ jobs:
 
       - name: Deploy frontend to Cloudflare Workers (staging)
         if: ${{ needs.changes.outputs.frontend == 'true' }}
-        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # ratchet:cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # ratchet:cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

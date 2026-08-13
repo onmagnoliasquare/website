@@ -25,7 +25,7 @@ jobs:
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
     steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # ratchet:actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
 
@@ -40,7 +40,7 @@ jobs:
       # Cache the build after all is said and done.
       # This build will be used in the following jobs.
       - name: Cache build
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # ratchet:actions/cache@v5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # ratchet:actions/cache@v6
         with:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}
@@ -55,17 +55,17 @@ jobs:
       SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
     environment: staging
     steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # ratchet:actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
       - name: Restore build
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # ratchet:actions/cache@v5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # ratchet:actions/cache@v6
         with:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}
       - name: Deploy frontend to Cloudflare Workers
         if: ${{ inputs.deployment_target == 'frontend' }}
-        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # ratchet:cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # ratchet:cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -73,7 +73,7 @@ jobs:
           command: deploy --env staging
       - name: Deploy cms to Cloudflare Pages
         if: ${{ inputs.deployment_target == 'cms' }}
-        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # ratchet:cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # ratchet:cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
