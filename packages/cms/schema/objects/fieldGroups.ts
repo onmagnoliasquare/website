@@ -1,4 +1,6 @@
-import {CogIcon, ComposeIcon, InfoOutlineIcon} from '@sanity/icons'
+import {CogIcon} from '@sanity/icons/Cog'
+import {ComposeIcon} from '@sanity/icons/Compose'
+import {InfoOutlineIcon} from '@sanity/icons/InfoOutline'
 import type {FieldGroupDefinition} from 'sanity'
 
 export const InfoGroup: FieldGroupDefinition = {

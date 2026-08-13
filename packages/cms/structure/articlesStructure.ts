@@ -1,6 +1,6 @@
 import {ListItemBuilder} from 'sanity/structure'
 import defineStructure from '../lib/defineStructure'
-import {DocumentsIcon} from '@sanity/icons'
+import {DocumentsIcon} from '@sanity/icons/Documents'
 import {studioApiVersion} from '../lib/environment'
 
 export default defineStructure <

@@ -1,4 +1,5 @@
-import { DocumentTextIcon, TagsIcon } from '@sanity/icons'
+import { DocumentTextIcon } from '@sanity/icons/DocumentText'
+import { TagsIcon } from '@sanity/icons/Tags'
 import type { ReactNode } from 'react'
 import { defineArrayMember, defineField, defineType, type Image } from 'sanity'
 import abbreviateName from '../../lib/abbreviateName'

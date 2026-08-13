@@ -1,3 +1,5 @@
+// @vitest-environment node
+
 import { hasUppercase, buildSiteTags, getMetaTags } from '$lib/helpers'
 import type { MetaInfo } from '$lib/sanity/types.generated'
 import { describe, expect, it } from 'vitest'
