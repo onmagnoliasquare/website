@@ -66,7 +66,8 @@ let authorString = $derived(createAuthorString(article.authors))
 		</div>
     <p class="size-fit py-2 text-2xl font-display font-stretch-condensed text-neutral-700 font-semibold pt-5 center"> Student journalism and writing at NYU Shanghai </p>
 	</div>
-  <enhanced:img class="size-fit py-2 m-2" src={omsLogo} alt="fleurs" />
+	<img alt="" class="size-fit py-2 m-2" src={omsLogo} />
+	<!-- <enhanced:img class="size-fit py-2 m-2" src={omsLogo} alt="fleurs" /> -->
 	<div class="hidden md:block col-span-1 col-start-7 row-start-1 ml-auto row-span-1 p-6">
 		<div id="kindaBigText" class="size-fit p-4 border-2">
 			<p>上海纽约</p>

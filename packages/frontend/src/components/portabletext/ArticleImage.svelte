@@ -12,7 +12,7 @@ interface Props {
 let { portableText }: Props = $props()
 </script>
 
-<figure role="group" class="max-w-xl center">
+<figure class="max-w-xl center">
   <Image
     media={portableText.value}
     loading="lazy"
