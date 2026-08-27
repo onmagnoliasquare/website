@@ -22,6 +22,9 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
       // Get articles from the series.
       const req = await event.fetch(`/api/series/${series}/articles`)
       const articles: SeriesPageInitialArticles | APIError = await req.json()
+      if (isAPIError(articles)) {
+        error(500, 'Something went wrong')
+      }
 
       // The description is expected to end in a punctuation, like a period
       // exclamation point, or a comma. Therefore, there is none in
