@@ -89,5 +89,6 @@ vite.config.ts.timestamp-*
 # Testing
 coverage
 test-results
+playwright-report
 
 cspell.json

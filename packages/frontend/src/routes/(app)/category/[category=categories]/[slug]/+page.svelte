@@ -76,7 +76,7 @@ let content = $derived(data.article.content)
     </div>
     {#if headerMedia}
       <div class="w-full center">
-        <figure role="group" class="mb-1 pb-1 sm:pb-4 sm:mb-4 center">
+        <figure class="mb-1 pb-1 sm:pb-4 sm:mb-4 center">
           <div class="mb-2">
             <Image
               media={headerMedia.asset as SanityImageSource}

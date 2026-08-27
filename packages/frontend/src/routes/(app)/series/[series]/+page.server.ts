@@ -13,7 +13,7 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 
   try {
     const req = await event.fetch(`/api/series/${series}`)
-    const seriesPage = (await req.json()) as SeriesPage | APIError
+    const seriesPage: SeriesPage | APIError = await req.json()
     if (isAPIError(seriesPage)) {
       error(404, 'Series not found')
     }
@@ -21,7 +21,10 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
     if (series) {
       // Get articles from the series.
       const req = await event.fetch(`/api/series/${series}/articles`)
-      const articles = (await req.json()) as SeriesPageInitialArticles
+      const articles: SeriesPageInitialArticles | APIError = await req.json()
+      if (isAPIError(articles)) {
+        error(500, 'Something went wrong')
+      }
 
       // The description is expected to end in a punctuation, like a period
       // exclamation point, or a comma. Therefore, there is none in

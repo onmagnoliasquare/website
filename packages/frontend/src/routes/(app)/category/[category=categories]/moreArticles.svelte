@@ -22,7 +22,7 @@ const loadMoreArticles = async (): Promise<void> => {
   }
 
   const req = await fetch(`/api/category/${slug}/articles?lastId=${currLastId}&lastDate=${currLastDate}`)
-  const newArticles = (await req.json()) as CategoryPagePaginateArticles | APIError
+  const newArticles: CategoryPagePaginateArticles | APIError = await req.json()
   if (isAPIError(newArticles)) {
     return
   }

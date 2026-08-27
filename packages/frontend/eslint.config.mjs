@@ -9,7 +9,7 @@ import eslintConfigPrettier from 'eslint-config-prettier'
 
 export default defineConfig([
   ...baseConfig,
-  globalIgnores(['./src/lib/sanity/types.generated.ts']),
+  globalIgnores(['./src/lib/sanity/types.generated.ts', 'worker-configuration.d.ts']),
   // Other config for non-Svelte files
   ts.configs.strictTypeChecked,
   ts.configs.stylisticTypeChecked,

@@ -10,7 +10,7 @@ import { isAPIError, type APIError } from '$lib/types'
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
   try {
     const res = await event.fetch('/api/series')
-    const series = (await res.json()) as AllSeries | APIError
+    const series: AllSeries | APIError = await res.json()
     if (isAPIError(series)) {
       error(500, 'Something went wrong')
     }

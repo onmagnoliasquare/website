@@ -14,7 +14,7 @@ import { pages } from '../parameters.ts'
 
 for (const p of pages) {
   test(`${p.testDescription} has no accessibility issues`, async ({ page }) => {
-    await page.goto(p.testUrl)
+    await page.goto(p.testUrl, { waitUntil: 'domcontentloaded' })
 
     const accessibilityScanResults = await new AxeBuilder({ page })
       .disableRules(['color-contrast'])

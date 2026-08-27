@@ -11,13 +11,13 @@ export const load: LayoutServerLoad = (async (event: ServerLoadEvent) => {
 
   try {
     const initCatReq = await event.fetch(`/api/category/${categoryPathValue}`)
-    const category = (await initCatReq.json()) as CategoryPage | APIError
+    const category: CategoryPage | APIError = await initCatReq.json()
     if (isAPIError(category)) {
       error(404, 'Category not found')
     }
 
     const initArticlesReq = await event.fetch(`/api/category/${categoryPathValue}/articles`)
-    const articles = (await initArticlesReq.json()) as CategoryPageInitialArticles | APIError
+    const articles: CategoryPageInitialArticles | APIError = await initArticlesReq.json()
     if (isAPIError(articles)) {
       error(500, 'Failed to get category')
     }

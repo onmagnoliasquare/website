@@ -35,13 +35,13 @@
 </style>
 
 <script lang="ts">
-	import { createAuthorString } from '$lib/helpers';
-	import { site } from '$lib/constants';
-	import DateLine from './DateLine.svelte';
-	import DesktopLandingNavbar from './DesktopLandingNavbar.svelte';
-  import oms_logo from '$lib/assets/oms_logo.png';
-	import type { Get } from '@sanity/codegen'
-	import type { HomepageArticleQueryResult } from '$lib/sanity/types.generated';
+ import { createAuthorString } from '$lib/helpers';
+ import { site } from '$lib/constants';
+ import DateLine from './DateLine.svelte';
+ import DesktopLandingNavbar from './DesktopLandingNavbar.svelte';
+ import omsLogo from '$lib/assets/oms_logo.png';
+ import type { Get } from '@sanity/codegen'
+ import type { HomepageArticleQueryResult } from '$lib/sanity/types.generated';
 
 interface Props {
   article: Get<HomepageArticleQueryResult, number>
@@ -58,20 +58,16 @@ let authorString = $derived(createAuthorString(article.authors))
 <div class="h-fit grid grid-rows-1 grid-cols-7">
 	<div class="flex flex-col col-span-5 col-start-2 row-start-1 mt-15 space-y-2 size-fit row-span-1 center">
 		<div class="size-fit p-4 center">
-      <a href="/" class="cursor-pointer">
+			<a href="/" class="cursor-pointer">
 				<h1 id="bigText" class="font-stretch-condensed">
-          {site.title}
+					{site.title}
 				</h1>
-      </a>
+			</a>
 		</div>
     <p class="size-fit py-2 text-2xl font-display font-stretch-condensed text-neutral-700 font-semibold pt-5 center"> Student journalism and writing at NYU Shanghai </p>
 	</div>
-    <enhanced:img class="size-fit py-2 m-2" src={oms_logo} alt="fleurs" />
-		<!-- <div class="size-fit py-2 mr-auto ml-4 row-start-1 col-span-1 col-start-1 text-2xl font-display font-stretch-condensed text-neutral-700 font-semibold pt-5"> -->
-		<!-- 	<p> Student journalism </p> -->
-		<!--     <p>  and writing </p> -->
-		<!--     <p> at NYU Shanghai </p> -->
-		<!-- </div> -->
+	<img alt="" class="size-fit py-2 m-2" src={omsLogo} />
+	<!-- <enhanced:img class="size-fit py-2 m-2" src={omsLogo} alt="fleurs" /> -->
 	<div class="hidden md:block col-span-1 col-start-7 row-start-1 ml-auto row-span-1 p-6">
 		<div id="kindaBigText" class="size-fit p-4 border-2">
 			<p>上海纽约</p>

@@ -13,4 +13,7 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['@portabletext/svelte', '@unpic/svelte', 'svelte-meta-tags'],
   },
+  build: {
+    sourcemap: true
+  }
 })

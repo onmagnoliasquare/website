@@ -12,7 +12,7 @@ jobs:
     name: "Playwright tests"
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # ratchet:actions/checkout@v6
       - name: "Setup Node.js with Yarn"
         uses: ./.github/actions/setup-node
 

@@ -39,6 +39,8 @@ const { content } = $props()
     },
     list: ArticleBodyList,
     listItem: {
+      number: undefined,
+      bullet: undefined,
       normal: ArticleBodyListItem,
     },
   }}

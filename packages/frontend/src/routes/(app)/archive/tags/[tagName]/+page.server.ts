@@ -12,13 +12,13 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 
   try {
     const req = await event.fetch(`/api/tag/${tagName}`)
-    const tagPage = (await req.json()) as TagPage | APIError
+    const tagPage: TagPage | APIError = await req.json()
     if (isAPIError(tagPage)) {
       error(404, 'Tag not found')
     }
 
     const articlesReq = await event.fetch(`/api/tag/${tagName}/articles`)
-    const articles = (await articlesReq.json()) as TagPageInitialArticles
+    const articles: TagPageInitialArticles = await articlesReq.json()
 
     const { title, description } = getMetaTags(
       createSiteTitle(site.title, `#${tagName}`),
