@@ -18,7 +18,7 @@ export const resource = <T>(getter: () => RequestInfo | URL, initialValue?: T) =
     fetch(url, { signal })
       .then(response => response.json())
       .then(data => {
-        _rune.value = data
+        _rune.value = data as T | undefined
       })
     return () => controller.abort()
   })
