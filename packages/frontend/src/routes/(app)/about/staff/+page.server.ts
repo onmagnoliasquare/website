@@ -11,7 +11,7 @@ import { dev } from '$app/environment'
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
   try {
     const req = await event.fetch('/api/members')
-    const members = (await req.json()) as AllMembers
+    const members: AllMembers = await req.json()
 
     const ogTitle = createSiteTitle(site.name, 'Staff')
     const ogDescription = `Staff and contributors at ${site.name}.`

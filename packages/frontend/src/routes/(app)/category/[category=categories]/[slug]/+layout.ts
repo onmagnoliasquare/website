@@ -15,7 +15,7 @@ export const load: LayoutLoad = (async (event: LayoutLoadEvent) => {
    */
   try {
     const req = await event.fetch(`/api/article?category=${category}&slug=${slug}`)
-    const article = (await req.json()) as ArticleQueryResult | APIError
+    const article: ArticleQueryResult | APIError = await req.json()
     if (isAPIError(article)) {
       error(404, 'Article not found 🔍')
     }

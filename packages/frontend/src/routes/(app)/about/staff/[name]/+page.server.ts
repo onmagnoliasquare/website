@@ -15,14 +15,14 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 
   try {
     const memberReq = await event.fetch(`/api/members/${name}`)
-    const member = (await memberReq.json()) as MemberPageQuery | APIError
+    const member: MemberPageQuery | APIError = await memberReq.json()
     if (isAPIError(member)) {
       error(404, 'Member not found')
     }
 
     // Attempt to retrieve the member's articles.
     const articleReq = await event.fetch(`/api/members/${name}/articles`)
-    const articlesRes = (await articleReq.json()) as SingleMemberAllArticles | APIError
+    const articlesRes: SingleMemberAllArticles | APIError = await articleReq.json()
     const articles: SingleMemberAllArticles = isAPIError(articlesRes) ? [] : articlesRes
 
     const { title, description } = getMetaTags(

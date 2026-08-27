@@ -6,7 +6,7 @@ import type { HomepageArticleQueryResult } from '$lib/sanity/types.generated'
 export const load: LayoutServerLoad = (async ({ fetch }) => {
   const req = await fetch(`/api/homepage`)
 
-  const articles = (await req.json()) as HomepageArticleQueryResult
+  const articles: HomepageArticleQueryResult = await req.json()
   return {
     articles,
   }
