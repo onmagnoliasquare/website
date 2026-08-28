@@ -324,5 +324,6 @@ export const getMetaTags = (
 }
 
 export function newAPIError(message: string, status: number): Response {
-  return json({ error: message } as APIError, { status })
+  const res: APIError = { error: message }
+  return json(res, { status })
 }

@@ -1,5 +1,5 @@
 import { error, type RequestHandler } from '@sveltejs/kit'
-import type { SitemapConfig, ParamValue } from 'super-sitemap/sveltekit'
+import type { SitemapConfig } from 'super-sitemap/sveltekit'
 import { response } from 'super-sitemap/sveltekit'
 import { site } from '$lib/constants.ts'
 import {
@@ -48,12 +48,12 @@ export const GET: RequestHandler = async ({ params }) => {
     page: params.page,
     paramValues: {
       '/about/staff/[name]': memberSlugs.map(v => v.slug),
-      '/archive/tags/[tagName]': tagSlugs.map(v => ({ values: [v.slug] } as ParamValue)),
+      '/archive/tags/[tagName]': tagSlugs.map(v => ({ values: [v.slug] })),
       '/series/[series]': seriesSlugs.map(v => v.slug),
       '/category/[category=categories]': categories,
       // TODO: Fix this monkey patch. Category must never be null.
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      '/category/[category=categories]/[slug]': articleSlugs.map(v => ({values: [v.category ?? 'news', v.slug], lastmod: v.date} as ParamValue)),
+      '/category/[category=categories]/[slug]': articleSlugs.map(v => ({values: [v.category ?? 'news', v.slug], lastmod: v.date})),
     },
     sort: 'alpha',
   }
