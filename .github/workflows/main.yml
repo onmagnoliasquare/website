@@ -72,7 +72,9 @@ on:
       - ".github/ISSUE_TEMPLATE/**"
       - ".github/pull_request_template.*"
       - ".github/dependabot.yml"
-      - ".github/actions/**"
+
+      # We do in fact want to see direct changes to CI, to check if everything is working. So we'll count this in.
+      # - ".github/actions/**"
 
       # Ignore build related files.
       - ".env.example"
@@ -98,6 +100,7 @@ jobs:
     outputs:
       frontend: ${{ steps.filter.outputs.frontend }}
       cms: ${{ steps.filter.outputs.cms }}
+      ci: ${{ steps.filter.outputs.ci }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
       - uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # ratchet:dorny/paths-filter@v4
@@ -111,10 +114,14 @@ jobs:
               - 'packages/frontend/**'
             cms:
               - 'packages/cms/**'
+            ci:
+              - '.github/actions/**'
+              - '.github/workflows/**'
       - name: Log all filter results
         run: |
           echo "frontend: ${{ steps.filter.outputs.frontend }}"
           echo "cms: ${{ steps.filter.outputs.cms }}"
+          echo "ci: ${{ steps.filter.outputs.ci }}"
 
   build:
     name: Build artifacts
@@ -126,7 +133,9 @@ jobs:
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
-    if: ${{ (needs.changes.outputs.cms == 'true' || needs.changes.outputs.frontend == 'true') }}
+
+    # Need to check if the CI can still build in the event a CI-related file is changed.
+    if: ${{ (needs.changes.outputs.cms == 'true' || needs.changes.outputs.frontend == 'true') || needs.changes.outputs.ci == 'true' }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
       - name: "Setup Node.js with Yarn"
@@ -134,25 +143,25 @@ jobs:
 
       # Run this BEFORE Eslint, since `check` generates a tsconfig.
       - name: SvelteKit check
-        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        if: ${{ needs.changes.outputs.frontend == 'true' || needs.changes.outputs.ci == 'true' }}
         run: yarn workspace frontend check
 
       - name: Frontend linting
-        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        if: ${{ needs.changes.outputs.frontend == 'true' || needs.changes.outputs.ci == 'true' }}
         env:
           NODE_OPTIONS: "--max-old-space-size=8192"
         run: yarn workspace frontend lint
 
       - name: Build frontend for development
-        if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
+        if: ${{ (needs.changes.outputs.frontend == 'true' || needs.changes.outputs.ci == 'true') && github.event_name == 'pull_request' }}
         run: yarn workspace frontend build:development
 
       - name: cms linting
-        if: ${{ needs.changes.outputs.cms == 'true' }}
+        if: ${{ needs.changes.outputs.cms == 'true' || needs.changes.outputs.ci == 'true' }}
         run: yarn workspace cms lint
 
       - name: Build cms for development
-        if: ${{ needs.changes.outputs.cms == 'true' && github.event_name == 'pull_request' }}
+        if: ${{ (needs.changes.outputs.cms == 'true' || needs.changes.outputs.ci == 'true') && github.event_name == 'pull_request' }}
         run: yarn workspace cms build
 
       # Cache the build after all is said and done.
