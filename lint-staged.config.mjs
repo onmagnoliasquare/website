@@ -4,14 +4,14 @@ export default {
   '**/*.(jsx|tsx|ts|js|mjs|cjs|svelte)': {
     title: 'Format/Lint TS/React/Svelte',
     task: async (/** @type {string[]} */ files) => [
-      `prettier --write ${files.join(' ')}`,
+      `prettier --plugin-search-dir . --write ${files.join(' ')}`,
       `eslint --fix --cache --no-warn-ignored ${files.join(' ')}`,
     ],
   },
   '**/*.(html|css|json|yaml|yml)': {
     title: 'Format HTML/CSS/JSON/YML',
     task: async (/** @type {string[]} */ files) => [
-      `prettier --write ${files.join(' ')} !package.json`,
+      `prettier --plugin-search-dir . --write ${files.join(' ')} !package.json`,
     ],
   },
   // '**/*.nix': ['nixfmt --version && nixfmt'],

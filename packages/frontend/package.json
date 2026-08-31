@@ -17,7 +17,7 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "check:no-sync": "svelte-check --tsconfig ./tsconfig.json",
     "lint": "eslint --cache .",
-    "format": "prettier --write .",
+    "format": "prettier --plugin-search-dir . --write .",
     "test:integration": "playwright test",
     "test:unit": "vitest run unit",
     "test-ci:integration": "playwright test integration",
