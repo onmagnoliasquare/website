@@ -40,8 +40,10 @@ let headlineMediaBlurHash = $derived(article.media?.asset?.metadata?.blurHash)
       <div class="relative flex flex-col grow m-1 p-2">
         <div>
           <div class="absolute -top-4 -left-2 w-fit h-12 overflow-visible -rotate-12">
+            <!-- Circle with "new" label: TODO this should really be an SVG... -->
             <div
               class="left-2 bg-amber-300 h-12 w-12 rounded-full grid gird-cols-1 place-items-center z-10 opacity-80 antialiased"
+              aria-hidden="true"
             >
               <p class="font-serif text-lg">最近</p>
             </div>
