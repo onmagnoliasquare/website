@@ -1,3 +1,8 @@
+<!--
+@component
+`MobileNavbar` is the mobile navbar for the site.
+-->
+
 <script lang="ts">
 import { routes } from '$lib/constants'
 let listOfRoutes = routes

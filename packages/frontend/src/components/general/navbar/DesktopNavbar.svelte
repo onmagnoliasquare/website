@@ -1,13 +1,17 @@
+<!--
+@component
+`DesktopNavbar` is the desktop navbar component for the entire website.
+-->
+
 <script lang="ts">
 import { routes } from '$lib/constants'
-// let listOfRoutes = routes.slice(1);
 let listOfRoutes = routes
 </script>
 
 <nav
   id="mainNav"
   aria-label="Site Menu"
-  class="sm:divide-x sm:border-b p-2 relative hidden sm:block"
+  class="sm:divide-x sm:border-b border-neutral-400 p-2 relative hidden sm:block"
 >
   <ul class="list-none">
     {#each listOfRoutes as route}
