@@ -331,7 +331,7 @@ jobs:
       SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
     environment: development
-    needs: [changes, build, test-unit, test-comp, test-func]
+    needs: [changes, build]
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
