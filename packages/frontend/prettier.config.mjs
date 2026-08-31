@@ -10,7 +10,7 @@ const config = {
   tabWidth: 2,
   singleQuote: true,
   printWidth: 100,
-  plugins: ['prettier-plugin-svelte', 'prettier-plugin-tailwindcss'],
+  plugins: ['prettier-plugin-svelte'],
   endOfLine: 'auto',
   arrowParens: 'avoid',
   proseWrap: 'preserve',
