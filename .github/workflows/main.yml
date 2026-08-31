@@ -132,25 +132,25 @@ jobs:
 
       # Run this BEFORE Eslint, since `check` generates a tsconfig.
       - name: SvelteKit check
-        if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: yarn workspace frontend check
 
       - name: Frontend linting
-        if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
         env:
           NODE_OPTIONS: "--max-old-space-size=8192"
         run: yarn workspace frontend lint
 
       - name: Build frontend for development
-        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
         run: yarn workspace frontend build:development
 
       - name: cms linting
-        if: ${{ needs.changes.outputs.cms == 'true' && github.event_name == 'pull_request' }}
+        if: ${{ needs.changes.outputs.cms == 'true' }}
         run: yarn workspace cms lint
 
       - name: Build cms for development
-        if: ${{ needs.changes.outputs.cms == 'true' }}
+        if: ${{ needs.changes.outputs.cms == 'true' && github.event_name == 'pull_request' }}
         run: yarn workspace cms build
 
       # Cache the build after all is said and done.
@@ -321,48 +321,10 @@ jobs:
           path: packages/frontend/playwright-report/
           retention-days: 30
 
-  deploy-development:
-    name: Deploy to development environment
-    if: ${{ (github.event_name == 'push' || github.event_name == 'merge_queue') && github.ref_name == 'dev' }}
-    env:
-      SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
-      SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
-      SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
-      SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
-    runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
-    environment: development
-    needs: [changes, build]
-
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
-      - name: "Setup Node.js with Yarn"
-        uses: ./.github/actions/setup-node
-      - name: Restore build
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # ratchet:actions/cache@v6
-        with:
-          path: ./*
-          key: ${{ github.sha }}-${{ github.run_number }}
-      - name: Deploy frontend to Cloudflare Workers
-        if: ${{ needs.changes.outputs.frontend == 'true' }}
-        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # ratchet:cloudflare/wrangler-action@v4
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: "packages/frontend"
-          command: deploy --env dev
-      - name: Deploy cms to Cloudflare Pages
-        if: ${{ needs.changes.outputs.cms == 'true' }}
-        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # ratchet:cloudflare/wrangler-action@v4
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: "packages/cms"
-          command: pages deploy --project-name=cms
-
   deploy-staging:
     name: Deploy to staging environment
     if: ${{ (github.event_name == 'push' || github.event_name == 'merge_queue') && github.ref_name == 'dev' }}
-    needs: [changes, deploy-development]
+    needs: [changes, build]
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
     environment: staging
     env:
@@ -405,7 +367,7 @@ jobs:
     name: All Green
     if: always()
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
-    needs: [changes, build, test-unit, test-comp, test-int, test-func, test-e2e, deploy-development, deploy-staging]
+    needs: [changes, build, test-unit, test-comp, test-int, test-func, test-e2e, deploy-staging]
     steps:
       - if: ${{ always() && (contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')) }}
         run: exit 1
