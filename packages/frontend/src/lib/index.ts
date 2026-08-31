@@ -3,7 +3,7 @@
 // Utilities
 export { toPlainText } from '@portabletext/toolkit'
 
-import Navbar from '$components/general/Navbar.svelte'
+import Navbar from '$components/general/navbar/DesktopNavbar.svelte'
 import { dateFormatter, hasUppercase } from './helpers'
 
 // Functions
