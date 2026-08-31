@@ -1,7 +1,7 @@
 import js from '@eslint/js'
 import globals from 'globals'
 import { defineConfig, globalIgnores } from 'eslint/config'
-import { includeIgnoreFile } from '@eslint/compat'
+import { includeIgnoreFile } from 'eslint/config'
 import ts from 'typescript-eslint'
 import { fileURLToPath } from 'node:url'
 import tsParser from '@typescript-eslint/parser'
