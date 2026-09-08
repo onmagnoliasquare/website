@@ -6656,6 +6656,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sanity/types@npm:6.12.0":
+  version: 6.12.0
+  resolution: "@sanity/types@npm:6.12.0"
+  dependencies:
+    "@sanity/client": "npm:^8.4.0"
+    "@sanity/media-library-types": "npm:^1.6.0"
+  peerDependencies:
+    "@types/react": "*"
+  checksum: 10c0/0f61e2213e981f2bd101b11f5c454a21d7935844f186dd5371370cc3e6cc28b919295a45fe0131497c75b56ce0c46524f44e6dce1ebbd98279bd75932b9338b0
+  languageName: node
+  linkType: hard
+
 "@sanity/types@npm:6.5.0, @sanity/types@npm:^6.1.0":
   version: 6.5.0
   resolution: "@sanity/types@npm:6.5.0"
@@ -11042,7 +11054,7 @@ __metadata:
     "@sanity/client": "npm:^8.4.0"
     "@sanity/codegen": "npm:8.0.0"
     "@sanity/image-url": "npm:^2.1.1"
-    "@sanity/types": "npm:6.11.0"
+    "@sanity/types": "npm:6.12.0"
     "@sveltejs/adapter-auto": "npm:^7.0.1"
     "@sveltejs/adapter-cloudflare": "npm:^7.2.9"
     "@sveltejs/enhanced-img": "npm:0.11.0"
