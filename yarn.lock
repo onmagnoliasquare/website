@@ -7619,6 +7619,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@testing-library/user-event@npm:14.6.7":
+  version: 14.6.7
+  resolution: "@testing-library/user-event@npm:14.6.7"
+  peerDependencies:
+    "@testing-library/dom": ">=7.21.4"
+  checksum: 10c0/21f5e01bea2699b069947ae06d0b0fbabe0e90d2a2206b8f56a3f46126d09bd85320cba3fd3910c4d18710b1873e6966fb9021668966c615aaa14bf35d7df3ef
+  languageName: node
+  linkType: hard
+
 "@tybys/wasm-util@npm:^0.10.1":
   version: 0.10.1
   resolution: "@tybys/wasm-util@npm:0.10.1"
@@ -11448,6 +11457,7 @@ __metadata:
     "@tailwindcss/vite": "npm:^4.3.3"
     "@testing-library/jest-dom": "npm:^7.0.1"
     "@testing-library/svelte": "npm:^5.4.2"
+    "@testing-library/user-event": "npm:14.6.7"
     "@types/node": "npm:26.5.0"
     "@typescript/native": "npm:typescript@7"
     "@unpic/placeholder": "npm:^0.1.2"
