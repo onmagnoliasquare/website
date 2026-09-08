@@ -12,20 +12,22 @@
     }:
     let
       overlay = final: prev: {
+        # To retrieve the hash of the packages, use:
+        # nix store prefetch-file --hash-type sha256 --json <github_artifact_url>
         ratchet = prev.stdenv.mkDerivation rec {
           pname = "ratchet";
-          version = "0.11.4";
+          version = "0.12.0";
 
           src = prev.fetchurl (
-            if prev.stdenv.isDarwin then
+            if prev.stdenv.hostPlatform.isDarwin then
               {
                 url = "https://github.com/sethvargo/ratchet/releases/download/v${version}/ratchet_${version}_darwin_arm64.tar.gz";
-                hash = "sha256-MZ9MNbgY+ND0JGeWDlD72dYgMq47sXCqWuwAmF5hMzY=";
+                hash = "sha256-VCiJ2WzdfwhDFK1a3Hu+EKxCtW0GaLlxQ2Hl46jz+Zo=";
               }
             else
               {
                 url = "https://github.com/sethvargo/ratchet/releases/download/v${version}/ratchet_${version}_linux_amd64.tar.gz";
-                hash = "sha256-cUEjbFUA3ORAu3ZKlkydnYEwo6QhYEx1t/f7qlXPifU=";
+                hash = "sha256-4fsCbZPYQCDMQ1TdP9xmf24D8E0BftzEor3fx4we+1Y=";
               }
           );
 
@@ -67,7 +69,7 @@
           pkgs.ratchet
           nodejs_26
           yarn-berry
-          typescript-go
+          typescript
           typescript-language-server
           nixfmt
           nixd
