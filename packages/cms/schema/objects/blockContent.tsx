@@ -1,39 +1,47 @@
 import {ImageIcon} from '@sanity/icons/Image'
-import {defineType} from 'sanity'
+import { defineArrayMember, defineType } from 'sanity'
 import embeddedLink from './embeddedLink'
 import requiredFormattedString from '../primitives/requiredFormattedString'
 import formattedText from '../primitives/formattedText'
 import formattedString from '../primitives/formattedString'
 import {HtmlDescription} from '../../components/HtmlDescription'
+import { TbSuperscript, TbSubscript } from 'react-icons/tb'
+import { MdFormatUnderlined } from 'react-icons/md'
 
 export default defineType({
   name: 'content',
   type: 'array',
   title: 'Content',
   of: [
-    {
+    defineArrayMember({
       type: 'block',
       styles: [
-        {title: 'Normal', value: 'normal'},
-        {title: 'Heading 1', value: 'h2'},
-        {title: 'Heading 2', value: 'h3'},
-        {title: 'Heading 3', value: 'h4'},
-        {title: 'Quote', value: 'blockquote'},
-        {title: 'Hidden', value: 'blockComment'},
+        { title: 'Normal', value: 'normal' },
+        { title: 'Heading 1', value: 'h2' },
+        { title: 'Heading 2', value: 'h3' },
+        { title: 'Heading 3', value: 'h4' },
+        { title: 'Quote', value: 'blockquote' },
+        { title: 'Hidden', value: 'blockComment' },
       ],
       marks: {
         decorators: [
-          {title: 'Strong', value: 'strong'},
-          {title: 'Emphasis', value: 'em'},
+          { title: 'Strong', value: 'strong' },
+          { title: 'Emphasis', value: 'em' },
+          {
+            title: 'Underline',
+            value: 'underline',
+            icon: () => <MdFormatUnderlined />,
+            component: ({ children }) => (
+              <span>
+                <u>{children}</u>
+              </span>
+            ),
+          },
           {
             title: 'Superscript',
             value: 'superscript',
-            icon: () => (
-              <span>
-                x<sup>2</sup>
-              </span>
-            ),
-            component: ({children}) => (
+            icon: () => <TbSuperscript />,
+            component: ({ children }) => (
               <span>
                 <sup>{children}</sup>
               </span>
@@ -42,28 +50,10 @@ export default defineType({
           {
             title: 'Subscript',
             value: 'subscript',
-            icon: () => (
-              <span>
-                y<sub>2</sub>
-              </span>
-            ),
-            component: ({children}) => (
+            icon: () => <TbSubscript />,
+            component: ({ children }) => (
               <span>
                 <sub>{children}</sub>
-              </span>
-            ),
-          },
-          {
-            title: 'Underline',
-            value: 'underline',
-            icon: () => (
-              <span>
-                <u>abc</u>
-              </span>
-            ),
-            component: ({children}) => (
-              <span>
-                <u>{children}</u>
               </span>
             ),
           },
@@ -77,8 +67,8 @@ export default defineType({
           // },
         ],
       },
-    },
-    {
+    }),
+    defineArrayMember({
       type: 'image',
       icon: ImageIcon,
       fields: [
@@ -111,9 +101,11 @@ export default defineType({
           type: requiredFormattedString.name,
         },
       ],
-      options: ['blurhash'],
-    },
-    {
+      options: {
+        metadata: ['blurhash'],
+      },
+    }),
+    defineArrayMember({
       type: embeddedLink.name,
     },
   ],
