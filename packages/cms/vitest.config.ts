@@ -9,7 +9,7 @@ const config = mergeConfig(
       include: ['lib/**/*.{test,spec}.{js,ts}'],
       environment: 'jsdom',
     },
-  }) as UserConfig
+  }) satisfies UserConfig
 )
 
 export default config
