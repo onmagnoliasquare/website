@@ -107,6 +107,6 @@ export default defineType({
     }),
     defineArrayMember({
       type: embeddedLink.name,
-    },
+    }),
   ],
 })
