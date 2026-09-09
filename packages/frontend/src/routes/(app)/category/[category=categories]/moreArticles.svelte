@@ -1,4 +1,5 @@
 <script lang="ts">
+import Button from "$components/general/Button.svelte"
 import ArticleBoxC from "$components/home/ArticleBoxC.svelte"
 import type { CategoryPagePaginateArticles } from "$lib/sanity/types"
 import { isAPIError, type APIError } from "$lib/types"
@@ -65,5 +66,5 @@ const loadMoreArticles = async (): Promise<void> => {
   <!-- {/key} -->
 </div>
 {#if lastId !== null}
-    <button onclick={() => loadMoreArticles()} class="w-full hover:cursor-pointer text-nyu-purple-400 underline">Load more articles</button>
+  <Button onclick={() => loadMoreArticles()} class="w-full hover:cursor-pointer text-nyu-purple-400 underline disabled:cursor-none disabled:text-neutral-400">Load more articles</Button>
 {/if}
