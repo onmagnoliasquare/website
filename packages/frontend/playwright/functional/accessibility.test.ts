@@ -8,7 +8,7 @@ for (const article of articleTestDataList) {
     { tag: ['@functional', '@accessibility'] },
     async ({ page }) => {
       await page.route(
-        `*/**/api/article?category=${article.article!.category.slug}&slug=${article.article!.slug.current}`,
+        `*/**/api/article?category=${article.article!.category.slug}&slug=${article.article!.slug}`,
         async route => {
           await route.fulfill({ path: article.testDataPath })
         }
