@@ -9,6 +9,7 @@ const config = {
   ...baseConfig,
   ...preset,
   plugins: [...preset.plugins, 'prettier-plugin-tailwindcss'],
+  overrides: [...(baseConfig.overrides ?? []), ...(preset.overrides ?? [])],
   experimentalTernaries: true,
 }
 

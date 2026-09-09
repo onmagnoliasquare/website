@@ -20,7 +20,6 @@ const config = {
   requirePragma: false,
   quoteProps: 'as-needed',
   trailingComma: 'es5',
-  parser: 'babel',
   jsxSingleQuote: false,
   vueIndentScriptAndStyle: false,
   semi: false,
@@ -78,8 +77,8 @@ const config = {
       files: '*.svelte',
       options: {
         parser: 'svelte',
+        bracketSameLine: true,
         svelteSortOrder: 'options-styles-scripts-markup',
-        svelteBracketNewLine: false,
         svelteAllowShorthand: false,
         svelteIndentScriptAndStyle: false,
       },
