@@ -10,9 +10,7 @@ export default {
   },
   '**/*.(html|css|json|yaml|yml)': {
     title: 'Format HTML/CSS/JSON/YML',
-    task: async (/** @type {string[]} */ files) => [
-      `prettier --write ${files.join(' ')} !package.json`,
-    ],
+    task: async (/** @type {string[]} */ files) => [`prettier --write ${files.join(' ')}`],
   },
   // '**/*.nix': ['nixfmt --version && nixfmt'],
 }
