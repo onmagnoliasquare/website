@@ -34,6 +34,8 @@ const config = mergeConfig(
           extends: true,
           plugins: [svelteTesting({ autoCleanup: true })],
           test: {
+            testTimeout: 5000,
+            hookTimeout: 6000,
             name: { label: 'client', color: 'green' },
             environment: 'jsdom',
             include: ['src/tests/client/**/*.{test,spec}.ts'],
