@@ -20,7 +20,7 @@ let metaTags = $derived(deepMerge(data.baseMetaTags, page.data.pageMetaTags))
 
 <MetaTags {...metaTags} />
 
-<div class="flex flex-col grow min-h-screen antialiased bg-white">
+<div class="flex min-h-screen grow flex-col bg-white antialiased">
   {@render children()}
   <Footer />
 </div>

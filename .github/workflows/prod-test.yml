@@ -1,23 +1,23 @@
-name: "Production Testing"
+name: 'Production Testing'
 
 on:
   workflow_dispatch:
   schedule:
     # Everyday 5 AM China Standard Time.
     # See: https://savvytime.com/converter/cst-asia-to-utc-hi-honolulu
-    - cron: "0 21 * * *"
+    - cron: '0 21 * * *'
 
 jobs:
   test:
-    name: "Playwright tests"
+    name: 'Playwright tests'
     runs-on: ubuntu-${{vars.RUNNER_VERSION}}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
-      - name: "Setup Node.js with Yarn"
+      - name: 'Setup Node.js with Yarn'
         uses: ./.github/actions/setup-node
 
-      - name: "Install playwright"
-        run: "yarn workspace frontend playwright install --with-deps chromium"
+      - name: 'Install playwright'
+        run: 'yarn workspace frontend playwright install --with-deps chromium'
 
-      - name: "Execute tests"
-        run: "yarn workspace frontend test-ci:production"
+      - name: 'Execute tests'
+        run: 'yarn workspace frontend test-ci:production'

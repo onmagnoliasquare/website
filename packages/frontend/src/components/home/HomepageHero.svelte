@@ -15,12 +15,13 @@ let authorString = $derived(createAuthorString(article.authors))
 </script>
 
 <div
-  class="hidden sm:block px-2 md:p-0 md:m-0 mb-2 py-2 border-y sm:border-y-0 bg-amber-200 sm:bg-transparent">
-  <p class="font-serif text-xl md:text-lg xl:text-xl tracking-tight inline">
+  class="mb-2 hidden border-y bg-amber-200 px-2 py-2 sm:block sm:border-y-0 sm:bg-transparent md:m-0 md:p-0">
+  <p class="inline font-serif text-xl tracking-tight md:text-lg xl:text-xl">
     <span class="italic">The latest scoop as of</span>
     <b><time datetime={article.date}>{dateFormatter(article.date, locale)}</time></b>
     <span class="italic">by</span>
-    <b>{authorString}</b>:
+    <b>{authorString}</b>
+    :
   </p>
 </div>
 <div class="p-1 sm:p-0">
@@ -30,19 +31,19 @@ let authorString = $derived(createAuthorString(article.authors))
     href={`/category/${article.category.name.toLowerCase()}/${article.slug}`}
     class="no-underline">
     <div class="relative">
-      <div class="relative md:absolute md:m-4 md:p-6 md:bg-amber-200 md:w-3/4 lg:w-3/5">
+      <div class="relative md:absolute md:m-4 md:w-3/4 md:bg-amber-200 md:p-6 lg:w-3/5">
         <h1
-          class="font-stretch-condensed text-6xl md:text-4xl lg:text-6xl font-display font-black tracking-tight p-1 mb-4 pb-4 hover:underline">
+          class="mb-4 p-1 pb-4 font-display text-6xl font-black tracking-tight font-stretch-condensed hover:underline md:text-4xl lg:text-6xl">
           {article.title}
         </h1>
         {#if article.subtitle}
           <Subtitle class="m-0 p-1 sm:text-xl lg:text-4xl">
             {article.subtitle}
           </Subtitle>
-          <p class="text-4xl font-display font-light mb-2 pb-2"></p>
+          <p class="mb-2 pb-2 font-display text-4xl font-light"></p>
         {/if}
       </div>
-      <div class="w-full mb-4">
+      <div class="mb-4 w-full">
         {#if article.media}
           <Image
             media={article.media}

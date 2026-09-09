@@ -20,13 +20,12 @@ let headlineMediaBlurHash = $derived(article.media?.asset?.metadata?.blurHash)
 <div>
   <a
     data-testid="headline-article"
-    href="category/{headlineArticle.category.name.toLowerCase()}/{headlineArticle.slug}"
-  >
+    href="category/{headlineArticle.category.name.toLowerCase()}/{headlineArticle.slug}">
     <div class="mb-4">
-      <h2 class="font-display text-5xl font-stretch-condensed font-bold">
+      <h2 class="font-display text-5xl font-bold font-stretch-condensed">
         {headlineArticle.title}
       </h2>
-      <p class="font-display text-3xl font-stretch-condensed mb-2">
+      <p class="mb-2 font-display text-3xl font-stretch-condensed">
         {headlineArticle.subtitle}
       </p>
       <div class="ml-1">
@@ -37,7 +36,7 @@ let headlineMediaBlurHash = $derived(article.media?.asset?.metadata?.blurHash)
       </div>
     </div>
     {#if headlineMedia}
-      <div class="sm:p-1 my-2">
+      <div class="my-2 sm:p-1">
         <Image
           media={headlineMedia}
           loading="lazy"
@@ -45,8 +44,7 @@ let headlineMediaBlurHash = $derived(article.media?.asset?.metadata?.blurHash)
           width={1920}
           height={1080}
           blurHash={headlineMediaBlurHash}
-          fit={'crop'}
-        />
+          fit={'crop'} />
       </div>
     {/if}
   </a>

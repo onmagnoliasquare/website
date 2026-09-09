@@ -15,14 +15,14 @@ let handles = $derived(data.member.handles)
 let articles = $derived(data.articles)
 </script>
 
-<header class="mb-4 pb-4 w-full">
+<header class="mb-4 w-full pb-4">
   <h1
-    class="font-display font-black text-4xl md:text-6xl lg:text-8xl tracking-tight sm:p-1 select-none font-stretch-condensed">
+    class="font-display text-4xl font-black tracking-tight font-stretch-condensed select-none sm:p-1 md:text-6xl lg:text-8xl">
     {member.name}
   </h1>
 </header>
-<div class="flex flex-col md:grid md:grid-cols-7 grid-flow-row gap-4 center mt-2 pt-2">
-  <div class="col-span-2 h-fit md:sticky top-3 p-1">
+<div class="center mt-2 flex grid-flow-row flex-col gap-4 pt-2 md:grid md:grid-cols-7">
+  <div class="top-3 col-span-2 h-fit p-1 md:sticky">
     <header>
       {#if member.portrait && member.portrait}
         <div class="p-0 sm:p-2">
@@ -36,16 +36,16 @@ let articles = $derived(data.articles)
               loading="eager"
               blurHash={member.portrait.asset.metadata?.blurHash}
               alt={`${member.name}'s portrait image`}
-              class={`center max-w-2xl md:w-full md:h-full mb-4`} />
+              class={`center mb-4 max-w-2xl md:h-full md:w-full`} />
           {/if}
         </div>
       {/if}
-      <div class="sm:p-1 tracking-wide">
-        <h1 class="font-display text-2xl italic mb-2 tracking-tight">
+      <div class="tracking-wide sm:p-1">
+        <h1 class="mb-2 font-display text-2xl tracking-tight italic">
           {member.name}
         </h1>
         <div class="border-t border-dotted p-1">
-          <div class="w-full mb-4 mt-2 pb-4">
+          <div class="mt-2 mb-4 w-full pb-4">
             <P class="text-md sm:text-md">
               {#if member.bio}
                 {member.bio.trim()}
@@ -131,15 +131,15 @@ let articles = $derived(data.articles)
     </header>
   </div>
   {#if articles.length > 0}
-    <div class="col-span-5 md:m-2 mt-4 pt-4 md:mt-1 md:pt-1">
+    <div class="col-span-5 mt-4 pt-4 md:m-2 md:mt-1 md:pt-1">
       <section>
-        <h1 class="font-display text-2xl mb-2 pl-2">Works</h1>
-        <ol class="list-none border-t border-dotted sm:p-1 divide-y">
+        <h1 class="mb-2 pl-2 font-display text-2xl">Works</h1>
+        <ol class="list-none divide-y border-t border-dotted sm:p-1">
           {#each articles as article}
             <!-- #key is a fix for https://github.com/onmagnoliasquare/website/issues/96  -->
             {#key article}
               {#if article.category}
-                <li class="w-full mb-6 sm:mb-2 pt-1 pb-1">
+                <li class="mb-6 w-full pt-1 pb-1 sm:mb-2">
                   <a
                     data-sveltekit-preload-code="viewport"
                     data-sveltekit-preload-data="tap"
@@ -147,18 +147,19 @@ let articles = $derived(data.articles)
                     <HoverDim>
                       <article class="p-1 md:m-1 md:p-2">
                         <h1
-                          class="text-4xl font-display font-bold mb-2 pb-4 hover:underline font-stretch-condensed">
+                          class="mb-2 pb-4 font-display text-4xl font-bold font-stretch-condensed hover:underline">
                           {article.title}
                         </h1>
                         {#if article.subtitle}
-                          <P class=" text-gray-600 tracking-wide mb-1 pb-2 leading-6">
+                          <P class=" text-gray-600 mb-1 pb-2 leading-6 tracking-wide">
                             {article.subtitle}
                           </P>
                         {/if}
                         <footer>
-                          <P class="text-gray-600 tracking-wide font-semibold">
-                            <time datetime={article.date}
-                              >{dateFormatter(article.date, data.userLocale)}</time>
+                          <P class="text-gray-600 font-semibold tracking-wide">
+                            <time datetime={article.date}>
+                              {dateFormatter(article.date, data.userLocale)}
+                            </time>
                           </P>
                         </footer>
                       </article>

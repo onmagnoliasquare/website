@@ -60,7 +60,7 @@
     "typescript-svelte-plugin": "0.3.52",
     "vite": "^8.2.2",
     "vitest": "^5.0.0",
-    "wrangler": "^4.129.1"
+    "wrangler": "^4.130.0"
   },
   "packageManager": "yarn@4.14.1",
   "engines": {

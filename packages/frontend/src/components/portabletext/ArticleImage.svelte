@@ -6,14 +6,14 @@ import type { CustomBlockComponentProps } from '@portabletext/svelte'
 import type { SanityImageAsset } from '$lib/sanity/types.generated'
 
 interface Props {
-  portableText: CustomBlockComponentProps<SanityImageAsset & { creditLine: string, alt: string }>
+  portableText: CustomBlockComponentProps<SanityImageAsset & { creditLine: string; alt: string }>
 }
 
 let { portableText }: Props = $props()
 let { value } = $derived(portableText)
 </script>
 
-<figure class="max-w-xl center">
+<figure class="center max-w-xl">
   <Image
     media={value}
     loading="lazy"

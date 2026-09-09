@@ -19,10 +19,9 @@ let { data }: PageProps = $props()
         data-sveltekit-preload-data="tap"
         href={`/archive/tags/${tag.slug}`}
         title={tag.name}
-        class=" w-fit"
-      >
+        class=" w-fit">
         <HoverDim>
-          <article class="hover:underline p-1 w-fit hover:bg-amber-200">
+          <article class="w-fit p-1 hover:bg-amber-200 hover:underline">
             <data.Tag tagName={tag.name} />
           </article>
         </HoverDim>

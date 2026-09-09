@@ -1,90 +1,90 @@
 # Main development workflow.
 
-name: "Dev"
+name: 'Dev'
 
 on:
   push:
-    branches: ["dev"]
+    branches: ['dev']
     paths-ignore:
       # Ignore changes in documentation.
-      - "**/*.md"
+      - '**/*.md'
 
       # Ignore changes in root directory.
-      - ".gitattributes"
-      - ".gitignore"
-      - ".markdownlint.json"
-      - ".yarnrc.yml"
-      - "LICENSE"
-      - ".yarn"
-      - ".vscode"
-      - ".prettierignore"
-      - ".prettierrc"
-      - "LICENSE"
-      - "tsconfig.json"
-      - "eslint.config.mjs"
+      - '.gitattributes'
+      - '.gitignore'
+      - '.markdownlint.json'
+      - '.yarnrc.yml'
+      - 'LICENSE'
+      - '.yarn'
+      - '.vscode'
+      - '.prettierignore'
+      - '.prettierrc'
+      - 'LICENSE'
+      - 'tsconfig.json'
+      - 'eslint.config.mjs'
       # This will ignore svelte.config.js
-      - "**/*.config.js"
-      - "**/*.config.mjs"
-      - "**/*.config.cjs"
+      - '**/*.config.js'
+      - '**/*.config.mjs'
+      - '**/*.config.cjs'
 
       # Ignore changes in .github directory.
-      - ".github/ISSUE_TEMPLATE/**"
-      - ".github/pull_request_template.*"
-      - ".github/dependabot.yml"
+      - '.github/ISSUE_TEMPLATE/**'
+      - '.github/pull_request_template.*'
+      - '.github/dependabot.yml'
 
       # We do in fact want to see direct changes to CI, to check if everything is working. So we'll count this in.
       # - ".github/actions/**"
 
       # Ignore build related files.
-      - ".env.example"
+      - '.env.example'
 
       # Ignore frontend package specific paths.
-      - "packages/frontend/static/**"
-      - "packages/frontend/.prettierrc"
+      - 'packages/frontend/static/**'
+      - 'packages/frontend/.prettierrc'
 
       # Ignore cms package specific paths.
-      - "packages/cms/static/**"
+      - 'packages/cms/static/**'
   pull_request:
-    branches: ["dev"]
+    branches: ['dev']
     paths-ignore:
       # Ignore changes in documentation.
-      - "**/*.md"
+      - '**/*.md'
 
       # Ignore changes in root directory.
-      - ".gitattributes"
-      - ".gitignore"
-      - ".markdownlint.json"
-      - ".yarnrc.yml"
-      - "LICENSE"
-      - ".yarn"
-      - ".vscode"
-      - ".prettierignore"
-      - ".prettierrc"
-      - "LICENSE"
-      - "tsconfig.json"
-      - "eslint.config.mjs"
+      - '.gitattributes'
+      - '.gitignore'
+      - '.markdownlint.json'
+      - '.yarnrc.yml'
+      - 'LICENSE'
+      - '.yarn'
+      - '.vscode'
+      - '.prettierignore'
+      - '.prettierrc'
+      - 'LICENSE'
+      - 'tsconfig.json'
+      - 'eslint.config.mjs'
       # This will ignore svelte.config.js
-      - "**/*.config.js"
-      - "**/*.config.mjs"
-      - "**/*.config.cjs"
+      - '**/*.config.js'
+      - '**/*.config.mjs'
+      - '**/*.config.cjs'
 
       # Ignore changes in .github directory.
-      - ".github/ISSUE_TEMPLATE/**"
-      - ".github/pull_request_template.*"
-      - ".github/dependabot.yml"
+      - '.github/ISSUE_TEMPLATE/**'
+      - '.github/pull_request_template.*'
+      - '.github/dependabot.yml'
 
       # We do in fact want to see direct changes to CI, to check if everything is working. So we'll count this in.
       # - ".github/actions/**"
 
       # Ignore build related files.
-      - ".env.example"
+      - '.env.example'
 
       # Ignore frontend package specific paths.
-      - "packages/frontend/static/**"
-      - "packages/frontend/.prettierrc"
+      - 'packages/frontend/static/**'
+      - 'packages/frontend/.prettierrc'
 
       # Ignore cms package specific paths.
-      - "packages/cms/static/**"
+      - 'packages/cms/static/**'
   merge_group:
 
 concurrency:
@@ -138,7 +138,7 @@ jobs:
     if: ${{ (needs.changes.outputs.cms == 'true' || needs.changes.outputs.frontend == 'true') || needs.changes.outputs.ci == 'true' }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
-      - name: "Setup Node.js with Yarn"
+      - name: 'Setup Node.js with Yarn'
         uses: ./.github/actions/setup-node
 
       # Run this BEFORE Eslint, since `check` generates a tsconfig.
@@ -149,7 +149,7 @@ jobs:
       - name: Frontend linting
         if: ${{ needs.changes.outputs.frontend == 'true' || needs.changes.outputs.ci == 'true' }}
         env:
-          NODE_OPTIONS: "--max-old-space-size=8192"
+          NODE_OPTIONS: '--max-old-space-size=8192'
         run: yarn workspace frontend lint
 
       - name: Build frontend for development
@@ -184,7 +184,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
-      - name: "Setup Node.js with Yarn"
+      - name: 'Setup Node.js with Yarn'
         uses: ./.github/actions/setup-node
       - name: Restore build
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # ratchet:actions/cache@v6
@@ -212,7 +212,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
-      - name: "Setup Node.js with Yarn"
+      - name: 'Setup Node.js with Yarn'
         uses: ./.github/actions/setup-node
       - name: Restore build
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # ratchet:actions/cache@v6
@@ -233,11 +233,11 @@ jobs:
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
-      DEBUG: "pw:api"
+      DEBUG: 'pw:api'
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
-      - name: "Setup Node.js with Yarn"
+      - name: 'Setup Node.js with Yarn'
         uses: ./.github/actions/setup-node
       - name: Restore build
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # ratchet:actions/cache@v6
@@ -269,11 +269,11 @@ jobs:
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
-      DEBUG: "pw:api"
+      DEBUG: 'pw:api'
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
-      - name: "Setup Node.js with Yarn"
+      - name: 'Setup Node.js with Yarn'
         uses: ./.github/actions/setup-node
       - name: Restore build
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # ratchet:actions/cache@v6
@@ -305,11 +305,11 @@ jobs:
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
-      DEBUG: "pw:api"
+      DEBUG: 'pw:api'
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
-      - name: "Setup Node.js with Yarn"
+      - name: 'Setup Node.js with Yarn'
         uses: ./.github/actions/setup-node
       - name: Restore build
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # ratchet:actions/cache@v6
@@ -345,7 +345,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
-      - name: "Setup Node.js with Yarn"
+      - name: 'Setup Node.js with Yarn'
         uses: ./.github/actions/setup-node
 
       - name: Build frontend for staging
@@ -362,7 +362,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: "packages/frontend"
+          workingDirectory: 'packages/frontend'
           command: deploy --env staging
 
           # - name: Deploy cms to Cloudflare Workers (staging)
@@ -382,14 +382,3 @@ jobs:
     steps:
       - if: ${{ always() && (contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')) }}
         run: exit 1
-
-
-
-
-
-
-
-
-
-
-

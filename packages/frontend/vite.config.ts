@@ -14,6 +14,6 @@ export default defineConfig({
     exclude: ['@portabletext/svelte', '@unpic/svelte', 'svelte-meta-tags'],
   },
   build: {
-    sourcemap: true
-  }
+    sourcemap: true,
+  },
 })

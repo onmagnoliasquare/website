@@ -17,12 +17,13 @@ interface Props {
   portableText: MarkComponentProps<{
     href: string
   }>
-  children?: Snippet
+  children: Snippet
 }
 
 let { portableText, children }: Props = $props()
+let { value } = $derived(portableText)
 </script>
 
-<a href={portableText.value.href} class="text-nyu-purple-100 hover:underline" target="_blank">
-  {@render children?.()}
+<a href={value.href} class="text-nyu-purple-100 hover:underline" target="_blank">
+  {@render children()}
 </a>

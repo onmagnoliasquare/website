@@ -1,21 +1,21 @@
-import { BookIcon } from '@sanity/icons/Book'
-import { RobotIcon } from '@sanity/icons/Robot'
-import { visionTool } from '@sanity/vision'
-import { copyPastePlugin } from '@superside-oss/sanity-plugin-copy-paste'
-import type { Config, WorkspaceOptions } from 'sanity'
-import { defineConfig, isDev, type NavbarProps, useWorkspace } from 'sanity'
-import { structureTool } from 'sanity/structure'
-import { media } from 'sanity-plugin-media'
-import { studioDataset, studioProjectId, studioTitle } from './lib/environment'
-import { customDocumentActions } from './plugins/customDocumentActions'
-import { schemaTypes } from './schema'
-import { structure } from './structure'
-import { crossDatasetDuplicator } from '@sanity/cross-dataset-duplicator'
+import {BookIcon} from '@sanity/icons/Book'
+import {RobotIcon} from '@sanity/icons/Robot'
+import {visionTool} from '@sanity/vision'
+import {copyPastePlugin} from '@superside-oss/sanity-plugin-copy-paste'
+import type {Config, WorkspaceOptions} from 'sanity'
+import {defineConfig, isDev, type NavbarProps, useWorkspace} from 'sanity'
+import {structureTool} from 'sanity/structure'
+import {media} from 'sanity-plugin-media'
+import {studioDataset, studioProjectId, studioTitle} from './lib/environment'
+import {customDocumentActions} from './plugins/customDocumentActions'
+import {schemaTypes} from './schema'
+import {structure} from './structure'
+import {crossDatasetDuplicator} from '@sanity/cross-dataset-duplicator'
 import React from 'react'
-import { Card, Stack, Text } from '@sanity/ui'
-import { ThemeColorCardToneKey } from '@sanity/ui/theme'
+import {Card, Stack, Text} from '@sanity/ui'
+import {ThemeColorCardToneKey} from '@sanity/ui/theme'
 
-import pkg from './package.json' with { type: 'json' }
+import pkg from './package.json' with {type: 'json'}
 
 const devOnlyPlugins = [
   // Vision tool is for querying stuff; a regular user isn't doing this.
@@ -31,7 +31,7 @@ const CustomNavbar = (
 ): ((props: NavbarProps) => React.ReactElement<NavbarProps>) => {
   return props => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { dataset } = useWorkspace()
+    const {dataset} = useWorkspace()
     return (
       <Stack>
         <Card padding={3} tone={tone}>
@@ -51,7 +51,7 @@ const baseWorkspace: Config = {
   projectId: studioProjectId,
   dataset: studioDataset,
   plugins: [
-    structureTool({ structure: structure }),
+    structureTool({structure: structure}),
     media({
       creditLine: {
         enabled: true,
@@ -137,7 +137,7 @@ const devConfig: WorkspaceOptions[] = [
                   backgroundColor: 'red',
                 }}
               >
-                <p style={{ color: 'white', fontWeight: 'bold', padding: 10 }}>
+                <p style={{color: 'white', fontWeight: 'bold', padding: 10}}>
                   <em>THIS IS A LIVE DATASET!</em>
                 </p>
               </div>

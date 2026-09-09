@@ -25,11 +25,11 @@ let {
 <GeneralObserver disable_observer={disable_observer}>
   <iframe
     data-testid="spotify"
-    title={`spotify-${spotifyPath}`}
+    title="spotify-{spotifyPath}"
     class="spotify-sveltekit-embed"
-    src={`https://open.spotify.com/embed/${spotifyPath}`}
+    src="https://open.spotify.com/embed/{spotifyPath}"
     frameBorder="0"
     allow="encrypted-media"
-    style={iframe_styles}
-  ></iframe>
+    style={iframe_styles}>
+  </iframe>
 </GeneralObserver>

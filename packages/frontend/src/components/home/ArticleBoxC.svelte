@@ -32,7 +32,7 @@ let articleSlug = $derived(article.slug)
 </script>
 
 {#snippet ByAndDate()}
-  <div class="flex flex-col mt-1 pt-2">
+  <div class="mt-1 flex flex-col pt-2">
     <div class="pb-2">
       <ByLine authors={articleAuthors} />
     </div>
@@ -53,14 +53,14 @@ let articleSlug = $derived(article.slug)
   {/if}
 {/snippet}
 
-<article class="sm:m-4 sm:px-2 border-t border-dotted">
+<article class="border-t border-dotted sm:m-4 sm:px-2">
   <HoverDim>
     <a
       data-sveltekit-preload-code="viewport"
       data-sveltekit-preload-data="tap"
       data-sveltekit-reload
       href="/category/{articleCategory}/{articleSlug}">
-      <div class="flow flow-col lg:grid lg:grid-cols-3 items-center gap-2 mb-4">
+      <div class="flow flow-col mb-4 items-center gap-2 lg:grid lg:grid-cols-3">
         {#if media && showImage}
           <div class="col-span-1 lg:col-span-2">
             <div class="p-6 pr-1 pl-0">

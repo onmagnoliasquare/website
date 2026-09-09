@@ -63,12 +63,12 @@ const getRelatedArticles = async (): Promise<RelatedArticlesTypeAResult> => {
 }
 </script>
 
-<article class="m-1 p-1 lg:m-2 lg:p-2 relative w-full sm:max-w-5xl center min-h-screen">
+<article class="center relative m-1 min-h-screen w-full p-1 sm:max-w-5xl lg:m-2 lg:p-2">
   {@render children()}
 </article>
 <aside>
-  <h2 class="text-lg font-display p-4 sm:pl-8 font-bold">Related Articles</h2>
-  <div class="flex flex-col sm:grid grid-cols-6 sm:gap-2">
+  <h2 class="p-4 font-display text-lg font-bold sm:pl-8">Related Articles</h2>
+  <div class="flex grid-cols-6 flex-col sm:grid sm:gap-2">
     <div class="col-span-3" aria-label="Related Articles">
       {#await getRelatedArticles()}
         <div class="p-4 sm:pl-8">
@@ -78,7 +78,7 @@ const getRelatedArticles = async (): Promise<RelatedArticlesTypeAResult> => {
         {@const relatedArticles = ra.filter(a => a.title !== data.article.title)}
         <ol class="p-2">
           {#each relatedArticles as r}
-            <li class="p-2 sm:p-2 sm:pb-6 text-sm sm:text-base">
+            <li class="p-2 text-sm sm:p-2 sm:pb-6 sm:text-base">
               <ArticleBoxC article={r} />
             </li>
           {/each}
@@ -86,25 +86,26 @@ const getRelatedArticles = async (): Promise<RelatedArticlesTypeAResult> => {
       {:catch error}
         {@debug error}
         <P class="m-4 pl-4">Uh oh... something got messed up :(</P>
-        <P class="m-4 pl-4"
-          ><a
-            class="text-nyu-purple-100 font-bold"
-            href="https://github.com/onmagnoliasquare/website/issues/new?template=05-bug.yml"
-            >Let us know by submitting a bug report!</a
-          ></P>
+        <P class="m-4 pl-4">
+          <a
+            class="font-bold text-nyu-purple-100"
+            href="https://github.com/onmagnoliasquare/website/issues/new?template=05-bug.yml">
+            Let us know by submitting a bug report!
+          </a>
+        </P>
       {/await}
     </div>
-    <div class="sm:sticky top-4 h-fit col-span-2" aria-label="Recent Articles">
-      <h2 class="text-lg font-display p-4 font-bold">Recent {categoryName}</h2>
+    <div class="top-4 col-span-2 h-fit sm:sticky" aria-label="Recent Articles">
+      <h2 class="p-4 font-display text-lg font-bold">Recent {categoryName}</h2>
       <ol class="p-2">
         {#each recent() as r}
-          <li class="p-2 py-6 border-t border-dotted">
+          <li class="border-t border-dotted p-2 py-6">
             <HoverDim>
               <a data-sveltekit-reload href="/category/{r.category.slug}/{r.slug}">
-                <h3 class="text-lg font-display font-bold pb-2 leading-tight hover:underline">
+                <h3 class="pb-2 font-display text-lg leading-tight font-bold hover:underline">
                   {r.title}
                 </h3>
-                <div class="leading-loose text-sm">
+                <div class="text-sm leading-loose">
                   <!--							<ByLine authors={r.authors} />-->
                   <DateLine date={r.date} />
                 </div>

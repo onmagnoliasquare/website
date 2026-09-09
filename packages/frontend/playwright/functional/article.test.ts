@@ -3,10 +3,11 @@ import { site } from '$lib/constants.ts'
 import { v0_5_x_Article, v0_6_x_Article } from '../parameters.ts'
 
 test.describe('v0.5.x Article Features', { tag: '@functional' }, () => {
-  test.describe.configure({ mode: 'serial' })
+  test.describe.configure({ mode: 'parallel' })
+
   test.beforeEach(async ({ page }) => {
     await page.route(
-      `*/**/api/article?category=${v0_5_x_Article.article?.category.slug}&slug=${v0_5_x_Article.article?.slug.current}`,
+      `*/**/api/article?category=${v0_5_x_Article.article?.category.slug}&slug=${v0_5_x_Article.article?.slug}`,
       async route => {
         await route.fulfill({ path: v0_5_x_Article.testDataPath })
       }
@@ -40,22 +41,20 @@ test.describe('v0.5.x Article Features', { tag: '@functional' }, () => {
 
     // Check if the category is on the line.
     await expect(
-      page.getByText('Neo Alabastro & Jonathan Zhai ✍ News', { exact: true })
+      page.getByText('Neo Alabastro & Jonathan Zhai ✍ Article Testing', { exact: true })
     ).toBeVisible()
 
     // Check if there are author links on the By Line.
     const neoAlabastroUrl = `/about/staff/neo-alabastro`
     const jonathanZhaiUrl = `/about/staff/jonathan-zhai`
 
-    await expect(page.locator('a', { hasText: 'Neo Alabastro' }).first()).toHaveAttribute(
-      'href',
-      neoAlabastroUrl
-    )
+    await expect
+      .soft(page.locator('a', { hasText: 'Neo Alabastro' }).first())
+      .toHaveAttribute('href', neoAlabastroUrl)
 
-    await expect(page.locator('a', { hasText: 'Jonathan Zhai' }).first()).toHaveAttribute(
-      'href',
-      jonathanZhaiUrl
-    )
+    await expect
+      .soft(page.locator('a', { hasText: 'Jonathan Zhai' }).first())
+      .toHaveAttribute('href', jonathanZhaiUrl)
   })
 
   /**
@@ -113,10 +112,8 @@ test.describe('v0.5.x Article Features', { tag: '@functional' }, () => {
     await expect(page.locator('strong em', { hasText: 'bold first' })).toBeVisible()
   })
 
-  test('Link https://onmagnoliasquare.com/ visible', async ({ page }) => {
-    await expect(
-      page.getByRole('link', { name: 'https://onmagnoliasquare.com/', exact: true })
-    ).toBeVisible()
+  test(`Link ${site.url} visible`, async ({ page }) => {
+    await expect(page.getByRole('link', { name: `${site.url}/`, exact: true })).toBeVisible()
   })
 
   test('Link `in alias format` visible', async ({ page }) => {
@@ -124,7 +121,7 @@ test.describe('v0.5.x Article Features', { tag: '@functional' }, () => {
       page
         .locator('a', { hasText: 'in alias format' })
         .getByText('in alias format', { exact: true })
-    ).toHaveAttribute('href', 'https://onmagnoliasquare.com/')
+    ).toHaveAttribute('href', `${site.url}/`)
   })
 
   test('<br /> is between first two exact paragraphs', async ({ page }) => {
@@ -295,30 +292,36 @@ test.describe('v0.5.x Article Features', { tag: '@functional' }, () => {
     )
   })
 
-  /**
-   * Checks if there are any blank <p> elements. This is a regression test for
-   * https://github.com/onmagnoliasquare/website/issues/194
-   */
-  test('No blank <p> elements in the article', { tag: '@regression' }, async ({ page }) => {
-    // Locate all <p> elements within the <article>
-    const paragraphs = page.locator('article p')
+  test(
+    'No blank <p> elements in the article',
+    {
+      tag: '@regression',
+      annotation: {
+        type: 'issue',
+        description: 'https://github.com/onmagnoliasquare/website/issues/194',
+      },
+    },
+    async ({ page }) => {
+      // Locate all <p> elements within the <article>
+      const paragraphs = page.locator('article p')
 
-    // Get the count of <p> elements
-    const paragraphCount = await paragraphs.count()
+      // Get the count of <p> elements
+      const paragraphCount = await paragraphs.count()
 
-    // Iterate through each <p> and check if it has text
-    for (let i = 0; i < paragraphCount; i++) {
-      const paragraphText = await paragraphs.nth(i).innerText()
-      expect(paragraphText.trim()).not.toBe('')
+      // Iterate through each <p> and check if it has text
+      for (let i = 0; i < paragraphCount; i++) {
+        const paragraphText = await paragraphs.nth(i).innerText()
+        expect(paragraphText.trim()).not.toBe('')
+      }
     }
-  })
+  )
 })
 
 test.describe('v0.6.x Article Features', { tag: '@functional' }, () => {
-  test.describe.configure({ mode: 'serial' })
+  test.describe.configure({ mode: 'parallel' })
   test.beforeEach(async ({ page }) => {
     await page.route(
-      `*/**/api/article?category=${v0_6_x_Article.article?.category.slug}&slug=${v0_6_x_Article.article?.slug.current}`,
+      `*/**/api/article?category=${v0_6_x_Article.article?.category.slug}&slug=${v0_6_x_Article.article?.slug}`,
       async route => {
         await route.fulfill({ path: v0_6_x_Article.testDataPath })
       }

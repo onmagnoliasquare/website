@@ -49,8 +49,8 @@ test.describe('Basic routing', { tag: '@integration' }, () => {
     await expect(page.getByRole('heading', { name: 'Archive', exact: true }).first()).toBeVisible()
   })
 
-  test('Category on by line accessible via article page', async ({ page }) => {
-    await page.goto(`/category/news/${v0_5_x_Article.article?.slug.current}`)
+  test('Series on by line accessible via article page', async ({ page }) => {
+    await page.goto(`/category/news/${v0_5_x_Article.article?.slug}`)
     await expect(
       page.getByRole('heading', {
         name: `v0.5 Article Feature Set: What a blast!`,
@@ -58,9 +58,11 @@ test.describe('Basic routing', { tag: '@integration' }, () => {
     ).toBeVisible()
 
     // Click Category link on the ByLine.
-    await page.getByRole('article').getByRole('link', { name: 'News' }).click()
+    await page.getByRole('article').getByRole('link', { name: 'Article Testing' }).click()
     // await page.getByRole('main').getByRole('link', { name: 'News' }).click();
 
-    await expect(page.getByRole('main').getByRole('heading', { name: 'News' })).toBeVisible()
+    await expect(
+      page.getByRole('main').getByRole('heading', { name: 'Article Testing' })
+    ).toBeVisible()
   })
 })

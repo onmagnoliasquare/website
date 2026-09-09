@@ -1,4 +1,5 @@
-import type { Article, MetaInfo } from '../schema'
+import type { ArticleQueryResult } from '$lib/sanity/types'
+import type { MetaInfo } from '$lib/sanity/types.generated'
 
 /**
  * `testPage` type defines a testing page for playwright. The word "test" here is used
@@ -8,7 +9,7 @@ export interface testPage {
   testDescription: string
   testDataPath?: string
   testUrl: string
-  testMetaInfo?: MetaInfo
+  testMetaInfo?: Omit<MetaInfo, '_type'>
 
-  article?: Article
+  article?: ArticleQueryResult
 }

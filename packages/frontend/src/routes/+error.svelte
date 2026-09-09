@@ -12,9 +12,9 @@ let status = page.status
 </svelte:head>
 
 <MainLayout>
-  <div class="flex flex-col min-h-screen justify-center items-center">
-    <h1 class="text-6xl font-serif font-bold select-none">{status}</h1>
-    <p class="text-xl font-serif font-semibold mt-2 pt-2">{msg}</p>
+  <div class="flex min-h-screen flex-col items-center justify-center">
+    <h1 class="font-serif text-6xl font-bold select-none">{status}</h1>
+    <p class="mt-2 pt-2 font-serif text-xl font-semibold">{msg}</p>
     <p class="mt-1 pt-1">Looks like something went wrong...</p>
     <p class="mt-2 pt-2"><a href="/">Click here to go back to the homepage</a></p>
   </div>

@@ -9,6 +9,7 @@ packages/frontend/static/*
 *.generated.*
 *-generated.*
 
+worker-configuration.d.ts
 
 **/*.png
 **/*.jpg

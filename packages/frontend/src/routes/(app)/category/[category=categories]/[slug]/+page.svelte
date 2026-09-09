@@ -63,11 +63,11 @@ let content = $derived(data.article.content)
   <div class="flex flex-col-reverse sm:flex-col">
     <div class="w-fit p-2">
       <h1
-        class="text-4xl sm:text-5xl lg:text-7xl font-display font-black font-stretch-condensed tracking-tight pb-8 sm:mb-8 sm:pb-4 antialiased leading-tight sm:leading-24">
+        class="pb-8 font-display text-4xl leading-tight font-black tracking-tight font-stretch-condensed antialiased sm:mb-8 sm:pb-4 sm:text-5xl sm:leading-24 lg:text-7xl">
         {title}
       </h1>
       {#if subtitle}
-        <div class="pb-4 sm:mb-8 max-w-3xl">
+        <div class="max-w-3xl pb-4 sm:mb-8">
           <Subtitle class="leading-tight">
             {subtitle}
           </Subtitle>
@@ -75,8 +75,8 @@ let content = $derived(data.article.content)
       {/if}
     </div>
     {#if headerMedia}
-      <div class="w-full center">
-        <figure class="mb-1 pb-1 sm:pb-4 sm:mb-4 center">
+      <div class="center w-full">
+        <figure class="center mb-1 pb-1 sm:mb-4 sm:pb-4">
           <div class="mb-2">
             <Image
               media={headerMedia.asset as SanityImageSource}
@@ -88,7 +88,7 @@ let content = $derived(data.article.content)
               loading="eager" />
           </div>
           {#if headerMediaCreditLine}
-            <figcaption class="sm:p-1 pt-1 p-3">
+            <figcaption class="p-3 pt-1 sm:p-1">
               <PhotoCaption>
                 {headerMediaCreditLine}
               </PhotoCaption>
@@ -98,20 +98,20 @@ let content = $derived(data.article.content)
       </div>
     {/if}
   </div>
-  <div class="flex flex-col mb-4 p-2 sm:ml-4 sm:pl-4">
-    <div class="flex flex-row items-baseline align-center pb-1">
+  <div class="mb-4 flex flex-col p-2 sm:ml-4 sm:pl-4">
+    <div class="align-center flex flex-row items-baseline pb-1">
       <ByLine authors={authors} />&nbsp;
-      <span class="font-bold text-sm">✍&nbsp;</span>
+      <span class="text-sm font-bold">✍&nbsp;</span>
       {#if series}
         <a
-          class="italic font-serif text-sm font-bold"
+          class="font-serif text-sm font-bold italic"
           href="/series/{series.slug}"
           title="{series.name} series">
           {series.name}
         </a>
       {:else}
         <a
-          class="text-sm tracking-wider font-semibold hover:underline"
+          class="text-sm font-semibold tracking-wider hover:underline"
           href="/category/{category.slug}"
           title={category.name}>
           {category.name}
@@ -126,14 +126,15 @@ let content = $derived(data.article.content)
     {/if}
   </div>
 </header>
-<div class="p-2 sm:max-w-3xl mb-6 pb-6 sm:ml-4 sm:pl-4">
+<div class="mb-6 p-2 pb-6 sm:ml-4 sm:max-w-3xl sm:pl-4">
   <ArticleContent content={content} />
 </div>
 <hr class="dotted" />
 <footer class="p-2">
-  <div class="px-2 sm:px-4 py-4">
+  <div class="px-2 py-4 sm:px-4">
     <div class="pb-2">
-      <cite>{title}</cite> is an article by {createAuthorString(authors)}.
+      <cite>{title}</cite>
+      is an article by {createAuthorString(authors)}.
     </div>
     <address>
       To get in touch, please contact us at
@@ -142,12 +143,12 @@ let content = $derived(data.article.content)
   </div>
   {#if tags}
     <div data-sveltekit-preload-data="false" class="px-2 py-8">
-      <h3 class="font-serif tracking-wide font-bold text-lg sm:text-xl mb-1 pb-1 w-fit">
+      <h3 class="mb-1 w-fit pb-1 font-serif text-lg font-bold tracking-wide sm:text-xl">
         <a href="/archive">Tags</a>
       </h3>
-      <ul class="list flex flex-wrap items-center justify-left space-x-1">
+      <ul class="list justify-left flex flex-wrap items-center space-x-1">
         {#each tags as tag}
-          <li class="pr-1 inline">
+          <li class="inline pr-1">
             <a href="/archive/tags/{tag.slug}">
               <Tag tagName={tag.name} />
             </a>

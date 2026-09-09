@@ -12,9 +12,8 @@ let { class: classList, children }: Props = $props()
 
 <p
   class={twMerge(
-    'font-serif font-stretch-condensed tracking-tight sm:pl-3 text-xl sm:text-3xl lg:text-4xl antialiased',
+    'font-serif text-xl tracking-tight font-stretch-condensed antialiased sm:pl-3 sm:text-3xl lg:text-4xl',
     classList
-  )}
->
+  )}>
   {@render children()}
 </p>

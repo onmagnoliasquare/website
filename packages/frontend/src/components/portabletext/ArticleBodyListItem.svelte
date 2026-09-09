@@ -10,7 +10,7 @@ let { children }: Props = $props()
 </script>
 
 <li class="mb-1 pb-1">
-  <P class="leading-6 sm:leading-7 inline">
+  <P class="inline leading-6 sm:leading-7">
     {@render children()}
   </P>
 </li>
