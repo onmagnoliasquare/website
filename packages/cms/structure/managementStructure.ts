@@ -5,9 +5,7 @@ import { CogIcon } from '@sanity/icons/Cog'
 import { TagsIcon } from '@sanity/icons/Tags'
 
 
-export default defineStructure <
-  ListItemBuilder >
-  (S =>
+export default defineStructure<ListItemBuilder>(S =>
     S.listItem()
       .title('Management')
       .icon(CogIcon)

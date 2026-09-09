@@ -3,9 +3,7 @@ import defineStructure from '../lib/defineStructure'
 import { EarthGlobeIcon } from '@sanity/icons/EarthGlobe'
 import { DocumentIcon } from '@sanity/icons/Document'
 
-export default defineStructure <
-  ListItemBuilder >
-  (S =>
+export default defineStructure<ListItemBuilder>(S =>
     S.listItem()
       .title('Site Content')
       .icon(EarthGlobeIcon)

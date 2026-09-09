@@ -3,9 +3,7 @@ import defineStructure from '../lib/defineStructure'
 import {DocumentsIcon} from '@sanity/icons/Documents'
 import {studioApiVersion} from '../lib/environment'
 
-export default defineStructure <
-  ListItemBuilder >
-  (S =>
+export default defineStructure<ListItemBuilder>(S =>
     S.listItem()
       .title('All Articles')
       .icon(DocumentsIcon)
