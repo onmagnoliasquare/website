@@ -5,18 +5,15 @@ import { article404, v0_5_x_Article, v0_6_x_Article } from '../parameters.ts'
 test.describe('v0.5.x Article Features', { tag: '@integration' }, () => {
   test.describe.configure({ mode: 'parallel' })
 
-  let page: Page
-
-  test.beforeAll(async ({ browser }) => {
-    page = await browser.newPage()
+  test.beforeEach(async ({ page }) => {
+    await page.goto(v0_5_x_Article.testUrl)
   })
 
-  test.afterAll(async () => {
+  test.afterEach(async ({ page }) => {
     await page.close()
   })
 
-  test('Article has title', async () => {
-    await page.goto(v0_5_x_Article.testUrl)
+  test('Article has title', async ({ page }) => {
     await expect(
       page.getByRole('heading', {
         name: 'v0.5 Article Feature Set: What a blast!',
@@ -24,7 +21,7 @@ test.describe('v0.5.x Article Features', { tag: '@integration' }, () => {
     ).toBeVisible()
   })
 
-  test('Article has subtitle', async () => {
+  test('Article has subtitle', async ({ page }) => {
     await expect(page.getByText("Here's what's good, here's what's fresh.")).toBeVisible()
   })
 
@@ -36,7 +33,7 @@ test.describe('v0.5.x Article Features', { tag: '@integration' }, () => {
    *   4. Is the By Line reactive to two authors? i.e. does it
    *      add the `&` character?
    */
-  test('Functional By Line', async () => {
+  test('Functional By Line', async ({ page }) => {
     // Checks two authors with an `&` in between.
     await expect(page.getByText('Neo Alabastro & Jonathan Zhai', { exact: false })).toBeVisible()
 
@@ -63,45 +60,45 @@ test.describe('v0.5.x Article Features', { tag: '@integration' }, () => {
    *   1. Is there a date?
    *   2. Is there an updated date?
    */
-  test('Functional Date Line', async () => {
+  test('Functional Date Line', async ({ page }) => {
     await expect(page.getByText('Wed, November 27, 2024', { exact: true })).toBeVisible()
     await expect(page.getByText('updated Thu, November 28, 2024', { exact: true })).toBeVisible()
   })
 
-  test('Header 1 <h2> visible', async () => {
+  test('Header 1 <h2> visible', async ({ page }) => {
     await expect(page.getByRole('heading', { name: 'Header 1', level: 2 })).toBeVisible()
   })
 
-  test('Header 2 <h3> visible', async () => {
+  test('Header 2 <h3> visible', async ({ page }) => {
     await expect(page.getByRole('heading', { name: 'Header 2', level: 3 })).toBeVisible()
   })
 
-  test('Header 3 <h4> visible', async () => {
+  test('Header 3 <h4> visible', async ({ page }) => {
     await expect(page.getByRole('heading', { name: 'Header 3', level: 4 })).toBeVisible()
   })
 
-  test('Unordered List present', async () => {
+  test('Unordered List present', async ({ page }) => {
     const unorderedList = page.getByRole('list').getByText("Here's bulletsBang bangWoo")
     // await expect(unorderedList).toContainText(`Here's bullets`);
     await expect(unorderedList).toContainText('Bang bang')
     await expect(unorderedList).toContainText('Woo hoo!')
   })
 
-  test('Ordered List present', async () => {
+  test('Ordered List present', async ({ page }) => {
     const orderedList = page.getByRole('list').getByText('BananaAppleRhombus')
     await expect(orderedList).toContainText('Apple')
     await expect(orderedList).toContainText('Rhombus')
   })
 
-  test('Bold text rendered', async () => {
+  test('Bold text rendered', async ({ page }) => {
     await expect(page.locator('strong', { hasText: 'Bold text' })).toBeVisible()
   })
 
-  test('Italic text rendered', async () => {
+  test('Italic text rendered', async ({ page }) => {
     await expect(page.getByText('italic', { exact: true })).toBeVisible()
   })
 
-  test('Italic and bold text combo rendered', async () => {
+  test('Italic and bold text combo rendered', async ({ page }) => {
     await expect(
       page
         .locator('strong em', { hasText: 'italic first' })
@@ -109,7 +106,7 @@ test.describe('v0.5.x Article Features', { tag: '@integration' }, () => {
     ).toBeVisible()
   })
 
-  test('Bold and italic text combo rendered', async () => {
+  test('Bold and italic text combo rendered', async ({ page }) => {
     await expect(page.locator('strong em', { hasText: 'bold first' })).toBeVisible()
   })
 
@@ -125,7 +122,7 @@ test.describe('v0.5.x Article Features', { tag: '@integration' }, () => {
     ).toHaveAttribute('href', `${site.url}/`)
   })
 
-  test('<br /> is between first two exact paragraphs', async () => {
+  test('<br /> is between first two exact paragraphs', async ({ page }) => {
     // Narrow down to the <article> element
     const article = page.locator('article')
 
@@ -138,7 +135,7 @@ test.describe('v0.5.x Article Features', { tag: '@integration' }, () => {
     await expect(brBetween).toHaveCount(1)
   })
 
-  test('<br /> count 3 between paragraph and Heading 1', async () => {
+  test('<br /> count 3 between paragraph and Heading 1', async ({ page }) => {
     // Narrow down to the <article> element
     const article = page.locator('article')
 
@@ -151,7 +148,7 @@ test.describe('v0.5.x Article Features', { tag: '@integration' }, () => {
     await expect(lineBreaksBetween).toHaveCount(1)
   })
 
-  test('Tag header visible', async () => {
+  test('Tag header visible', async ({ page }) => {
     await expect(
       page.getByRole('heading', {
         name: 'Tags',
@@ -159,7 +156,7 @@ test.describe('v0.5.x Article Features', { tag: '@integration' }, () => {
     ).toBeVisible()
   })
 
-  test('Tags rendered', async () => {
+  test('Tags rendered', async ({ page }) => {
     const seniorsTag = page.getByText('# seniors', { exact: true })
     const adviceTag = page.getByText('# advice', { exact: true })
 
@@ -167,7 +164,7 @@ test.describe('v0.5.x Article Features', { tag: '@integration' }, () => {
     await expect(adviceTag).toBeVisible()
   })
 
-  test('Header image has correct attributes', async () => {
+  test('Header image has correct attributes', async ({ page }) => {
     // Check if credit line is visible.
     await expect(page.getByText('Photo by Sophia Johnson', { exact: true })).toBeVisible()
 
@@ -175,7 +172,7 @@ test.describe('v0.5.x Article Features', { tag: '@integration' }, () => {
     await expect(page.getByAltText('Neo takes a picture of a street cat')).toBeVisible()
   })
 
-  test('Inline image has correct attributes', async () => {
+  test('Inline image has correct attributes', async ({ page }) => {
     // Image title.
     await expect(page.getByText("Neo's hometown", { exact: true })).toBeVisible()
 
@@ -191,7 +188,7 @@ test.describe('v0.5.x Article Features', { tag: '@integration' }, () => {
     ).toBeVisible()
   })
 
-  test('Article page loads SEO correctly', async () => {
+  test('Article page loads SEO correctly', async ({ page }) => {
     const description = 'Come and read about our current article capabilities. For reals.'
     const title = 'View On Magnolia Square website release v0.5!'
 
@@ -297,7 +294,7 @@ test.describe('v0.5.x Article Features', { tag: '@integration' }, () => {
    * Checks if there are any blank <p> elements. This is a regression test for
    * https://github.com/onmagnoliasquare/website/issues/194
    */
-  test('No blank <p> elements in the article', { tag: '@regression' }, async () => {
+  test('No blank <p> elements in the article', { tag: '@regression' }, async ({ page }) => {
     // Locate all <p> elements within the <article>
     const paragraphs = page.locator('article p')
 
@@ -318,24 +315,16 @@ test.describe('v0.5.x Article Features', { tag: '@integration' }, () => {
 
   // 	await expect(spotify).toBeVisible();
   // });
-
-  test('Route to 404 page on non-existing article', async ({ page }) => {
-    await page.goto(article404)
-
-    // 404 error present.
-    await expect(page.getByText('404', { exact: true })).toBeVisible()
-  })
 })
 
 test.describe('v0.6.x Article Features', { tag: '@integration' }, () => {
-  let page: Page
   test.describe.configure({ mode: 'parallel' })
 
-  test.beforeAll(async ({ browser }) => {
-    page = await browser.newPage()
+  test.beforeEach(async ({ page }) => {
+    await page.goto(v0_6_x_Article.testUrl)
   })
 
-  test.afterAll(async () => {
+  test.afterEach(async ({ page }) => {
     await page.close()
   })
 
@@ -382,4 +371,11 @@ test.describe('v0.6.x Article Features', { tag: '@integration' }, () => {
     const section = page.getByLabel('Recent Articles')
     await expect(section).toBeVisible()
   })
+})
+
+test('Route to 404 page on non-existing article', async ({ page }) => {
+  await page.goto(article404)
+
+  // 404 error present.
+  await expect(page.getByText('404', { exact: true })).toBeVisible()
 })
