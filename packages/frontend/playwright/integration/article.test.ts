@@ -1,5 +1,5 @@
 import { site } from '$lib/constants'
-import { expect, type Page, test } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 import { article404, v0_5_x_Article, v0_6_x_Article } from '../parameters.ts'
 
 test.describe('v0.5.x Article Features', { tag: '@integration' }, () => {
@@ -290,23 +290,29 @@ test.describe('v0.5.x Article Features', { tag: '@integration' }, () => {
     )
   })
 
-  /**
-   * Checks if there are any blank <p> elements. This is a regression test for
-   * https://github.com/onmagnoliasquare/website/issues/194
-   */
-  test('No blank <p> elements in the article', { tag: '@regression' }, async ({ page }) => {
-    // Locate all <p> elements within the <article>
-    const paragraphs = page.locator('article p')
+  test(
+    'No blank <p> elements in the article',
+    {
+      tag: '@regression',
+      annotation: {
+        type: 'issue',
+        description: 'https://github.com/onmagnoliasquare/website/issues/194',
+      },
+    },
+    async ({ page }) => {
+      // Locate all <p> elements within the <article>
+      const paragraphs = page.locator('article p')
 
-    // Get the count of <p> elements
-    const paragraphCount = await paragraphs.count()
+      // Get the count of <p> elements
+      const paragraphCount = await paragraphs.count()
 
-    // Iterate through each <p> and check if it has text
-    for (let i = 0; i < paragraphCount; i++) {
-      const paragraphText = await paragraphs.nth(i).innerText()
-      expect(paragraphText.trim()).not.toBe('')
+      // Iterate through each <p> and check if it has text
+      for (let i = 0; i < paragraphCount; i++) {
+        const paragraphText = await paragraphs.nth(i).innerText()
+        expect(paragraphText.trim()).not.toBe('')
+      }
     }
-  })
+  )
 
   // test('INTEGRATION Spotify embed visible', async ({ page }) => {
   // 	await page.goto(v05TestArticleUrl);

@@ -21,8 +21,8 @@ const config: PlaywrightTestConfig = {
   // Opt out of parallel tests on CI.
   workers: process.env.CI ? 1 : undefined,
 
-  // Reporter to use
-  reporter: 'html',
+  // Reporter to use.
+  reporter: process.env.CI ? [['html'], ['github']] : 'list',
 
   use: {
     baseURL: process.env.CI ? localPreviewURL : localDevURL,
