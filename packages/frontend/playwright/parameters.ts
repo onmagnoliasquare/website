@@ -9,7 +9,7 @@ export const authorUrl = `/about/staff/neo-alabastro`
 
 export const v0_5_x_Article: testPage = {
   testDescription: 'v0.5.x',
-  testDataPath: `../dummyData/v0.5.x/article.json`,
+  testDataPath: `../fixtures/v0.5.x/article.json`,
   testUrl: '/category/news/v05-article-feature-set--what-a-blast',
   article: {
     category: {
@@ -35,7 +35,7 @@ export const v0_5_x_Article: testPage = {
 
 export const v0_6_x_Article: testPage = {
   testDescription: 'v0.6.x',
-  testDataPath: `../dummyData/v0.6.x/article.json`,
+  testDataPath: `../fixtures/v0.6.x/article.json`,
   testUrl: '/category/news/v06-features',
   article: {
     title: '',
