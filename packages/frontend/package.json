@@ -33,11 +33,11 @@
   },
   "dependencies": {
     "@portabletext/svelte": "^4.0.0",
-    "@sanity/client": "^8.6.0",
+    "@sanity/client": "^8.6.1",
     "@sanity/image-url": "^2.1.1",
     "@unpic/placeholder": "^0.1.2",
     "@unpic/svelte": "^1.0.1",
-    "groq": "^6.12.0",
+    "groq": "^6.13.0",
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
@@ -45,7 +45,7 @@
     "@playwright/test": "^1.63.0",
     "@sanity/cli": "^8.9.1",
     "@sanity/codegen": "8.1.0",
-    "@sanity/types": "6.12.0",
+    "@sanity/types": "6.13.0",
     "@sveltejs/adapter-auto": "^7.0.1",
     "@sveltejs/adapter-cloudflare": "^7.2.9",
     "@sveltejs/enhanced-img": "0.11.0",
@@ -72,6 +72,6 @@
     "typescript": "~6",
     "vite": "^8.2.2",
     "vitest": "^5.0.0",
-    "wrangler": "^4.129.1"
+    "wrangler": "^4.130.0"
   }
 }
