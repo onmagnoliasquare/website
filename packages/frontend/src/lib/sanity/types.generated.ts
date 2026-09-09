@@ -503,6 +503,23 @@ export type EmbeddedLink = {
   contentUrl: string
 }
 
+export type MediaFolderReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'media.folder'
+}
+
+export type MediaFolder = {
+  _id: string
+  _type: 'media.folder'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  name?: string
+  parent?: MediaFolderReference
+}
+
 export type MediaTag = {
   _id: string
   _type: 'media.tag'
@@ -638,6 +655,8 @@ export type AllSanitySchemaTypes =
   | AccessibleImage
   | DateInfo
   | EmbeddedLink
+  | MediaFolderReference
+  | MediaFolder
   | MediaTag
   | SanityImagePaletteSwatch
   | SanityImagePalette
@@ -1428,8 +1447,7 @@ export type SitemapTagsQueryResult = Array<{
 }>
 
 // Query TypeMap
-import '@sanity/client'
-declare module '@sanity/client' {
+declare global {
   interface SanityQueries {
     '\n\t*[_type == "member"] | order(lower(name) asc) {\n\t\t\n\t_id,\n\tname,\n\t"slug": slug.current\n,\n\t\tbio\n\t}\n': MaybeAllMembersQueryResult
     '\n\t*[_type == "member" && _id == $id] {\n\t\t\n\t_id,\n\tname,\n\t"slug": slug.current\n\n\t}[0]\n': MaybeMemberQueryResult
@@ -1455,4 +1473,8 @@ declare module '@sanity/client' {
     '\n\t*[_type == "series"] {\n\t\t\'slug\': slug.current,\n\t\tdate\n\t}\n': SitemapSeriesQueryResult
     '\n\t*[_type == "tag"] {\n\t\t\'slug\': slug.current,\n\t\tdate\n\t}\n': SitemapTagsQueryResult
   }
+}
+// Lets @sanity/client releases that predate the global registry read it too
+declare module '@sanity/client' {
+  interface SanityQueries extends globalThis.SanityQueries {}
 }
