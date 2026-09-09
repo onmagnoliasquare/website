@@ -50,7 +50,7 @@ test.describe('Basic routing', { tag: '@integration' }, () => {
   })
 
   test('Category on by line accessible via article page', async ({ page }) => {
-    await page.goto(`/category/news/${v0_5_x_Article.article?.slug.current}`)
+    await page.goto(`/category/news/${v0_5_x_Article.article?.slug}`)
     await expect(
       page.getByRole('heading', {
         name: `v0.5 Article Feature Set: What a blast!`,

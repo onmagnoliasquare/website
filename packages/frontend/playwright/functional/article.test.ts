@@ -111,10 +111,8 @@ test.describe('v0.5.x Article Features', { tag: '@functional' }, () => {
     await expect(page.locator('strong em', { hasText: 'bold first' })).toBeVisible()
   })
 
-  test('Link https://onmagnoliasquare.com/ visible', async ({ page }) => {
-    await expect(
-      page.getByRole('link', { name: 'https://onmagnoliasquare.com/', exact: true })
-    ).toBeVisible()
+  test(`Link ${site.url} visible`, async ({ page }) => {
+    await expect(page.getByRole('link', { name: `${site.url}/`, exact: true })).toBeVisible()
   })
 
   test('Link `in alias format` visible', async ({ page }) => {
@@ -122,7 +120,7 @@ test.describe('v0.5.x Article Features', { tag: '@functional' }, () => {
       page
         .locator('a', { hasText: 'in alias format' })
         .getByText('in alias format', { exact: true })
-    ).toHaveAttribute('href', 'https://onmagnoliasquare.com/')
+    ).toHaveAttribute('href', `${site.url}/`)
   })
 
   test('<br /> is between first two exact paragraphs', async ({ page }) => {
