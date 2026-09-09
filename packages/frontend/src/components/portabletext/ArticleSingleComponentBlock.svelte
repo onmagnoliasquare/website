@@ -38,7 +38,7 @@ let { style = 'normal' } = $derived(value)
   <h6>{@render children?.()}</h6>
 {:else if style === 'blockquote'}
   <blockquote
-    class="border-l-1 border-dotted tracking-wide font-serif text-2xl sm:text-3xl italic max-w-xl sm:max-w-2xl ml-2 my-1 py-1 pl-2 sm:ml-4 sm:pl-4"
+    class="border-l border-dotted tracking-wide font-serif text-2xl sm:text-3xl italic max-w-xl sm:max-w-2xl ml-2 my-1 py-1 pl-2 sm:ml-4 sm:pl-4"
   >
     “{@render children?.()}”
   </blockquote>

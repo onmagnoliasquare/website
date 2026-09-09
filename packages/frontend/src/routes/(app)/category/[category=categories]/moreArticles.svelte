@@ -41,8 +41,6 @@ const loadMoreArticles = async (): Promise<void> => {
 </script>
 
 <div class="flex flex-row max-w-full space-x-2 space-y-2 mb-4">
-  <!-- https://svelte.dev/docs/kit/state-management#Component-and-page-state-is-preserved -->
-  <!-- {#key page.url.pathname} -->
   {#if articles.length > 0}
     <div class="flex flex-col md:grid md:grid-cols-2 items-top space-y-4 w-5/4">
     {#each articles as aa}
@@ -63,8 +61,13 @@ const loadMoreArticles = async (): Promise<void> => {
     {/each}
     </div>
   {/if}
-  <!-- {/key} -->
 </div>
 {#if lastId !== null}
-  <Button onclick={() => loadMoreArticles()} class="w-full hover:cursor-pointer text-nyu-purple-400 underline disabled:cursor-none disabled:text-neutral-400">Load more articles</Button>
+  <Button
+    onclick={loadMoreArticles}
+    class="w-full hover:cursor-pointer text-nyu-purple-400 underline disabled:text-neutral-400 disabled:cursor-default"
+    type="button"
+  >
+    Load more articles
+  </Button>
 {/if}

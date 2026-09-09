@@ -10,30 +10,31 @@ interface Props {
 }
 
 let { portableText }: Props = $props()
+let { value } = $derived(portableText)
 </script>
 
 <figure class="max-w-xl center">
   <Image
-    media={portableText.value}
+    media={value}
     loading="lazy"
     class="mb-2"
-    width={portableText.value.metadata?.dimensions?.width ?? 1920}
-    height={portableText.value.metadata?.dimensions?.height ?? 1080}
-    blurHash={portableText.value.metadata?.blurHash}
-    alt={portableText.value.alt} />
+    width={value.metadata?.dimensions?.width ?? 1920}
+    height={value.metadata?.dimensions?.height ?? 1080}
+    blurHash={value.metadata?.blurHash}
+    alt={value.alt} />
   <figcaption>
-    {#if portableText.value.title}
-      <h2 class="mb-1 font-bold tracking-wide">{portableText.value.title}</h2>
+    {#if value.title}
+      <h2 class="mb-1 font-bold tracking-wide">{value.title}</h2>
     {/if}
-    {#if portableText.value.description ?? portableText.value.creditLine}
+    {#if value.description ?? value.creditLine}
       <div class="flex flex-col space-y-1">
-        {#if portableText.value.description}
+        {#if value.description}
           <P class="text-sm">
-            {portableText.value.description}
+            {value.description}
           </P>
         {/if}
         <PhotoCaption>
-          {portableText.value.creditLine}
+          {value.creditLine}
         </PhotoCaption>
       </div>
     {/if}
