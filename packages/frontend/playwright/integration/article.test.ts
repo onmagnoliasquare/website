@@ -3,8 +3,7 @@ import { expect, type Page, test } from '@playwright/test'
 import { article404, v0_5_x_Article, v0_6_x_Article } from '../parameters.ts'
 
 test.describe('v0.5.x Article Features', { tag: '@integration' }, () => {
-  // Lets save some API requests... Plus, the data is static anyway.
-  test.describe.configure({ mode: 'serial' })
+  test.describe.configure({ mode: 'parallel' })
 
   let page: Page
 
@@ -43,22 +42,20 @@ test.describe('v0.5.x Article Features', { tag: '@integration' }, () => {
 
     // Check if the category is on the line.
     await expect(
-      page.getByText('Neo Alabastro & Jonathan Zhai ✍ News', { exact: true })
+      page.getByText('Neo Alabastro & Jonathan Zhai ✍ Article Testing', { exact: true })
     ).toBeVisible()
 
     // Check if there are author links on the By Line.
     const neoAlabastroUrl = `/about/staff/neo-alabastro`
     const jonathanZhaiUrl = `/about/staff/jonathan-zhai`
 
-    await expect(page.locator('a', { hasText: 'Neo Alabastro' }).first()).toHaveAttribute(
-      'href',
-      neoAlabastroUrl
-    )
+    await expect
+      .soft(page.locator('a', { hasText: 'Neo Alabastro' }).first())
+      .toHaveAttribute('href', neoAlabastroUrl)
 
-    await expect(page.locator('a', { hasText: 'Jonathan Zhai' }).first()).toHaveAttribute(
-      'href',
-      jonathanZhaiUrl
-    )
+    await expect
+      .soft(page.locator('a', { hasText: 'Jonathan Zhai' }).first())
+      .toHaveAttribute('href', jonathanZhaiUrl)
   })
 
   /**
@@ -334,6 +331,7 @@ test.describe('v0.5.x Article Features', { tag: '@integration' }, () => {
 
 test.describe('v0.6.x Article Features', { tag: '@integration' }, () => {
   let page: Page
+  test.describe.configure({ mode: 'parallel' })
 
   test.beforeAll(async ({ browser }) => {
     page = await browser.newPage()

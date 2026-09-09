@@ -1,20 +1,16 @@
 [
     {
-        "_createdAt": "2024-12-29T05:24:24Z",
-        "_id": "c0a4e6c5-8ab5-48f3-bacb-bb9979d44275",
-        "_rev": "3TqmEw6QxBarTdLm3XdcFh",
-        "_type": "article",
-        "_updatedAt": "2025-01-13T13:53:30Z",
         "authors": [
             {
-                "_key": "91df2cbf1fc3",
-                "_ref": "d2326d9c-9adc-4bf9-8709-867ee13d2185",
-                "_type": "author"
+                "_id": "d2326d9c-9adc-4bf9-8709-867ee13d2185",
+                "name": "Neo Alabastro",
+                "slug": "neo-alabastro"
             }
         ],
         "category": {
-            "_ref": "4edba030-a87c-4b27-b1e5-0250cff2e565",
-            "_type": "reference"
+            "_id": "4edba030-a87c-4b27-b1e5-0250cff2e565",
+            "name": "News",
+            "slug": "news"
         },
         "content": [
             {
@@ -188,12 +184,16 @@
                 "_type": "reference"
             }
         },
-        "slug": {
-            "_type": "slug",
-            "current": "v06-features"
+        "metaInfo": null,
+        "series": {
+            "_id": "d113ec50-d338-4e90-8029-b57f269371e7",
+            "name": "Article Testing",
+            "slug": "article-testing"
         },
+        "slug": "v06-features",
         "subtitle": "More tricks and treats up our sleeves... We got a lot more where that came from, and then some!",
+        "tags": null,
         "title": "v0.6 Features: More Things to Tickle One's Fancy",
-        "useCustomCss": false
+        "updatedDate": null
     }
 ]

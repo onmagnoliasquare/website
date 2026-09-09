@@ -3,10 +3,10 @@ import { site } from '$lib/constants.ts'
 import { v0_5_x_Article, v0_6_x_Article } from '../parameters.ts'
 
 test.describe('v0.5.x Article Features', { tag: '@functional' }, () => {
-  test.describe.configure({ mode: 'serial' })
+  test.describe.configure({ mode: 'parallel' })
   test.beforeEach(async ({ page }) => {
     await page.route(
-      `*/**/api/article?category=${v0_5_x_Article.article?.category.slug}&slug=${v0_5_x_Article.article?.slug.current}`,
+      `*/**/api/article?category=${v0_5_x_Article.article?.category.slug}&slug=${v0_5_x_Article.article?.slug}`,
       async route => {
         await route.fulfill({ path: v0_5_x_Article.testDataPath })
       }
@@ -40,22 +40,20 @@ test.describe('v0.5.x Article Features', { tag: '@functional' }, () => {
 
     // Check if the category is on the line.
     await expect(
-      page.getByText('Neo Alabastro & Jonathan Zhai ✍ News', { exact: true })
+      page.getByText('Neo Alabastro & Jonathan Zhai ✍ Article Testing', { exact: true })
     ).toBeVisible()
 
     // Check if there are author links on the By Line.
     const neoAlabastroUrl = `/about/staff/neo-alabastro`
     const jonathanZhaiUrl = `/about/staff/jonathan-zhai`
 
-    await expect(page.locator('a', { hasText: 'Neo Alabastro' }).first()).toHaveAttribute(
-      'href',
-      neoAlabastroUrl
-    )
+    await expect
+      .soft(page.locator('a', { hasText: 'Neo Alabastro' }).first())
+      .toHaveAttribute('href', neoAlabastroUrl)
 
-    await expect(page.locator('a', { hasText: 'Jonathan Zhai' }).first()).toHaveAttribute(
-      'href',
-      jonathanZhaiUrl
-    )
+    await expect
+      .soft(page.locator('a', { hasText: 'Jonathan Zhai' }).first())
+      .toHaveAttribute('href', jonathanZhaiUrl)
   })
 
   /**
@@ -315,10 +313,10 @@ test.describe('v0.5.x Article Features', { tag: '@functional' }, () => {
 })
 
 test.describe('v0.6.x Article Features', { tag: '@functional' }, () => {
-  test.describe.configure({ mode: 'serial' })
+  test.describe.configure({ mode: 'parallel' })
   test.beforeEach(async ({ page }) => {
     await page.route(
-      `*/**/api/article?category=${v0_6_x_Article.article?.category.slug}&slug=${v0_6_x_Article.article?.slug.current}`,
+      `*/**/api/article?category=${v0_6_x_Article.article?.category.slug}&slug=${v0_6_x_Article.article?.slug}`,
       async route => {
         await route.fulfill({ path: v0_6_x_Article.testDataPath })
       }

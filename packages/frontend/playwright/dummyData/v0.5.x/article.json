@@ -1,25 +1,21 @@
 [
     {
-        "_createdAt": "2024-11-27T16:51:05Z",
-        "_id": "a85e2576-3bdd-4125-ac20-ba9a2cfd17d1",
-        "_rev": "g8rMT4wS3e0qQeeye5GDG6",
-        "_type": "article",
-        "_updatedAt": "2024-11-27T17:15:43Z",
         "authors": [
             {
-                "_key": "58412301ef6f",
-                "_ref": "d2326d9c-9adc-4bf9-8709-867ee13d2185",
-                "_type": "author"
+                "_id": "d2326d9c-9adc-4bf9-8709-867ee13d2185",
+                "name": "Neo Alabastro",
+                "slug": "neo-alabastro"
             },
             {
-                "_key": "9fa08a4aec6d",
-                "_ref": "8eeaf8a4-09c6-4fe1-9e41-87554488e5e5",
-                "_type": "author"
+                "_id": "8eeaf8a4-09c6-4fe1-9e41-87554488e5e5",
+                "name": "Jonathan Zhai",
+                "slug": "jonathan-zhai"
             }
         ],
         "category": {
-            "_ref": "4edba030-a87c-4b27-b1e5-0250cff2e565",
-            "_type": "reference"
+            "_id": "4edba030-a87c-4b27-b1e5-0250cff2e565",
+            "name": "News",
+            "slug": "news"
         },
         "content": [
             {
@@ -705,11 +701,116 @@
                 "style": "normal"
             },
             {
-                "_sanityAsset": "image@file://./images/38c9f328ab66e69cf2fb78965ffccee4506fc67d-3024x4032.jpg",
                 "_key": "a7183611b6c1",
                 "_type": "image",
                 "alt": "The blue sky with clouds, foliage in the background",
+                "asset": {
+                    "_ref": "image-38c9f328ab66e69cf2fb78965ffccee4506fc67d-3024x4032-jpg",
+                    "_type": "reference"
+                },
+                "creditLine": "Neo Alabastro",
                 "description": "I'm from Hawai'i.",
+                "metadata": {
+                    "_type": "sanity.imageMetadata",
+                    "blurHash": "VuCtLx%jD*Mwt6RpRlRiobxuj@oet6oeRkR,WXj?f5ay",
+                    "dimensions": {
+                        "_type": "sanity.imageDimensions",
+                        "aspectRatio": 0.75,
+                        "height": 4032,
+                        "width": 3024
+                    },
+                    "exif": {
+                        "ApertureValue": 1.663754482562451,
+                        "BrightnessValue": 9.812791904514789,
+                        "ColorSpace": 65535,
+                        "DateTimeDigitized": "2024-07-09T17:18:14.000Z",
+                        "DateTimeOriginal": "2024-07-09T17:18:14.000Z",
+                        "ExposureBiasValue": 0,
+                        "ExposureMode": 0,
+                        "ExposureProgram": 2,
+                        "ExposureTime": 0.00019000570017100514,
+                        "FNumber": 1.78,
+                        "Flash": 16,
+                        "FocalLength": 6.86,
+                        "FocalLengthIn35mmFormat": 24,
+                        "ISO": 80,
+                        "LensMake": "Apple",
+                        "LensModel": "iPhone 14 Pro back triple camera 6.86mm f/1.78",
+                        "LensSpecification": [2.220000028611935, 9, 1.7799999713880652, 2.8],
+                        "MeteringMode": 5,
+                        "PixelXDimension": 4032,
+                        "PixelYDimension": 3024,
+                        "SceneCaptureType": 0,
+                        "SensingMethod": 2,
+                        "ShutterSpeedValue": 12.361712948835317,
+                        "SubSecTimeDigitized": "506",
+                        "SubSecTimeOriginal": "506",
+                        "SubjectArea": [2009, 1505, 2208, 1324],
+                        "WhiteBalance": 0,
+                        "_type": "sanity.imageExifMetadata"
+                    },
+                    "hasAlpha": false,
+                    "isOpaque": true,
+                    "location": {
+                        "_type": "geopoint",
+                        "alt": 292.7343100376163,
+                        "lat": 21.50187777777778,
+                        "lng": -158.0182027777778
+                    },
+                    "lqip": "data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAPABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAMHBf/EACYQAAICAQIDCQAAAAAAAAAAAAECAwQABREGMWEHCBITFCEjMtH/xAAVAQEBAAAAAAAAAAAAAAAAAAAFBP/EABwRAAICAgMAAAAAAAAAAAAAAAABAwQCEwUiQf/aAAwDAQACEQMRAD8AzOEqps6hWRx8cjhd8X3gq0MF/S0r80hKN0AOUDgjhla+gx3bp3mK+ZGVP0X9yR9peoDWY7k8UksnpSEDSczudjinK2lI1Hiw2jDr7MmSxrKWc++5wx1WvIIF8LqB1GGGa34VtH//2Q==",
+                    "palette": {
+                        "_type": "sanity.imagePalette",
+                        "darkMuted": {
+                            "_type": "sanity.imagePaletteSwatch",
+                            "background": "#414a35",
+                            "foreground": "#fff",
+                            "population": 6.53,
+                            "title": "#fff"
+                        },
+                        "darkVibrant": {
+                            "_type": "sanity.imagePaletteSwatch",
+                            "background": "#1c64ac",
+                            "foreground": "#fff",
+                            "population": 0.08,
+                            "title": "#fff"
+                        },
+                        "dominant": {
+                            "_type": "sanity.imagePaletteSwatch",
+                            "background": "#bbcbd8",
+                            "foreground": "#000",
+                            "population": 17.8,
+                            "title": "#fff"
+                        },
+                        "lightMuted": {
+                            "_type": "sanity.imagePaletteSwatch",
+                            "background": "#bbcbd8",
+                            "foreground": "#000",
+                            "population": 17.8,
+                            "title": "#fff"
+                        },
+                        "lightVibrant": {
+                            "_type": "sanity.imagePaletteSwatch",
+                            "background": "#b7d4f6",
+                            "foreground": "#000",
+                            "population": 0.67,
+                            "title": "#000"
+                        },
+                        "muted": {
+                            "_type": "sanity.imagePaletteSwatch",
+                            "background": "#ada25b",
+                            "foreground": "#000",
+                            "population": 0.55,
+                            "title": "#fff"
+                        },
+                        "vibrant": {
+                            "_type": "sanity.imagePaletteSwatch",
+                            "background": "#2766b3",
+                            "foreground": "#fff",
+                            "population": 16.76,
+                            "title": "#fff"
+                        }
+                    }
+                },
                 "title": "Neo's hometown"
             },
             {
@@ -743,9 +844,12 @@
         ],
         "date": "2024-11-27",
         "media": {
-            "_sanityAsset": "image@file://./images/de76b6fee8bdd25de145ac7eb88d7e03b9a86fd1-1706x1279.jpg",
             "_type": "image",
-            "alt": "Neo takes a picture of a street cat"
+            "alt": "Neo takes a picture of a street cat",
+            "asset": {
+                "_ref": "image-de76b6fee8bdd25de145ac7eb88d7e03b9a86fd1-1706x1279-jpg",
+                "_type": "reference"
+            }
         },
         "metaInfo": {
             "_type": "metaInfo",
@@ -753,25 +857,26 @@
             "ogTags": ["really cool stuff", "hawaii"],
             "ogTitle": "View On Magnolia Square website release v0.5!"
         },
-        "slug": {
-            "_type": "slug",
-            "current": "v05-article-feature-set--what-a-blast"
+        "series": {
+            "_id": "d113ec50-d338-4e90-8029-b57f269371e7",
+            "name": "Article Testing",
+            "slug": "article-testing"
         },
+        "slug": "v05-article-feature-set--what-a-blast",
         "subtitle": "Here's what's good, here's what's fresh.",
         "tags": [
             {
-                "_key": "745be457165e",
-                "_ref": "38d12e37-9667-443a-acfb-fbfeb833ca44",
-                "_type": "tag"
+                "_id": "bce15303-2bbd-49e8-aa7c-8cb17d7224f2",
+                "name": "seniors",
+                "slug": "seniors"
             },
             {
-                "_key": "f32254fd9ea5",
-                "_ref": "76767d50-2358-4bda-869f-caf2ad19d22a",
-                "_type": "tag"
+                "_id": "oca-8fec296a-5e1e-4b9f-8b9f-8bda113cfb5d",
+                "name": "advice",
+                "slug": "advice"
             }
         ],
         "title": "v0.5 Article Feature Set: What a blast!",
-        "updatedDate": "2024-11-28",
-        "useCustomCss": false
+        "updatedDate": "2024-11-28"
     }
 ]
