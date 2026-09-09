@@ -1,18 +1,18 @@
-name: "GH Actions"
+name: 'GH Actions'
 on:
   workflow_dispatch:
   push:
     branches:
       - dev
     paths:
-      - ".github/workflows/**"
-      - ".github/actions/**/*"
+      - '.github/workflows/**'
+      - '.github/actions/**/*'
   pull_request:
     branches:
       - dev
     paths:
-      - ".github/workflows/**"
-      - ".github/actions/**/*"
+      - '.github/workflows/**'
+      - '.github/actions/**/*'
   merge_group:
     branches:
       - dev
@@ -21,35 +21,35 @@ on:
 # SPDX-FileCopyrightText: 2025 Google LLC <https://www.google.com>
 # SPDX-License-Identifier: Apache-2.0
 permissions:
-  checks: "write"
-  contents: "read"
-  statuses: "write"
+  checks: 'write'
+  contents: 'read'
+  statuses: 'write'
 defaults:
   run:
-    shell: "bash"
+    shell: 'bash'
 env:
-  ACTIONLINT_VERSION: "1.7.7"
-  SHELLCHECK_VERSION: "0.11.0"
-  YAMLLINT_VERSION: "1.37.1"
+  ACTIONLINT_VERSION: '1.7.7'
+  SHELLCHECK_VERSION: '0.11.0'
+  YAMLLINT_VERSION: '1.37.1'
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   lint:
-    name: "Lint"
-    runs-on: "ubuntu-latest"
+    name: 'Lint'
+    runs-on: 'ubuntu-latest'
     steps:
-      - name: "Checkout"
-        uses: "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" # ratchet:actions/checkout@v7
+      - name: 'Checkout'
+        uses: 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' # ratchet:actions/checkout@v7
         with:
           fetch-depth: 1
-      - name: "Install shellcheck" # Actionlint uses shellcheck
+      - name: 'Install shellcheck' # Actionlint uses shellcheck
         run: |-
           mkdir -p "${RUNNER_TEMP}/shellcheck"
           curl -sSLo "${RUNNER_TEMP}/.shellcheck.txz" "https://github.com/koalaman/shellcheck/releases/download/v${SHELLCHECK_VERSION}/shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz"
           tar -xf "${RUNNER_TEMP}/.shellcheck.txz" -C "${RUNNER_TEMP}/shellcheck" --strip-components=1
           echo "${RUNNER_TEMP}/shellcheck" >> "${GITHUB_PATH}"
-      - name: "Install actionlint"
+      - name: 'Install actionlint'
         run: |-
           mkdir -p "${RUNNER_TEMP}/actionlint"
           curl -sSLo "${RUNNER_TEMP}/.actionlint.tgz" "https://github.com/rhysd/actionlint/releases/download/v${ACTIONLINT_VERSION}/actionlint_${ACTIONLINT_VERSION}_linux_amd64.tar.gz"
@@ -57,7 +57,7 @@ jobs:
           echo "${RUNNER_TEMP}/actionlint" >> "${GITHUB_PATH}"
       # For actionlint, we specifically ignore shellcheck rules that are
       # annoying or unhelpful. See the shellcheck action for a description.
-      - name: "Run actionlint"
+      - name: 'Run actionlint'
         run: |-
           actionlint \
             -color \
@@ -66,8 +66,8 @@ jobs:
             -ignore 'SC2016:' \
             -ignore 'SC2129:' \
             -ignore 'label ".+" is unknown'
-      - name: "Run ratchet"
-        uses: "sethvargo/ratchet@9ca118155b0f79464185703a50da367e111107cd" # ratchet:sethvargo/ratchet@v0.12.0
+      - name: 'Run ratchet'
+        uses: 'sethvargo/ratchet@9ca118155b0f79464185703a50da367e111107cd' # ratchet:sethvargo/ratchet@v0.12.0
         with:
           files: |-
             .github/workflows/*.yml

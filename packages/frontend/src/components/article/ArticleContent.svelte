@@ -43,5 +43,4 @@ const { content } = $props()
       bullet: undefined,
       normal: ArticleBodyListItem,
     },
-  }}
-/>
+  }} />

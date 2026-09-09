@@ -15,10 +15,9 @@ let { toggleNavbar, showMenu }: Props = $props()
 
 <nav aria-label="Mobile Site Menu">
   <ul
-    class="list-none flex-col md:mt-8 space-y-4 md:space-y-0 sm:hidden w-full {showMenu
-      ? 'overscroll-contain border-b pb-4 mt-4'
-      : 'hidden'}"
-  >
+    class="w-full list-none flex-col space-y-4 sm:hidden md:mt-8 md:space-y-0 {showMenu
+      ? 'mt-4 overscroll-contain border-b pb-4'
+      : 'hidden'}">
     {#each listOfRoutes as route}
       <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
       <!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -26,8 +25,7 @@ let { toggleNavbar, showMenu }: Props = $props()
         onclick={() => {
           toggleNavbar()
         }}
-        class="tracking-wide w-fit ml-2 pl-2 hover:underline"
-      >
+        class="ml-2 w-fit pl-2 tracking-wide hover:underline">
         <a href={route.path} title={route.name} class="hover:underline">
           {route.name}
         </a>

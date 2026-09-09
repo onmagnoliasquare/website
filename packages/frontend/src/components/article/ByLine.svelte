@@ -11,7 +11,7 @@ let { authors }: Props = $props()
 
 {#snippet authorElm(author: MemberQuery)}
   <a href={createAuthorLink('', author.slug)} class="hover:underline">
-    <p class="font-semibold text-sm inline tracking-wider">
+    <p class="inline text-sm font-semibold tracking-wider">
       {author.name}
     </p>
   </a>
@@ -22,7 +22,7 @@ let { authors }: Props = $props()
   {@render authorElm(authors[0])}
 {:else if authors.length === 2}
   {@render authorElm(authors[0])}
-  <span class="text-sm inline">&nbsp;&&nbsp;</span>
+  <span class="inline text-sm">&nbsp;&&nbsp;</span>
   {@render authorElm(authors[1])}
 {:else}
   <ul class="list-none">

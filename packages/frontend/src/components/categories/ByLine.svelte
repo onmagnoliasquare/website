@@ -11,6 +11,6 @@ let { authors }: Props = $props()
 let authorString = $derived(createAuthorString(authors))
 </script>
 
-<P class="text-left font-bold text-slate-600">
+<P class="text-slate-600 text-left font-bold">
   {authorString}
 </P>

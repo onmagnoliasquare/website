@@ -1,11 +1,3 @@
-<div class="hidden md:block col-span-1 col-start-7 row-start-1 ml-auto row-span-1 p-6">
-    <div id="kindaBigText" class="size-fit p-4 border-2">
-        <p>上海纽约</p>
-        <p>大学官方</p>
-        <p>学生媒体</p>
-    </div>
-</div>
-
 <style>
 #kindaBigText {
   font-family: var(--font-serif), serif;
@@ -17,3 +9,11 @@
   letter-spacing: 0.75rem;
 }
 </style>
+
+<div class="col-span-1 col-start-7 row-span-1 row-start-1 ml-auto hidden p-6 md:block">
+  <div id="kindaBigText" class="size-fit border-2 p-4">
+    <p>上海纽约</p>
+    <p>大学官方</p>
+    <p>学生媒体</p>
+  </div>
+</div>

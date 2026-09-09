@@ -16,10 +16,10 @@ const ethicsText = [
 
 <div class=" w-full p-6">
   <section>
-    <h2 class="text-2xl sm:text-3xl font-serif font-semibold mb-2 pb-2">Code of Ethics</h2>
-    <ol class="list-decimal m-1 p-1">
+    <h2 class="mb-2 pb-2 font-serif text-2xl font-semibold sm:text-3xl">Code of Ethics</h2>
+    <ol class="m-1 list-decimal p-1">
       {#each ethicsText as text}
-        <li class="p-2 tracking-wide text-base sm:text-lg">
+        <li class="p-2 text-base tracking-wide sm:text-lg">
           {text}
         </li>
       {/each}

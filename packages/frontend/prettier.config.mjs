@@ -10,7 +10,9 @@ const config = {
   tabWidth: 2,
   singleQuote: true,
   printWidth: 100,
-  plugins: ['prettier-plugin-svelte'],
+  // prettier-plugin-tailwindcss must be LAST in this array.
+  plugins: ['prettier-plugin-svelte', 'prettier-plugin-tailwindcss'],
+  tailwindStylesheet: './src/app.css',
   endOfLine: 'auto',
   arrowParens: 'avoid',
   proseWrap: 'preserve',
@@ -78,6 +80,10 @@ const config = {
       options: {
         parser: 'svelte',
         bracketSameLine: true,
+        // 'strict' cannot break between nested tags (e.g. <time><P>…) and displaces
+        // the '>' instead. Scoped here rather than top level. Globally it would add
+        // a rendering-visible space in error.html.
+        htmlWhitespaceSensitivity: 'ignore',
         svelteSortOrder: 'options-styles-scripts-markup',
         svelteAllowShorthand: false,
         svelteIndentScriptAndStyle: false,

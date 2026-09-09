@@ -52,8 +52,11 @@ export const GET: RequestHandler = async ({ params }) => {
       '/series/[series]': seriesSlugs.map(v => v.slug),
       '/category/[category=categories]': categories,
       // TODO: Fix this monkey patch. Category must never be null.
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      '/category/[category=categories]/[slug]': articleSlugs.map(v => ({values: [v.category ?? 'news', v.slug], lastmod: v.date})),
+      '/category/[category=categories]/[slug]': articleSlugs.map(v => ({
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        values: [v.category ?? 'news', v.slug],
+        lastmod: v.date,
+      })),
     },
     sort: 'alpha',
   }

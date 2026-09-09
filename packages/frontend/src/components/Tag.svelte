@@ -8,7 +8,7 @@ let { tagName }: Props = $props()
 
 <span class="tracking-wide hover:underline">
   {#if tagName === 'on century avenue' || tagName === 'oca'}
-    <span class=" text-nyu-purple-400 font-bold">
+    <span class=" font-bold text-nyu-purple-400">
       # {tagName}
     </span>
   {:else}

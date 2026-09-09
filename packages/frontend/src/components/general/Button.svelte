@@ -25,7 +25,6 @@ let pressed = $state(false)
     }
     pressed = false
   }}
-  disabled={pressed}
->
+  disabled={pressed}>
   {@render children?.()}
 </button>

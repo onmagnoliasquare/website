@@ -12,6 +12,7 @@ yarn.lock
 node_modules
 .wrangler
 types.generated.ts
+worker-configuration.d.ts
 test-results
 playwright-report
 

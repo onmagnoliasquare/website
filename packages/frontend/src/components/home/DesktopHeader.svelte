@@ -1,5 +1,4 @@
 <style>
-
 #quip {
   /* font-family: var(--font-serif); */
   /* font-size: clamp(0.263rem, 1vw + 1rem, 3.737rem); */
@@ -19,17 +18,17 @@ import ChineseHeaderName from './ChineseHeaderName.svelte'
 import SiteTitle from './SiteTitle.svelte'
 </script>
 
-<div class="h-fit grid grid-rows-1 grid-cols-7">
+<div class="grid h-fit grid-cols-7 grid-rows-1">
   <div class="col-span-2 col-start-2 p-2">
-	  <SiteTitle />
+    <SiteTitle />
   </div>
   <div class="p-3">
-    <img alt="" class="size-fit py-2 m-2" src={omsLogo} />
+    <img alt="" class="m-2 size-fit py-2" src={omsLogo} />
   </div>
   <div class="col-span-1 col-start-6">
     <ChineseHeaderName />
   </div>
-	<div class="col-span-5">
-		<DesktopLandingNavbar />
-	</div>
+  <div class="col-span-5">
+    <DesktopLandingNavbar />
+  </div>
 </div>

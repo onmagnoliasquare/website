@@ -10,4 +10,6 @@ interface Props {
 let { locale = 'en-US', date }: Props = $props()
 </script>
 
-<time class="font-semibold" datetime={date}><P class="text-sm md:text-sm font-semibold">{dateFormatter(date, locale)}</P></time>
+<time class="font-semibold" datetime={date}>
+  <P class="text-sm font-semibold md:text-sm">{dateFormatter(date, locale)}</P>
+</time>

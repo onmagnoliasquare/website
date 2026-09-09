@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
     inputs:
       deployment_target:
-        description: "Select deployment (frontend or cms)"
+        description: 'Select deployment (frontend or cms)'
         required: true
-        default: "frontend"
+        default: 'frontend'
         type: choice
         options:
           - frontend
@@ -26,7 +26,7 @@ jobs:
       SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
-      - name: "Setup Node.js with Yarn"
+      - name: 'Setup Node.js with Yarn'
         uses: ./.github/actions/setup-node
 
       - name: Build frontend for staging
@@ -56,7 +56,7 @@ jobs:
     environment: staging
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
-      - name: "Setup Node.js with Yarn"
+      - name: 'Setup Node.js with Yarn'
         uses: ./.github/actions/setup-node
       - name: Restore build
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # ratchet:actions/cache@v6
@@ -69,7 +69,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: "packages/frontend"
+          workingDirectory: 'packages/frontend'
           command: deploy --env staging
       - name: Deploy cms to Cloudflare Pages
         if: ${{ inputs.deployment_target == 'cms' }}
@@ -77,5 +77,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: "packages/cms"
+          workingDirectory: 'packages/cms'
           command: pages deploy --project-name=cms

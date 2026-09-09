@@ -10,14 +10,14 @@ interface Props {
 let { locale = 'en-US', date }: Props = $props()
 </script>
 
-<P class="font-bold text-blue-700">
-  <time datetime={date}
-    >{dateFormatter(date, locale, {
+<P class="text-blue-700 font-bold">
+  <time datetime={date}>
+    {dateFormatter(date, locale, {
       weekday: 'short',
       // dayPeriod: 'short',
       year: 'numeric',
       month: 'short',
       day: '2-digit',
-    })}</time
-  >
+    })}
+  </time>
 </P>

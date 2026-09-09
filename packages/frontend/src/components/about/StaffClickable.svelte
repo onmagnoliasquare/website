@@ -14,8 +14,7 @@ let { member }: Props = $props()
   data-sveltekit-preload-code="viewport"
   data-sveltekit-preload-data="tap"
   href={`/about/staff/${member.slug}`}
-  class="hover:underline w-fit hover:bg-amber-100"
->
+  class="w-fit hover:bg-amber-100 hover:underline">
   <HoverDim>
     <article class="p-1">
       <P>{member.name}</P>

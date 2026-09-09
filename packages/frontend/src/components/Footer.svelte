@@ -16,7 +16,7 @@ import EmailClickable from '$components/EmailClickable.svelte'
         <a
           href={route.path}
           title={route.name}
-          class="hover:underline tracking-wider font-semibold">
+          class="font-semibold tracking-wider hover:underline">
           <small>
             {route.name}
           </small>
@@ -27,19 +27,19 @@ import EmailClickable from '$components/EmailClickable.svelte'
 {/snippet}
 
 {#snippet Subheader(title: string)}
-  <h2 class="text-sm font-black tracking-wider mb-2">{title}</h2>
+  <h2 class="mb-2 text-sm font-black tracking-wider">{title}</h2>
 {/snippet}
 
 <!-- eslint-disable @typescript-eslint/no-confusing-void-expression -->
 <footer
-  class="flex flex-col sm:flex-wrap border-t space-x-2 items-baseline border-dotted p-4 sm:p-8 w-full">
-  <div class="w-full max-w-7xl center">
-    <h1 class="mb-6 font-black tracking-wide border w-fit p-2">
+  class="flex w-full flex-col items-baseline space-x-2 border-t border-dotted p-4 sm:flex-wrap sm:p-8">
+  <div class="center w-full max-w-7xl">
+    <h1 class="mb-6 w-fit border p-2 font-black tracking-wide">
       <a href="/">
         {site.name.toLowerCase()}
       </a>
     </h1>
-    <div class="flex flex-col space-y-6 sm:grid sm:grid-cols-3 grid-rows-1 gap-1 mb-8 p-2">
+    <div class="mb-8 flex grid-rows-1 flex-col gap-1 space-y-6 p-2 sm:grid sm:grid-cols-3">
       <section>
         {@render Subheader('categories')}
         {@render navList(routes.slice(0, 5))}
@@ -54,15 +54,15 @@ import EmailClickable from '$components/EmailClickable.svelte'
       </section>
     </div>
     <div class="w-full">
-      <div class="w-1/2 text-sm font-serif">
+      <div class="w-1/2 font-serif text-sm">
         <address>
           Email us:
           <EmailClickable />
         </address>
       </div>
     </div>
-    <div class="inline w-full center">
-      <div class="flex flex-row-reverse items-center justify-left pr-1">
+    <div class="center inline w-full">
+      <div class="justify-left flex flex-row-reverse items-center pr-1">
         <VersionLabel />
       </div>
     </div>

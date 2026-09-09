@@ -11,7 +11,7 @@ let title = $derived(data.title)
 let description = $derived(data.description)
 </script>
 
-<span class="inline text-2xl font-display italic font-stretch-condensed">Series</span>
+<span class="inline font-display text-2xl italic font-stretch-condensed">Series</span>
 <PageHeader>{title}</PageHeader>
 <div class="m-1 p-1">
   <P>{description}</P>

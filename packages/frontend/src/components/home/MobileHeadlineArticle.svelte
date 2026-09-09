@@ -29,27 +29,24 @@ let headlineMediaBlurHash = $derived(article.media?.asset?.metadata?.blurHash)
           width={1920}
           height={1080}
           blurHash={headlineMediaBlurHash}
-          fit={'crop'}
-        />
+          fit={'crop'} />
       </div>
     {/if}
     <a
       data-testid="headline-article"
-      href="category/{headlineArticle.category.name.toLowerCase()}/{headlineArticle.slug}"
-    >
-      <div class="relative flex flex-col grow m-1 p-2">
+      href="category/{headlineArticle.category.name.toLowerCase()}/{headlineArticle.slug}">
+      <div class="relative m-1 flex grow flex-col p-2">
         <div>
-          <div class="absolute -top-4 -left-2 w-fit h-12 overflow-visible -rotate-12">
+          <div class="absolute -top-4 -left-2 h-12 w-fit -rotate-12 overflow-visible">
             <!-- Circle with "new" label: TODO this should really be an SVG... -->
             <div
-              class="left-2 bg-amber-300 h-12 w-12 rounded-full grid gird-cols-1 place-items-center z-10 opacity-80 antialiased"
-              aria-hidden="true"
-            >
+              class="gird-cols-1 left-2 z-10 grid h-12 w-12 place-items-center rounded-full bg-amber-300 antialiased opacity-80"
+              aria-hidden="true">
               <p class="font-serif text-lg">最近</p>
             </div>
           </div>
-          <div class="flex flex-col mb-2">
-            <h2 class="text-left font-display text-5xl font-stretch-condensed font-bold leading-12">
+          <div class="mb-2 flex flex-col">
+            <h2 class="text-left font-display text-5xl leading-12 font-bold font-stretch-condensed">
               {headlineArticle.title}
             </h2>
             <Subtitle class="">{headlineArticle.subtitle}</Subtitle>

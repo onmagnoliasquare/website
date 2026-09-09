@@ -18,18 +18,18 @@ const articles: TagPageInitialArticles = $derived(data.articles)
 </header>
 
 {#if articles}
-  <ol class="list-decimal ml-8 p-2">
+  <ol class="ml-8 list-decimal p-2">
     <span class="tracking-wide">
       {#each articles as article}
         {#if article.category}
-          <li class="pl-2 mb-1">
+          <li class="mb-1 pl-2">
             <a
               data-sveltekit-preload-code="viewport"
               data-sveltekit-preload-data="tap"
               href={`/category/${article.category.slug}/${article.slug}`}
-              class="hover:underline"
-            >
-              {article.title} <span class="italic text-neutral-400">{article.date}</span>
+              class="hover:underline">
+              {article.title}
+              <span class="text-neutral-400 italic">{article.date}</span>
             </a>
           </li>
         {:else if dev}

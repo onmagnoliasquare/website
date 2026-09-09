@@ -1,6 +1,6 @@
 <script lang="ts">
-import ArticleBoxC from "$components/home/ArticleBoxC.svelte"
-import type { CategoryPageInitialArticles } from "$lib/sanity/types"
+import ArticleBoxC from '$components/home/ArticleBoxC.svelte'
+import type { CategoryPageInitialArticles } from '$lib/sanity/types'
 
 interface Props {
   articles: CategoryPageInitialArticles
@@ -8,10 +8,9 @@ interface Props {
 }
 
 const { articles, userLocale }: Props = $props()
-
 </script>
 
-<div class="flex flex-col md:grid md:grid-cols-2 items-top space-y-4 w-5/4">
+<div class="items-top flex w-5/4 flex-col space-y-4 md:grid md:grid-cols-2">
   <ol class="list">
     {#each articles.slice(0, 10) as article}
       <li>

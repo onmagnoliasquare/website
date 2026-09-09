@@ -7,7 +7,7 @@ let { data }: PageProps = $props()
 </script>
 
 <div class="flex flex-row space-x-2">
-  <span class="mini inline text-lg sm:text-2xl font-display font-light italic">The</span>
+  <span class="mini inline font-display text-lg font-light italic sm:text-2xl">The</span>
   <div class="inline">
     <PageHeader>Staff</PageHeader>
   </div>

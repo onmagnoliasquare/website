@@ -30,6 +30,6 @@ let {
     src="https://open.spotify.com/embed/{spotifyPath}"
     frameBorder="0"
     allow="encrypted-media"
-    style={iframe_styles}
-  ></iframe>
+    style={iframe_styles}>
+  </iframe>
 </GeneralObserver>

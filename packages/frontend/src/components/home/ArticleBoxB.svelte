@@ -36,7 +36,7 @@ let articleAuthors = $derived(article.authors)
       data-sveltekit-preload-code="viewport"
       data-sveltekit-preload-data="tap"
       href="/category/{articleCategory.toLowerCase()}/{articleSlug}">
-      <div class="sm:m-2 sm:p-2 max-w-2xl border-t border-dotted">
+      <div class="max-w-2xl border-t border-dotted sm:m-2 sm:p-2">
         <div class="m-2 pb-2">
           {#if articleMedia}
             <Image
@@ -49,8 +49,8 @@ let articleAuthors = $derived(article.authors)
               alt={articleMediaAlt} />
           {/if}
         </div>
-        <div class="mb-2 pb-2 w-full">
-          <h3 class="font-display italic font-black text-4xl mb-2 pb-2 hover:underline w-fit">
+        <div class="mb-2 w-full pb-2">
+          <h3 class="mb-2 w-fit pb-2 font-display text-4xl font-black italic hover:underline">
             {articleTitle}
           </h3>
           <div class="max-w-2xl">
@@ -58,7 +58,7 @@ let articleAuthors = $derived(article.authors)
               {articleSubtitle}
             </P>
           </div>
-          <div class="flex flex-col mt-1 pt-2">
+          <div class="mt-1 flex flex-col pt-2">
             <div class="mb-1">
               <ByLine authors={articleAuthors} />
             </div>

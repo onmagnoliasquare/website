@@ -19,26 +19,26 @@ let { article, locale = 'en-US', titleClass = '', subtitleClass = '' }: Props = 
   data-sveltekit-preload-code="viewport"
   data-sveltekit-preload-data="tap"
   href={`/category/${article.category.name.toLowerCase()}/${article.slug}`}>
-  <article class="w-full min-h-72 grid grid-cols-3 overflow-clip place-items-center p-8">
+  <article class="grid min-h-72 w-full grid-cols-3 place-items-center overflow-clip p-8">
     <div class="col-span-2 h-fit">
-      <div class="grid grid-rows-2 grid-cols-5">
-        <div class="row-span-3 col-span-5">
+      <div class="grid grid-cols-5 grid-rows-2">
+        <div class="col-span-5 row-span-3">
           <div class="p-6 pr-4 pl-0">
-            <h2 class={twMerge('font-block font-bold tracking-tight text-6xl mb-6', titleClass)}>
+            <h2 class={twMerge('font-block mb-6 text-6xl font-bold tracking-tight', titleClass)}>
               {article.title}
             </h2>
             {#if article.subtitle}
               <div class="mb-2">
                 <p
-                  class={twMerge('font-display text-3xl tracking-tight font-light', subtitleClass)}>
+                  class={twMerge('font-display text-3xl font-light tracking-tight', subtitleClass)}>
                   {article.subtitle}
                 </p>
               </div>
             {/if}
           </div>
         </div>
-        <div class="row-span-2 col-span-5">
-          <div class="flex flex-col sm:flex-row space-x-2">
+        <div class="col-span-5 row-span-2">
+          <div class="flex flex-col space-x-2 sm:flex-row">
             <ByLine authors={article.authors} />
             <DateLine date={article.date} locale={locale} />
           </div>

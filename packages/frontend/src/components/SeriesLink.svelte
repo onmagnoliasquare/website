@@ -13,10 +13,10 @@ let { title, link, children }: Props = $props()
 </script>
 
 <a data-sveltekit-preload-data="tap" href={link}>
-  <div class="hover:bg-amber-100 h-40 border border-dotted hover:border-double">
+  <div class="h-40 border border-dotted hover:border-double hover:bg-amber-100">
     <section>
       <div class="p-4">
-        <h2 class="font-serif font-semibold text-3xl sm:text-4xl mb-4">{title}</h2>
+        <h2 class="mb-4 font-serif text-3xl font-semibold sm:text-4xl">{title}</h2>
         <P class="text-gray-700 text-lg sm:text-xl">{@render children()}</P>
       </div>
     </section>
