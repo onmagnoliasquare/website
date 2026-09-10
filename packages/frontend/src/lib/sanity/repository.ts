@@ -15,6 +15,8 @@ import {
   maybeTagPageInitialArticlesQuery,
   maybeTagPageQuery,
   relatedArticlesTypeA,
+  searchMixedMatchQuery,
+  searchMixedMatchTotalQuery,
   sitemapArticlesQuery,
   sitemapAuthorsQuery,
   sitemapSeriesQuery,
@@ -36,6 +38,8 @@ import type {
   MaybeTagPageInitialArticlesQueryResult,
   MaybeTagPageQueryResult,
   RelatedArticlesTypeAResult,
+  SearchMixedMatchQueryResult,
+  SearchMixedMatchTotalQueryResult,
   SitemapArticlesQueryResult,
   SitemapAuthorsQueryResult,
   SitemapSeriesQueryResult,
@@ -130,3 +134,14 @@ export const fetchArticleSlugs = async (): Promise<SitemapArticlesQueryResult> =
 export const fetchSeriesSlugs = async (): Promise<SitemapSeriesQueryResult> => {
   return client.fetch(sitemapSeriesQuery)
 }
+
+export const fetchSearchMixedMatchQuery = async (
+  query: string,
+  seenIds: string[]
+): Promise<SearchMixedMatchQueryResult> =>
+  client.fetch(searchMixedMatchQuery, { searchQuery: query, seenIds })
+
+export const fetchSearchMixedMatchTotalQuery = async (
+  query: string
+): Promise<SearchMixedMatchTotalQueryResult> =>
+  client.fetch(searchMixedMatchTotalQuery, { searchQuery: query })

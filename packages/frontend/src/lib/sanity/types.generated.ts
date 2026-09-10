@@ -1446,6 +1446,40 @@ export type SitemapTagsQueryResult = Array<{
   date: null
 }>
 
+// Source: src/lib/sanity/queries.ts
+// Variable: searchMixedMatchQuery
+// Query: *[  _type == 'article'    && (    title match $searchQuery + '*'    || subtitle match $searchQuery + '*'    || series->name match $searchQuery + '*'    || category->name match $searchQuery + '*'    || authors[]->name match $searchQuery + '*'    ) && defined(category->slug.current) && defined(slug.current) && !(_id in $seenIds)] | score(    boost(title match $searchQuery, 20),    boost(title match $searchQuery + '*', 18),    boost(subtitle match $searchQuery + '*', 15)  ) {      _score,  _id,  title,  subtitle,  authors[]->{ name, "slug": slug.current },  'slug' : '/category/' + category->slug.current + '/' + slug.current,  'category': coalesce(category->name, 'none'),  'type': _type,  date,  media,    '_rank': _score + select(count(authors[@->name match $searchQuery + '*']) > 0 => 12, 0)  } | order(_rank desc, date desc, _id asc) [0...13]
+export type SearchMixedMatchQueryResult = Array<{
+  _score: null
+  _id: string
+  title: RequiredFormattedString
+  subtitle: FormattedText | null
+  authors: Array<{
+    name: RequiredFormattedString
+    slug: string
+  }>
+  slug: string
+  category: RequiredFormattedString
+  type: 'article'
+  date: string
+  media: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: RequiredFormattedString
+    _type: 'image'
+  } | null
+  _rank: null
+}>
+
+// Source: src/lib/sanity/queries.ts
+// Variable: searchMixedMatchTotalQuery
+// Query: {    'total': count(*[  _type == 'article'    && (    title match $searchQuery + '*'    || subtitle match $searchQuery + '*'    || series->name match $searchQuery + '*'    || category->name match $searchQuery + '*'    || authors[]->name match $searchQuery + '*'    ) && defined(category->slug.current) && defined(slug.current)])  }
+export type SearchMixedMatchTotalQueryResult = {
+  total: number
+}
+
 // Query TypeMap
 declare global {
   interface SanityQueries {
@@ -1464,14 +1498,15 @@ declare global {
     '\n\t*[_type == "article" && references(*[_type == "member" && slug.current == $slug]._id)] | order(date desc) {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n\n\t}\n': MaybeSingleMemberArticlesQueryResult
     '\n\t*[_type == "article" && category.slug.current != "multimedia"] | order(date desc) [0..19] {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n\n\t}\n': HomepageArticleQueryResult
     "\n\t*[_type == \"article\"] {\n\t\t'slug': slug.current,\n\t\t'category': category->slug.current,\n\t\t'date': coalesce(updatedDate, date),\n\t}\n":
-      | SitemapArticlesDataQueryResult
-      | SitemapArticlesQueryResult
+      SitemapArticlesDataQueryResult | SitemapArticlesQueryResult
     '\n\t*[_type == "article" && category->slug.current == $category && slug.current == $slug]{\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n,\n\t\tmetaInfo,\n\t\tcontent[]{\n\t\t\t...,\n\t\t\t_type == "image" => {\n\t\t\t\t...,\n\t\t\t\t...asset-> { metadata, creditLine },\n\t\t\t}\n\t\t},\n\t}[0]\n': MaybeArticlePageQueryResult
     '\n\t*[_type == "article" && category->slug.current == $category && slug.current == $slug]{\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n,\n\t\tmetaInfo\n\t}[0]\n': MaybeSingleArticleQueryResult
     '\n  *[_type == "article" && slug.current != $slug] | score(\n    boost(author._ref in $authors, 4),\n    boost(date match $date, 1.5),\n    boost(title match $title, 1.2),\n    boost(category._ref match $categoryId, 2.3),\n    // boost(content[].children[].text match $content, 4),\n  ) | order(_score desc) [0..8] {\n    _score,\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n\n  } //[ _score > 0 ]\n': RelatedArticlesTypeAResult
     '\n\t*[_type == "member"] {\n\t\t\'slug\': slug.current,\n\t\tupdatedAt\n\t}\n': SitemapAuthorsQueryResult
     '\n\t*[_type == "series"] {\n\t\t\'slug\': slug.current,\n\t\tdate\n\t}\n': SitemapSeriesQueryResult
     '\n\t*[_type == "tag"] {\n\t\t\'slug\': slug.current,\n\t\tdate\n\t}\n': SitemapTagsQueryResult
+    "\n  *[\n  _type == 'article'\n    && (\n    title match $searchQuery + '*'\n    || subtitle match $searchQuery + '*'\n    || series->name match $searchQuery + '*'\n    || category->name match $searchQuery + '*'\n    || authors[]->name match $searchQuery + '*'\n    ) && defined(category->slug.current) && defined(slug.current)\n && !(_id in $seenIds)] | score(\n    boost(title match $searchQuery, 20),\n    boost(title match $searchQuery + '*', 18),\n    boost(subtitle match $searchQuery + '*', 15)\n  ) {\n    \n  _score,\n  _id,\n  title,\n  subtitle,\n  authors[]->{ name, \"slug\": slug.current },\n  'slug' : '/category/' + category->slug.current + '/' + slug.current,\n  'category': coalesce(category->name, 'none'),\n  'type': _type,\n  date,\n  media\n,\n    '_rank': _score + select(count(authors[@->name match $searchQuery + '*']) > 0 => 12, 0)\n  } | order(_rank desc, date desc, _id asc) [0...13]\n": SearchMixedMatchQueryResult
+    "\n  {\n    'total': count(*[\n  _type == 'article'\n    && (\n    title match $searchQuery + '*'\n    || subtitle match $searchQuery + '*'\n    || series->name match $searchQuery + '*'\n    || category->name match $searchQuery + '*'\n    || authors[]->name match $searchQuery + '*'\n    ) && defined(category->slug.current) && defined(slug.current)\n])\n  }\n": SearchMixedMatchTotalQueryResult
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too

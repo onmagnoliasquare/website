@@ -224,3 +224,61 @@ export const sitemapTagsQuery = defineQuery(`
 		date
 	}
 `)
+
+const baseSearchProjection = `
+  _score,
+  _id,
+  title,
+  subtitle,
+  authors[]->{ name, "slug": slug.current },
+  'slug' : '/category/' + category->slug.current + '/' + slug.current,
+  'category': coalesce(category->name, 'none'),
+  'type': _type,
+  date,
+  media
+`
+
+const mixedMatchFilter = `
+  _type == 'article'
+    && (
+    title match $searchQuery + '*'
+    || subtitle match $searchQuery + '*'
+    || series->name match $searchQuery + '*'
+    || category->name match $searchQuery + '*'
+    || authors[]->name match $searchQuery + '*'
+    ) && defined(category->slug.current) && defined(slug.current)
+`
+
+/**
+ * How many results one page holds, and how many the query actually fetches.
+ *
+ * These are string literals because Sanity's TypeGen rejects a slice built from
+ * parameters ("slicing must use constant numbers").
+ *
+ * Given the major scale, the number 12 is the closest approximation to a scaled
+ * 1.25 * 10.
+ */
+const searchPageSize = '12'
+const searchFetchSize = '13'
+export const resultsPerPage = Number(searchPageSize)
+
+/**
+ * "Mixed-match" means the query contains a mix of exact matches and non-exact
+ * matches.
+ */
+export const searchMixedMatchQuery = defineQuery(`
+  *[${mixedMatchFilter} && !(_id in $seenIds)] | score(
+    boost(title match $searchQuery, 20),
+    boost(title match $searchQuery + '*', 18),
+    boost(subtitle match $searchQuery + '*', 15)
+  ) {
+    ${baseSearchProjection},
+    '_rank': _score + select(count(authors[@->name match $searchQuery + '*']) > 0 => 12, 0)
+  } | order(_rank desc, date desc, _id asc) [0...${searchFetchSize}]
+`)
+
+export const searchMixedMatchTotalQuery = defineQuery(`
+  {
+    'total': count(*[${mixedMatchFilter}])
+  }
+`)
