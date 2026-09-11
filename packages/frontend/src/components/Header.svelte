@@ -27,7 +27,7 @@ function toggleNavbar() {
       ]}>
       <div class="flex flex-row">
         <div class="grow">
-          <div class="my-2 ml-1 p-2">
+          <div class="my-2 mb-4 ml-1 p-2">
             <SiteTitle />
           </div>
           <div class="p-1 sm:p-2">
@@ -44,7 +44,7 @@ function toggleNavbar() {
           type="button"
           title="Menu"
           aria-label="Toggle navigation menu"
-          class="text-gray-800 p-1"
+          class="p-1 text-gray-800"
           onclick={toggleNavbar}>
           <HamburgerIcon />
         </button>
