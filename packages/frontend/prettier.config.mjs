@@ -11,7 +11,12 @@ const config = {
   singleQuote: true,
   printWidth: 100,
   // prettier-plugin-tailwindcss must be LAST in this array.
-  plugins: ['prettier-plugin-svelte', 'prettier-plugin-tailwindcss'],
+  plugins: [
+    '@sanity-labs/prettier-plugin-groq',
+    // '@sanity-labs/prettier-plugin-groq/embed',
+    'prettier-plugin-svelte',
+    'prettier-plugin-tailwindcss',
+  ],
   tailwindStylesheet: './src/app.css',
   endOfLine: 'auto',
   arrowParens: 'avoid',

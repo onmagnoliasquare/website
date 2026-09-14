@@ -26,8 +26,8 @@
     "lint:cms": "yarn run -T eslint packages/cms"
   },
   "dependencies": {
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
     "styled-components": "^6.5.3"
   },
   "devDependencies": {
@@ -49,18 +49,19 @@
     "globals": "^17.12.0",
     "husky": "^9.1.7",
     "jsdom": "^30.0.1",
-    "lint-staged": "^17.5.0",
+    "lint-staged": "^17.5.1",
     "micromatch": "^4.0.8",
     "prettier": "^3.9.6",
+    "prettier-plugin-groq": "0.2.5",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "svelte": "^5.57.0",
     "svelte-language-server": "0.18.4",
     "tslib": "^2.8.1",
     "typescript": "~6",
     "typescript-svelte-plugin": "0.3.52",
-    "vite": "^8.2.2",
+    "vite": "^8.3.0",
     "vitest": "^5.0.0",
-    "wrangler": "^4.130.0"
+    "wrangler": "^4.131.1"
   },
   "packageManager": "yarn@4.14.1",
   "engines": {
