@@ -14,7 +14,7 @@ let { class: classList, id: pId, children }: Props = $props()
 <p
   id={pId}
   class={twMerge(
-    'max-w-[66ch] text-base leading-normal tracking-wide antialiased sm:subpixel-antialiased',
+    'max-w-[66ch] text-base leading-normal tracking-wide proportional-nums antialiased sm:subpixel-antialiased',
     classList
   )}>
   {@render children()}
