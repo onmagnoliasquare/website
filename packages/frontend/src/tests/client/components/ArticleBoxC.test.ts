@@ -32,12 +32,12 @@ describe('ArticleBoxC', () => {
     metaInfo: null,
   }
 
-  it('mounts with default props', async () => {
+  it('mounts with default props', () => {
     const { container } = render(ArticleBoxC, { article: newArticle })
     expect(container).toBeTruthy()
   })
 
-  it('does not render <p> element for no subtitle', async () => {
+  it('does not render <p> element for no subtitle', () => {
     const { container } = render(ArticleBoxC, { article: newArticle })
     const subtitle = queryByTestId(container, 'article-subtitle')
     expect(subtitle).toBeNull()

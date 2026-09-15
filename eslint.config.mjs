@@ -15,7 +15,7 @@ export default defineConfig([
   // Ignore test files because they follow a particular DSL that doesn't
   // conform to ESLint's proclivities.
   globalIgnores([
-    '**/*.test.ts',
+    // '**/*.test.ts',
     '**/playwright/**',
     '**/dist/**/*',
     '**/*.mjs',
