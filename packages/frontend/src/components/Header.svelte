@@ -9,12 +9,17 @@ import DesktopNavbar from './general/navbar/DesktopNavbar.svelte'
 import SiteTitle from './general/SiteTitle.svelte'
 import HamburgerIcon from './icons/HamburgerIcon.svelte'
 import omsLogo from '$lib/assets/oms_logo.png'
+import { beforeNavigate } from '$app/navigation'
 
 let showMenu = $state(false)
 
 function toggleNavbar() {
   showMenu = !showMenu
 }
+
+beforeNavigate(() => {
+  if (showMenu) toggleNavbar()
+})
 </script>
 
 <header>
@@ -50,6 +55,6 @@ function toggleNavbar() {
         </button>
       </div>
     </div>
-    <MobileNavbar toggleNavbar={toggleNavbar} showMenu={showMenu} />
+    <MobileNavbar showMenu={showMenu} />
   </div>
 </header>
