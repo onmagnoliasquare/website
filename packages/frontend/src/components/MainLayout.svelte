@@ -12,7 +12,7 @@ let { children }: Props = $props()
 
 <Header />
 <Centered>
-  <main>
+  <main class="h-full scroll-smooth">
     {@render children()}
   </main>
 </Centered>
