@@ -15,6 +15,9 @@ const config = {
     },
   },
   kit: {
+    experimental: {
+      remoteFunctions: true,
+    },
     paths: {
       relative: true,
     },
