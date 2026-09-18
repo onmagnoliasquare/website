@@ -77,7 +77,7 @@ export const hasUppercase = (p: string): boolean => {
  * @param authors authors array
  * @returns `string`
  */
-export const createAuthorString = (authors: MemberQuery[]): string => {
+export const createAuthorString = (authors: Omit<MemberQuery, '_id'>[]): string => {
   let authorString = ''
   for (const author of authors) {
     authorString = authorString.concat(author.name, ', ')

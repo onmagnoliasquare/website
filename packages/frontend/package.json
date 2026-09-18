@@ -40,7 +40,8 @@
     "@unpic/placeholder": "^0.1.2",
     "@unpic/svelte": "^1.0.1",
     "groq": "^6.13.2",
-    "tailwind-merge": "^3.7.0"
+    "tailwind-merge": "^3.7.0",
+    "valibot": "1.5.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

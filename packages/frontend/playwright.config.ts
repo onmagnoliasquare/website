@@ -36,19 +36,19 @@ const config: PlaywrightTestConfig = {
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'], isMobile: false },
       testIgnore: ['**/production/**/*'],
     },
 
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: { ...devices['Desktop Firefox'], isMobile: false },
       testIgnore: ['**/production/**/*'],
     },
 
     {
       name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      use: { ...devices['Desktop Safari'], isMobile: false },
       // Disabled for now because for some reason, these tests don't pass
       // on Webkit/Safari.
       testIgnore: [
@@ -61,7 +61,7 @@ const config: PlaywrightTestConfig = {
     /* Test against mobile viewports. */
     {
       name: 'Mobile Chrome',
-      use: { ...devices['Pixel 7'] },
+      use: { ...devices['Galaxy S9+'], isMobile: true },
       testIgnore: [
         '**/production/**/*',
         'playwright/e2e/**/*',
@@ -71,7 +71,7 @@ const config: PlaywrightTestConfig = {
 
     {
       name: 'Mobile Safari',
-      use: { ...devices['iPhone 15'] },
+      use: { ...devices['iPhone 17 Pro'], isMobile: true },
       testIgnore: [
         '**/production/**/*',
         'playwright/e2e/**/*',
@@ -83,13 +83,13 @@ const config: PlaywrightTestConfig = {
     /* Test against branded browsers. */
     {
       name: 'Microsoft Edge',
-      use: { ...devices['Desktop Edge'], channel: 'msedge' },
+      use: { ...devices['Desktop Edge'], channel: 'msedge', isMobile: false },
       testIgnore: '**/production/**/*',
     },
 
     {
       name: 'Google Chrome',
-      use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+      use: { ...devices['Desktop Chrome'], channel: 'chrome', isMobile: false },
       testIgnore: '**/production/**/*',
     },
 

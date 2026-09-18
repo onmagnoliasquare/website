@@ -48,8 +48,12 @@ export const routes: route[] = [
 
 export const footerRoutes: route[] = [
   { path: '/archive/tags/oca', name: '# on century avenue' },
+  { path: '/archive/search', name: 'Search' },
   { path: '/about', name: 'About' },
   { path: '/about/staff', name: 'Staff' },
 ]
+
+export const maxResultsPerSearch = 1000
+export const maxSearchQueryLength = 256
 
 export type { route }

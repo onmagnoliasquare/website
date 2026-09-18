@@ -4,12 +4,14 @@
 -->
 
 <script lang="ts">
-import MobileNavbar from './general/navbar/MobileNavbar.svelte'
 import DesktopNavbar from './general/navbar/DesktopNavbar.svelte'
 import SiteTitle from './general/SiteTitle.svelte'
 import HamburgerIcon from './icons/HamburgerIcon.svelte'
 import omsLogo from '$lib/assets/oms_logo.png'
-import { beforeNavigate } from '$app/navigation'
+import { afterNavigate } from '$app/navigation'
+import { slide } from 'svelte/transition'
+import XIcon from './icons/XIcon.svelte'
+import MobileNavbar from './general/navbar/MobileNavbar.svelte'
 
 let showMenu = $state(false)
 
@@ -17,7 +19,7 @@ function toggleNavbar() {
   showMenu = !showMenu
 }
 
-beforeNavigate(() => {
+afterNavigate(() => {
   if (showMenu) toggleNavbar()
 })
 </script>
@@ -26,13 +28,10 @@ beforeNavigate(() => {
   <div class="center w-full max-w-7xl border-0 pt-4 sm:mb-0 sm:pb-0 lg:border-x lg:border-dotted">
     <!-- Show no border iff show menu is on -->
     <div
-      class={[
-        'flex flex-row items-center pb-4 sm:block sm:border-0 sm:pb-0 md:border-b-0',
-        showMenu ? 'border-b-0' : 'border-b',
-      ]}>
+      class="flex flex-row items-center border-b pb-4 sm:block sm:border-0 sm:pb-0 md:border-b-0">
       <div class="flex flex-row">
         <div class="grow">
-          <div class="my-2 mb-4 ml-1 p-2">
+          <div class="mt-2 ml-1 p-2 pt-0 pb-0 sm:pb-2">
             <SiteTitle />
           </div>
           <div class="p-1 sm:p-2">
@@ -43,18 +42,30 @@ beforeNavigate(() => {
           <img alt="" src={omsLogo} class="w-20" />
         </div>
       </div>
-      <!-- Mobile Menu Button -->
-      <div class="absolute right-2 sm:hidden">
+      <div class="fixed bottom-0 z-20 flex w-full flex-col sm:hidden">
+        <div class={['relative grow', showMenu && 'touch-none']}>
+          {#if showMenu}
+            <div
+              class="h-full w-full overflow-y-auto overscroll-contain border-t border-dotted border-t-neutral-400 bg-white p-6 shadow-sm"
+              transition:slide={{ axis: 'y', duration: 125 }}>
+              <MobileNavbar showMenu={showMenu} withSearch={true} />
+            </div>
+          {/if}
+        </div>
         <button
           type="button"
           title="Menu"
           aria-label="Toggle navigation menu"
-          class="p-1 text-gray-800"
+          aria-expanded={showMenu}
+          class="z-30 h-fit w-full border-t border-neutral-400 bg-white p-1 py-4 text-gray-800 shadow-xs sm:hidden"
           onclick={toggleNavbar}>
-          <HamburgerIcon />
+          {#if showMenu}
+            <XIcon />
+          {:else}
+            <HamburgerIcon />
+          {/if}
         </button>
       </div>
     </div>
-    <MobileNavbar showMenu={showMenu} />
   </div>
 </header>

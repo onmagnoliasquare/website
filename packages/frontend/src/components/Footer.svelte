@@ -4,9 +4,11 @@
 -->
 
 <script lang="ts">
-import { footerRoutes, type route, routes, site } from '$lib/constants'
+import { footerRoutes, type route, routes } from '$lib/constants'
 import VersionLabel from './general/VersionLabel.svelte'
 import EmailClickable from '$components/EmailClickable.svelte'
+import Logo from './general/Logo.svelte'
+import SiteTitle from './archive/SiteTitle.svelte'
 </script>
 
 {#snippet navList(r: route[])}
@@ -32,25 +34,30 @@ import EmailClickable from '$components/EmailClickable.svelte'
 
 <!-- eslint-disable @typescript-eslint/no-confusing-void-expression -->
 <footer
-  class="flex w-full flex-col items-baseline space-x-2 border-t border-dotted p-4 sm:flex-wrap sm:p-8">
-  <div class="center w-full max-w-7xl">
-    <h1 class="mb-6 w-fit border p-2 font-black tracking-wide">
-      <a href="/">
-        {site.name.toLowerCase()}
-      </a>
-    </h1>
-    <div class="mb-8 flex grid-rows-1 flex-col gap-1 space-y-6 p-2 sm:grid sm:grid-cols-3">
+  class="mb-20 flex w-full flex-col items-baseline space-x-2 border-t border-dotted p-4 sm:mb-0 sm:flex-wrap sm:p-8">
+  <div class="center flex w-full max-w-7xl flex-col items-center sm:block sm:flex-row">
+    <div class="w-full">
+      <div class="hidden sm:block">
+        <a href="/" title="On Magnolia Square" class="w-full p-4">
+          <Logo />
+        </a>
+      </div>
+      <div class="block p-4 sm:hidden">
+        <SiteTitle />
+      </div>
+    </div>
+    <div class="mb-8 hidden grid-rows-1 flex-col gap-1 space-y-6 p-2 sm:grid sm:grid-cols-3">
       <section>
         {@render Subheader('categories')}
         {@render navList(routes.slice(0, 5))}
       </section>
       <section>
         {@render Subheader('archive')}
-        {@render navList([...routes.slice(5, 7), footerRoutes[0]])}
+        {@render navList([...routes.slice(5, 7), ...footerRoutes.slice(0, 2)])}
       </section>
       <section>
         {@render Subheader('info')}
-        {@render navList(footerRoutes.slice(1))}
+        {@render navList(footerRoutes.slice(2))}
       </section>
     </div>
     <div class="w-full">

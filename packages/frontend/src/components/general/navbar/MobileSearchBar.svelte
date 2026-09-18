@@ -16,14 +16,14 @@ const submitSearch = async (e: SubmitEvent | KeyboardEvent): Promise<void> => {
 }
 </script>
 
-<form class="flex max-w-2xl min-w-0 flex-1 items-center gap-1" onsubmit={submitSearch}>
-  <label for="site-search" class="sr-only">Search</label>
+<form class="flex min-w-0 flex-1 items-center gap-1" onsubmit={submitSearch}>
+  <label for="nav-site-search" class="sr-only">Search</label>
   <input
     type="text"
     maxlength={maxSearchQueryLength}
-    id="site-search"
+    id="nav-site-search"
     name="search"
-    class="m-1 w-full min-w-0 p-1 text-xs italic"
+    class="w-full min-w-0 italic"
     placeholder="Search..."
     autocomplete="off"
     spellcheck="false"
