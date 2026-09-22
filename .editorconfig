@@ -1,0 +1,25 @@
+# EditorConfig — https://editorconfig.org
+#
+# Derived from prettier.config.mjs, packages/*/prettier.config.mjs,
+# eslint.config.mjs and lint-staged.config.mjs.
+#
+# Guides editors and IDEs. Keep this file and Prettier in sync when
+# any of those files change.
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true
+max_line_length = 100
+
+# proseWrap: 'preserve' means Prettier never re-wraps prose, and .markdownlint.json
+# disables MD013. Trailing double-space is a significant hard line break in
+# Markdown, keep it.
+[*.md]
+max_line_length = off
+trim_trailing_whitespace = false

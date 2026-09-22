@@ -22,6 +22,7 @@ on:
       - 'LICENSE'
       - 'tsconfig.json'
       - 'eslint.config.mjs'
+      - '.editorconfig'
       # This will ignore svelte.config.js
       - '**/*.config.js'
       - '**/*.config.mjs'
@@ -63,6 +64,7 @@ on:
       - 'LICENSE'
       - 'tsconfig.json'
       - 'eslint.config.mjs'
+      - '.editorconfig'
       # This will ignore svelte.config.js
       - '**/*.config.js'
       - '**/*.config.mjs'
