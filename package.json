@@ -57,7 +57,7 @@
     "svelte": "^5.57.1",
     "svelte-language-server": "0.18.4",
     "tslib": "^2.8.1",
-    "typescript": "~6",
+    "typescript": "~7",
     "typescript-svelte-plugin": "0.3.52",
     "vite": "^8.3.0",
     "vitest": "^5.0.1",
