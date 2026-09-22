@@ -42,7 +42,7 @@ import SiteTitle from './archive/SiteTitle.svelte'
           <Logo />
         </a>
       </div>
-      <div class="block p-4 sm:hidden">
+      <div class="block p-4 pl-0 sm:hidden">
         <SiteTitle />
       </div>
     </div>

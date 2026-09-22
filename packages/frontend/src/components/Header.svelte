@@ -14,19 +14,36 @@ import XIcon from './icons/XIcon.svelte'
 import MobileNavbar from './general/navbar/MobileNavbar.svelte'
 
 let showMenu = $state(false)
-
-function toggleNavbar() {
-  showMenu = !showMenu
-}
+const toggleNavbar = () => (showMenu = !showMenu)
 
 afterNavigate(() => {
   if (showMenu) toggleNavbar()
+})
+
+$effect(() => {
+  if (!showMenu) return
+
+  const html = document.documentElement
+  const body = document.body
+  const scrollbarWidth = window.innerWidth - html.clientWidth
+  const previous = {
+    htmlOverflow: html.style.overflow,
+    bodyPaddingRight: body.style.paddingRight,
+  }
+
+  html.style.overflow = 'hidden'
+  // Stand in for the scrollbar that just went away, so the page doesn't shift.
+  if (scrollbarWidth > 0) body.style.paddingRight = `${scrollbarWidth.toString()}px`
+
+  return () => {
+    html.style.overflow = previous.htmlOverflow
+    body.style.paddingRight = previous.bodyPaddingRight
+  }
 })
 </script>
 
 <header>
   <div class="center w-full max-w-7xl border-0 pt-4 sm:mb-0 sm:pb-0 lg:border-x lg:border-dotted">
-    <!-- Show no border iff show menu is on -->
     <div
       class="flex flex-row items-center border-b pb-4 sm:block sm:border-0 sm:pb-0 md:border-b-0">
       <div class="flex flex-row">
