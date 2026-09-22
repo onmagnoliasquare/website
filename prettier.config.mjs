@@ -59,7 +59,7 @@ const config = {
       files: '*.json',
       options: {
         parser: 'json',
-        tabWidth: 4,
+        tabWidth: 2,
       },
     },
     {

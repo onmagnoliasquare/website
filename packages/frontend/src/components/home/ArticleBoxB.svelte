@@ -25,7 +25,7 @@ let articleDate = $derived(article.date)
 let articleMedia = $derived(article.media)
 let articleMediaAlt = $derived(article.media?.alt)
 let articleBlurHash = $derived(article.media?.asset?.metadata?.blurHash)
-let articleCategory = $derived(article.category.name)
+let articleCategory = $derived(article.category)
 let articleSlug = $derived(article.slug)
 let articleAuthors = $derived(article.authors)
 </script>
@@ -35,7 +35,7 @@ let articleAuthors = $derived(article.authors)
     <a
       data-sveltekit-preload-code="viewport"
       data-sveltekit-preload-data="tap"
-      href="/category/{articleCategory.toLowerCase()}/{articleSlug}">
+      href="/category/{articleCategory.slug}/{articleSlug}">
       <div class="max-w-2xl border-t border-dotted sm:m-2 sm:p-2">
         <div class="m-2 pb-2">
           {#if articleMedia}

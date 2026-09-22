@@ -27,7 +27,7 @@ let articleAuthors = $derived(article.authors)
 let articleDate = $derived(article.date)
 let articleTitle = $derived(article.title)
 let articleSubtitle = $derived(article.subtitle)
-let articleCategory = $derived(article.category.name)
+let articleCategory = $derived(article.category)
 let articleSlug = $derived(article.slug)
 </script>
 
@@ -46,7 +46,7 @@ let articleSlug = $derived(article.slug)
   </h1>
   {#if subtitle && articleSubtitle}
     <div data-testid="article-subtitle">
-      <P class=" text-gray-600 tracking-wide">
+      <P class=" tracking-wide text-gray-600">
         {articleSubtitle}
       </P>
     </div>
@@ -59,7 +59,7 @@ let articleSlug = $derived(article.slug)
       data-sveltekit-preload-code="viewport"
       data-sveltekit-preload-data="tap"
       data-sveltekit-reload
-      href="/category/{articleCategory}/{articleSlug}">
+      href="/category/{articleCategory.slug}/{articleSlug}">
       <div class="flow flow-col mb-4 items-center gap-2 lg:grid lg:grid-cols-3">
         {#if media && showImage}
           <div class="col-span-1 lg:col-span-2">

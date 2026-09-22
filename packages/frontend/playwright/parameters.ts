@@ -133,6 +133,14 @@ const archivePage: testPage = {
   },
 }
 
+const searchPage: testPage = {
+  testDescription: 'Search page',
+  testUrl: '/archive/search',
+  testMetaInfo: {
+    ogTitle: `Search – ${site.title}`,
+  },
+}
+
 const article404Page: testPage = {
   testDescription: 'Article 404 page',
   testUrl: article404,
@@ -151,5 +159,6 @@ export const pages: Array<testPage> = [
   multimediaPage,
   seriesPage,
   archivePage,
+  searchPage,
   article404Page,
 ]

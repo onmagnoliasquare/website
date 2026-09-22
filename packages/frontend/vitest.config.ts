@@ -20,6 +20,7 @@ const config = mergeConfig(
           inline: [`@sveltejs/kit`],
         },
       },
+      fsModuleCache: true,
       projects: [
         {
           extends: true,

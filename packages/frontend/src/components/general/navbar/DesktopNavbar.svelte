@@ -4,21 +4,11 @@
 -->
 
 <script lang="ts">
-import { routes } from '$lib/constants'
-let listOfRoutes = routes
+import NavItems from './NavItems.svelte'
+import SearchBar from './SearchBar.svelte'
 </script>
 
-<nav
-  id="mainNav"
-  aria-label="Site Menu"
-  class="relative hidden border-neutral-400 p-2 sm:block sm:divide-x sm:border-b">
-  <ul class="list-none">
-    {#each listOfRoutes as route}
-      <li class="mr-2 hidden pr-2 tracking-wide sm:inline sm:border-r">
-        <a href={route.path} title={route.name} class="hover:underline">
-          {route.name}
-        </a>
-      </li>
-    {/each}
-  </ul>
-</nav>
+<div class="relative hidden flex-row items-center space-x-1 border-b sm:flex">
+  <NavItems />
+  <SearchBar />
+</div>

@@ -5,12 +5,12 @@ import { describe, expect, it } from 'vitest'
 import SpotifyEmbed from '$components/embeds/SpotifyEmbed.svelte'
 
 describe('Spotify', () => {
-  it('mounts with default props', async () => {
+  it('mounts with default props', () => {
     const { container } = render(SpotifyEmbed)
     expect(container).toBeTruthy()
   })
 
-  it('renders iframe with correct src', async () => {
+  it('renders iframe with correct src', () => {
     const spotifyPath = 'playlist/37i9dQZF1E4ZoJ6VjC6TJL'
     const { getByTestId } = render(SpotifyEmbed, {
       spotifyPath,
@@ -21,7 +21,7 @@ describe('Spotify', () => {
     expect(iframe.getAttribute('src')).toBe(expected_src)
   })
 
-  it('mounts with custom height and width', async () => {
+  it('mounts with custom height and width', () => {
     const { container } = render(SpotifyEmbed, {
       spotifyPath: 'album/0yL5CjKtIVrWtLZnFJHfjz',
       height: '300px',
@@ -34,7 +34,7 @@ describe('Spotify', () => {
     expect(iframe?.style.width).toBe('80%')
   })
 
-  it('renders with a GeneralObserver', async () => {
+  it('renders with a GeneralObserver', () => {
     const { getByTestId } = render(SpotifyEmbed, {
       spotifyPath: 'artist/2ye2Wgw4gimLv2eAKyk1NB',
       disable_observer: false,

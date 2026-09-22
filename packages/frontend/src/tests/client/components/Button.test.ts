@@ -4,9 +4,15 @@ import Button from '$components/general/Button.svelte'
 import { cleanup, render } from '@testing-library/svelte/svelte5'
 import { userEvent } from '@testing-library/user-event'
 import { createRawSnippet } from 'svelte'
-import { vi, test, expect, afterEach } from 'vitest'
+import { vi, test, it, expect, afterEach, describe } from 'vitest'
 
 const buttonTitle = 'fun button'
+
+/**
+ * An `onclick` delay long enough that it cannot resolve before the assertions
+ * run.
+ */
+const neverWithinTheTest = 10_000
 
 afterEach(() => {
   vi.useRealTimers()
@@ -14,26 +20,41 @@ afterEach(() => {
   cleanup()
 })
 
-test('mounts', async () => {
+test('mounts', () => {
   const { component } = render(Button)
   expect(component).toBeTruthy()
 })
 
-test('disabled when clicked', async () => {
-  const user = userEvent.setup()
+describe('initial state', () => {
+  it('should not be disabled if not clicked', () => {
+    const { getByTitle } = newButton(buttonTitle, neverWithinTheTest)
+    const component = getByTitle(buttonTitle)
 
-  // Using an egregious number here to simulate a really long network fetch.
-  // Also, this should be longer than vitest timeouts.
-  const { getByTitle } = newButton(buttonTitle, 10_000)
-  const component = getByTitle(buttonTitle)
+    expect(component).toBeTruthy()
+    expect(component.title).toBe(buttonTitle)
+    expect(component).not.toBeDisabled()
+  })
+})
 
-  expect(component).toBeTruthy()
-  expect(component.title).toBe(buttonTitle)
-  expect(component).not.toBeDisabled()
+describe('disabled functionality', () => {
+  it('should be disabled if clicked', async () => {
+    const user = userEvent.setup()
+    const { getByTitle } = newButton(buttonTitle, neverWithinTheTest)
+    const component = getByTitle(buttonTitle)
 
-  await user.click(component)
+    await user.click(component)
 
-  expect(component).toBeDisabled()
+    expect(component).toBeDisabled()
+  })
+
+  it('should keep its label in the layout', async () => {
+    const user = userEvent.setup()
+    const { getByTitle, getByText } = newButton(buttonTitle, neverWithinTheTest)
+
+    await user.click(getByTitle(buttonTitle))
+
+    expect(getByText('Click me')).toBeInTheDocument()
+  })
 })
 
 test('not disabled after clicked and promise resolution', async () => {

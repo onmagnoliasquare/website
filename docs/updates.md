@@ -19,6 +19,7 @@ Ensure that:
 ### GitHub Actions
 
 - Use `ratchet` to **update** actions and workflows files, **NOT** upgrade.
+- Update `gh-actions.yml`'s [`ACTIONLINT`](https://github.com/rhysd/actionlint), [`YAMLLINT`](https://github.com/adrienverge/yamllint), and [`SHELLCHECK`](https://github.com/koalaman/shellcheck) versions.
 
 ### Yarn dependencies
 

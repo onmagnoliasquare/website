@@ -6,6 +6,7 @@ import baseConfig from '../../eslint.config.mjs'
 import svelteConfig from './svelte.config.js'
 import ts from 'typescript-eslint'
 import eslintConfigPrettier from 'eslint-config-prettier'
+// import sanity from '@sanity-labs/eslint-plugin'
 
 export default defineConfig([
   ...baseConfig,
@@ -13,6 +14,15 @@ export default defineConfig([
   // Other config for non-Svelte files
   ts.configs.strictTypeChecked,
   ts.configs.stylisticTypeChecked,
+  // Sanity GROQ
+  // ...sanity.configs.recommended,
+  // {
+  //   settings: {
+  //     sanity: {
+  //       schemaPath: '../../cms/schema-generated.json',
+  //     },
+  //   },
+  // },
   // Svelte config
   ...svelte.configs.prettier,
   {
