@@ -1,0 +1,12 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Per-user state (belt and braces alongside the root .gitignore allowlist)
+/shelf/
+/workspace.xml
+/usage.statistics.xml
+/tasks.xml
+/sonarlint/
+/httpRequests/
