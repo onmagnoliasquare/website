@@ -19,8 +19,7 @@ const config: PlaywrightTestConfig = {
   retries: process.env.CI ? 1 : 0,
   maxFailures: process.env.CI ? 10 : undefined,
 
-  // Opt out of parallel tests on CI.
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? '50%' : undefined,
 
   // Reporter to use. We'll merge blob into GitHub and HTML reporters.
   reporter: process.env.CI ? 'blob' : 'list',
