@@ -91,4 +91,9 @@ coverage
 test-results
 playwright-report
 
+# Playwright blob reports produced by sharded CI runs, and the directory the
+# merge jobs download them into.
+blob-report
+all-blob-reports
+
 cspell.json

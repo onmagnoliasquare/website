@@ -235,8 +235,11 @@ jobs:
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
-      # DEBUG: 'pw:api'
-
+    strategy:
+      fail-fast: false
+      matrix:
+        shardIndex: [1, 2, 3, 4]
+        shardTotal: [4]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
       - name: 'Setup Node.js with Yarn'
@@ -253,14 +256,14 @@ jobs:
 
       - name: Run frontend integration tests
         if: ${{ needs.changes.outputs.frontend == 'true' }}
-        run: yarn workspace frontend ci:test:integration
+        run: yarn workspace frontend ci:test:integration --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
 
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # ratchet:actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
-          name: playwright-report-integration
-          path: packages/frontend/playwright-report/
-          retention-days: 30
+          name: blob-report-integration-${{ matrix.shardIndex }}
+          path: packages/frontend/blob-report
+          retention-days: 1
 
   test-func:
     name: Functional tests
@@ -271,8 +274,11 @@ jobs:
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
-      # DEBUG: 'pw:api'
-
+    strategy:
+      fail-fast: false
+      matrix:
+        shardIndex: [1, 2, 3, 4]
+        shardTotal: [4]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
       - name: 'Setup Node.js with Yarn'
@@ -289,14 +295,14 @@ jobs:
 
       - name: Run frontend functional tests
         if: ${{ needs.changes.outputs.frontend == 'true' }}
-        run: yarn workspace frontend ci:test:functional
+        run: yarn workspace frontend ci:test:functional --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
 
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # ratchet:actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
-          name: playwright-report-functional
-          path: packages/frontend/playwright-report/
-          retention-days: 30
+          name: blob-report-functional-${{ matrix.shardIndex }}
+          path: packages/frontend/blob-report
+          retention-days: 1
 
   test-e2e:
     name: E2E tests
@@ -307,8 +313,11 @@ jobs:
       SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
       SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
       SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
-      # DEBUG: 'pw:api'
-
+    strategy:
+      fail-fast: false
+      matrix:
+        shardIndex: [1, 2, 3, 4]
+        shardTotal: [4]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
       - name: 'Setup Node.js with Yarn'
@@ -325,14 +334,45 @@ jobs:
 
       - name: Run frontend E2E tests
         if: ${{ needs.changes.outputs.frontend == 'true' }}
-        run: yarn workspace frontend ci:test:e2e
+        run: yarn workspace frontend ci:test:e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
 
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # ratchet:actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
-          name: playwright-report-e2e
-          path: packages/frontend/playwright-report/
-          retention-days: 30
+          name: blob-report-e2e-${{ matrix.shardIndex }}
+          path: packages/frontend/blob-report
+          retention-days: 1
+
+  merge-reports:
+    name: Merge ${{ matrix.suite }} report
+    if: ${{ !cancelled() && needs.build.result == 'success' && needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
+    needs: [changes, build, test-int, test-func, test-e2e]
+    runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [integration, functional, e2e]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
+      - name: 'Setup Node.js with Yarn'
+        uses: ./.github/actions/setup-node
+
+      - name: Download ${{ matrix.suite }} blob reports
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # ratchet:actions/download-artifact@v7
+        with:
+          path: packages/frontend/all-blob-reports
+          pattern: blob-report-${{ matrix.suite }}-*
+          merge-multiple: true
+
+      - name: Merge ${{ matrix.suite }} blob reports
+        run: yarn workspace frontend playwright merge-reports --reporter html,github ./all-blob-reports
+
+      - name: Upload ${{ matrix.suite }} HTML report
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # ratchet:actions/upload-artifact@v7
+        with:
+          name: html-report-${{ matrix.suite }}-attempt-${{ github.run_attempt }}
+          path: packages/frontend/playwright-report
+          retention-days: 14
 
   deploy-staging:
     name: Deploy to staging environment
@@ -380,7 +420,18 @@ jobs:
     name: All Green
     if: always()
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
-    needs: [changes, build, test-unit, test-comp, test-int, test-func, test-e2e, deploy-staging]
+    needs:
+      [
+        changes,
+        build,
+        test-unit,
+        test-comp,
+        test-int,
+        test-func,
+        test-e2e,
+        merge-reports,
+        deploy-staging,
+      ]
     steps:
       - if: ${{ always() && (contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')) }}
         run: exit 1

@@ -17,12 +17,12 @@ const config: PlaywrightTestConfig = {
 
   // Retry on CI only.
   retries: process.env.CI ? 1 : 0,
+  maxFailures: process.env.CI ? 10 : undefined,
 
-  // Opt out of parallel tests on CI.
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? '50%' : undefined,
 
-  // Reporter to use.
-  reporter: process.env.CI ? [['html'], ['github']] : 'list',
+  // Reporter to use. We'll merge blob into GitHub and HTML reporters.
+  reporter: process.env.CI ? 'blob' : 'list',
 
   use: {
     baseURL: process.env.CI ? localPreviewURL : localDevURL,
@@ -103,16 +103,14 @@ const config: PlaywrightTestConfig = {
 
   // Configurations for the webServer playwright starts and uses.
   webServer: {
-    command: process.env.CI
-      ? 'yarn workspace frontend build:development && yarn workspace frontend preview --port 8787'
-      : 'yarn dev:front',
+    command: process.env.CI ? 'yarn workspace frontend preview --port 8787' : 'yarn dev:front',
 
     // URL must use 'localhost'!!! Otherwise, playwright
     // will boot the server but hang in the process.
     // See: https://github.com/microsoft/playwright/issues/16834#issuecomment-1699124292
     url: process.env.CI ? localPreviewURL : localDevURL,
     reuseExistingServer: !process.env.CI,
-    timeout: 120_000, // 2 minutes timeout for server startup
+    timeout: 120_000, // 2-minute timeout for server startup.
     stdout: 'ignore',
     stderr: 'pipe',
   },
