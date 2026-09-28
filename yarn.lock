@@ -6031,6 +6031,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sanity/ui@npm:^4.2.4":
+  version: 4.2.4
+  resolution: "@sanity/ui@npm:4.2.4"
+  dependencies:
+    "@floating-ui/react-dom": "npm:^2.1.9"
+    "@sanity/color": "npm:^3.0.8"
+    "@sanity/icons": "npm:^5.2.2"
+    "@vanilla-extract/dynamic": "npm:^2.1.5"
+    clsx: "npm:^2.1.1"
+    csstype: "npm:^3.2.3"
+    motion: "npm:^13.4.1"
+    react-is: "npm:^19.3.0"
+    react-refractor: "npm:^4.0.0"
+    use-effect-event: "npm:^2.0.4"
+  peerDependencies:
+    react: ^19.2
+    react-dom: ^19.2
+    styled-components: ^6.1
+  checksum: 10c0/c7be14fbcf88ad5fcaa7ca57a19c488951afd116935102ecc25482403690cbb1ec69cb4e42b2d48c31af2df401969f4cb861281de40fbded8b19334b68292f19
+  languageName: node
+  linkType: hard
+
 "@sanity/util@npm:6.16.0, @sanity/util@npm:^6.15.0":
   version: 6.16.0
   resolution: "@sanity/util@npm:6.16.0"
@@ -8463,7 +8485,7 @@ __metadata:
     "@sanity/eslint-config-studio": "npm:^7.0.0"
     "@sanity/icons": "npm:^5.2.2"
     "@sanity/prettier-config": "npm:3.0.0"
-    "@sanity/ui": "npm:^4.2.3"
+    "@sanity/ui": "npm:^4.2.4"
     "@sanity/vision": "npm:^6.16.0"
     "@superside-oss/sanity-plugin-copy-paste": "npm:^1.0.3"
     "@types/node": "npm:26.6.2"
@@ -10350,6 +10372,25 @@ __metadata:
     react-dom:
       optional: true
   checksum: 10c0/c9e49d235521776ab8a9421ef4872d81cb089fcc37885bd678b8e8739294c3508eec284917b6fb1172b206781d8565653edaa57684babaecec4d85d947465cd7
+  languageName: node
+  linkType: hard
+
+"framer-motion@npm:^13.4.3":
+  version: 13.4.3
+  resolution: "framer-motion@npm:13.4.3"
+  dependencies:
+    motion-dom: "npm:^13.4.2"
+    motion-utils: "npm:^13.3.0"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 10c0/b0c9451716a6b6b5c8b92bcdddee11d138b901b46bb84662492afc80d2d70a3e83619b3776febbd6a9b9af869367b631ce7f7328e4091aca7a4cba2431ee8c99
   languageName: node
   linkType: hard
 
@@ -12406,6 +12447,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"motion-dom@npm:^13.4.2":
+  version: 13.4.2
+  resolution: "motion-dom@npm:13.4.2"
+  dependencies:
+    motion-utils: "npm:^13.3.0"
+  checksum: 10c0/7ce3928cfe930b30ba684467eead32af06e14cb480ccb3105038fa3791a44edf94182391e9b02c4ac76d85b524fc2668240c571f5528c140901320aba8d85de8
+  languageName: node
+  linkType: hard
+
 "motion-utils@npm:^13.3.0":
   version: 13.3.0
   resolution: "motion-utils@npm:13.3.0"
@@ -12428,6 +12478,24 @@ __metadata:
     react-dom:
       optional: true
   checksum: 10c0/98392743006cef81c03fd55fb4fbf1c4ddbecccc8a22ebb123f6d36b68de364bdb293ee9b611a39c79f110b05bc09ce88544b49d09a24315fcc2e0e0b0a901df
+  languageName: node
+  linkType: hard
+
+"motion@npm:^13.4.1":
+  version: 13.4.3
+  resolution: "motion@npm:13.4.3"
+  dependencies:
+    framer-motion: "npm:^13.4.3"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 10c0/35d7e958c0b503ad62364b0be62343f49c4d59267a4362ca0d4f50d7527474a9c7e7578c4360f2da855a971ff548a31c4f868dbad351af86b4cb799232d1cb10
   languageName: node
   linkType: hard
 
