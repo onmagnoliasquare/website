@@ -4,11 +4,11 @@
 -->
 
 <script lang="ts">
-import NavItems from './NavItems.svelte'
-import SearchBar from './SearchBar.svelte'
+import NavItems from '$components/general/navbar/NavItems.svelte'
+import SearchBar from '$components/general/navbar/SearchBar.svelte'
 </script>
 
 <div class="relative hidden flex-row items-center space-x-1 border-b sm:flex">
   <NavItems />
-  <SearchBar />
+  <SearchBar class="text-xs" />
 </div>

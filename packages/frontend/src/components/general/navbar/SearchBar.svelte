@@ -1,36 +1,33 @@
 <script lang="ts">
 import { goto } from '$app/navigation'
-import { maxSearchQueryLength } from '$lib/constants'
+import InputBar from '$components/general/input/InputBar.svelte'
+import { searchParamKey } from '$lib/constants'
+import { sanitizeInput } from '$lib/helpers'
+import type { ClassValue } from 'svelte/elements'
+import { twMerge, type ClassNameValue } from 'tailwind-merge'
 
-let q = $state('')
-let searchSubmitted = $state(false)
-
-const submitSearch = async (e: SubmitEvent | KeyboardEvent): Promise<void> => {
-  e.preventDefault()
-  const query = q.trim()
-  if (!query) {
-    return
-  }
-  searchSubmitted = true
-  await goto(`/archive/search?q=${encodeURIComponent(query)}`, { invalidateAll: true })
+interface Props {
+  class?: ClassValue
+  id?: string
+  value?: string
+  disabled?: boolean
 }
+
+let { class: className = '', id, value = $bindable(''), disabled }: Props = $props()
 </script>
 
-<form class="flex max-w-2xl min-w-0 flex-1 items-center gap-1" onsubmit={submitSearch}>
-  <label for="site-search" class="sr-only">Search</label>
-  <input
-    type="text"
-    maxlength={maxSearchQueryLength}
-    id="site-search"
-    name="search"
-    class="m-1 w-full min-w-0 p-1 text-xs italic"
-    placeholder="Search..."
-    autocomplete="off"
-    spellcheck="false"
-    bind:value={q}
-    disabled={searchSubmitted}
-    onkeypress={async e => {
-      if (e.key === 'Enter' && q.trim() !== '') await submitSearch(e)
-    }} />
-  <input type="submit" title="Submit search" value="Search" class="sr-only" />
-</form>
+<InputBar
+  id={id ?? 'nav-site-search'}
+  name="Search"
+  title="Submit search"
+  class={twMerge('m-1 w-full min-w-0 italic', className as ClassNameValue)}
+  placeholder="Search..."
+  disabled={disabled}
+  action={async (v: string) => {
+    await goto(`/archive/search?${searchParamKey}=${encodeURIComponent(v)}`, {
+      invalidateAll: true,
+    })
+  }}
+  bind:value={value}
+  sanitize={sanitizeInput}
+  fallback={{ path: '/archive/search', param: searchParamKey }} />

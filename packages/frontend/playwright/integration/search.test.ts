@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
 import { resultsPerPage } from '$lib/sanity/queries'
 
@@ -7,6 +7,18 @@ const nonsenseTerm = 'zzzqqqxxnomatch'
 const pendingText = /Searching for/
 const searchLanding = '/archive/search'
 
+// The landing field shares its placeholder with every other search bar, so it's
+// found by its label instead.
+const searchField = (page: Page) => page.getByRole('textbox', { name: 'Search', exact: true })
+
+// Submitting mid-hydration is a race on WebKit: the form's native navigation aborts
+// SvelteKit's in-flight module imports, and SvelteKit answers that by reloading the
+// current page, which drops the submission. Tests of the hydrated form wait it out.
+async function gotoHydrated(page: Page, url: string): Promise<void> {
+  await page.goto(url)
+  await page.waitForLoadState('networkidle')
+}
+
 test.describe('Search', { tag: ['@integration', '@search'] }, () => {
   test('landing page offers a search field and nothing else to dismiss', async ({ page }) => {
     await page.goto(searchLanding)
@@ -14,29 +26,45 @@ test.describe('Search', { tag: ['@integration', '@search'] }, () => {
     await expect
       .soft(page.getByRole('heading', { name: /Search On Magnolia Square/i }))
       .toBeVisible()
-    await expect.soft(page.getByPlaceholder('Search keywords...')).toBeVisible()
-    await expect(page.getByRole('button', { name: 'Search', exact: true })).toBeVisible()
+    await expect.soft(searchField(page)).toBeVisible()
+    // The submit button is visually hidden; Enter submits, and it stays for screen readers.
+    await expect(page.getByRole('button', { name: 'Search', exact: true })).toBeAttached()
   })
 
   test('submitting a term carries it into the URL, percent-encoded', async ({ page }) => {
-    await page.goto(searchLanding)
+    await gotoHydrated(page, searchLanding)
 
-    await page.getByPlaceholder('Search keywords...').fill('campus life')
-    await page.getByRole('button', { name: 'Search', exact: true }).click()
+    await searchField(page).fill('campus life')
+    await searchField(page).press('Enter')
 
     await page.waitForURL('**/archive/search?q=campus%20life')
     await expect(page.getByRole('heading', { name: 'Search results' })).toBeVisible()
   })
 
   test('a whitespace-only term navigates nowhere', async ({ page }) => {
-    await page.goto(searchLanding)
+    await gotoHydrated(page, searchLanding)
     const before = page.url()
 
-    await page.getByPlaceholder('Search keywords...').fill('   ')
-    await page.getByRole('button', { name: 'Search', exact: true }).click()
+    await searchField(page).fill('   ')
+    await searchField(page).press('Enter')
 
-    await expect(page.getByPlaceholder('Search keywords...')).toBeVisible()
+    await expect(searchField(page)).toBeVisible()
     expect(page.url()).toBe(before)
+  })
+
+  test.describe('without JavaScript', () => {
+    test.use({ javaScriptEnabled: false })
+
+    test('the landing field still submits a search', async ({ page }) => {
+      await page.goto(searchLanding)
+
+      await searchField(page).fill('campus life')
+      await searchField(page).press('Enter')
+
+      await page.waitForURL(url => url.searchParams.get('q') === 'campus life')
+      await expect(page.getByRole('heading', { name: 'Search results' })).toBeVisible()
+      await expect(page.locator('#site-search')).toHaveValue('campus life')
+    })
   })
 
   test('a matched term fills one page of results, each linking to an article', async ({ page }) => {
@@ -108,6 +136,7 @@ test.describe('Search', { tag: ['@integration', '@search'] }, () => {
 
     await page.waitForURL(`**/archive/search?q=${commonTerm}`)
     await expect(page.getByRole('heading', { name: 'Search results' })).toBeVisible()
+    await expect(page.locator('#site-search')).toHaveValue(commonTerm)
   })
 
   // Flaky
@@ -147,7 +176,7 @@ test.describe('Search', { tag: ['@integration', '@search'] }, () => {
   test('the tally settles onto a real count once it arrives', async ({ page }) => {
     await page.goto(`${searchLanding}?q=${commonTerm}`)
 
-    const tally = page.locator('form:has(#site-search) span[aria-hidden]')
+    const tally = page.locator('div:has(> form > #site-search) span[aria-hidden]')
     await expect(tally).toHaveAttribute('aria-hidden', 'false', { timeout: 15_000 })
     await expect(tally).toContainText('results')
   })
@@ -160,7 +189,7 @@ test.describe('Search', { tag: ['@integration', '@search'] }, () => {
 
   test('the landing page has no accessibility violations', async ({ page }) => {
     await page.goto(searchLanding)
-    await expect(page.getByPlaceholder('Search keywords...')).toBeVisible()
+    await expect(searchField(page)).toBeVisible()
 
     const accessibilityScanResults = await new AxeBuilder({ page })
       .disableRules(['color-contrast'])

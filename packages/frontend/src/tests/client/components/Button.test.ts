@@ -5,6 +5,7 @@ import { cleanup, render } from '@testing-library/svelte/svelte5'
 import { userEvent } from '@testing-library/user-event'
 import { createRawSnippet } from 'svelte'
 import { vi, test, it, expect, afterEach, describe } from 'vitest'
+import { fakePromiseResolve } from '$lib/helpers/testing'
 
 const buttonTitle = 'fun button'
 
@@ -90,8 +91,4 @@ function newButton(title: string, delay: number) {
     type: 'button',
     title,
   })
-}
-
-async function fakePromiseResolve(delay: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, delay))
 }
