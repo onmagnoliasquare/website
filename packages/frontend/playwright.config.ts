@@ -1,9 +1,9 @@
-import { devices, type PlaywrightTestConfig } from '@playwright/test'
+import { devices, defineConfig } from '@playwright/test'
 
 const localPreviewURL = 'http://localhost:8787'
 const localDevURL = 'http://localhost:5173'
 
-const config: PlaywrightTestConfig = {
+export default defineConfig({
   testDir: 'playwright',
   testMatch: /(.+\.)?(test|spec)\.[jt]s/,
 
@@ -103,6 +103,8 @@ const config: PlaywrightTestConfig = {
 
   // Configurations for the webServer playwright starts and uses.
   webServer: {
+    // There is an assumption here for the CI environment. The assumption is that the preview build
+    // has already been built, which is why there is no `yarn workspace frontend build` invocation.
     command: process.env.CI ? 'yarn workspace frontend preview --port 8787' : 'yarn dev:front',
 
     // URL must use 'localhost'!!! Otherwise, playwright
@@ -114,6 +116,4 @@ const config: PlaywrightTestConfig = {
     stdout: 'ignore',
     stderr: 'pipe',
   },
-}
-
-export default config
+})
