@@ -19,7 +19,7 @@
   "dependencies": {
     "@sanity/cross-dataset-duplicator": "2.1.4",
     "@sanity/icons": "^5.2.2",
-    "@sanity/ui": "^4.2.3",
+    "@sanity/ui": "^4.2.7",
     "@sanity/vision": "^6.16.0",
     "@superside-oss/sanity-plugin-copy-paste": "^1.0.3",
     "archiver-utils": "^5.0.2",
@@ -28,19 +28,19 @@
     "react-icons": "5.7.0",
     "react-is": "^19.3.0",
     "sanity": "6.16.0",
-    "sanity-plugin-media": "^6.3.0",
+    "sanity-plugin-media": "^6.3.1",
     "styled-components": "^6.5.3"
   },
   "devDependencies": {
-    "@sanity/cli": "^8.12.0",
+    "@sanity/cli": "^8.13.0",
     "@sanity/eslint-config-studio": "^7.0.0",
     "@sanity/prettier-config": "3.0.0",
-    "@types/node": "26.6.2",
+    "@types/node": "26.6.3",
     "@types/react": "^19.3.0",
-    "baseline-browser-mapping": "2.11.25",
+    "baseline-browser-mapping": "2.11.26",
     "eslint": "^10.11.0",
-    "prettier": "^3.9.8",
+    "prettier": "^3.9.9",
     "prettier-plugin-tailwindcss": "^0.8.1",
-    "wrangler": "^4.136.3"
+    "wrangler": "^4.143.0"
   }
 }
