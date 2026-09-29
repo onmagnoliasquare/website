@@ -22,7 +22,7 @@ export default defineConfig({
   workers: process.env.CI ? '50%' : undefined,
 
   // Reporter to use. We'll merge blob into GitHub and HTML reporters.
-  reporter: process.env.CI ? 'blob' : 'list',
+  reporter: [process.env.CI ? ['blob'] : ['list'], ['./playwright/reporters/performance.ts']],
 
   use: {
     baseURL: process.env.CI ? localPreviewURL : localDevURL,
@@ -43,7 +43,7 @@ export default defineConfig({
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'], isMobile: false },
-      testIgnore: ['**/production/**/*'],
+      testIgnore: ['**/production/**/*', '**/performance/**/*'],
     },
 
     {
@@ -55,6 +55,7 @@ export default defineConfig({
         '**/production/**/*',
         'playwright/integration/tagPage.test.ts',
         'playwright/integration/sitemap.test.ts',
+        '**/performance/**/*',
       ],
     },
 
@@ -66,6 +67,7 @@ export default defineConfig({
         '**/production/**/*',
         'playwright/e2e/**/*',
         'playwright/integration/sitemap.test.ts',
+        '**/performance/**/*',
       ],
     },
 
@@ -77,6 +79,7 @@ export default defineConfig({
         'playwright/e2e/**/*',
         'playwright/integration/tagPage.test.ts',
         'playwright/integration/sitemap.test.ts',
+        '**/performance/**/*',
       ],
     },
 
@@ -84,13 +87,13 @@ export default defineConfig({
     {
       name: 'Microsoft Edge',
       use: { ...devices['Desktop Edge'], channel: 'msedge', isMobile: false },
-      testIgnore: '**/production/**/*',
+      testIgnore: ['**/production/**/*', '**/performance/**/*'],
     },
 
     {
       name: 'Google Chrome',
       use: { ...devices['Desktop Chrome'], channel: 'chrome', isMobile: false },
-      testIgnore: '**/production/**/*',
+      testIgnore: ['**/production/**/*', '**/performance/**/*'],
     },
 
     {

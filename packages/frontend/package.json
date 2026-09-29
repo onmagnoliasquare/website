@@ -25,6 +25,7 @@
     "ci:test:integration": "playwright test integration",
     "ci:test:e2e": "playwright test e2e",
     "ci:test:functional": "playwright test functional",
+    "ci:test:performance": "playwright test performance",
     "ci:test:unit": "vitest run unit",
     "ci:test:components": "vitest run components",
     "ci:test:vitest": "vitest run",
