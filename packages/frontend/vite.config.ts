@@ -10,11 +10,8 @@ export default defineConfig({
   define: {
     __ONMAGNOLIASQUARE_FRONTEND_VERSION__: `"${pkg.version}"`,
   },
-  optimizeDeps: {
-    exclude: ['@portabletext/svelte', '@unpic/svelte', 'svelte-meta-tags'],
-  },
   build: {
-    sourcemap: true,
+    sourcemap: 'hidden',
     minify: true,
   },
 })
