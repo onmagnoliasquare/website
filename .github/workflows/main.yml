@@ -343,6 +343,48 @@ jobs:
           path: packages/frontend/blob-report
           retention-days: 1
 
+  # Performance results are informational. This job is left out of all-green,
+  # the only required check, so a failure never blocks a merge, and
+  # continue-on-error keeps a failure from failing the workflow run.
+  test-perf:
+    name: Performance tests
+    runs-on: ubuntu-${{vars.RUNNER_VERSION}}
+    if: ${{ needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
+    needs: [changes, build]
+    continue-on-error: true
+    env:
+      SANITY_API_VERSION: ${{ vars.SANITY_API_VERSION }}
+      SANITY_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
+      SANITY_DEVELOPER_TOKEN: ${{ secrets.SANITY_DEVELOPER_TOKEN }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
+      - name: 'Setup Node.js with Yarn'
+        uses: ./.github/actions/setup-node
+      - name: Restore build
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # ratchet:actions/cache@v6
+        with:
+          path: ./*
+          key: ${{ github.sha }}-${{ github.run_number }}
+
+      # Performance tests only run in the chromium project.
+      - name: Install playwright
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        run: yarn workspace frontend playwright install --with-deps chromium
+
+      # Not sharded, so this job builds its own HTML report instead of a blob.
+      # The performance reporter also writes the averages to the job summary.
+      - name: Run frontend performance tests
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
+        run: yarn workspace frontend ci:test:performance --reporter=list,html,./playwright/reporters/performance.ts
+
+      - name: Upload performance HTML report
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # ratchet:actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: html-report-performance-attempt-${{ github.run_attempt }}
+          path: packages/frontend/playwright-report
+          retention-days: 14
+
   merge-reports:
     name: Merge ${{ matrix.suite }} report
     if: ${{ !cancelled() && needs.build.result == 'success' && needs.changes.outputs.frontend == 'true' && github.event_name == 'pull_request' }}
