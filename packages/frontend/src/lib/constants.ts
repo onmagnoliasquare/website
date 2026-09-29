@@ -56,4 +56,6 @@ export const footerRoutes: route[] = [
 export const maxResultsPerSearch = 1000
 export const maxSearchQueryLength = 256
 
+export const searchParamKey = 'q'
+
 export type { route }

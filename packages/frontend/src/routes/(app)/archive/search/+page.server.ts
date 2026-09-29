@@ -3,7 +3,7 @@ import type { PageServerLoad, PageServerLoadEvent } from './$types'
 import { dev } from '$app/environment'
 import type { MetaTagsProps } from 'svelte-meta-tags'
 import { site } from '$lib/constants'
-import { createSiteTitle } from '$lib/helpers'
+import { createSiteTitle, sanitizeInput } from '$lib/helpers'
 import type {
   SearchMixedMatchQueryResult,
   SearchMixedMatchTotalQueryResult,
@@ -12,7 +12,7 @@ import { searchResults, searchTotal } from '$lib/remote/search.remote'
 import { resultsPerPage } from '$lib/sanity/queries'
 
 export const load: PageServerLoad = (event: PageServerLoadEvent) => {
-  const searchQuery = event.url.searchParams.get('q') ?? ''
+  const searchQuery = sanitizeInput(event.url.searchParams.get('q') ?? '')
   const searchQueryIsBlank = searchQuery === ''
   try {
     const title = 'Search results'

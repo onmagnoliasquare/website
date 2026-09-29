@@ -37,7 +37,7 @@ import Image from '$components/Image.svelte'
 import ByLine from '$components/article/ByLine.svelte'
 import DateLine from '$components/article/DateLine.svelte'
 import ArticleContent from '$components/article/ArticleContent.svelte'
-import { createAuthorString } from '$lib/helpers.ts'
+import { createAuthorString } from '$lib/helpers'
 import EmailClickable from '$components/EmailClickable.svelte'
 
 import type { SanityImageSource } from '@sanity/image-url'

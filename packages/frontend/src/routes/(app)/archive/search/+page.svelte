@@ -2,33 +2,21 @@
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 
 import { browser } from '$app/environment'
-import { beforeNavigate, goto } from '$app/navigation'
+import { beforeNavigate } from '$app/navigation'
 import P from '$components/defaults/P.svelte'
 import SearchResults from '$components/archive/search/SearchResultList.svelte'
 import type { PageProps } from './$types'
 import spinningEarth from '$lib/assets/spinning_earth.gif'
-import { maxSearchQueryLength, site } from '$lib/constants'
+import { site } from '$lib/constants'
 import Header from '$components/archive/Header.svelte'
 import Loading from '$components/general/Loading.svelte'
 import TotalCounter from '$components/general/NumberDisplay.svelte'
+import SearchBar from '$components/general/navbar/SearchBar.svelte'
 
 let { data }: PageProps = $props()
 
 let searchQuery = $derived(data.searchQuery)
 let searched = $derived(data.searchQuery)
-
-let searchSubmitted = $state(false)
-
-const submitSearch = async (e: SubmitEvent | KeyboardEvent): Promise<void> => {
-  e.preventDefault()
-  const query = searchQuery.trim()
-  if (!query) {
-    return
-  }
-  // Disable input when a search is submitted.
-  searchSubmitted = true
-  await goto(`/archive/search?q=${encodeURIComponent(query)}`, { invalidateAll: true })
-}
 
 let isSearched = $derived(browser && searched !== '')
 
@@ -59,22 +47,6 @@ $effect(() => {
   return () => (current = false)
 })
 
-// Re-enable the search input once the first page of results has settled, landed
-// or failed.
-$effect(() => {
-  const resulting = data.resultsMixed
-  let current = true
-
-  const release = (): void => {
-    if (current) searchSubmitted = false
-  }
-
-  // See: https://svelte.dev/docs/kit/remote-functions#query-Deduplication
-  void resulting.then(release, release)
-
-  return () => (current = false)
-})
-
 // If the page has been reloaded/refreshed, move the window to the top of the page.
 beforeNavigate(() => {
   // Source - https://stackoverflow.com/a/53307588
@@ -95,27 +67,9 @@ beforeNavigate(() => {
       <div class="mb-6">
         {@render titleHeader()}
       </div>
-      <label for="site-search" class="sr-only">Search</label>
-      <form class="flex w-full min-w-0 flex-col items-center gap-1 p-4" onsubmit={submitSearch}>
-        <input
-          type="text"
-          maxlength={maxSearchQueryLength}
-          id="site-search"
-          name="search"
-          class="m-2 w-full min-w-0 border-b border-dotted p-2 italic sm:m-4 sm:text-base"
-          placeholder="Search keywords..."
-          autocomplete="off"
-          spellcheck="false"
-          bind:value={searchQuery}
-          onkeypress={async e => {
-            if (e.key === 'Enter' && searchQuery.trim() !== '') await submitSearch(e)
-          }} />
-        <input
-          type="submit"
-          title="Submit search"
-          value="Search"
-          class="shrink-0 rounded-full p-1 text-sm underline sm:text-base" />
-      </form>
+      <div class="flex w-full flex-col items-center p-4">
+        <SearchBar class="border-b border-dotted text-base" id="site-search" />
+      </div>
     </div>
   </div>
 {:else}
@@ -172,35 +126,16 @@ beforeNavigate(() => {
 
 {#snippet searchBar()}
   <div class="center mx-1 max-w-6xl px-2 shadow-md shadow-white">
-    <label for="site-search" class="sr-only">Search</label>
-    <form
-      class="flex min-w-0 flex-row items-baseline gap-1 bg-white sm:gap-3"
-      onsubmit={submitSearch}>
-      <input
-        type="text"
-        maxlength={maxSearchQueryLength}
+    <div class="flex flex-row items-baseline gap-1 sm:gap-3">
+      <SearchBar
+        class="border-b border-dotted text-base sm:text-lg"
         id="site-search"
-        name="search"
-        class="min-w-0 grow border-b border-dotted border-neutral-700 p-1 py-2 pb-0 italic duration-100 transform-fill sm:pb-1 sm:text-lg"
-        placeholder="Search..."
-        autocomplete="off"
-        spellcheck="false"
-        bind:value={searchQuery}
-        disabled={searchSubmitted}
-        class:opacity-40={searchSubmitted}
-        onkeypress={async e => {
-          if (e.key === 'Enter' && searchQuery.trim() !== '') {
-            // Go to the top of the page.
-            window.scrollTo({ top: 0 })
-            await submitSearch(e)
-          }
-        }} />
-      <input type="submit" title="Submit search" value="Search" class="sr-only" />
+        bind:value={searchQuery} />
       <P class="inline text-xs sm:mr-2 sm:pr-2 sm:text-base">
         {#if !uncounted}
           <TotalCounter num={matchesNum} />
         {/if}
       </P>
-    </form>
+    </div>
   </div>
 {/snippet}

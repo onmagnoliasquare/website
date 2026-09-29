@@ -4,9 +4,9 @@
  */
 
 import type { ImageAsset } from '@sanity/types'
-import type { MetaInfo } from './sanity/types.generated'
-import type { MemberQuery } from './sanity/types'
-import type { APIError } from './types'
+import type { MetaInfo } from '../sanity/types.generated'
+import type { MemberQuery } from '../sanity/types'
+import type { APIError } from '../types'
 import { json } from '@sveltejs/kit'
 
 const dateOnlyRegex =
@@ -326,4 +326,8 @@ export const getMetaTags = (
 export function newAPIError(message: string, status: number): Response {
   const res: APIError = { error: message }
   return json(res, { status })
+}
+
+export function sanitizeInput(v: string): string {
+  return v.trim()
 }

@@ -1,6 +1,7 @@
 <script lang="ts">
 import { routes } from '$lib/constants'
-import MobileSearchBar from './MobileSearchBar.svelte'
+import SearchBar from '$components/general/navbar/SearchBar.svelte'
+
 let listOfRoutes = routes
 interface Props {
   showMenu: boolean
@@ -25,8 +26,8 @@ const { showMenu, withSearch = false }: Props = $props()
         </li>
       {/each}
       {#if withSearch}
-        <li class="ml-2 w-full pl-2 tracking-wide">
-          <MobileSearchBar />
+        <li class="w-full pl-2 tracking-wide">
+          <SearchBar class="text-xs" />
         </li>
       {/if}
     </ul>
