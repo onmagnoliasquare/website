@@ -8,6 +8,7 @@ import type { MetaInfo } from '../sanity/types.generated'
 import type { MemberQuery } from '../sanity/types'
 import type { APIError } from '../types'
 import { json } from '@sveltejs/kit'
+import { dev } from '$app/environment'
 
 const dateOnlyRegex =
   /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])))$/
@@ -330,4 +331,16 @@ export function newAPIError(message: string, status: number): Response {
 
 export function sanitizeInput(v: string): string {
   return v.trim()
+}
+
+export function startTimer(label: string) {
+  if (dev) {
+    console.time(label)
+  }
+}
+
+export function stopTimer(label: string) {
+  if (dev) {
+    console.timeEnd(label)
+  }
 }
