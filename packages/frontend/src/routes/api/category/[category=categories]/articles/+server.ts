@@ -5,6 +5,7 @@ import {
   fetchCategoryPagePaginateArticles,
 } from '$lib/sanity/repository'
 import { json, type RequestHandler } from '@sveltejs/kit'
+import { debugFetch } from '$lib/debug'
 
 export const GET: RequestHandler = async ({ url, params }) => {
   const { category } = params
@@ -21,11 +22,17 @@ export const GET: RequestHandler = async ({ url, params }) => {
 
   try {
     if (lastDate && lastId) {
-      const articles = await fetchCategoryPagePaginateArticles(category, lastDate, lastId)
+      const articles = await debugFetch(
+        () => fetchCategoryPagePaginateArticles(category, lastDate, lastId),
+        'api-fetch-category-page-paginate-articles'
+      )
       return json(articles)
     }
 
-    const articles = await fetchCategoryPageInitialArticles(category)
+    const articles = await debugFetch(
+      () => fetchCategoryPageInitialArticles(category),
+      'fetch-category-page-initial-articles'
+    )
     return json(articles)
   } catch (err) {
     if (dev) {
