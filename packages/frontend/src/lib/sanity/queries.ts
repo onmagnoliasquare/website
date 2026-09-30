@@ -58,8 +58,7 @@ const basicPostData = /* GROQ */ `
 	authors[]->{ ${essentialQueryData} },
 	tags[]->{ ${essentialQueryData} },
 	category->{ ${essentialQueryData} },
-	series->{ ${essentialQueryData} },
-	media
+	series->{ ${essentialQueryData} }
 `
 
 const mediaData = /* GROQ */ `
