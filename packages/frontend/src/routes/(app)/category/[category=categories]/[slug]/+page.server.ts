@@ -1,10 +1,10 @@
 import { createAuthorLink, createAuthorString, getMetaTags } from '$lib/helpers'
 import { site } from '$lib/constants'
 import type { MetaTagsProps } from 'svelte-meta-tags'
-import type { PageLoad, PageLoadEvent } from './$types'
+import type { PageServerLoad, PageServerLoadEvent } from './$types'
 
-export const load: PageLoad = (async (event: PageLoadEvent) => {
-  const { article, category } = await event.parent()
+export const load: PageServerLoad = (async (event: PageServerLoadEvent) => {
+  const { article } = await event.parent()
 
   const subtitle =
     article.subtitle ?? `An article by ${createAuthorString(article.authors)} at ${site.title}`
@@ -17,7 +17,7 @@ export const load: PageLoad = (async (event: PageLoadEvent) => {
     new Set<string>(article.tags?.map(v => v.name) ?? []).union(site.tags)
   )
 
-  // Create an array of links to author's profile pages.
+  // Create an array of links to each author's profile pages.
   const ogAuthorLinks = [
     ...article.authors.map(n => {
       return createAuthorLink(site.url, n.slug)
@@ -25,10 +25,11 @@ export const load: PageLoad = (async (event: PageLoadEvent) => {
   ]
 
   const pageMetaTags = Object.freeze({
-    description: description,
+    title,
+    description,
     openGraph: {
-      title: title,
-      description: description,
+      title,
+      description,
       type: 'article',
       article: {
         // Article dates in ISO-8601 format
@@ -36,12 +37,12 @@ export const load: PageLoad = (async (event: PageLoadEvent) => {
         modifiedTime: `${article.updatedDate ?? article.date}T00:00:00Z`,
         authors: ogAuthorLinks,
         tags: [...tags.values()],
-        section: category,
+        section: article.category.name,
       },
     },
     twitter: {
-      title: title,
-      description: description,
+      title,
+      description,
     },
   }) satisfies MetaTagsProps
 
@@ -50,4 +51,4 @@ export const load: PageLoad = (async (event: PageLoadEvent) => {
     title: article.title,
     pageMetaTags,
   }
-}) satisfies PageLoad
+}) satisfies PageServerLoad
