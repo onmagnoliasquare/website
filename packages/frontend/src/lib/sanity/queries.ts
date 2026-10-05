@@ -61,13 +61,19 @@ const basicPostData = /* GROQ */ `
 	series->{ ${essentialQueryData} }
 `
 
+const imageMetadata = /* GROQ */ `
+	metadata { blurHash, dimensions }
+`
+
 const mediaData = /* GROQ */ `
 	media {
 		...,
 		asset->{
-			...,
-			creditLine
-    }
+			_id,
+			url,
+			creditLine,
+			${imageMetadata}
+		}
 	}
 `
 
@@ -171,7 +177,7 @@ export const maybeArticlePageQuery = defineQuery(`
 			...,
 			_type == "image" => {
 				...,
-				...asset-> { metadata, creditLine },
+				...asset-> { ${imageMetadata}, creditLine },
 			}
 		},
 	}[0]
@@ -192,7 +198,7 @@ export const maybeArticleContentQuery = defineQuery(`
       ...,
       _type == "image" => {
         ...,
-        ...asset-> { metadata, creditLine },
+        ...asset-> { ${imageMetadata}, creditLine },
       }
     }
 	}[0]
