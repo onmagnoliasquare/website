@@ -44,7 +44,9 @@ async function expectAverageLoadTime(
 
       const start = Date.now()
 
-      await page.goto(url, { waitUntil: 'load' })
+      // Most of our stuff is SSR, so domcontentloaded is an appropriate signal.
+      // See: https://www.browserstack.com/guide/playwright-waitforloadstate
+      await page.goto(url, { waitUntil: 'domcontentloaded' })
 
       const result = Date.now() - start
       samples.push(result)
