@@ -33,7 +33,6 @@ import { CardLink, CodeOfEthics } from '$lib'
                 class="text-nyu-purple-100 hover:underline">
                 NYU Shanghai
               </a>
-              .
             </P>
           </span>
         </div>
