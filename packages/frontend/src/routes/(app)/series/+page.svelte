@@ -12,7 +12,7 @@ let series = $derived(data.series)
     <PageHeader>Series</PageHeader>
   </div>
 </div>
-<ul class="list">
+<ul class="list space-y-2">
   {#each series as s}
     <li>
       <SeriesLink title={s.name} link={`/series/${s.slug}`}>{s.description}</SeriesLink>
