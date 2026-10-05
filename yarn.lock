@@ -5893,6 +5893,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sanity/icons@npm:^5.2.3":
+  version: 5.2.3
+  resolution: "@sanity/icons@npm:5.2.3"
+  peerDependencies:
+    react: ^18 || ^19
+  checksum: 10c0/d6b212c1f9c48453b798ac9bb39251de8a315d222d7aaf159f2475e80bae49d658f962a23cd9ad9c997fd89d78cf0bcd624578c7ee4188499baa874f08d9bd8b
+  languageName: node
+  linkType: hard
+
 "@sanity/id-utils@npm:^1.0.0, @sanity/id-utils@npm:^1.1.0":
   version: 1.1.0
   resolution: "@sanity/id-utils@npm:1.1.0"
@@ -8918,7 +8927,7 @@ __metadata:
     "@sanity/cli": "npm:^8.13.0"
     "@sanity/cross-dataset-duplicator": "npm:2.1.4"
     "@sanity/eslint-config-studio": "npm:^7.0.0"
-    "@sanity/icons": "npm:^5.2.2"
+    "@sanity/icons": "npm:^5.2.3"
     "@sanity/prettier-config": "npm:3.0.0"
     "@sanity/ui": "npm:^4.2.7"
     "@sanity/vision": "npm:^6.16.0"

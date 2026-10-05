@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@sanity/cross-dataset-duplicator": "2.1.4",
-    "@sanity/icons": "^5.2.2",
+    "@sanity/icons": "^5.2.3",
     "@sanity/ui": "^4.2.7",
     "@sanity/vision": "^6.16.0",
     "@superside-oss/sanity-plugin-copy-paste": "^1.0.3",
