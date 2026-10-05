@@ -161,8 +161,10 @@ export const sitemapArticlesDataQuery = defineQuery(`
 	}
 `)
 
+const articleMatch = `_type == "article" && category->slug.current == $category && slug.current == $slug`
+
 export const maybeArticlePageQuery = defineQuery(`
-	*[_type == "article" && category->slug.current == $category && slug.current == $slug]{
+	*[${articleMatch}]{
 		${articleData},
 		metaInfo,
 		content[]{
@@ -173,6 +175,34 @@ export const maybeArticlePageQuery = defineQuery(`
 			}
 		},
 	}[0]
+`)
+
+// Query for article data, excluding content.
+export const maybeArticlePageDataQuery = defineQuery(`
+	*[${articleMatch}]{
+		${articleData},
+		metaInfo
+	}[0]
+`)
+
+// Query for the content of an article, i.e. strictly the portable text content.
+export const maybeArticleContentQuery = defineQuery(`
+	*[${articleMatch}]{
+    content[]{
+      ...,
+      _type == "image" => {
+        ...,
+        ...asset-> { metadata, creditLine },
+      }
+    }
+	}[0]
+`)
+
+// Query for the header image of an article.
+export const maybeArticleHeaderMediaQuery = defineQuery(`
+  *[${articleMatch}] {
+    ${mediaData}
+  }[0]
 `)
 
 export const maybeSingleArticleQuery = defineQuery(`

@@ -4,6 +4,9 @@ import {
   maybeAllMembersQuery,
   maybeAllSeriesQuery,
   maybeAllTagsQuery,
+  maybeArticleContentQuery,
+  maybeArticleHeaderMediaQuery,
+  maybeArticlePageDataQuery,
   maybeArticlePageQuery,
   maybeCategoryPageInitialArticlesQuery,
   maybeCategoryPagePaginateArticlesQuery,
@@ -27,6 +30,9 @@ import type {
   MaybeAllMembersQueryResult,
   MaybeAllSeriesQueryResult,
   MaybeAllTagsQueryResult,
+  MaybeArticleContentQueryResult,
+  MaybeArticleHeaderMediaQueryResult,
+  MaybeArticlePageDataQueryResult,
   MaybeArticlePageQueryResult,
   MaybeCategoryPageInitialArticlesQueryResult,
   MaybeCategoryPagePaginateArticlesQueryResult,
@@ -145,3 +151,21 @@ export const fetchSearchMixedMatchTotalQuery = async (
   query: string
 ): Promise<SearchMixedMatchTotalQueryResult> =>
   client.fetch(searchMixedMatchTotalQuery, { searchQuery: query })
+
+export const fetchArticleDataWithoutContent = async (
+  slug: string,
+  category: string
+): Promise<MaybeArticlePageDataQueryResult> =>
+  client.fetch(maybeArticlePageDataQuery, { slug, category })
+
+export const fetchArticleContent = async (
+  slug: string,
+  category: string
+): Promise<MaybeArticleContentQueryResult> =>
+  client.fetch(maybeArticleContentQuery, { slug, category })
+
+export const fetchArticleHeaderMedia = async (
+  slug: string,
+  category: string
+): Promise<MaybeArticleHeaderMediaQueryResult> =>
+  client.fetch(maybeArticleHeaderMediaQuery, { slug, category })
