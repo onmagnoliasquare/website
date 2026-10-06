@@ -220,7 +220,7 @@ export const maybeSingleArticleQuery = defineQuery(`
 
 export const relatedArticlesTypeA = defineQuery(`
   *[_type == "article" && slug.current != $slug] | score(
-    boost(author._ref in $authors, 4),
+    boost(references($authors), 4),
     boost(date match $date, 1.5),
     boost(title match $title, 1.2),
     boost(category._ref match $categoryId, 2.3),

@@ -1,0 +1,90 @@
+[
+  {
+    "_id": "fixture-recent-1",
+    "_type": "article",
+    "authors": [
+      {
+        "_id": "dae9f06a-d64f-4e12-bd74-aa14c8371ed0",
+        "name": "On Magnolia Square Staff",
+        "slug": "on-magnolia-square-staff"
+      }
+    ],
+    "category": {
+      "_id": "4edba030-a87c-4b27-b1e5-0250cff2e565",
+      "name": "News",
+      "slug": "news"
+    },
+    "date": "2026-02-25",
+    "media": null,
+    "series": null,
+    "slug": "fixture-recent-article-1",
+    "subtitle": null,
+    "tags": null,
+    "title": "Fixture Recent Article 1",
+    "updatedDate": null
+  },
+  {
+    "_id": "fixture-recent-2",
+    "_type": "article",
+    "authors": [
+      {
+        "_id": "06791563-39cc-455d-863c-9cd406ecca51",
+        "name": "Susannah Hurlbut-Noonan",
+        "slug": "susannah-hurlbut-noonan"
+      }
+    ],
+    "category": {
+      "_id": "4edba030-a87c-4b27-b1e5-0250cff2e565",
+      "name": "News",
+      "slug": "news"
+    },
+    "date": "2025-11-18",
+    "media": null,
+    "series": null,
+    "slug": "fixture-recent-article-2",
+    "subtitle": null,
+    "tags": [
+      {
+        "_id": "oca-dfcb3ff4-10cb-404f-aa30-91d64142bb0a",
+        "name": "fashion",
+        "slug": "fashion"
+      },
+      {
+        "_id": "oca-68a81e9f-98a5-4b62-8caf-a7b5cef84e9f",
+        "name": "nyu shanghai",
+        "slug": "nyu-shanghai"
+      },
+      {
+        "_id": "oca-ec628a10-8bfe-4d16-80a4-d826d5238a42",
+        "name": "culture",
+        "slug": "culture"
+      }
+    ],
+    "title": "Fixture Recent Article 2",
+    "updatedDate": null
+  },
+  {
+    "_id": "fixture-recent-3",
+    "_type": "article",
+    "authors": [
+      {
+        "_id": "2a3df899-03b3-4158-8f5d-6170e7745a76",
+        "name": "Nicole Chen",
+        "slug": "nicole-chen"
+      }
+    ],
+    "category": {
+      "_id": "4edba030-a87c-4b27-b1e5-0250cff2e565",
+      "name": "News",
+      "slug": "news"
+    },
+    "date": "2025-11-14",
+    "media": null,
+    "series": null,
+    "slug": "fixture-recent-article-3",
+    "subtitle": null,
+    "tags": null,
+    "title": "Fixture Recent Article 3",
+    "updatedDate": null
+  }
+]

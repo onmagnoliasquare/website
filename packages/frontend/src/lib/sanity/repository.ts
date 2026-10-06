@@ -67,7 +67,6 @@ export const fetchRelatedArticles = async (
   relatedBy: {
     title: string
     date: string
-    content: string
     categoryId: string
     authors: string[]
   }

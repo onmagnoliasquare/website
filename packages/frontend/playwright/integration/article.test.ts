@@ -1,4 +1,6 @@
 import { site } from '$lib/constants'
+import type { ArticleQueryResult } from '$lib/sanity/types'
+import type { RelatedArticlesTypeAResult } from '$lib/sanity/types.generated'
 import { expect, test } from '@playwright/test'
 import { article404, v0_5_x_Article, v0_6_x_Article } from '../parameters.ts'
 
@@ -386,4 +388,19 @@ test('Route to 404 page on non-existing article', async ({ page }) => {
 
   // 404 error present.
   await expect(page.getByText('404', { exact: true })).toBeVisible()
+})
+
+test('Related articles rank shared authors first', async ({ request }) => {
+  const query = new URLSearchParams({
+    category: v0_6_x_Article.article!.category.slug,
+    slug: v0_6_x_Article.article!.slug,
+  })
+  const article: ArticleQueryResult = await (await request.get(`/api/article?${query}`)).json()
+  const related: RelatedArticlesTypeAResult = await (
+    await request.get(`/api/article/related?${query}`)
+  ).json()
+
+  const authorIds = article.authors.map(a => a._id)
+  const sharesAuthor = related[0].authors.some(a => authorIds.includes(a._id))
+  expect(sharesAuthor, `top result "${related[0].title}" shares no author`).toBe(true)
 })
