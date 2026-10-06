@@ -31,12 +31,12 @@ let articles = $derived(data.articles)
               media={member.portrait}
               width={250}
               height={250}
-              fit={'crop'}
+              fit="crop"
               quality={80}
               loading="eager"
               blurHash={member.portrait.asset.metadata?.blurHash}
               alt={`${member.name}'s portrait image`}
-              class={`center mb-4 max-w-2xl md:h-full md:w-full`} />
+              class="center mb-4 max-w-2xl md:h-full md:w-full" />
           {/if}
         </div>
       {/if}
@@ -135,7 +135,7 @@ let articles = $derived(data.articles)
       <section>
         <h1 class="mb-2 pl-2 font-display text-2xl">Works</h1>
         <ol class="list-none divide-y border-t border-dotted sm:p-1">
-          {#each articles as article}
+          {#each articles as article (article._id)}
             <!-- #key is a fix for https://github.com/onmagnoliasquare/website/issues/96  -->
             {#key article}
               {#if article.category}

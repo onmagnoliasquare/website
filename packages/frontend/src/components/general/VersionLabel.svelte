@@ -19,7 +19,7 @@ information.
 <div id="site-version" class="font-mono text-sm">
   <!-- Order matters here. -->
   {#if staging}
-    <a href={`https://github.com/onmagnoliasquare/website/tree/dev`} target="_blank">
+    <a href="https://github.com/onmagnoliasquare/website/tree/dev" target="_blank">
       <span>staging@{sha}</span>
     </a>
   {:else if production}
@@ -27,7 +27,7 @@ information.
       <span>v{semver}</span>
     </a>
   {:else if development}
-    <a href={`https://github.com/onmagnoliasquare/website`} target="_blank">dev@HEAD</a>
+    <a href="https://github.com/onmagnoliasquare/website" target="_blank">dev@HEAD</a>
   {:else}
     Invalid environment
   {/if}

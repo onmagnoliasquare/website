@@ -31,7 +31,10 @@ let { data }: PageProps = $props()
 let headerMedia = $derived(data.article.media)
 let headerMediaCreditLine = $derived(data.article.media?.asset?.creditLine)
 let headerMediaAlt = $derived(data.article.media?.alt)
-let tags = $derived(data.article.tags)
+// The Studio lets a tag be added twice; keep the first so each renders once and keys stay unique.
+let tags = $derived(
+  data.article.tags?.filter((tag, i, all) => all.findIndex(t => t._id === tag._id) === i)
+)
 let title = $derived(data.title)
 let subtitle = $derived(data.article.subtitle)
 let authors = $derived(data.article.authors)
@@ -176,7 +179,7 @@ const getRelatedArticles = async (
           <a href="/archive">Tags</a>
         </h3>
         <ul class="list justify-left flex flex-wrap items-center space-x-1">
-          {#each tags as tag}
+          {#each tags as tag (tag._id)}
             <li class="inline pr-1">
               <a href="/archive/tags/{tag.slug}">
                 <Tag tagName={tag.name} />
@@ -210,14 +213,13 @@ const getRelatedArticles = async (
           {:then ra}
             {@const relatedArticles = ra.filter(a => a.title !== data.article.title)}
             <ol class="p-2">
-              {#each relatedArticles as r}
+              {#each relatedArticles as r (r._id)}
                 <li class="p-2 text-sm sm:p-2 sm:pb-6 sm:text-base">
                   <ArticleBoxC article={r} />
                 </li>
               {/each}
             </ol>
-          {:catch error}
-            {@debug error}
+          {:catch}
             <P class="m-4 pl-4">Uh oh... something got messed up :(</P>
             <P class="m-4 pl-4">
               <a
@@ -238,7 +240,7 @@ const getRelatedArticles = async (
             </div>
           {:then recent}
             <ol class="p-2">
-              {#each recent as r}
+              {#each recent as r (r._id)}
                 <li class="border-t border-dotted p-2 py-6">
                   <HoverDim>
                     <a data-sveltekit-reload href="/category/{r.category.slug}/{r.slug}">
