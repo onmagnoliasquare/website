@@ -11,25 +11,58 @@ test.describe.configure({ mode: 'default' })
 
 test.use({ screenshot: 'off', trace: 'off' })
 
-test(`home page loads in under ${loadTimeParameter}ms on average`, async ({ browser }) => {
-  await expectAverageLoadTime(browser, '/', arithmetic)
-})
+test(
+  `home page loads in under ${loadTimeParameter}ms on average (domcontent)`,
+  { tag: ['@perforamnce', '@integration'] },
+  async ({ browser }) => {
+    await expectAverageLoadTime(browser, '/', 'domcontentloaded', arithmetic)
+  }
+)
 
-test(`article page v0.5.x loads in under ${loadTimeParameter}ms on average`, async ({
-  browser,
-}) => {
-  await expectAverageLoadTime(browser, v0_5_x_Article.testUrl, arithmetic)
-})
+test(
+  `home page loads in under ${loadTimeParameter}ms on average (load)`,
+  { tag: ['@perforamnce', '@integration'] },
+  async ({ browser }) => {
+    await expectAverageLoadTime(browser, '/', 'load', arithmetic)
+  }
+)
 
-test(`article page v0.6.x loads in under ${loadTimeParameter}ms on average`, async ({
-  browser,
-}) => {
-  await expectAverageLoadTime(browser, v0_6_x_Article.testUrl, arithmetic)
-})
+test(
+  `article page v0.5.x loads in under ${loadTimeParameter}ms on average (domcontent)`,
+  { tag: ['@performance', '@integration'] },
+  async ({ browser }) => {
+    await expectAverageLoadTime(browser, v0_5_x_Article.testUrl, 'domcontentloaded', arithmetic)
+  }
+)
+
+test(
+  `article page v0.5.x loads in under ${loadTimeParameter}ms on average (load)`,
+  { tag: ['@performance', '@integration'] },
+  async ({ browser }) => {
+    await expectAverageLoadTime(browser, v0_5_x_Article.testUrl, 'load', arithmetic)
+  }
+)
+
+test(
+  `article page v0.6.x loads in under ${loadTimeParameter}ms on average (domcontent)`,
+  { tag: ['@performance', '@integration'] },
+  async ({ browser }) => {
+    await expectAverageLoadTime(browser, v0_6_x_Article.testUrl, 'domcontentloaded', arithmetic)
+  }
+)
+
+test(
+  `article page v0.6.x loads in under ${loadTimeParameter}ms on average (load)`,
+  { tag: ['@performance', '@integration'] },
+  async ({ browser }) => {
+    await expectAverageLoadTime(browser, v0_6_x_Article.testUrl, 'load', arithmetic)
+  }
+)
 
 async function expectAverageLoadTime(
   browser: Browser,
   url: string,
+  waitUntil: 'domcontentloaded' | 'load',
   mean: (data: number[]) => number
 ) {
   // Catch hung pages.
@@ -44,7 +77,8 @@ async function expectAverageLoadTime(
 
       const start = Date.now()
 
-      await page.goto(url, { waitUntil: 'load' })
+      // See: https://www.browserstack.com/guide/playwright-waitforloadstate
+      await page.goto(url, { waitUntil })
 
       const result = Date.now() - start
       samples.push(result)
@@ -54,8 +88,12 @@ async function expectAverageLoadTime(
   }
 
   const average = mean(samples)
-  test.info().annotations.push({ type: 'average-load-time', description: `${average}ms` })
-  expect(average, `average load time over ${sampleSize} samples`).toBeLessThan(loadTimeParameter)
+  test
+    .info()
+    .annotations.push({ type: `average-load-time-${waitUntil}`, description: `${average}ms` })
+  expect(average, `${waitUntil} - average load time over ${sampleSize} samples`).toBeLessThan(
+    loadTimeParameter
+  )
 }
 
 function arithmetic(data: number[]): number {

@@ -2,6 +2,7 @@ import { dev } from '$app/environment'
 import { newAPIError } from '$lib/helpers'
 import { fetchArticlePage } from '$lib/sanity/repository'
 import { json, type RequestHandler } from '@sveltejs/kit'
+import { debugFetch } from '$lib/debug'
 
 export const GET: RequestHandler = async ({ url }) => {
   const category = url.searchParams.get('category')
@@ -15,10 +16,10 @@ export const GET: RequestHandler = async ({ url }) => {
   } else if (category && slug) {
     // Request for an article page.
     try {
-      const article = await fetchArticlePage(slug, category)
-      if (dev) {
-        console.trace(article)
-      }
+      const article = await debugFetch(
+        () => fetchArticlePage(slug, category),
+        'api-fetch-article-page'
+      )
       if (!article) {
         return newAPIError('article not found', 404)
       }

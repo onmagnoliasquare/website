@@ -58,17 +58,22 @@ const basicPostData = /* GROQ */ `
 	authors[]->{ ${essentialQueryData} },
 	tags[]->{ ${essentialQueryData} },
 	category->{ ${essentialQueryData} },
-	series->{ ${essentialQueryData} },
-	media
+	series->{ ${essentialQueryData} }
+`
+
+const imageMetadata = /* GROQ */ `
+	metadata { blurHash, dimensions }
 `
 
 const mediaData = /* GROQ */ `
 	media {
 		...,
 		asset->{
-			...,
-			creditLine
-    }
+			_id,
+			url,
+			creditLine,
+			${imageMetadata}
+		}
 	}
 `
 
@@ -162,18 +167,48 @@ export const sitemapArticlesDataQuery = defineQuery(`
 	}
 `)
 
+const articleMatch = `_type == "article" && category->slug.current == $category && slug.current == $slug`
+
 export const maybeArticlePageQuery = defineQuery(`
-	*[_type == "article" && category->slug.current == $category && slug.current == $slug]{
+	*[${articleMatch}]{
 		${articleData},
 		metaInfo,
 		content[]{
 			...,
 			_type == "image" => {
 				...,
-				...asset-> { metadata, creditLine },
+				...asset-> { ${imageMetadata}, creditLine },
 			}
 		},
 	}[0]
+`)
+
+// Query for article data, excluding content.
+export const maybeArticlePageDataQuery = defineQuery(`
+	*[${articleMatch}]{
+		${articleData},
+		metaInfo
+	}[0]
+`)
+
+// Query for the content of an article, i.e. strictly the portable text content.
+export const maybeArticleContentQuery = defineQuery(`
+	*[${articleMatch}]{
+    content[]{
+      ...,
+      _type == "image" => {
+        ...,
+        ...asset-> { ${imageMetadata}, creditLine },
+      }
+    }
+	}[0]
+`)
+
+// Query for the header image of an article.
+export const maybeArticleHeaderMediaQuery = defineQuery(`
+  *[${articleMatch}] {
+    ${mediaData}
+  }[0]
 `)
 
 export const maybeSingleArticleQuery = defineQuery(`
@@ -185,7 +220,7 @@ export const maybeSingleArticleQuery = defineQuery(`
 
 export const relatedArticlesTypeA = defineQuery(`
   *[_type == "article" && slug.current != $slug] | score(
-    boost(author._ref in $authors, 4),
+    boost(references($authors), 4),
     boost(date match $date, 1.5),
     boost(title match $title, 1.2),
     boost(category._ref match $categoryId, 2.3),

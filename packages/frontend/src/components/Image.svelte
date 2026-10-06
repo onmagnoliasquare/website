@@ -29,7 +29,7 @@ interface Props {
   aspectRatio?: number
   priority?: boolean
   loading?: 'lazy' | 'eager'
-  blurHash?: string
+  blurHash?: string | null
 }
 
 let {

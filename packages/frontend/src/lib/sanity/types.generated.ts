@@ -745,7 +745,7 @@ export type MaybeCategoryPageQueryResult = {
 
 // Source: src/lib/sanity/queries.ts
 // Variable: maybeCategoryPagePaginateArticlesQuery
-// Query: *[_type == "article" && category->slug.current == $slug && (date < $lastDate || (date == $lastDate && _id > $lastId))] | order(date desc) [0..19] {				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },	media,		media {		...,		asset->{			...,			creditLine    }	}	}
+// Query: *[_type == "article" && category->slug.current == $slug && (date < $lastDate || (date == $lastDate && _id > $lastId))] | order(date desc) [0..19] {				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },		media {		...,		asset->{			_id,			url,			creditLine,				metadata { blurHash, dimensions }		}	}	}
 export type MaybeCategoryPagePaginateArticlesQueryResult = Array<{
   _id: string
   _type: 'article'
@@ -777,26 +777,12 @@ export type MaybeCategoryPagePaginateArticlesQueryResult = Array<{
   media: {
     asset: {
       _id: string
-      _type: 'sanity.imageAsset'
-      _createdAt: string
-      _updatedAt: string
-      _rev: string
-      originalFilename?: string
-      label?: string
-      title?: string
-      description?: string
-      altText?: string
-      sha1hash: string
-      extension: string
-      mimeType: string
-      size: number
-      assetId: string
-      uploadId?: string
-      path: string
       url: string
-      metadata?: SanityImageMetadata
-      source?: SanityAssetSourceData
       creditLine: null
+      metadata: {
+        blurHash: string | null
+        dimensions: SanityImageDimensions | null
+      } | null
     } | null
     media?: unknown
     hotspot?: SanityImageHotspot
@@ -808,7 +794,7 @@ export type MaybeCategoryPagePaginateArticlesQueryResult = Array<{
 
 // Source: src/lib/sanity/queries.ts
 // Variable: maybeCategoryPageInitialArticlesQuery
-// Query: *[_type == "article" && category->slug.current == $slug] | order(date desc) [0..19] {				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },	media,		media {		...,		asset->{			...,			creditLine    }	}	}
+// Query: *[_type == "article" && category->slug.current == $slug] | order(date desc) [0..19] {				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },		media {		...,		asset->{			_id,			url,			creditLine,				metadata { blurHash, dimensions }		}	}	}
 export type MaybeCategoryPageInitialArticlesQueryResult = Array<{
   _id: string
   _type: 'article'
@@ -840,26 +826,12 @@ export type MaybeCategoryPageInitialArticlesQueryResult = Array<{
   media: {
     asset: {
       _id: string
-      _type: 'sanity.imageAsset'
-      _createdAt: string
-      _updatedAt: string
-      _rev: string
-      originalFilename?: string
-      label?: string
-      title?: string
-      description?: string
-      altText?: string
-      sha1hash: string
-      extension: string
-      mimeType: string
-      size: number
-      assetId: string
-      uploadId?: string
-      path: string
       url: string
-      metadata?: SanityImageMetadata
-      source?: SanityAssetSourceData
       creditLine: null
+      metadata: {
+        blurHash: string | null
+        dimensions: SanityImageDimensions | null
+      } | null
     } | null
     media?: unknown
     hotspot?: SanityImageHotspot
@@ -883,7 +855,7 @@ export type MaybeSeriesPageQueryResult = {
 
 // Source: src/lib/sanity/queries.ts
 // Variable: maybeSeriesPageInitialArticlesQuery
-// Query: *[_type == "article" && series->slug.current == $slug] | order(date desc) [0..19] {				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },	media,		media {		...,		asset->{			...,			creditLine    }	}	}
+// Query: *[_type == "article" && series->slug.current == $slug] | order(date desc) [0..19] {				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },		media {		...,		asset->{			_id,			url,			creditLine,				metadata { blurHash, dimensions }		}	}	}
 export type MaybeSeriesPageInitialArticlesQueryResult = Array<{
   _id: string
   _type: 'article'
@@ -915,26 +887,12 @@ export type MaybeSeriesPageInitialArticlesQueryResult = Array<{
   media: {
     asset: {
       _id: string
-      _type: 'sanity.imageAsset'
-      _createdAt: string
-      _updatedAt: string
-      _rev: string
-      originalFilename?: string
-      label?: string
-      title?: string
-      description?: string
-      altText?: string
-      sha1hash: string
-      extension: string
-      mimeType: string
-      size: number
-      assetId: string
-      uploadId?: string
-      path: string
       url: string
-      metadata?: SanityImageMetadata
-      source?: SanityAssetSourceData
       creditLine: null
+      metadata: {
+        blurHash: string | null
+        dimensions: SanityImageDimensions | null
+      } | null
     } | null
     media?: unknown
     hotspot?: SanityImageHotspot
@@ -976,7 +934,7 @@ export type MaybeTagPageQueryResult = {
 
 // Source: src/lib/sanity/queries.ts
 // Variable: maybeTagPageInitialArticlesQuery
-// Query: *[_type == "article" && $slug in tags[]->slug.current] | order(date desc) [0..19] {				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },	media,		media {		...,		asset->{			...,			creditLine    }	}	}
+// Query: *[_type == "article" && $slug in tags[]->slug.current] | order(date desc) [0..19] {				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },		media {		...,		asset->{			_id,			url,			creditLine,				metadata { blurHash, dimensions }		}	}	}
 export type MaybeTagPageInitialArticlesQueryResult = Array<{
   _id: string
   _type: 'article'
@@ -1008,26 +966,12 @@ export type MaybeTagPageInitialArticlesQueryResult = Array<{
   media: {
     asset: {
       _id: string
-      _type: 'sanity.imageAsset'
-      _createdAt: string
-      _updatedAt: string
-      _rev: string
-      originalFilename?: string
-      label?: string
-      title?: string
-      description?: string
-      altText?: string
-      sha1hash: string
-      extension: string
-      mimeType: string
-      size: number
-      assetId: string
-      uploadId?: string
-      path: string
       url: string
-      metadata?: SanityImageMetadata
-      source?: SanityAssetSourceData
       creditLine: null
+      metadata: {
+        blurHash: string | null
+        dimensions: SanityImageDimensions | null
+      } | null
     } | null
     media?: unknown
     hotspot?: SanityImageHotspot
@@ -1039,7 +983,7 @@ export type MaybeTagPageInitialArticlesQueryResult = Array<{
 
 // Source: src/lib/sanity/queries.ts
 // Variable: maybeSingleMemberArticlesQuery
-// Query: *[_type == "article" && references(*[_type == "member" && slug.current == $slug]._id)] | order(date desc) {				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },	media,		media {		...,		asset->{			...,			creditLine    }	}	}
+// Query: *[_type == "article" && references(*[_type == "member" && slug.current == $slug]._id)] | order(date desc) {				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },		media {		...,		asset->{			_id,			url,			creditLine,				metadata { blurHash, dimensions }		}	}	}
 export type MaybeSingleMemberArticlesQueryResult = Array<{
   _id: string
   _type: 'article'
@@ -1071,26 +1015,12 @@ export type MaybeSingleMemberArticlesQueryResult = Array<{
   media: {
     asset: {
       _id: string
-      _type: 'sanity.imageAsset'
-      _createdAt: string
-      _updatedAt: string
-      _rev: string
-      originalFilename?: string
-      label?: string
-      title?: string
-      description?: string
-      altText?: string
-      sha1hash: string
-      extension: string
-      mimeType: string
-      size: number
-      assetId: string
-      uploadId?: string
-      path: string
       url: string
-      metadata?: SanityImageMetadata
-      source?: SanityAssetSourceData
       creditLine: null
+      metadata: {
+        blurHash: string | null
+        dimensions: SanityImageDimensions | null
+      } | null
     } | null
     media?: unknown
     hotspot?: SanityImageHotspot
@@ -1102,7 +1032,7 @@ export type MaybeSingleMemberArticlesQueryResult = Array<{
 
 // Source: src/lib/sanity/queries.ts
 // Variable: homepageArticleQuery
-// Query: *[_type == "article" && category.slug.current != "multimedia"] | order(date desc) [0..19] {				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },	media,		media {		...,		asset->{			...,			creditLine    }	}	}
+// Query: *[_type == "article" && category.slug.current != "multimedia"] | order(date desc) [0..19] {				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },		media {		...,		asset->{			_id,			url,			creditLine,				metadata { blurHash, dimensions }		}	}	}
 export type HomepageArticleQueryResult = Array<{
   _id: string
   _type: 'article'
@@ -1134,26 +1064,12 @@ export type HomepageArticleQueryResult = Array<{
   media: {
     asset: {
       _id: string
-      _type: 'sanity.imageAsset'
-      _createdAt: string
-      _updatedAt: string
-      _rev: string
-      originalFilename?: string
-      label?: string
-      title?: string
-      description?: string
-      altText?: string
-      sha1hash: string
-      extension: string
-      mimeType: string
-      size: number
-      assetId: string
-      uploadId?: string
-      path: string
       url: string
-      metadata?: SanityImageMetadata
-      source?: SanityAssetSourceData
       creditLine: null
+      metadata: {
+        blurHash: string | null
+        dimensions: SanityImageDimensions | null
+      } | null
     } | null
     media?: unknown
     hotspot?: SanityImageHotspot
@@ -1174,7 +1090,7 @@ export type SitemapArticlesDataQueryResult = Array<{
 
 // Source: src/lib/sanity/queries.ts
 // Variable: maybeArticlePageQuery
-// Query: *[_type == "article" && category->slug.current == $category && slug.current == $slug]{				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },	media,		media {		...,		asset->{			...,			creditLine    }	},		metaInfo,		content[]{			...,			_type == "image" => {				...,				...asset-> { metadata, creditLine },			}		},	}[0]
+// Query: *[_type == "article" && category->slug.current == $category && slug.current == $slug]{				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },		media {		...,		asset->{			_id,			url,			creditLine,				metadata { blurHash, dimensions }		}	},		metaInfo,		content[]{			...,			_type == "image" => {				...,				...asset-> { 	metadata { blurHash, dimensions }, creditLine },			}		},	}[0]
 export type MaybeArticlePageQueryResult = {
   _id: string
   _type: 'article'
@@ -1206,26 +1122,12 @@ export type MaybeArticlePageQueryResult = {
   media: {
     asset: {
       _id: string
-      _type: 'sanity.imageAsset'
-      _createdAt: string
-      _updatedAt: string
-      _rev: string
-      originalFilename?: string
-      label?: string
-      title?: string
-      description?: string
-      altText?: string
-      sha1hash: string
-      extension: string
-      mimeType: string
-      size: number
-      assetId: string
-      uploadId?: string
-      path: string
       url: string
-      metadata?: SanityImageMetadata
-      source?: SanityAssetSourceData
       creditLine: null
+      metadata: {
+        blurHash: string | null
+        dimensions: SanityImageDimensions | null
+      } | null
     } | null
     media?: unknown
     hotspot?: SanityImageHotspot
@@ -1268,7 +1170,10 @@ export type MaybeArticlePageQueryResult = {
         alt: RequiredFormattedString
         _type: 'image'
         _key: string
-        metadata: SanityImageMetadata | null
+        metadata: {
+          blurHash: string | null
+          dimensions: SanityImageDimensions | null
+        } | null
         creditLine: null
       }
     | {
@@ -1286,8 +1191,138 @@ export type MaybeArticlePageQueryResult = {
 } | null
 
 // Source: src/lib/sanity/queries.ts
+// Variable: maybeArticlePageDataQuery
+// Query: *[_type == "article" && category->slug.current == $category && slug.current == $slug]{				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },		media {		...,		asset->{			_id,			url,			creditLine,				metadata { blurHash, dimensions }		}	},		metaInfo	}[0]
+export type MaybeArticlePageDataQueryResult = {
+  _id: string
+  _type: 'article'
+  title: RequiredFormattedString
+  slug: string
+  subtitle: FormattedText | null
+  date: string
+  updatedDate: string | null
+  authors: Array<{
+    _id: string
+    name: RequiredFormattedString
+    slug: string
+  }>
+  tags: Array<{
+    _id: string
+    name: RequiredFormattedString
+    slug: string
+  }> | null
+  category: {
+    _id: string
+    name: RequiredFormattedString
+    slug: string
+  }
+  series: {
+    _id: string
+    name: RequiredFormattedString
+    slug: string
+  } | null
+  media: {
+    asset: {
+      _id: string
+      url: string
+      creditLine: null
+      metadata: {
+        blurHash: string | null
+        dimensions: SanityImageDimensions | null
+      } | null
+    } | null
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: RequiredFormattedString
+    _type: 'image'
+  } | null
+  metaInfo: MetaInfo | null
+} | null
+
+// Source: src/lib/sanity/queries.ts
+// Variable: maybeArticleContentQuery
+// Query: *[_type == "article" && category->slug.current == $category && slug.current == $slug]{    content[]{      ...,      _type == "image" => {        ...,        ...asset-> { 	metadata { blurHash, dimensions }, creditLine },      }    }	}[0]
+export type MaybeArticleContentQueryResult = {
+  content: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?: 'blockComment' | 'blockquote' | 'h2' | 'h3' | 'h4' | 'normal'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<{
+          href?: string
+          _type: 'link'
+          _key: string
+        }>
+        level?: number
+        _type: 'block'
+        _key: string
+      }
+    | {
+        _key: string
+        _type: 'embeddedLink'
+        contentUrl: string
+      }
+    | {
+        asset?: SanityImageAssetReference
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        title?: FormattedString
+        description?: FormattedText
+        alt: RequiredFormattedString
+        _type: 'image'
+        _key: string
+        metadata: {
+          blurHash: string | null
+          dimensions: SanityImageDimensions | null
+        } | null
+        creditLine: null
+      }
+    | {
+        asset?: SanityImageAssetReference
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        title?: FormattedString
+        description?: FormattedText
+        alt: RequiredFormattedString
+        _type: 'image'
+        _key: string
+      }
+  >
+} | null
+
+// Source: src/lib/sanity/queries.ts
+// Variable: maybeArticleHeaderMediaQuery
+// Query: *[_type == "article" && category->slug.current == $category && slug.current == $slug] {    	media {		...,		asset->{			_id,			url,			creditLine,				metadata { blurHash, dimensions }		}	}  }[0]
+export type MaybeArticleHeaderMediaQueryResult = {
+  media: {
+    asset: {
+      _id: string
+      url: string
+      creditLine: null
+      metadata: {
+        blurHash: string | null
+        dimensions: SanityImageDimensions | null
+      } | null
+    } | null
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: RequiredFormattedString
+    _type: 'image'
+  } | null
+} | null
+
+// Source: src/lib/sanity/queries.ts
 // Variable: maybeSingleArticleQuery
-// Query: *[_type == "article" && category->slug.current == $category && slug.current == $slug]{				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },	media,		media {		...,		asset->{			...,			creditLine    }	},		metaInfo	}[0]
+// Query: *[_type == "article" && category->slug.current == $category && slug.current == $slug]{				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },		media {		...,		asset->{			_id,			url,			creditLine,				metadata { blurHash, dimensions }		}	},		metaInfo	}[0]
 export type MaybeSingleArticleQueryResult = {
   _id: string
   _type: 'article'
@@ -1319,26 +1354,12 @@ export type MaybeSingleArticleQueryResult = {
   media: {
     asset: {
       _id: string
-      _type: 'sanity.imageAsset'
-      _createdAt: string
-      _updatedAt: string
-      _rev: string
-      originalFilename?: string
-      label?: string
-      title?: string
-      description?: string
-      altText?: string
-      sha1hash: string
-      extension: string
-      mimeType: string
-      size: number
-      assetId: string
-      uploadId?: string
-      path: string
       url: string
-      metadata?: SanityImageMetadata
-      source?: SanityAssetSourceData
       creditLine: null
+      metadata: {
+        blurHash: string | null
+        dimensions: SanityImageDimensions | null
+      } | null
     } | null
     media?: unknown
     hotspot?: SanityImageHotspot
@@ -1351,7 +1372,7 @@ export type MaybeSingleArticleQueryResult = {
 
 // Source: src/lib/sanity/queries.ts
 // Variable: relatedArticlesTypeA
-// Query: *[_type == "article" && slug.current != $slug] | score(    boost(author._ref in $authors, 4),    boost(date match $date, 1.5),    boost(title match $title, 1.2),    boost(category._ref match $categoryId, 2.3),    // boost(content[].children[].text match $content, 4),  ) | order(_score desc) [0..8] {    _score,				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },	media,		media {		...,		asset->{			...,			creditLine    }	}  } //[ _score > 0 ]
+// Query: *[_type == "article" && slug.current != $slug] | score(    boost(references($authors), 4),    boost(date match $date, 1.5),    boost(title match $title, 1.2),    boost(category._ref match $categoryId, 2.3),    // boost(content[].children[].text match $content, 4),  ) | order(_score desc) [0..8] {    _score,				_id,	_type,		title,	"slug": slug.current,	subtitle,	date,	updatedDate,	authors[]->{ 	_id,	name,	"slug": slug.current },	tags[]->{ 	_id,	name,	"slug": slug.current },	category->{ 	_id,	name,	"slug": slug.current },	series->{ 	_id,	name,	"slug": slug.current },		media {		...,		asset->{			_id,			url,			creditLine,				metadata { blurHash, dimensions }		}	}  } //[ _score > 0 ]
 export type RelatedArticlesTypeAResult = Array<{
   _score: null
   _id: string
@@ -1384,26 +1405,12 @@ export type RelatedArticlesTypeAResult = Array<{
   media: {
     asset: {
       _id: string
-      _type: 'sanity.imageAsset'
-      _createdAt: string
-      _updatedAt: string
-      _rev: string
-      originalFilename?: string
-      label?: string
-      title?: string
-      description?: string
-      altText?: string
-      sha1hash: string
-      extension: string
-      mimeType: string
-      size: number
-      assetId: string
-      uploadId?: string
-      path: string
       url: string
-      metadata?: SanityImageMetadata
-      source?: SanityAssetSourceData
       creditLine: null
+      metadata: {
+        blurHash: string | null
+        dimensions: SanityImageDimensions | null
+      } | null
     } | null
     media?: unknown
     hotspot?: SanityImageHotspot
@@ -1487,21 +1494,24 @@ declare global {
     '\n\t*[_type == "member" && _id == $id] {\n\t\t\n\t_id,\n\tname,\n\t"slug": slug.current\n\n\t}[0]\n': MaybeMemberQueryResult
     '\n\t*[_type == "member" && slug.current == $slug] {\n\t\t\n\t_id,\n\tname,\n\t"slug": slug.current\n,\n\t\t\n\tyear,\n\tbio,\n\thandles,\n\tfrom,\n\tportrait { ..., asset-> },\n\tcommittee->{ name }\n,\n\t\tmetaInfo\n\t}[0]\n': MaybeMemberPageQueryResult
     '\n\t*[_type == "category" && slug.current == $slug] {\n\t\t\n\t_id,\n\tname,\n\t"slug": slug.current\n,\n\t\tdescription,\n\t\tuseCustomCss,\n\t\tmetaInfo\n\t}[0]\n': MaybeCategoryPageQueryResult
-    '\n\t*[_type == "article" && category->slug.current == $slug && (date < $lastDate || (date == $lastDate && _id > $lastId))] | order(date desc) [0..19] {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n\n\t}\n': MaybeCategoryPagePaginateArticlesQueryResult
-    '\n\t*[_type == "article" && category->slug.current == $slug] | order(date desc) [0..19] {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n\n\t}\n': MaybeCategoryPageInitialArticlesQueryResult
+    '\n\t*[_type == "article" && category->slug.current == $slug && (date < $lastDate || (date == $lastDate && _id > $lastId))] | order(date desc) [0..19] {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n }\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t_id,\n\t\t\turl,\n\t\t\tcreditLine,\n\t\t\t\n\tmetadata { blurHash, dimensions }\n\n\t\t}\n\t}\n\n\n\t}\n': MaybeCategoryPagePaginateArticlesQueryResult
+    '\n\t*[_type == "article" && category->slug.current == $slug] | order(date desc) [0..19] {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n }\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t_id,\n\t\t\turl,\n\t\t\tcreditLine,\n\t\t\t\n\tmetadata { blurHash, dimensions }\n\n\t\t}\n\t}\n\n\n\t}\n': MaybeCategoryPageInitialArticlesQueryResult
     '\n\t*[_type == "series" && slug.current == $slug] {\n\t\t\n\t_id,\n\tname,\n\t"slug": slug.current\n,\n\t\tdescription,\n\t\tuseCustomCss,\n\t\tmetaInfo\n\t}[0]\n': MaybeSeriesPageQueryResult
-    '\n\t*[_type == "article" && series->slug.current == $slug] | order(date desc) [0..19] {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n\n\t}\n': MaybeSeriesPageInitialArticlesQueryResult
+    '\n\t*[_type == "article" && series->slug.current == $slug] | order(date desc) [0..19] {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n }\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t_id,\n\t\t\turl,\n\t\t\tcreditLine,\n\t\t\t\n\tmetadata { blurHash, dimensions }\n\n\t\t}\n\t}\n\n\n\t}\n': MaybeSeriesPageInitialArticlesQueryResult
     '\n\t*[_type == "series" && count(*[_type == "article" && references(^._id)]) >= 1] | order(lower(name) asc) {\n\t\t\n\t_id,\n\tname,\n\t"slug": slug.current\n,\n\t\tdescription\n\t}\n': MaybeAllSeriesQueryResult
     '\n\t*[_type == "tag"] | order(lower(name) asc) {\n\t\t\n\t_id,\n\tname,\n\t"slug": slug.current\n\n\t}\n': MaybeAllTagsQueryResult
     '\n\t*[_type == "tag" && slug.current == $slug] {\n\t\t\n\t_id,\n\tname,\n\t"slug": slug.current\n,\n\t\tdescription,\n\t\tmetaInfo\n\t}[0]\n': MaybeTagPageQueryResult
-    '\n\t*[_type == "article" && $slug in tags[]->slug.current] | order(date desc) [0..19] {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n\n\t}\n': MaybeTagPageInitialArticlesQueryResult
-    '\n\t*[_type == "article" && references(*[_type == "member" && slug.current == $slug]._id)] | order(date desc) {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n\n\t}\n': MaybeSingleMemberArticlesQueryResult
-    '\n\t*[_type == "article" && category.slug.current != "multimedia"] | order(date desc) [0..19] {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n\n\t}\n': HomepageArticleQueryResult
+    '\n\t*[_type == "article" && $slug in tags[]->slug.current] | order(date desc) [0..19] {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n }\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t_id,\n\t\t\turl,\n\t\t\tcreditLine,\n\t\t\t\n\tmetadata { blurHash, dimensions }\n\n\t\t}\n\t}\n\n\n\t}\n': MaybeTagPageInitialArticlesQueryResult
+    '\n\t*[_type == "article" && references(*[_type == "member" && slug.current == $slug]._id)] | order(date desc) {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n }\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t_id,\n\t\t\turl,\n\t\t\tcreditLine,\n\t\t\t\n\tmetadata { blurHash, dimensions }\n\n\t\t}\n\t}\n\n\n\t}\n': MaybeSingleMemberArticlesQueryResult
+    '\n\t*[_type == "article" && category.slug.current != "multimedia"] | order(date desc) [0..19] {\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n }\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t_id,\n\t\t\turl,\n\t\t\tcreditLine,\n\t\t\t\n\tmetadata { blurHash, dimensions }\n\n\t\t}\n\t}\n\n\n\t}\n': HomepageArticleQueryResult
     "\n\t*[_type == \"article\"] {\n\t\t'slug': slug.current,\n\t\t'category': category->slug.current,\n\t\t'date': coalesce(updatedDate, date),\n\t}\n":
       SitemapArticlesDataQueryResult | SitemapArticlesQueryResult
-    '\n\t*[_type == "article" && category->slug.current == $category && slug.current == $slug]{\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n,\n\t\tmetaInfo,\n\t\tcontent[]{\n\t\t\t...,\n\t\t\t_type == "image" => {\n\t\t\t\t...,\n\t\t\t\t...asset-> { metadata, creditLine },\n\t\t\t}\n\t\t},\n\t}[0]\n': MaybeArticlePageQueryResult
-    '\n\t*[_type == "article" && category->slug.current == $category && slug.current == $slug]{\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n,\n\t\tmetaInfo\n\t}[0]\n': MaybeSingleArticleQueryResult
-    '\n  *[_type == "article" && slug.current != $slug] | score(\n    boost(author._ref in $authors, 4),\n    boost(date match $date, 1.5),\n    boost(title match $title, 1.2),\n    boost(category._ref match $categoryId, 2.3),\n    // boost(content[].children[].text match $content, 4),\n  ) | order(_score desc) [0..8] {\n    _score,\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tmedia\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t...,\n\t\t\tcreditLine\n    }\n\t}\n\n\n  } //[ _score > 0 ]\n': RelatedArticlesTypeAResult
+    '\n\t*[_type == "article" && category->slug.current == $category && slug.current == $slug]{\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n }\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t_id,\n\t\t\turl,\n\t\t\tcreditLine,\n\t\t\t\n\tmetadata { blurHash, dimensions }\n\n\t\t}\n\t}\n\n,\n\t\tmetaInfo,\n\t\tcontent[]{\n\t\t\t...,\n\t\t\t_type == "image" => {\n\t\t\t\t...,\n\t\t\t\t...asset-> { \n\tmetadata { blurHash, dimensions }\n, creditLine },\n\t\t\t}\n\t\t},\n\t}[0]\n': MaybeArticlePageQueryResult
+    '\n\t*[_type == "article" && category->slug.current == $category && slug.current == $slug]{\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n }\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t_id,\n\t\t\turl,\n\t\t\tcreditLine,\n\t\t\t\n\tmetadata { blurHash, dimensions }\n\n\t\t}\n\t}\n\n,\n\t\tmetaInfo\n\t}[0]\n':
+      MaybeArticlePageDataQueryResult | MaybeSingleArticleQueryResult
+    '\n\t*[_type == "article" && category->slug.current == $category && slug.current == $slug]{\n    content[]{\n      ...,\n      _type == "image" => {\n        ...,\n        ...asset-> { \n\tmetadata { blurHash, dimensions }\n, creditLine },\n      }\n    }\n\t}[0]\n': MaybeArticleContentQueryResult
+    '\n  *[_type == "article" && category->slug.current == $category && slug.current == $slug] {\n    \n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t_id,\n\t\t\turl,\n\t\t\tcreditLine,\n\t\t\t\n\tmetadata { blurHash, dimensions }\n\n\t\t}\n\t}\n\n  }[0]\n': MaybeArticleHeaderMediaQueryResult
+    '\n  *[_type == "article" && slug.current != $slug] | score(\n    boost(references($authors), 4),\n    boost(date match $date, 1.5),\n    boost(title match $title, 1.2),\n    boost(category._ref match $categoryId, 2.3),\n    // boost(content[].children[].text match $content, 4),\n  ) | order(_score desc) [0..8] {\n    _score,\n\t\t\n\t\n\t_id,\n\t_type\n,\n\t\n\ttitle,\n\t"slug": slug.current,\n\tsubtitle,\n\tdate,\n\tupdatedDate,\n\tauthors[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\ttags[]->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tcategory->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n },\n\tseries->{ \n\t_id,\n\tname,\n\t"slug": slug.current\n }\n,\n\t\n\tmedia {\n\t\t...,\n\t\tasset->{\n\t\t\t_id,\n\t\t\turl,\n\t\t\tcreditLine,\n\t\t\t\n\tmetadata { blurHash, dimensions }\n\n\t\t}\n\t}\n\n\n  } //[ _score > 0 ]\n': RelatedArticlesTypeAResult
     '\n\t*[_type == "member"] {\n\t\t\'slug\': slug.current,\n\t\tupdatedAt\n\t}\n': SitemapAuthorsQueryResult
     '\n\t*[_type == "series"] {\n\t\t\'slug\': slug.current,\n\t\tdate\n\t}\n': SitemapSeriesQueryResult
     '\n\t*[_type == "tag"] {\n\t\t\'slug\': slug.current,\n\t\tdate\n\t}\n': SitemapTagsQueryResult

@@ -1,0 +1,77 @@
+[
+  {
+    "_id": "fixture-related-1",
+    "_score": 19.95485,
+    "_type": "article",
+    "authors": [
+      {
+        "_id": "deead101-e2d8-44c4-87be-613761125ef1",
+        "name": "Sam Kominowski",
+        "slug": "sam-kominowski"
+      }
+    ],
+    "category": {
+      "_id": "4edba030-a87c-4b27-b1e5-0250cff2e565",
+      "name": "News",
+      "slug": "news"
+    },
+    "date": "2024-10-21",
+    "media": null,
+    "series": null,
+    "slug": "fixture-related-article-1",
+    "subtitle": "Chǎnglè lù (长乐路), home to iconic bars such as 624 and Gōnglù shāngdiàn (公路商店), is closing, marking the end of an era for Shanghai’s youth culture.",
+    "tags": null,
+    "title": "Fixture Related Article 1",
+    "updatedDate": null
+  },
+  {
+    "_id": "fixture-related-2",
+    "_score": 19.95485,
+    "_type": "article",
+    "authors": [
+      {
+        "_id": "d2326d9c-9adc-4bf9-8709-867ee13d2185",
+        "name": "Neo Alabastro",
+        "slug": "neo-alabastro"
+      }
+    ],
+    "category": {
+      "_id": "4edba030-a87c-4b27-b1e5-0250cff2e565",
+      "name": "News",
+      "slug": "news"
+    },
+    "date": "2024-03-15",
+    "media": null,
+    "series": null,
+    "slug": "fixture-related-article-2",
+    "subtitle": "This is the first post on the new website. More to come.",
+    "tags": null,
+    "title": "Fixture Related Article 2",
+    "updatedDate": null
+  },
+  {
+    "_id": "fixture-related-3",
+    "_score": 19.95485,
+    "_type": "article",
+    "authors": [
+      {
+        "_id": "eecc849d-ec20-494e-9333-f87146493594",
+        "name": "Annabelle Mecca",
+        "slug": "annabelle-mecca"
+      }
+    ],
+    "category": {
+      "_id": "4edba030-a87c-4b27-b1e5-0250cff2e565",
+      "name": "News",
+      "slug": "news"
+    },
+    "date": "2024-11-07",
+    "media": null,
+    "series": null,
+    "slug": "fixture-related-article-3",
+    "subtitle": "Mid-September’s tropical storm hit Shanghai at unprecedented levels, resulting in rooms flooding in Jingyao Residential Hall, infrastructure being damaged, and students needing deliveries, but the assistance of several RAs provided relief to many.",
+    "tags": null,
+    "title": "Fixture Related Article 3",
+    "updatedDate": null
+  }
+]

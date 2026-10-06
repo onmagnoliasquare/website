@@ -7,7 +7,7 @@
 import DesktopNavbar from './general/navbar/DesktopNavbar.svelte'
 import SiteTitle from './general/SiteTitle.svelte'
 import HamburgerIcon from './icons/HamburgerIcon.svelte'
-import omsLogo from '$lib/assets/oms_logo.png'
+import omsLogo from '$lib/assets/oms_logo.webp'
 import { afterNavigate } from '$app/navigation'
 import { slide } from 'svelte/transition'
 import XIcon from './icons/XIcon.svelte'
@@ -56,7 +56,7 @@ $effect(() => {
           </div>
         </div>
         <div class="mr-4 hidden border-4 border-double border-neutral-400 p-2 sm:mr-2 md:block">
-          <img alt="" src={omsLogo} class="w-20" />
+          <img alt="" src={omsLogo} class="w-20" width="80" height="92" />
         </div>
       </div>
       <div class="fixed bottom-0 z-20 flex w-full flex-col sm:hidden">

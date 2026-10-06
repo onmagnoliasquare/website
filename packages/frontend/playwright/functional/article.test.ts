@@ -1,6 +1,16 @@
+import path from 'node:path'
 import { expect, test } from '@playwright/test'
 import { site } from '$lib/constants.ts'
 import { v0_5_x_Article, v0_6_x_Article } from '../parameters.ts'
+
+const recentArticlesFixture = path.join(
+  import.meta.dirname,
+  '../fixtures/v0.6.x/recent-articles.json'
+)
+const relatedArticlesFixture = path.join(
+  import.meta.dirname,
+  '../fixtures/v0.6.x/related-articles.json'
+)
 
 test.describe('v0.5.x Article Features', { tag: '@functional' }, () => {
   test.describe.configure({ mode: 'parallel' })
@@ -326,6 +336,19 @@ test.describe('v0.6.x Article Features', { tag: '@functional' }, () => {
         await route.fulfill({ path: v0_6_x_Article.testDataPath })
       }
     )
+    // The aside fetches these from the browser once it scrolls into view.
+    await page.route(
+      url => url.pathname === `/api/category/${v0_6_x_Article.article?.category.slug}/articles`,
+      async route => {
+        await route.fulfill({ path: recentArticlesFixture })
+      }
+    )
+    await page.route(
+      url => url.pathname === '/api/article/related',
+      async route => {
+        await route.fulfill({ path: relatedArticlesFixture })
+      }
+    )
     await page.goto(v0_6_x_Article.testUrl)
   })
 
@@ -357,12 +380,16 @@ test.describe('v0.6.x Article Features', { tag: '@functional' }, () => {
   })
 
   test('Related article section visible', async ({ page }) => {
+    await page.getByTestId('aside-observer').scrollIntoViewIfNeeded()
     const section = page.getByLabel('Related Articles')
     await expect(section).toBeVisible()
+    await expect(section).toContainText('Fixture Related Article 1')
   })
 
   test('Recent article section visible', async ({ page }) => {
+    await page.getByTestId('aside-observer').scrollIntoViewIfNeeded()
     const section = page.getByLabel('Recent Articles')
     await expect(section).toBeVisible()
+    await expect(section).toContainText('Fixture Recent Article 1')
   })
 })
