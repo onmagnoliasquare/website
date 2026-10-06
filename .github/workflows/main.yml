@@ -400,7 +400,7 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Download ${{ matrix.suite }} blob reports
-        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # ratchet:actions/download-artifact@v7
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # ratchet:actions/download-artifact@v8
         with:
           path: packages/frontend/all-blob-reports
           pattern: blob-report-${{ matrix.suite }}-*
@@ -442,7 +442,7 @@ jobs:
 
       - name: Deploy frontend to Cloudflare Workers (staging)
         if: ${{ needs.changes.outputs.frontend == 'true' }}
-        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # ratchet:cloudflare/wrangler-action@v4
+        uses: cloudflare/wrangler-action@953926a2e2182532811c01a25e53647d93bf07c0 # ratchet:cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -462,18 +462,18 @@ jobs:
     name: All Green
     if: always()
     runs-on: ubuntu-${{ vars.RUNNER_VERSION }}
-    needs:
-      [
-        changes,
-        build,
-        test-unit,
-        test-comp,
-        test-int,
-        test-func,
-        test-e2e,
-        merge-reports,
-        deploy-staging,
-      ]
+    needs: [changes, build, test-unit, test-comp, test-int, test-func, test-e2e, merge-reports, deploy-staging]
     steps:
       - if: ${{ always() && (contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')) }}
         run: exit 1
+
+
+
+
+
+
+
+
+
+
+
