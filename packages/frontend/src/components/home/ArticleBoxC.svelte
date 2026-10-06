@@ -5,7 +5,7 @@ import ByLine from './ByLine.svelte'
 import DateLine from '$components/article/DateLine.svelte'
 import HoverDim from '$components/general/HoverDim.svelte'
 import P from '$components/defaults/P.svelte'
-import type { SingleArticleQuery } from '#lib/sanity/types.js'
+import type { SingleArticleQuery } from '#lib/sanity/types.ts'
 
 interface Props {
   article: Omit<SingleArticleQuery, 'metaInfo'> // OpenGraph/MetaInfo is not required for displaying article preview.

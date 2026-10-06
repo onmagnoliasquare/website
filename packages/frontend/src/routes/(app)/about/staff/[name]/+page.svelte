@@ -4,8 +4,8 @@ import P from '$components/defaults/P.svelte'
 import ContactIcons from '$components/general/ContactIcons.svelte'
 import HoverDim from '$components/general/HoverDim.svelte'
 import Image from '$components/Image.svelte'
-import { dateFormatter, domainFromUrl } from '#lib/helpers/index.js'
-import { filler } from '#lib/constants.js'
+import { dateFormatter, domainFromUrl } from '#lib/helpers/index.ts'
+import { filler } from '#lib/constants.ts'
 import type { PageProps } from './$types'
 
 let { data }: PageProps = $props()

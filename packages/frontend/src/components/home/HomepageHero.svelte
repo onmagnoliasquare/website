@@ -1,8 +1,8 @@
 <script lang="ts">
 import Subtitle from '$components/defaults/Subtitle.svelte'
 import Image from '$components/Image.svelte'
-import { createAuthorString, dateFormatter } from '#lib/helpers/index.js'
-import type { HomepageArticleQueryResult } from '#lib/sanity/types.generated.js'
+import { createAuthorString, dateFormatter } from '#lib/helpers/index.ts'
+import type { HomepageArticleQueryResult } from '#lib/sanity/types.generated.ts'
 import type { Get } from '@sanity/codegen'
 
 interface Props {

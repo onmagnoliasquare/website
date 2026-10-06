@@ -1,4 +1,4 @@
-import { getFlagEmoji } from '#lib/helpers/index.js'
+import { getFlagEmoji } from '#lib/helpers/index.ts'
 import { describe, expect, it } from 'vitest'
 
 /**

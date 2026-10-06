@@ -1,12 +1,12 @@
 import { dev } from '$app/env'
-import { newAPIError } from '#lib/helpers/index.js'
+import { newAPIError } from '#lib/helpers/index.ts'
 import {
   fetchCategoryPageInitialArticles,
   fetchCategoryPagePaginateArticles,
-} from '#lib/sanity/repository.js'
+} from '#lib/sanity/repository.ts'
 
 import type { RequestHandler } from '@sveltejs/kit'
-import { debugFetch } from '#lib/debug.js'
+import { debugFetch } from '#lib/debug.ts'
 
 export const GET: RequestHandler = async ({ url, params }) => {
   const { category } = params

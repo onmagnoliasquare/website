@@ -3,8 +3,8 @@ import {
   createSiteTitle,
   domainFromUrl,
   parseEmbedLink,
-} from '#lib/helpers/index.js'
-import { site } from '#lib/constants.js'
+} from '#lib/helpers/index.ts'
+import { site } from '#lib/constants.ts'
 import { describe, expect, it } from 'vitest'
 
 describe('domainFromUrl', () => {

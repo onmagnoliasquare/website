@@ -2,8 +2,8 @@
 import type { LayoutProps } from './$types'
 import Header from '$components/archive/Header.svelte'
 import { page } from '$app/state'
-import { createSiteTitle } from '#lib/helpers/index.js'
-import { site } from '#lib/constants.js'
+import { createSiteTitle } from '#lib/helpers/index.ts'
+import { site } from '#lib/constants.ts'
 
 let { children }: LayoutProps = $props()
 

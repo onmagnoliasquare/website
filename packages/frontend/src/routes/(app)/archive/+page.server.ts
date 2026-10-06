@@ -2,7 +2,7 @@ import { error } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 import type { MetaTagsProps } from 'svelte-meta-tags'
 import { dev } from '$app/env'
-import { fetchAllTags } from '#lib/sanity/repository.js'
+import { fetchAllTags } from '#lib/sanity/repository.ts'
 
 export const load: PageServerLoad = (async () => {
   try {

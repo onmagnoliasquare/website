@@ -1,7 +1,7 @@
 <script lang="ts">
 import P from '$components/defaults/P.svelte'
 import HoverDim from '$components/general/HoverDim.svelte'
-import type { AllMembers } from '#lib/sanity/types.js'
+import type { AllMembers } from '#lib/sanity/types.ts'
 
 interface Props {
   member: AllMembers[number]

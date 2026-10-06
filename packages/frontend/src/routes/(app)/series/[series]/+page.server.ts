@@ -1,10 +1,10 @@
 import { error } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
-import { site } from '#lib/constants.js'
+import { site } from '#lib/constants.ts'
 import type { MetaTagsProps } from 'svelte-meta-tags'
-import { createSiteTitle, getMetaTags } from '#lib/helpers/index.js'
-import type { SeriesPage, SeriesPageInitialArticles } from '#lib/sanity/types.js'
-import { isAPIError, type APIError } from '#lib/types/index.js'
+import { createSiteTitle, getMetaTags } from '#lib/helpers/index.ts'
+import type { SeriesPage, SeriesPageInitialArticles } from '#lib/sanity/types.ts'
+import { isAPIError, type APIError } from '#lib/types/index.ts'
 import { dev } from '$app/env'
 
 export const load: PageServerLoad = (async event => {

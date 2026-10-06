@@ -6,7 +6,7 @@ import type {
   SeriesPage,
   SingleMemberAllArticles,
   TagPage,
-} from '#lib/sanity/types.js'
+} from '#lib/sanity/types.ts'
 
 export interface APIError {
   error: string

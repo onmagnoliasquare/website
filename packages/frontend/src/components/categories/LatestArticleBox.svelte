@@ -3,7 +3,7 @@ import Image from '$components/Image.svelte'
 import DateLine from './DateLine.svelte'
 import ByLine from './ByLine.svelte'
 import { twMerge } from 'tailwind-merge'
-import type { SingleArticleQuery } from '#lib/sanity/types.js'
+import type { SingleArticleQuery } from '#lib/sanity/types.ts'
 
 interface Props {
   article: SingleArticleQuery

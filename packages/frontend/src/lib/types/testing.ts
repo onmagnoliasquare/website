@@ -1,5 +1,5 @@
-import type { ArticleQueryResult } from '#lib/sanity/types.js'
-import type { MetaInfo } from '#lib/sanity/types.generated.js'
+import type { ArticleQueryResult } from '#lib/sanity/types.ts'
+import type { MetaInfo } from '#lib/sanity/types.generated.ts'
 
 /**
  * `testPage` type defines a testing page for playwright. The word "test" here is used

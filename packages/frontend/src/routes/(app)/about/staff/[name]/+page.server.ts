@@ -5,10 +5,10 @@ export const csr = dev
 import { error } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 import type { MetaTagsProps } from 'svelte-meta-tags'
-import { filler, site } from '#lib/constants.js'
-import { createSiteTitle, getMetaTags } from '#lib/helpers/index.js'
-import type { MemberPageQuery, SingleMemberAllArticles } from '#lib/sanity/types.js'
-import { isAPIError, type APIError } from '#lib/types/index.js'
+import { filler, site } from '#lib/constants.ts'
+import { createSiteTitle, getMetaTags } from '#lib/helpers/index.ts'
+import type { MemberPageQuery, SingleMemberAllArticles } from '#lib/sanity/types.ts'
+import { isAPIError, type APIError } from '#lib/types/index.ts'
 
 export const load: PageServerLoad = (async event => {
   const { name } = event.params

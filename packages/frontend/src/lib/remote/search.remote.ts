@@ -1,11 +1,11 @@
 import { query } from '$app/server'
-import { maxResultsPerSearch, maxSearchQueryLength } from '#lib/constants.js'
-import { debugFetch } from '#lib/debug.js'
-import { sanitizeInput } from '#lib/helpers/index.js'
+import { maxResultsPerSearch, maxSearchQueryLength } from '#lib/constants.ts'
+import { debugFetch } from '#lib/debug.ts'
+import { sanitizeInput } from '#lib/helpers/index.ts'
 import {
   fetchSearchMixedMatchQuery,
   fetchSearchMixedMatchTotalQuery,
-} from '#lib/sanity/repository.js'
+} from '#lib/sanity/repository.ts'
 import * as v from 'valibot'
 
 const searchQuerySchema = v.pipe(v.string(), v.nonEmpty(), v.maxLength(maxSearchQueryLength))

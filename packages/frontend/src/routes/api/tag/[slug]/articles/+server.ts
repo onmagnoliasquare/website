@@ -1,6 +1,6 @@
 import { dev } from '$app/env'
-import { newAPIError } from '#lib/helpers/index.js'
-import { fetchTagPageArticles } from '#lib/sanity/repository.js'
+import { newAPIError } from '#lib/helpers/index.ts'
+import { fetchTagPageArticles } from '#lib/sanity/repository.ts'
 import type { RequestHandler } from '@sveltejs/kit'
 
 export const GET: RequestHandler = async ({ params }) => {

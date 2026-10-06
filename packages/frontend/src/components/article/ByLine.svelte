@@ -1,6 +1,6 @@
 <script lang="ts">
-import { createAuthorLink } from '#lib/helpers/index.js'
-import type { MemberQuery } from '#lib/sanity/types.js'
+import { createAuthorLink } from '#lib/helpers/index.ts'
+import type { MemberQuery } from '#lib/sanity/types.ts'
 
 interface Props {
   authors: MemberQuery[]

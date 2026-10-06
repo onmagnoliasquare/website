@@ -3,7 +3,7 @@
 import { queryByTestId, render } from '@testing-library/svelte/svelte5'
 import { describe, expect, it } from 'vitest'
 import ArticleBoxC from '$components/home/ArticleBoxC.svelte'
-import type { SingleArticleQuery } from '#lib/sanity/types.js'
+import type { SingleArticleQuery } from '#lib/sanity/types.ts'
 
 describe('ArticleBoxC', () => {
   const newArticle: SingleArticleQuery = {

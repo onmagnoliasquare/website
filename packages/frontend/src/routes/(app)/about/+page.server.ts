@@ -2,9 +2,9 @@ import { dev } from '$app/env'
 
 export const csr = dev
 
-import { site } from '#lib/constants.js'
+import { site } from '#lib/constants.ts'
 import type { MetaTagsProps } from 'svelte-meta-tags'
-import { createSiteTitle } from '#lib/helpers/index.js'
+import { createSiteTitle } from '#lib/helpers/index.ts'
 import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = (() => {

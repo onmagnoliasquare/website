@@ -1,8 +1,8 @@
 import { dev } from '$app/env'
-import { newAPIError } from '#lib/helpers/index.js'
-import { fetchCategoryPage } from '#lib/sanity/repository.js'
+import { newAPIError } from '#lib/helpers/index.ts'
+import { fetchCategoryPage } from '#lib/sanity/repository.ts'
 import type { RequestHandler } from '@sveltejs/kit'
-import { debugFetch } from '#lib/debug.js'
+import { debugFetch } from '#lib/debug.ts'
 
 export const GET: RequestHandler = async ({ params }) => {
   const { category } = params

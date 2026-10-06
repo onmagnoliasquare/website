@@ -5,7 +5,7 @@ import MobileNavbar from '../general/navbar/MobileNavbar.svelte'
 import HamburgerIcon from '$components/icons/HamburgerIcon.svelte'
 import { afterNavigate } from '$app/navigation'
 import { slide } from 'svelte/transition'
-import { site } from '#lib/constants.js'
+import { site } from '#lib/constants.ts'
 import XIcon from '$components/icons/XIcon.svelte'
 
 let showMenu = $state(false)

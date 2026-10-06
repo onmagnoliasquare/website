@@ -5,7 +5,7 @@ to the way that images are displayed and is custom-fit for sanity's
 urlBuilder API.
 -->
 <script lang="ts">
-import { urlFor } from '#lib/sanity/index.js'
+import { urlFor } from '#lib/sanity/index.ts'
 import type {
   CropMode,
   FitMode,

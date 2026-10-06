@@ -22,7 +22,7 @@ import { redirect } from '@sveltejs/kit'
  *
  * This ensures clarity.
  */
-import { hasUppercase } from '#lib/helpers/index.js'
+import { hasUppercase } from '#lib/helpers/index.ts'
 
 import { sequence, type Handle } from '@sveltejs/kit/hooks'
 import { dev } from '$app/env'

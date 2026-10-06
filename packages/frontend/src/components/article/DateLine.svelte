@@ -1,5 +1,5 @@
 <script lang="ts">
-import { dateFormatter } from '#lib/helpers/index.js'
+import { dateFormatter } from '#lib/helpers/index.ts'
 
 interface Props {
   locale?: string

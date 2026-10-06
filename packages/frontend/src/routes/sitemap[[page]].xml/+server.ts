@@ -14,7 +14,7 @@ import type {
   SitemapAuthorsQueryResult,
   SitemapSeriesQueryResult,
   SitemapTagsQueryResult,
-} from '#lib/sanity/types.generated.js'
+} from '#lib/sanity/types.generated.ts'
 
 /**
  * Query sanity for:

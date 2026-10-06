@@ -3,9 +3,9 @@ export const csr = false
 import { error, type ServerLoadEvent } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 import type { MetaTagsProps } from 'svelte-meta-tags'
-import { site } from '#lib/constants.js'
-import { createSiteTitle } from '#lib/helpers/index.js'
-import type { AllMembers } from '#lib/sanity/types.js'
+import { site } from '#lib/constants.ts'
+import { createSiteTitle } from '#lib/helpers/index.ts'
+import type { AllMembers } from '#lib/sanity/types.ts'
 import { dev } from '$app/env'
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {

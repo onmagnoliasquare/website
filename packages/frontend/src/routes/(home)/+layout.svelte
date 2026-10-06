@@ -1,5 +1,5 @@
 <script lang="ts">
-import { site } from '#lib/constants.js'
+import { site } from '#lib/constants.ts'
 import type { LayoutProps } from './$types'
 import Header from '$components/Header.svelte'
 

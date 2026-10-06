@@ -1,7 +1,7 @@
 import type { RequestHandler } from './$types'
 import { dev } from '$app/env'
 import { fetchHomepageArticles } from '#lib/sanity/repository.ts'
-import type { HomepageArticleQueryResult } from '#lib/sanity/types.generated.js'
+import type { HomepageArticleQueryResult } from '#lib/sanity/types.generated.ts'
 
 export const GET: RequestHandler = async () => {
   let articles: HomepageArticleQueryResult | undefined

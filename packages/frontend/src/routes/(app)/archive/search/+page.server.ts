@@ -2,15 +2,15 @@ import { error } from '@sveltejs/kit'
 import type { PageServerLoad, PageServerLoadEvent } from './$types'
 import { dev } from '$app/env'
 import type { MetaTagsProps } from 'svelte-meta-tags'
-import { site } from '#lib/constants.js'
-import { createSiteTitle, sanitizeInput } from '#lib/helpers/index.js'
+import { site } from '#lib/constants.ts'
+import { createSiteTitle, sanitizeInput } from '#lib/helpers/index.ts'
 import type {
   SearchMixedMatchQueryResult,
   SearchMixedMatchTotalQueryResult,
-} from '#lib/sanity/types.generated.js'
+} from '#lib/sanity/types.generated.ts'
 
-import { searchResults, searchTotal } from '#lib/remote/search.remote.js'
-import { resultsPerPage } from '#lib/sanity/queries.js'
+import { searchResults, searchTotal } from '#lib/remote/search.remote.ts'
+import { resultsPerPage } from '#lib/sanity/queries.ts'
 
 export const load: PageServerLoad = (event: PageServerLoadEvent) => {
   const searchQuery = sanitizeInput(event.url.searchParams.get('q') ?? '')
