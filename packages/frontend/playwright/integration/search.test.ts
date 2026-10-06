@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
-import { resultsPerPage } from '$lib/sanity/queries'
+import { resultsPerPage } from '#lib/sanity/queries.ts'
 
 const commonTerm = 'student'
 const nonsenseTerm = 'zzzqqqxxnomatch'

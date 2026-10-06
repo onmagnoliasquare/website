@@ -1,11 +1,11 @@
 <script lang="ts">
-import Location from '$components/authorPage/Location.svelte'
-import P from '$components/defaults/P.svelte'
-import ContactIcons from '$components/general/ContactIcons.svelte'
-import HoverDim from '$components/general/HoverDim.svelte'
-import Image from '$components/Image.svelte'
-import { dateFormatter, domainFromUrl } from '$lib/helpers'
-import { filler } from '$lib/constants'
+import Location from '#components/authorPage/Location.svelte'
+import P from '#components/defaults/P.svelte'
+import ContactIcons from '#components/general/ContactIcons.svelte'
+import HoverDim from '#components/general/HoverDim.svelte'
+import Image from '#components/Image.svelte'
+import { dateFormatter, domainFromUrl } from '#lib/helpers/index.ts'
+import { filler } from '#lib/constants.ts'
 import type { PageProps } from './$types'
 
 let { data }: PageProps = $props()
@@ -31,12 +31,12 @@ let articles = $derived(data.articles)
               media={member.portrait}
               width={250}
               height={250}
-              fit={'crop'}
+              fit="crop"
               quality={80}
               loading="eager"
               blurHash={member.portrait.asset.metadata?.blurHash}
               alt={`${member.name}'s portrait image`}
-              class={`center mb-4 max-w-2xl md:h-full md:w-full`} />
+              class="center mb-4 max-w-2xl md:h-full md:w-full" />
           {/if}
         </div>
       {/if}
@@ -135,7 +135,7 @@ let articles = $derived(data.articles)
       <section>
         <h1 class="mb-2 pl-2 font-display text-2xl">Works</h1>
         <ol class="list-none divide-y border-t border-dotted sm:p-1">
-          {#each articles as article}
+          {#each articles as article (article._id)}
             <!-- #key is a fix for https://github.com/onmagnoliasquare/website/issues/96  -->
             {#key article}
               {#if article.category}
@@ -151,12 +151,12 @@ let articles = $derived(data.articles)
                           {article.title}
                         </h1>
                         {#if article.subtitle}
-                          <P class=" text-gray-600 mb-1 pb-2 leading-6 tracking-wide">
+                          <P class=" mb-1 pb-2 leading-6 tracking-wide text-gray-600">
                             {article.subtitle}
                           </P>
                         {/if}
                         <footer>
-                          <P class="text-gray-600 font-semibold tracking-wide">
+                          <P class="font-semibold tracking-wide text-gray-600">
                             <time datetime={article.date}>
                               {dateFormatter(article.date, data.userLocale)}
                             </time>

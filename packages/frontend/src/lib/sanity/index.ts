@@ -1,6 +1,6 @@
 import { type ClientConfig, createClient } from '@sanity/client'
 import { createImageUrlBuilder, type SanityImageSource } from '@sanity/image-url'
-import { dev } from '$app/environment'
+import { dev } from '$app/env'
 import { isPortableTextSpan } from '@sanity/types'
 
 // It's okay to expose projectId
@@ -42,7 +42,7 @@ export function blocksToText(content: { _type: string; children?: { text?: strin
   return content
     .map(block => {
       // This `if` block fixes issue #337. Also, no second check because its always falsy.
-      if (block._type !== 'block' /* && !block.children */) {
+      if (block._type !== 'block') /* && !block.children */ {
         return ''
       }
       return block.children

@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 
-import SearchResultEntry from '$components/archive/search/SearchResultEntry.svelte'
-import type { SearchMixedMatchQueryResult } from '$lib/sanity/types.generated'
+import SearchResultEntry from '#components/archive/search/SearchResultEntry.svelte'
+import type { SearchMixedMatchQueryResult } from '#lib/sanity/types.generated.ts'
 import { cleanup, render } from '@testing-library/svelte/svelte5'
 import { afterEach, expect, test, vi } from 'vitest'
 

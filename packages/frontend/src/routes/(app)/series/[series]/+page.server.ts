@@ -1,13 +1,13 @@
-import { error, type ServerLoadEvent } from '@sveltejs/kit'
+import { error } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
-import { site } from '$lib/constants'
+import { site } from '#lib/constants.ts'
 import type { MetaTagsProps } from 'svelte-meta-tags'
-import { createSiteTitle, getMetaTags } from '$lib/helpers'
-import type { SeriesPage, SeriesPageInitialArticles } from '$lib/sanity/types'
-import { isAPIError, type APIError } from '$lib/types'
-import { dev } from '$app/environment'
+import { createSiteTitle, getMetaTags } from '#lib/helpers/index.ts'
+import type { SeriesPage, SeriesPageInitialArticles } from '#lib/sanity/types.ts'
+import { isAPIError, type APIError } from '#lib/types/index.ts'
+import { dev } from '$app/env'
 
-export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
+export const load: PageServerLoad = (async event => {
   // Retrieve the name of series from the URL.
   const { series } = event.params
 

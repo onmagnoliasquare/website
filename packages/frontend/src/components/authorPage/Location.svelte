@@ -1,6 +1,6 @@
 <script lang="ts">
-import { getCountryName, getFlagEmoji } from '$lib/helpers'
-import type { FromLocation } from '$lib/sanity/types.generated'
+import { getCountryName, getFlagEmoji } from '#lib/helpers/index.ts'
+import type { FromLocation } from '#lib/sanity/types.generated.ts'
 
 interface Props {
   location: FromLocation

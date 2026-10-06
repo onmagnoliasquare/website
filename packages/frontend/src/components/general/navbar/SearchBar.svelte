@@ -1,8 +1,8 @@
 <script lang="ts">
 import { goto } from '$app/navigation'
-import InputBar from '$components/general/input/InputBar.svelte'
-import { searchParamKey } from '$lib/constants'
-import { sanitizeInput } from '$lib/helpers'
+import InputBar from '#components/general/input/InputBar.svelte'
+import { searchParamKey } from '#lib/constants.ts'
+import { sanitizeInput } from '#lib/helpers/index.ts'
 import type { ClassValue } from 'svelte/elements'
 import { twMerge, type ClassNameValue } from 'tailwind-merge'
 
@@ -25,7 +25,7 @@ let { class: className = '', id, value = $bindable(''), disabled }: Props = $pro
   disabled={disabled}
   action={async (v: string) => {
     await goto(`/archive/search?${searchParamKey}=${encodeURIComponent(v)}`, {
-      invalidateAll: true,
+      refreshAll: true,
     })
   }}
   bind:value={value}

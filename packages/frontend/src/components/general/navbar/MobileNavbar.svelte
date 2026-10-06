@@ -1,6 +1,6 @@
 <script lang="ts">
-import { routes } from '$lib/constants'
-import SearchBar from '$components/general/navbar/SearchBar.svelte'
+import { routes } from '#lib/constants.ts'
+import SearchBar from '#components/general/navbar/SearchBar.svelte'
 
 let listOfRoutes = routes
 interface Props {

@@ -1,17 +1,18 @@
 <script lang="ts">
 import NavItems from './NavItems.svelte'
-import Logo from '$components/general/Logo.svelte'
+import Logo from '#components/general/Logo.svelte'
 import MobileNavbar from '../general/navbar/MobileNavbar.svelte'
-import HamburgerIcon from '$components/icons/HamburgerIcon.svelte'
+import HamburgerIcon from '#components/icons/HamburgerIcon.svelte'
 import { afterNavigate } from '$app/navigation'
 import { slide } from 'svelte/transition'
-import { site } from '$lib/constants'
-import XIcon from '$components/icons/XIcon.svelte'
+import { site } from '#lib/constants.ts'
+import XIcon from '#components/icons/XIcon.svelte'
 
 let showMenu = $state(false)
 const toggleNavbar = () => (showMenu = !showMenu)
 
-afterNavigate(() => {
+afterNavigate(({ shallow, type }) => {
+  if (shallow && type === 'goto') return
   if (showMenu) toggleNavbar()
 })
 

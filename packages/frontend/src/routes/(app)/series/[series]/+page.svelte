@@ -1,7 +1,7 @@
 <script lang="ts">
-import P from '$components/defaults/P.svelte'
-import ArticleBoxC from '$components/home/ArticleBoxC.svelte'
-import PageHeader from '$components/PageHeader.svelte'
+import P from '#components/defaults/P.svelte'
+import ArticleBoxC from '#components/home/ArticleBoxC.svelte'
+import PageHeader from '#components/PageHeader.svelte'
 import type { PageProps } from './$types'
 
 let { data }: PageProps = $props()

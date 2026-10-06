@@ -1,6 +1,6 @@
 <script lang="ts">
-import P from '$components/defaults/P.svelte'
-import { dateFormatter } from '$lib/helpers'
+import P from '#components/defaults/P.svelte'
+import { dateFormatter } from '#lib/helpers/index.ts'
 
 interface Props {
   locale?: string

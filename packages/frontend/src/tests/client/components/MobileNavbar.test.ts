@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 
-import MobileNavbar from '$components/general/navbar/MobileNavbar.svelte'
-import { routes, type route } from '$lib/constants'
+import MobileNavbar from '#components/general/navbar/MobileNavbar.svelte'
+import { routes, type route } from '#lib/constants.ts'
 import { cleanup, render } from '@testing-library/svelte/svelte5'
 import { afterEach, expect, test, vi } from 'vitest'
 

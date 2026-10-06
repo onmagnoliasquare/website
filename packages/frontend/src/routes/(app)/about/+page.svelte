@@ -1,7 +1,7 @@
 <script>
-import P from '$components/defaults/P.svelte'
-import PageHeader from '$components/PageHeader.svelte'
-import { CardLink, CodeOfEthics } from '$lib'
+import P from '#components/defaults/P.svelte'
+import PageHeader from '#components/PageHeader.svelte'
+import { CardLink, CodeOfEthics } from '#lib'
 </script>
 
 <div class="m-2 p-2">

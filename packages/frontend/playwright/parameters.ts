@@ -1,5 +1,5 @@
-import type { testPage } from '$lib/types/testing'
-import { site } from '$lib/constants'
+import type { testPage } from '#lib/types/testing.ts'
+import { site } from '#lib/constants.ts'
 
 // article404 is an article that shouldn't exist used for 404 page checks.
 export const article404 = `/category/news/asdlkjafsjklfegnjkasjfaasldkjfj2093q580`

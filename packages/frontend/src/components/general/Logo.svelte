@@ -1,5 +1,5 @@
 <script lang="ts">
-import logo from '$lib/assets/logo.svg'
+import logo from '#lib/assets/logo.svg'
 </script>
 
 <div class="h-18 w-18">

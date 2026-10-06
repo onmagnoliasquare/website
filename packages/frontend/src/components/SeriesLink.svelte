@@ -17,7 +17,7 @@ let { title, link, children }: Props = $props()
     <section>
       <div class="p-4">
         <h2 class="mb-4 font-serif text-3xl font-semibold sm:text-4xl">{title}</h2>
-        <P class="text-gray-700 text-lg sm:text-xl">{@render children()}</P>
+        <P class="text-lg text-gray-700 sm:text-xl">{@render children()}</P>
       </div>
     </section>
   </div>

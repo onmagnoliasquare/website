@@ -1,11 +1,11 @@
 <script lang="ts">
 /** eslint-disable @typescript-eslint/no-confusing-void-expression */
-import Image from '$components/Image.svelte'
+import Image from '#components/Image.svelte'
 import ByLine from './ByLine.svelte'
-import DateLine from '$components/article/DateLine.svelte'
-import HoverDim from '$components/general/HoverDim.svelte'
-import P from '$components/defaults/P.svelte'
-import type { SingleArticleQuery } from '$lib/sanity/types'
+import DateLine from '#components/article/DateLine.svelte'
+import HoverDim from '#components/general/HoverDim.svelte'
+import P from '#components/defaults/P.svelte'
+import type { SingleArticleQuery } from '#lib/sanity/types.ts'
 
 interface Props {
   article: Omit<SingleArticleQuery, 'metaInfo'> // OpenGraph/MetaInfo is not required for displaying article preview.

@@ -1,13 +1,8 @@
-<!--
-@component
-`Header` is the header component for the entire website. Included is the navbar and site title.
--->
-
 <script lang="ts">
 import DesktopNavbar from './general/navbar/DesktopNavbar.svelte'
 import SiteTitle from './general/SiteTitle.svelte'
 import HamburgerIcon from './icons/HamburgerIcon.svelte'
-import omsLogo from '$lib/assets/oms_logo.webp'
+import omsLogo from '#lib/assets/oms_logo.webp'
 import { afterNavigate } from '$app/navigation'
 import { slide } from 'svelte/transition'
 import XIcon from './icons/XIcon.svelte'
@@ -16,7 +11,8 @@ import MobileNavbar from './general/navbar/MobileNavbar.svelte'
 let showMenu = $state(false)
 const toggleNavbar = () => (showMenu = !showMenu)
 
-afterNavigate(() => {
+afterNavigate(({ shallow, type }) => {
+  if (shallow && type === 'goto') return
   if (showMenu) toggleNavbar()
 })
 
@@ -41,6 +37,11 @@ $effect(() => {
   }
 })
 </script>
+
+<!--
+@component
+`Header` is the header component for the entire website. Included is the navbar and site title.
+-->
 
 <header>
   <div class="center w-full max-w-7xl border-0 pt-4 sm:mb-0 sm:pb-0 lg:border-x lg:border-dotted">

@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { PageProps } from './$types'
-import PageHeader from '$components/PageHeader.svelte'
-import SeriesLink from '$components/SeriesLink.svelte'
+import PageHeader from '#components/PageHeader.svelte'
+import SeriesLink from '#components/SeriesLink.svelte'
 
 let { data }: PageProps = $props()
 let series = $derived(data.series)

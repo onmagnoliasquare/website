@@ -1,10 +1,10 @@
 import { error } from '@sveltejs/kit'
 import type { MetaTagsProps } from 'svelte-meta-tags'
 import type { PageServerLoad, PageServerLoadEvent } from './$types'
-import { dev } from '$app/environment'
-import { getMetaTags } from '$lib/helpers'
-import type { CategoryPage, CategoryPageInitialArticles } from '$lib/sanity/types'
-import { isAPIError, type APIError } from '$lib/types'
+import { dev } from '$app/env'
+import { getMetaTags } from '#lib/helpers/index.ts'
+import type { CategoryPage, CategoryPageInitialArticles } from '#lib/sanity/types.ts'
+import { isAPIError, type APIError } from '#lib/types/index.ts'
 
 export const load: PageServerLoad = (async (event: PageServerLoadEvent) => {
   const { category: categoryPathValue } = event.params

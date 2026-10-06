@@ -1,7 +1,7 @@
-import { dev } from '$app/environment'
-import { newAPIError } from '$lib/helpers'
-import { fetchTagPage } from '$lib/sanity/repository'
-import { json, type RequestHandler } from '@sveltejs/kit'
+import { dev } from '$app/env'
+import { newAPIError } from '#lib/helpers/index.ts'
+import { fetchTagPage } from '#lib/sanity/repository.ts'
+import type { RequestHandler } from '@sveltejs/kit'
 
 export const GET: RequestHandler = async ({ params }) => {
   const { slug } = params
@@ -14,7 +14,7 @@ export const GET: RequestHandler = async ({ params }) => {
     if (!tagPage) {
       return newAPIError('tag not found', 404)
     }
-    return json(tagPage)
+    return Response.json(tagPage)
   } catch (err) {
     if (dev) {
       console.error(err)

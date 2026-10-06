@@ -1,6 +1,6 @@
 <script lang="ts">
-import P from '$components/defaults/P.svelte'
-import { dateFormatter } from '$lib/helpers'
+import P from '#components/defaults/P.svelte'
+import { dateFormatter } from '#lib/helpers/index.ts'
 
 interface Props {
   locale?: string
@@ -10,7 +10,7 @@ interface Props {
 let { locale = 'en-US', date }: Props = $props()
 </script>
 
-<P class="text-blue-700 font-bold">
+<P class="font-bold text-blue-700">
   <time datetime={date}>
     {dateFormatter(date, locale, {
       weekday: 'short',

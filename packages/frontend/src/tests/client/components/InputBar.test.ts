@@ -1,8 +1,8 @@
 import { cleanup, render } from '@testing-library/svelte/svelte5'
 import { vi, test, it, expect, afterEach, describe } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
-import InputBar from '$components/general/input/InputBar.svelte'
-import { fakePromiseResolve } from '$lib/helpers/testing'
+import InputBar from '#components/general/input/InputBar.svelte'
+import { fakePromiseResolve } from '#lib/helpers/testing.ts'
 
 const timeout = 500
 

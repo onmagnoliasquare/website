@@ -1,8 +1,8 @@
-import { dev } from '$app/environment'
-import { newAPIError } from '$lib/helpers'
-import { fetchArticlePage } from '$lib/sanity/repository'
-import { json, type RequestHandler } from '@sveltejs/kit'
-import { debugFetch } from '$lib/debug'
+import { dev } from '$app/env'
+import { newAPIError } from '#lib/helpers/index.ts'
+import { fetchArticlePage } from '#lib/sanity/repository.ts'
+import type { RequestHandler } from '@sveltejs/kit'
+import { debugFetch } from '#lib/debug.ts'
 
 export const GET: RequestHandler = async ({ url }) => {
   const category = url.searchParams.get('category')
@@ -23,7 +23,7 @@ export const GET: RequestHandler = async ({ url }) => {
       if (!article) {
         return newAPIError('article not found', 404)
       }
-      return json(article)
+      return Response.json(article)
     } catch (err) {
       if (dev) {
         console.error(err)

@@ -1,20 +1,20 @@
 import { error, type RequestHandler } from '@sveltejs/kit'
 import type { SitemapConfig } from 'super-sitemap/sveltekit'
 import { response } from 'super-sitemap/sveltekit'
-import { site } from '$lib/constants.ts'
+import { site } from '#lib/constants.ts'
 import {
   fetchArticleSlugs,
   fetchMemberSlugs,
   fetchSeriesSlugs,
   fetchTagSlugs,
-} from '$lib/sanity/repository.ts'
-import { categories } from '../../params/categories'
+} from '#lib/sanity/repository.ts'
+import { categories } from '../../params.ts'
 import type {
   SitemapArticlesQueryResult,
   SitemapAuthorsQueryResult,
   SitemapSeriesQueryResult,
   SitemapTagsQueryResult,
-} from '$lib/sanity/types.generated'
+} from '#lib/sanity/types.generated.ts'
 
 /**
  * Query sanity for:
@@ -40,7 +40,7 @@ export const GET: RequestHandler = async ({ params }) => {
       fetchSeriesSlugs(),
     ])
   } catch (err) {
-    error(500, err as Error)
+    error(500, (err as Error).message)
   }
 
   const config: SitemapConfig = {

@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { routes } from '$lib/constants'
+import { routes } from '#lib/constants.ts'
 
 const headers = [
   { name: 'site header', url: '/' },

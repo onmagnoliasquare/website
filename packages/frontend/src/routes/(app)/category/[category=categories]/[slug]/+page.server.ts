@@ -1,5 +1,5 @@
-import { createAuthorLink, createAuthorString, getMetaTags } from '$lib/helpers'
-import { site } from '$lib/constants'
+import { createAuthorLink, createAuthorString, getMetaTags } from '#lib/helpers/index.ts'
+import { site } from '#lib/constants.ts'
 import type { MetaTagsProps } from 'svelte-meta-tags'
 import type { PageServerLoad, PageServerLoadEvent } from './$types'
 

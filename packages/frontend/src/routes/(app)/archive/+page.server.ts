@@ -1,13 +1,12 @@
 import { error } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 import type { MetaTagsProps } from 'svelte-meta-tags'
-import { dev } from '$app/environment'
-import { fetchAllTags } from '$lib/sanity/repository'
+import { dev } from '$app/env'
+import { fetchAllTags } from '#lib/sanity/repository.ts'
 
 export const load: PageServerLoad = (async () => {
   try {
     const tags = await fetchAllTags()
-
     const ogDescription = `Browse our articles, tags, and content.`
 
     const pageMetaTags = Object.freeze({
@@ -22,11 +21,7 @@ export const load: PageServerLoad = (async () => {
       },
     }) satisfies MetaTagsProps
 
-    return {
-      tags: tags,
-      pageMetaTags,
-      title: 'Archive',
-    }
+    return { tags, pageMetaTags, title: 'Archive' }
   } catch (err) {
     if (dev) {
       console.error(err)

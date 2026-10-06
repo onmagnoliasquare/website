@@ -1,5 +1,10 @@
-import { createAuthorLink, createSiteTitle, domainFromUrl, parseEmbedLink } from '$lib/helpers'
-import { site } from '$lib/constants'
+import {
+  createAuthorLink,
+  createSiteTitle,
+  domainFromUrl,
+  parseEmbedLink,
+} from '#lib/helpers/index.ts'
+import { site } from '#lib/constants.ts'
 import { describe, expect, it } from 'vitest'
 
 describe('domainFromUrl', () => {

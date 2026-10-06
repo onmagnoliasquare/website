@@ -1,25 +1,22 @@
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
+import { browser } from '$app/env'
 
-import { browser } from '$app/environment'
 import { beforeNavigate } from '$app/navigation'
-import P from '$components/defaults/P.svelte'
-import SearchResults from '$components/archive/search/SearchResultList.svelte'
+import P from '#components/defaults/P.svelte'
+import SearchResults from '#components/archive/search/SearchResultList.svelte'
 import type { PageProps } from './$types'
-import spinningEarth from '$lib/assets/spinning_earth.gif'
-import { site } from '$lib/constants'
-import Header from '$components/archive/Header.svelte'
-import Loading from '$components/general/Loading.svelte'
-import TotalCounter from '$components/general/NumberDisplay.svelte'
-import SearchBar from '$components/general/navbar/SearchBar.svelte'
+import spinningEarth from '#lib/assets/spinning_earth.gif'
+import { site } from '#lib/constants.ts'
+import Header from '#components/archive/Header.svelte'
+import Loading from '#components/general/Loading.svelte'
+import TotalCounter from '#components/general/NumberDisplay.svelte'
+import SearchBar from '#components/general/navbar/SearchBar.svelte'
 
 let { data }: PageProps = $props()
-
 let searchQuery = $derived(data.searchQuery)
 let searched = $derived(data.searchQuery)
-
 let isSearched = $derived(browser && searched !== '')
-
 let matchesNum = $state<number | undefined>(undefined)
 let uncounted = $state(false)
 
@@ -30,6 +27,7 @@ $effect(() => {
 
   // Reset to undefined on every new query so the number display resets to spinning.
   matchesNum = undefined
+
   uncounted = false
 
   // See: https://svelte.dev/docs/kit/remote-functions#query-Deduplication
@@ -48,7 +46,9 @@ $effect(() => {
 })
 
 // If the page has been reloaded/refreshed, move the window to the top of the page.
-beforeNavigate(() => {
+beforeNavigate(({ shallow, type }) => {
+  if (shallow && type === 'goto') return
+
   // Source - https://stackoverflow.com/a/53307588
   // Posted by Илья Зелень, modified by community. See post 'Timeline' for change history
   // Retrieved 2026-09-14, License - CC BY-SA 4.0

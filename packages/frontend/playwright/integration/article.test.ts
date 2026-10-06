@@ -1,6 +1,6 @@
-import { site } from '$lib/constants'
-import type { ArticleQueryResult } from '$lib/sanity/types'
-import type { RelatedArticlesTypeAResult } from '$lib/sanity/types.generated'
+import { site } from '#lib/constants.ts'
+import type { ArticleQueryResult } from '#lib/sanity/types.ts'
+import type { RelatedArticlesTypeAResult } from '#lib/sanity/types.generated.ts'
 import { expect, test } from '@playwright/test'
 import { article404, v0_5_x_Article, v0_6_x_Article } from '../parameters.ts'
 

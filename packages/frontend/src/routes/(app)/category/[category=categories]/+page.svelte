@@ -1,6 +1,6 @@
 <script lang="ts">
-import P from '$components/defaults/P.svelte'
-import PageHeader from '$components/PageHeader.svelte'
+import P from '#components/defaults/P.svelte'
+import PageHeader from '#components/PageHeader.svelte'
 import type { PageProps } from './$types'
 import MoreArticles from './moreArticles.svelte'
 import Grid from './grid.svelte'

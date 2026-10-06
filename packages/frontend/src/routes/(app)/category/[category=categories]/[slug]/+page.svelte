@@ -7,35 +7,34 @@ hr.dotted {
 
 <script lang="ts">
 import type { PageProps } from './$types'
-
-import Tag from '$components/Tag.svelte'
-import Subtitle from '$components/defaults/Subtitle.svelte'
-import PhotoCaption from '$components/custom/PhotoCaption.svelte'
-import Image from '$components/Image.svelte'
-import ByLine from '$components/article/ByLine.svelte'
-import DateLine from '$components/article/DateLine.svelte'
-import ArticleContent from '$components/article/ArticleContent.svelte'
-import { createAuthorString, startTimer, stopTimer } from '$lib/helpers'
-import EmailClickable from '$components/EmailClickable.svelte'
-import P from '$components/defaults/P.svelte'
-import HoverDim from '$components/general/HoverDim.svelte'
-import Loading from '$components/general/Loading.svelte'
-import ArticleBoxC from '$components/home/ArticleBoxC.svelte'
-import GeneralObserver from '$components/embeds/GeneralObserver.svelte'
-
-import { dev } from '$app/environment'
-import type { ArticleQueryResult, CategoryPageInitialArticles } from '$lib/sanity/types'
-import type { RelatedArticlesTypeAResult } from '$lib/sanity/types.generated'
-import { isAPIError, type APIError } from '$lib/types'
+import Tag from '#components/Tag.svelte'
+import Subtitle from '#components/defaults/Subtitle.svelte'
+import PhotoCaption from '#components/custom/PhotoCaption.svelte'
+import Image from '#components/Image.svelte'
+import ByLine from '#components/article/ByLine.svelte'
+import DateLine from '#components/article/DateLine.svelte'
+import ArticleContent from '#components/article/ArticleContent.svelte'
+import { createAuthorString, startTimer, stopTimer } from '#lib/helpers/index.ts'
+import EmailClickable from '#components/EmailClickable.svelte'
+import P from '#components/defaults/P.svelte'
+import HoverDim from '#components/general/HoverDim.svelte'
+import Loading from '#components/general/Loading.svelte'
+import ArticleBoxC from '#components/home/ArticleBoxC.svelte'
+import GeneralObserver from '#components/embeds/GeneralObserver.svelte'
+import { dev } from '$app/env'
+import type { ArticleQueryResult, CategoryPageInitialArticles } from '#lib/sanity/types.ts'
+import type { RelatedArticlesTypeAResult } from '#lib/sanity/types.generated.ts'
+import { isAPIError, type APIError } from '#lib/types/index.ts'
 import type { SanityImageSource } from '@sanity/image-url'
 
 let { data }: PageProps = $props()
-
 let headerMedia = $derived(data.article.media)
 let headerMediaCreditLine = $derived(data.article.media?.asset?.creditLine)
 let headerMediaAlt = $derived(data.article.media?.alt)
-
-let tags = $derived(data.article.tags)
+// The Studio lets a tag be added twice; keep the first so each renders once and keys stay unique.
+let tags = $derived(
+  data.article.tags?.filter((tag, i, all) => all.findIndex(t => t._id === tag._id) === i)
+)
 let title = $derived(data.title)
 let subtitle = $derived(data.article.subtitle)
 let authors = $derived(data.article.authors)
@@ -134,6 +133,7 @@ const getRelatedArticles = async (
       <div class="align-center flex flex-row items-baseline pb-1">
         <ByLine authors={authors} />&nbsp;
         <span class="text-sm font-bold">✍&nbsp;</span>
+
         {#if series}
           <a
             class="font-serif text-sm font-bold italic"
@@ -179,7 +179,7 @@ const getRelatedArticles = async (
           <a href="/archive">Tags</a>
         </h3>
         <ul class="list justify-left flex flex-wrap items-center space-x-1">
-          {#each tags as tag}
+          {#each tags as tag (tag._id)}
             <li class="inline pr-1">
               <a href="/archive/tags/{tag.slug}">
                 <Tag tagName={tag.name} />
@@ -213,14 +213,13 @@ const getRelatedArticles = async (
           {:then ra}
             {@const relatedArticles = ra.filter(a => a.title !== data.article.title)}
             <ol class="p-2">
-              {#each relatedArticles as r}
+              {#each relatedArticles as r (r._id)}
                 <li class="p-2 text-sm sm:p-2 sm:pb-6 sm:text-base">
                   <ArticleBoxC article={r} />
                 </li>
               {/each}
             </ol>
-          {:catch error}
-            {@debug error}
+          {:catch}
             <P class="m-4 pl-4">Uh oh... something got messed up :(</P>
             <P class="m-4 pl-4">
               <a
@@ -241,7 +240,7 @@ const getRelatedArticles = async (
             </div>
           {:then recent}
             <ol class="p-2">
-              {#each recent as r}
+              {#each recent as r (r._id)}
                 <li class="border-t border-dotted p-2 py-6">
                   <HoverDim>
                     <a data-sveltekit-reload href="/category/{r.category.slug}/{r.slug}">

@@ -1,7 +1,7 @@
 // @vitest-environment node
 
-import { hasUppercase, buildSiteTags, getMetaTags } from '$lib/helpers'
-import type { MetaInfo } from '$lib/sanity/types.generated'
+import { hasUppercase, buildSiteTags, getMetaTags } from '#lib/helpers/index.ts'
+import type { MetaInfo } from '#lib/sanity/types.generated.ts'
 import { describe, expect, it } from 'vitest'
 
 describe('hasUppercase', () => {

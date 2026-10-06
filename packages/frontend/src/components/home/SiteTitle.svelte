@@ -13,7 +13,7 @@
 </style>
 
 <script>
-import { site } from '$lib/constants'
+import { site } from '#lib/constants.ts'
 </script>
 
 <div class="border-4 border-double">

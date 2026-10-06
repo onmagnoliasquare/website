@@ -1,12 +1,12 @@
-import { dev } from '$app/environment'
-import { newAPIError } from '$lib/helpers'
-import { fetchAllMembers } from '$lib/sanity/repository'
-import { json, type RequestHandler } from '@sveltejs/kit'
+import { dev } from '$app/env'
+import { newAPIError } from '#lib/helpers/index.ts'
+import { fetchAllMembers } from '#lib/sanity/repository.ts'
+import type { RequestHandler } from '@sveltejs/kit'
 
 export const GET: RequestHandler = async () => {
   try {
     const members = await fetchAllMembers()
-    return json(members)
+    return Response.json(members)
   } catch (err) {
     if (dev) {
       console.error(err)

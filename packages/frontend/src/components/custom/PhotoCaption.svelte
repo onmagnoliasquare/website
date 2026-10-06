@@ -10,6 +10,6 @@ interface Props {
 let { class: classList, children }: Props = $props()
 </script>
 
-<p class={twMerge('hyp text-gray-400 text-sm leading-relaxed tracking-wide italic', classList)}>
+<p class={twMerge('hyp text-sm leading-relaxed tracking-wide text-gray-400 italic', classList)}>
   Photo by {@render children()}
 </p>

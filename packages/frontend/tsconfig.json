@@ -1,29 +1,20 @@
 {
-    "extends": ["./.svelte-kit/tsconfig.json"],
-    "compilerOptions": {
-        "allowJs": true,
-        "checkJs": true,
-        "esModuleInterop": true,
-        "forceConsistentCasingInFileNames": true,
-        "resolveJsonModule": true,
-        "skipLibCheck": true,
-        "sourceMap": true,
-        "strict": true,
-        "moduleResolution": "bundler",
-        "module": "preserve",
-        "noUnusedLocals": true,
-        "allowImportingTsExtensions": true,
-        "verbatimModuleSyntax": true,
-        "types": ["@testing-library/jest-dom", "vitest/globals"]
-    },
-    "include": ["./**/*", "../../../eslint.config.mjs", "../../../lint-staged.config.mjs"],
-    "exclude": ["node_modules/**/*", ".vscode/", "dist/", "coverage/", ".wrangler/", "test-results/", "playwright-report/"]
-    // Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
-    //
-    // If you want to overwrite includes/excludes, make sure to copy over the
-    // relevant includes/excludes from the referenced tsconfig.json as
-    // TypeScript does not merge them in. You can try setting the
-    // 'moduleResolution' option to 'node' in your tsconfig.json file or
-    // adding aliases to the 'paths' option to resolve
-    // this issue.
+  "extends": ["$app/tsconfig"],
+  "compilerOptions": {
+    "sourceMap": true,
+    "strict": true,
+    "module": "preserve",
+    "noUnusedLocals": true,
+    "types": ["$app/types", "@testing-library/jest-dom", "vitest/globals"]
+  },
+  "include": ["./**/*", "../../../eslint.config.mjs", "../../../lint-staged.config.mjs"],
+  "exclude": [
+    "node_modules/**/*",
+    ".vscode/",
+    "dist/",
+    "coverage/",
+    ".wrangler/",
+    "test-results/",
+    "playwright-report/"
+  ]
 }
