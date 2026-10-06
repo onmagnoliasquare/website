@@ -1,5 +1,5 @@
 <script lang="ts">
-import P from '$components/defaults/P.svelte'
+import P from '#components/defaults/P.svelte'
 import { createAuthorString } from '#lib/helpers/index.ts'
 import type { MemberQuery } from '#lib/sanity/types.ts'
 

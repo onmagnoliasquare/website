@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 
-import SearchResults from '$components/archive/search/SearchResultList.svelte'
+import SearchResults from '#components/archive/search/SearchResultList.svelte'
 import { searchResults } from '#lib/remote/search.remote.ts'
 import { resultsPerPage } from '#lib/sanity/queries.ts'
 import type { SearchMixedMatchQueryResult } from '#lib/sanity/types.generated.ts'

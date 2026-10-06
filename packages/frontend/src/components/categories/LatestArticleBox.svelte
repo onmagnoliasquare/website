@@ -1,5 +1,5 @@
 <script lang="ts">
-import Image from '$components/Image.svelte'
+import Image from '#components/Image.svelte'
 import DateLine from './DateLine.svelte'
 import ByLine from './ByLine.svelte'
 import { twMerge } from 'tailwind-merge'

@@ -1,11 +1,11 @@
 <script lang="ts">
 import type { PageProps } from './$types'
-import ArticleBoxC from '$components/home/ArticleBoxC.svelte'
-import ArticleBoxB from '$components/home/ArticleBoxB.svelte'
+import ArticleBoxC from '#components/home/ArticleBoxC.svelte'
+import ArticleBoxB from '#components/home/ArticleBoxB.svelte'
 import type { SingleArticleQuery } from '#lib/sanity/types.ts'
-import Centered from '$components/defaults/Centered.svelte'
-import DesktopHeadlineArticle from '$components/home/DesktopHeadlineArticle.svelte'
-import MobileHeadlineArticle from '$components/home/MobileHeadlineArticle.svelte'
+import Centered from '#components/defaults/Centered.svelte'
+import DesktopHeadlineArticle from '#components/home/DesktopHeadlineArticle.svelte'
+import MobileHeadlineArticle from '#components/home/MobileHeadlineArticle.svelte'
 
 let { data }: PageProps = $props()
 </script>

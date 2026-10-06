@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 
-import NumberDisplay from '$components/general/NumberDisplay.svelte'
+import NumberDisplay from '#components/general/NumberDisplay.svelte'
 import { cleanup, render } from '@testing-library/svelte/svelte5'
 import { afterEach, beforeEach, expect, test, vi } from 'vitest'
 

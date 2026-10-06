@@ -1,6 +1,6 @@
 <script lang="ts">
-import StaffGrid from '$components/about/StaffGrid.svelte'
-import PageHeader from '$components/PageHeader.svelte'
+import StaffGrid from '#components/about/StaffGrid.svelte'
+import PageHeader from '#components/PageHeader.svelte'
 import type { PageProps } from './$types'
 
 let { data }: PageProps = $props()

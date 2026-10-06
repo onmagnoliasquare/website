@@ -1,5 +1,5 @@
 <script lang="ts">
-import P from '$components/defaults/P.svelte'
+import P from '#components/defaults/P.svelte'
 /**
  * This component is a modification of:
  *  https://github.com/portabletext/svelte-portabletext/blob/main/src/customComponents/SingleComponentBlock.svelte

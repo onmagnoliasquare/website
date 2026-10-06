@@ -1,5 +1,5 @@
 <script lang="ts">
-import ArticleBoxC from '$components/home/ArticleBoxC.svelte'
+import ArticleBoxC from '#components/home/ArticleBoxC.svelte'
 import type { CategoryPageInitialArticles } from '#lib/sanity/types.ts'
 
 interface Props {

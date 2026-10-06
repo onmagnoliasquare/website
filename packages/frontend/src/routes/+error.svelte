@@ -1,6 +1,6 @@
 <script lang="ts">
 import { page } from '$app/state'
-import MainLayout from '$components/MainLayout.svelte'
+import MainLayout from '#components/MainLayout.svelte'
 import { site } from '#lib/constants.ts'
 
 let msg = page.error?.message

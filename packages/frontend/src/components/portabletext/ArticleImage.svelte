@@ -1,7 +1,7 @@
 <script lang="ts">
-import PhotoCaption from '$components/custom/PhotoCaption.svelte'
-import P from '$components/defaults/P.svelte'
-import Image from '$components/Image.svelte'
+import PhotoCaption from '#components/custom/PhotoCaption.svelte'
+import P from '#components/defaults/P.svelte'
+import Image from '#components/Image.svelte'
 import type { CustomBlockComponentProps } from '@portabletext/svelte'
 import type { SanityImageAsset } from '#lib/sanity/types.generated.ts'
 

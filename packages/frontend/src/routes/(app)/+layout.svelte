@@ -5,7 +5,7 @@
 import { page } from '$app/state'
 import { createSiteTitle } from '#lib/helpers/index.ts'
 import { site } from '#lib/constants.ts'
-import MainLayout from '$components/MainLayout.svelte'
+import MainLayout from '#components/MainLayout.svelte'
 import type { LayoutProps } from './$types'
 
 let { children }: LayoutProps = $props()

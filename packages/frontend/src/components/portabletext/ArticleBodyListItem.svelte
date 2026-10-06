@@ -1,5 +1,5 @@
 <script lang="ts">
-import P from '$components/defaults/P.svelte'
+import P from '#components/defaults/P.svelte'
 import type { Snippet } from 'svelte'
 
 interface Props {

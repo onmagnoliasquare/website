@@ -1,6 +1,6 @@
 <script lang="ts">
-import Button from '$components/general/Button.svelte'
-import ArticleBoxC from '$components/home/ArticleBoxC.svelte'
+import Button from '#components/general/Button.svelte'
+import ArticleBoxC from '#components/home/ArticleBoxC.svelte'
 import type { CategoryPagePaginateArticles } from '#lib/sanity/types.ts'
 import { isAPIError, type APIError } from '#lib/types/index.ts'
 

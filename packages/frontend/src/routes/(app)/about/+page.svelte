@@ -1,6 +1,6 @@
 <script>
-import P from '$components/defaults/P.svelte'
-import PageHeader from '$components/PageHeader.svelte'
+import P from '#components/defaults/P.svelte'
+import PageHeader from '#components/PageHeader.svelte'
 import { CardLink, CodeOfEthics } from '#lib'
 </script>
 

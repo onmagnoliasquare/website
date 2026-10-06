@@ -19,9 +19,8 @@ export default defineConfig({
       experimental: { remoteFunctions: true },
       paths: { relative: true },
       adapter: adapterCloudflare({ config: './wrangler.jsonc' }),
-      alias: { $components: 'src/components/*' },
-      // If you're looking for the `#lib` alias, that is declared in
-      // `imports` in package.json and does NOT need to be defined here.
+      // If you're looking for the `#lib` or `#components` aliases, those are
+      // declared in `imports` in package.json and do NOT need to be defined here.
       version: {
         name: child_process.execSync('git rev-parse HEAD').toString().trim(),
       },

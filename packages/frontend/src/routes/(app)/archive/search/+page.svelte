@@ -3,15 +3,15 @@
 import { browser } from '$app/env'
 
 import { beforeNavigate } from '$app/navigation'
-import P from '$components/defaults/P.svelte'
-import SearchResults from '$components/archive/search/SearchResultList.svelte'
+import P from '#components/defaults/P.svelte'
+import SearchResults from '#components/archive/search/SearchResultList.svelte'
 import type { PageProps } from './$types'
 import spinningEarth from '#lib/assets/spinning_earth.gif'
 import { site } from '#lib/constants.ts'
-import Header from '$components/archive/Header.svelte'
-import Loading from '$components/general/Loading.svelte'
-import TotalCounter from '$components/general/NumberDisplay.svelte'
-import SearchBar from '$components/general/navbar/SearchBar.svelte'
+import Header from '#components/archive/Header.svelte'
+import Loading from '#components/general/Loading.svelte'
+import TotalCounter from '#components/general/NumberDisplay.svelte'
+import SearchBar from '#components/general/navbar/SearchBar.svelte'
 
 let { data }: PageProps = $props()
 let searchQuery = $derived(data.searchQuery)

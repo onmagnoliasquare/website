@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 
-import Button from '$components/general/Button.svelte'
+import Button from '#components/general/Button.svelte'
 import { cleanup, render } from '@testing-library/svelte/svelte5'
 import { userEvent } from '@testing-library/user-event'
 import { createRawSnippet } from 'svelte'

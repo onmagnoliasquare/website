@@ -1,13 +1,13 @@
 <script lang="ts">
-import P from '$components/defaults/P.svelte'
-import ArticleBoxLoading from '$components/general/ArticleBoxLoading.svelte'
-import Button from '$components/general/Button.svelte'
+import P from '#components/defaults/P.svelte'
+import ArticleBoxLoading from '#components/general/ArticleBoxLoading.svelte'
+import Button from '#components/general/Button.svelte'
 import { maxResultsPerSearch } from '#lib/constants.ts'
 import { resultsPerPage } from '#lib/sanity/queries.ts'
 import type { SearchMixedMatchQueryResult } from '#lib/sanity/types.generated.ts'
 import { searchResults } from '#lib/remote/search.remote.ts'
 import { dev } from '$app/env'
-import SearchResultEntry from '$components/archive/search/SearchResultEntry.svelte'
+import SearchResultEntry from '#components/archive/search/SearchResultEntry.svelte'
 
 interface Props {
   searchQuery: string

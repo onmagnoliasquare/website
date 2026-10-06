@@ -2,7 +2,7 @@
 
 import { render, screen } from '@testing-library/svelte/svelte5'
 import { afterEach, expect, test, vi } from 'vitest'
-import VersionLabel from '$components/general/VersionLabel.svelte'
+import VersionLabel from '#components/general/VersionLabel.svelte'
 
 // In the browser, `version` is read from the payload SvelteKit embeds in
 // server-rendered HTML, which doesn't exist under jsdom.

@@ -1,7 +1,7 @@
 <script lang="ts">
-import PageHeader from '$components/PageHeader.svelte'
-import Centered from '$components/defaults/Centered.svelte'
-import HoverDim from '$components/general/HoverDim.svelte'
+import PageHeader from '#components/PageHeader.svelte'
+import Centered from '#components/defaults/Centered.svelte'
+import HoverDim from '#components/general/HoverDim.svelte'
 import type { PageProps } from './$types'
 
 let { data }: PageProps = $props()
