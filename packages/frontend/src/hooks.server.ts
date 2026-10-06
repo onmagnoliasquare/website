@@ -1,3 +1,5 @@
+import { redirect } from '@sveltejs/kit'
+
 /**
  * Routing code. These are SvelteKit hooks.
  * Defining hooks: https://kit.svelte.dev/docs/hooks
@@ -20,11 +22,10 @@
  *
  * This ensures clarity.
  */
+import { hasUppercase } from '#lib/helpers/index.js'
 
-import { hasUppercase } from '$lib/helpers'
-import { redirect, type Handle } from '@sveltejs/kit'
-import { sequence } from '@sveltejs/kit/hooks'
-import { dev } from '$app/environment'
+import { sequence, type Handle } from '@sveltejs/kit/hooks'
+import { dev } from '$app/env'
 
 /**
  * redirectHome redirects `/home` to `/`.
@@ -120,13 +121,15 @@ const redirectHome: Handle = async ({ event, resolve }) => {
  * This does not actually affect `?q=` tags. Any parameter after the equals
  * is not matched for case. This is because the pathname does not include
  * the `?q=`, or the query.
+ * Remote function requests are skipped, because their paths carry the
+ * function's export name (e.g. `/_app/remote/<hash>/searchResults`).
  * This function was retrieved from:
  * https://github.com/sveltejs/kit/discussions/10207#discussioncomment-6279714
  * @returns `Resolve`
  */
 const redirectCaps: Handle = async ({ event, resolve }) => {
   const uppercase: boolean = hasUppercase(event.url.pathname)
-  if (uppercase) {
+  if (uppercase && !event.isRemoteRequest) {
     redirect(307, event.url.pathname.toLowerCase())
   }
 
@@ -156,11 +159,9 @@ export const preflightOptions: Handle = async ({ event, resolve }) => {
 const logSpeed: Handle = async ({ event, resolve }) => {
   if (dev) {
     const route = event.url
-
     const start = performance.now()
     const response = await resolve(event)
     const end = performance.now()
-
     const responseTime = end - start
 
     if (responseTime > 2000) {

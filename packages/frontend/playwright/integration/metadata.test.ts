@@ -1,4 +1,4 @@
-import { site } from '$lib/constants'
+import { site } from '#lib/constants.ts'
 import { expect, test } from '@playwright/test'
 import { pages } from '../parameters.ts'
 

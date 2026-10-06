@@ -7,7 +7,6 @@ hr.dotted {
 
 <script lang="ts">
 import type { PageProps } from './$types'
-
 import Tag from '$components/Tag.svelte'
 import Subtitle from '$components/defaults/Subtitle.svelte'
 import PhotoCaption from '$components/custom/PhotoCaption.svelte'
@@ -15,26 +14,23 @@ import Image from '$components/Image.svelte'
 import ByLine from '$components/article/ByLine.svelte'
 import DateLine from '$components/article/DateLine.svelte'
 import ArticleContent from '$components/article/ArticleContent.svelte'
-import { createAuthorString, startTimer, stopTimer } from '$lib/helpers'
+import { createAuthorString, startTimer, stopTimer } from '#lib/helpers/index.js'
 import EmailClickable from '$components/EmailClickable.svelte'
 import P from '$components/defaults/P.svelte'
 import HoverDim from '$components/general/HoverDim.svelte'
 import Loading from '$components/general/Loading.svelte'
 import ArticleBoxC from '$components/home/ArticleBoxC.svelte'
 import GeneralObserver from '$components/embeds/GeneralObserver.svelte'
-
-import { dev } from '$app/environment'
-import type { ArticleQueryResult, CategoryPageInitialArticles } from '$lib/sanity/types'
-import type { RelatedArticlesTypeAResult } from '$lib/sanity/types.generated'
-import { isAPIError, type APIError } from '$lib/types'
+import { dev } from '$app/env'
+import type { ArticleQueryResult, CategoryPageInitialArticles } from '#lib/sanity/types.js'
+import type { RelatedArticlesTypeAResult } from '#lib/sanity/types.generated.js'
+import { isAPIError, type APIError } from '#lib/types/index.js'
 import type { SanityImageSource } from '@sanity/image-url'
 
 let { data }: PageProps = $props()
-
 let headerMedia = $derived(data.article.media)
 let headerMediaCreditLine = $derived(data.article.media?.asset?.creditLine)
 let headerMediaAlt = $derived(data.article.media?.alt)
-
 let tags = $derived(data.article.tags)
 let title = $derived(data.title)
 let subtitle = $derived(data.article.subtitle)
@@ -134,6 +130,7 @@ const getRelatedArticles = async (
       <div class="align-center flex flex-row items-baseline pb-1">
         <ByLine authors={authors} />&nbsp;
         <span class="text-sm font-bold">✍&nbsp;</span>
+
         {#if series}
           <a
             class="font-serif text-sm font-bold italic"

@@ -1,7 +1,7 @@
-import { dev } from '$app/environment'
-import { newAPIError } from '$lib/helpers'
-import { fetchSeriesPage } from '$lib/sanity/repository'
-import { json, type RequestHandler } from '@sveltejs/kit'
+import { dev } from '$app/env'
+import { newAPIError } from '#lib/helpers/index.js'
+import { fetchSeriesPage } from '#lib/sanity/repository.js'
+import type { RequestHandler } from '@sveltejs/kit'
 
 export const GET: RequestHandler = async ({ params }) => {
   const { slug } = params
@@ -14,7 +14,7 @@ export const GET: RequestHandler = async ({ params }) => {
     if (!seriesPage) {
       return newAPIError('series not found', 404)
     }
-    return json(seriesPage)
+    return Response.json(seriesPage)
   } catch (err) {
     if (dev) {
       console.error(err)

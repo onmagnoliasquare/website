@@ -4,7 +4,7 @@
 -->
 
 <script lang="ts">
-import { footerRoutes, type route, routes } from '$lib/constants'
+import { footerRoutes, type route, routes } from '#lib/constants.js'
 import VersionLabel from './general/VersionLabel.svelte'
 import EmailClickable from '$components/EmailClickable.svelte'
 import Logo from './general/Logo.svelte'

@@ -1,7 +1,7 @@
 // Uses a page server load in order to access Sanity API.
 
 import type { LayoutServerLoad } from '../$types'
-import type { HomepageArticleQueryResult } from '$lib/sanity/types.generated'
+import type { HomepageArticleQueryResult } from '#lib/sanity/types.generated.js'
 
 export const load: LayoutServerLoad = (async ({ fetch }) => {
   const req = await fetch(`/api/homepage`)

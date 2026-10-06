@@ -1,8 +1,8 @@
 <script lang="ts">
-import { parseEmbedLink } from '$lib/helpers'
+import { parseEmbedLink } from '#lib/helpers/index.js'
 import type { CustomBlockComponentProps } from '@portabletext/svelte'
 import SpotifyEmbed from './SpotifyEmbed.svelte'
-import type { EmbeddedLink } from '$lib/sanity/types.generated'
+import type { EmbeddedLink } from '#lib/sanity/types.generated.js'
 
 interface Props {
   portableText: CustomBlockComponentProps<EmbeddedLink>

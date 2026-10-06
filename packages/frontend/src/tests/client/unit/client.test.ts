@@ -1,4 +1,4 @@
-import { getFlagEmoji } from '$lib/helpers'
+import { getFlagEmoji } from '#lib/helpers/index.js'
 import { describe, expect, it } from 'vitest'
 
 /**

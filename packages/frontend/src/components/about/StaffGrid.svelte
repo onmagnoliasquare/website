@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { AllMembers } from '$lib/sanity/types'
+import type { AllMembers } from '#lib/sanity/types.js'
 import StaffClickable from './StaffClickable.svelte'
 
 interface Props {

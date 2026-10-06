@@ -1,16 +1,16 @@
 // @vitest-environment jsdom
 
 import SearchResults from '$components/archive/search/SearchResultList.svelte'
-import { searchResults } from '$lib/remote/search.remote'
-import { resultsPerPage } from '$lib/sanity/queries'
-import type { SearchMixedMatchQueryResult } from '$lib/sanity/types.generated'
+import { searchResults } from '#lib/remote/search.remote.js'
+import { resultsPerPage } from '#lib/sanity/queries.js'
+import type { SearchMixedMatchQueryResult } from '#lib/sanity/types.generated.js'
 import { cleanup, render } from '@testing-library/svelte/svelte5'
 import { userEvent } from '@testing-library/user-event'
 import { afterEach, expect, test, vi } from 'vitest'
 
 // The component reaches the server through this remote function, so faking it
 // is what lets the pagination rules be exercised without a server.
-vi.mock('$lib/remote/search.remote', () => ({
+vi.mock('#lib/remote/search.remote.js', () => ({
   searchResults: vi.fn(),
   searchTotal: vi.fn(),
 }))

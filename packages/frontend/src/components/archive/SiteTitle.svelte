@@ -1,5 +1,5 @@
 <script lang="ts">
-import { site } from '$lib/constants'
+import { site } from '#lib/constants.js'
 </script>
 
 <h1 class="mb-6 w-fit border p-2 font-black tracking-wide">

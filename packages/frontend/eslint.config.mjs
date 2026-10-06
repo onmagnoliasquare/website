@@ -3,10 +3,18 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 import tsParser from '@typescript-eslint/parser'
 import svelte from 'eslint-plugin-svelte'
 import baseConfig from '../../eslint.config.mjs'
-import svelteConfig from './svelte.config.js'
+import { loadConfig } from '@sveltejs/load-config'
 import ts from 'typescript-eslint'
 import eslintConfigPrettier from 'eslint-config-prettier'
 // import sanity from '@sanity-labs/eslint-plugin'
+
+const loadedConfig = await loadConfig('./', { traverse: false })
+if (loadedConfig && 'error' in loadedConfig) throw loadedConfig.error
+
+// The resolved SvelteKit config holds functions (e.g. `typescript.config`),
+// which `eslint --cache` cannot serialize. The Svelte parser only reads
+// `compilerOptions`, so pass just that.
+const svelteConfig = loadedConfig && { compilerOptions: loadedConfig.config.compilerOptions }
 
 export default defineConfig([
   ...baseConfig,

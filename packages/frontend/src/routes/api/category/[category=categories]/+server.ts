@@ -1,8 +1,8 @@
-import { dev } from '$app/environment'
-import { newAPIError } from '$lib/helpers'
-import { fetchCategoryPage } from '$lib/sanity/repository'
-import { json, type RequestHandler } from '@sveltejs/kit'
-import { debugFetch } from '$lib/debug'
+import { dev } from '$app/env'
+import { newAPIError } from '#lib/helpers/index.js'
+import { fetchCategoryPage } from '#lib/sanity/repository.js'
+import type { RequestHandler } from '@sveltejs/kit'
+import { debugFetch } from '#lib/debug.js'
 
 export const GET: RequestHandler = async ({ params }) => {
   const { category } = params
@@ -15,7 +15,7 @@ export const GET: RequestHandler = async ({ params }) => {
     if (!catPage) {
       return newAPIError('category not found', 404)
     }
-    return json(catPage)
+    return Response.json(catPage)
   } catch (err) {
     if (dev) {
       console.error(err)

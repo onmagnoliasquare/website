@@ -3,8 +3,8 @@
  * ======== MAIN LAYOUT ========
  */
 import { page } from '$app/state'
-import { createSiteTitle } from '$lib/helpers'
-import { site } from '$lib/constants'
+import { createSiteTitle } from '#lib/helpers/index.js'
+import { site } from '#lib/constants.js'
 import MainLayout from '$components/MainLayout.svelte'
 import type { LayoutProps } from './$types'
 

@@ -1,11 +1,11 @@
-import { dev } from '$app/environment'
+import { dev } from '$app/env'
 import { error, type ServerLoadEvent } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 import type { MetaTagsProps } from 'svelte-meta-tags'
-import { site } from '$lib/constants'
-import { createSiteTitle } from '$lib/helpers'
-import type { AllSeries } from '$lib/sanity/types'
-import { isAPIError, type APIError } from '$lib/types'
+import { site } from '#lib/constants.js'
+import { createSiteTitle } from '#lib/helpers/index.js'
+import type { AllSeries } from '#lib/sanity/types.js'
+import { isAPIError, type APIError } from '#lib/types/index.js'
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
   try {

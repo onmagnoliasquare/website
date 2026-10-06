@@ -1,8 +1,8 @@
 import { error, isHttpError } from '@sveltejs/kit'
 import type { LayoutServerLoad, LayoutServerLoadEvent } from './$types'
-import { dev } from '$app/environment'
-import { isAPIError, type APIError } from '$lib/types'
-import type { ArticleQueryResult } from '$lib/sanity/types'
+import { dev } from '$app/env'
+import { isAPIError, type APIError } from '#lib/types/index.js'
+import type { ArticleQueryResult } from '#lib/sanity/types.js'
 
 export const load: LayoutServerLoad = (async (event: LayoutServerLoadEvent) => {
   const { category, slug } = event.params

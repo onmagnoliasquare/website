@@ -1,5 +1,5 @@
 <script lang="ts">
-import { routes } from '$lib/constants'
+import { routes } from '#lib/constants.js'
 </script>
 
 <nav id="mainNav" aria-label="Main navigation" class="center hidden max-w-2xl sm:block">

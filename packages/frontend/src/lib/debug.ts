@@ -1,4 +1,4 @@
-import { dev } from '$app/environment'
+import { dev } from '$app/env'
 
 export async function debugFetch<T>(queryFn: () => Promise<T>, label: string): Promise<T> {
   if (!dev) {

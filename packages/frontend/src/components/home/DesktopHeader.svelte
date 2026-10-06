@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import DesktopLandingNavbar from './DesktopLandingNavbar.svelte'
-import omsLogo from '$lib/assets/oms_logo.png'
+import omsLogo from '#lib/assets/oms_logo.png'
 import ChineseHeaderName from './ChineseHeaderName.svelte'
 import SiteTitle from './SiteTitle.svelte'
 </script>

@@ -1,7 +1,7 @@
 <script lang="ts">
 import Image from '$components/Image.svelte'
 import DateLine from '$components/home/DateLine.svelte'
-import type { HomepageArticleQueryResult } from '$lib/sanity/types.generated'
+import type { HomepageArticleQueryResult } from '#lib/sanity/types.generated.js'
 import type { Get } from '@sanity/codegen'
 import ByLine from './ByLine.svelte'
 

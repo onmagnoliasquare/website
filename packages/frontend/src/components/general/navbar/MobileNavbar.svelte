@@ -1,5 +1,5 @@
 <script lang="ts">
-import { routes } from '$lib/constants'
+import { routes } from '#lib/constants.js'
 import SearchBar from '$components/general/navbar/SearchBar.svelte'
 
 let listOfRoutes = routes

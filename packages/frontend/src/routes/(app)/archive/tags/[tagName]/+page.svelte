@@ -1,8 +1,8 @@
 <script lang="ts">
-import { dev } from '$app/environment'
+import { dev } from '$app/env'
 import Centered from '$components/defaults/Centered.svelte'
 import PageHeader from '$components/PageHeader.svelte'
-import type { TagPage, TagPageInitialArticles } from '$lib/sanity/types'
+import type { TagPage, TagPageInitialArticles } from '#lib/sanity/types.js'
 import type { PageProps } from './$types'
 
 let { data }: PageProps = $props()

@@ -1,17 +1,12 @@
-<!--
-@component
-`SearchResults` renders the first page of search results and appends further
-pages on demand.
--->
 <script lang="ts">
 import P from '$components/defaults/P.svelte'
 import ArticleBoxLoading from '$components/general/ArticleBoxLoading.svelte'
 import Button from '$components/general/Button.svelte'
-import { maxResultsPerSearch } from '$lib/constants'
-import { resultsPerPage } from '$lib/sanity/queries'
-import type { SearchMixedMatchQueryResult } from '$lib/sanity/types.generated'
-import { searchResults } from '$lib/remote/search.remote'
-import { dev } from '$app/environment'
+import { maxResultsPerSearch } from '#lib/constants.js'
+import { resultsPerPage } from '#lib/sanity/queries.js'
+import type { SearchMixedMatchQueryResult } from '#lib/sanity/types.generated.js'
+import { searchResults } from '#lib/remote/search.remote.js'
+import { dev } from '$app/env'
 import SearchResultEntry from '$components/archive/search/SearchResultEntry.svelte'
 
 interface Props {
@@ -21,12 +16,10 @@ interface Props {
 }
 
 let { searchQuery, firstPage }: Props = $props()
-
 let morePages = $state.raw<SearchMixedMatchQueryResult>([])
 let failed = $state(false)
 let loading = $state(false)
 let lastPageLength = $state<number | null>(null)
-
 const results = $derived([...firstPage.slice(0, resultsPerPage), ...morePages])
 const moreAvailable = $derived((lastPageLength ?? firstPage.length) > resultsPerPage)
 const cursorExhausted = $derived(results.length > maxResultsPerSearch)
@@ -59,6 +52,12 @@ const loadMore = async (): Promise<void> => {
 
 const placeholders = Array.from({ length: resultsPerPage }, (_, index) => index)
 </script>
+
+<!--
+@component
+`SearchResults` renders the first page of search results and appends further
+pages on demand.
+-->
 
 {#if results.length === 0 && !loading}
   <P class="ml-2">No results found.</P>

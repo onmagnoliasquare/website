@@ -3,16 +3,15 @@ export const csr = false
 import { error, type ServerLoadEvent } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 import type { MetaTagsProps } from 'svelte-meta-tags'
-import { site } from '$lib/constants'
-import { createSiteTitle } from '$lib/helpers'
-import type { AllMembers } from '$lib/sanity/types'
-import { dev } from '$app/environment'
+import { site } from '#lib/constants.js'
+import { createSiteTitle } from '#lib/helpers/index.js'
+import type { AllMembers } from '#lib/sanity/types.js'
+import { dev } from '$app/env'
 
 export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
   try {
     const req = await event.fetch('/api/members')
     const members: AllMembers = await req.json()
-
     const ogTitle = createSiteTitle(site.name, 'Staff')
     const ogDescription = `Staff and contributors at ${site.name}.`
 

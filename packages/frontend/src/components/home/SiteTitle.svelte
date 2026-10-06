@@ -13,7 +13,7 @@
 </style>
 
 <script>
-import { site } from '$lib/constants'
+import { site } from '#lib/constants.js'
 </script>
 
 <div class="border-4 border-double">

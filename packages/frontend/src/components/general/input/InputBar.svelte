@@ -6,7 +6,7 @@ Executes an `action` based on some textual input.
 <script lang="ts">
 import TextInputField from './TextInputField.svelte'
 import type { ClassValue } from 'svelte/elements'
-import { maxSearchQueryLength } from '$lib/constants.ts'
+import { maxSearchQueryLength } from '#lib/constants.ts'
 
 interface Props {
   id: string

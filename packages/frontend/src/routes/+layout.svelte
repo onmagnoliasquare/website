@@ -3,7 +3,7 @@
  * ======== ROOT LAYOUT ========
  */
 
-import { Footer } from '$lib'
+import { Footer } from '#lib'
 import type { LayoutProps } from './$types'
 
 import { page } from '$app/state'

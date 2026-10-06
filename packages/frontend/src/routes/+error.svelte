@@ -1,7 +1,7 @@
 <script lang="ts">
 import { page } from '$app/state'
 import MainLayout from '$components/MainLayout.svelte'
-import { site } from '$lib/constants'
+import { site } from '#lib/constants.js'
 
 let msg = page.error?.message
 let status = page.status

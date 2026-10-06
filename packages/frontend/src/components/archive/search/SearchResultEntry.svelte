@@ -1,7 +1,7 @@
 <script lang="ts">
 import P from '$components/defaults/P.svelte'
-import { createAuthorString, dateFormatter } from '$lib/helpers'
-import type { SearchMixedMatchQueryResult } from '$lib/sanity/types.generated'
+import { createAuthorString, dateFormatter } from '#lib/helpers/index.js'
+import type { SearchMixedMatchQueryResult } from '#lib/sanity/types.generated.js'
 import type { Get } from '@sanity/codegen'
 
 interface Props {

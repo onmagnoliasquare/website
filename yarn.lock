@@ -6729,7 +6729,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sveltejs/load-config@npm:^0.2.3":
+"@sveltejs/load-config@npm:^0.2.2, @sveltejs/load-config@npm:^0.2.3":
   version: 0.2.3
   resolution: "@sveltejs/load-config@npm:0.2.3"
   checksum: 10c0/39d4f1045fd1a862e59317e76033d6c9212eb693df28b2beaf6b89d376eebab362bc9ba595fb71d357b998199ce879bc7d7f916c36f572b36a0894b2a5e1d1da
@@ -10876,6 +10876,7 @@ __metadata:
     "@sveltejs/adapter-cloudflare": "npm:^8.0.0"
     "@sveltejs/enhanced-img": "npm:1.0.0"
     "@sveltejs/kit": "npm:^3.0.1"
+    "@sveltejs/load-config": "npm:^0.2.2"
     "@sveltejs/vite-plugin-svelte": "npm:7.3.1"
     "@tailwindcss/vite": "npm:^4.3.3"
     "@testing-library/jest-dom": "npm:^7.0.1"

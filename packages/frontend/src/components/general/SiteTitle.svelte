@@ -1,5 +1,5 @@
 <script>
-import { site } from '$lib/constants'
+import { site } from '#lib/constants.js'
 </script>
 
 <a href="/">

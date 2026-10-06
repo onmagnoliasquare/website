@@ -1,11 +1,12 @@
-import { dev } from '$app/environment'
-import { newAPIError } from '$lib/helpers'
+import { dev } from '$app/env'
+import { newAPIError } from '#lib/helpers/index.js'
 import {
   fetchCategoryPageInitialArticles,
   fetchCategoryPagePaginateArticles,
-} from '$lib/sanity/repository'
-import { json, type RequestHandler } from '@sveltejs/kit'
-import { debugFetch } from '$lib/debug'
+} from '#lib/sanity/repository.js'
+
+import type { RequestHandler } from '@sveltejs/kit'
+import { debugFetch } from '#lib/debug.js'
 
 export const GET: RequestHandler = async ({ url, params }) => {
   const { category } = params
@@ -26,14 +27,14 @@ export const GET: RequestHandler = async ({ url, params }) => {
         () => fetchCategoryPagePaginateArticles(category, lastDate, lastId),
         'api-fetch-category-page-paginate-articles'
       )
-      return json(articles)
+      return Response.json(articles)
     }
 
     const articles = await debugFetch(
       () => fetchCategoryPageInitialArticles(category),
       'fetch-category-page-initial-articles'
     )
-    return json(articles)
+    return Response.json(articles)
   } catch (err) {
     if (dev) {
       console.error(err)

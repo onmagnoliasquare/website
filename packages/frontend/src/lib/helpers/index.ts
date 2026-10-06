@@ -2,13 +2,12 @@
  * PLEASE KEEP THE FUNCTIONS IN THIS FILE PURE!!!
  * NO SIDE EFFECTS PLEASE.
  */
-
 import type { ImageAsset } from '@sanity/types'
+
 import type { MetaInfo } from '../sanity/types.generated'
 import type { MemberQuery } from '../sanity/types'
 import type { APIError } from '../types'
-import { json } from '@sveltejs/kit'
-import { dev } from '$app/environment'
+import { dev } from '$app/env'
 
 const dateOnlyRegex =
   /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])))$/
@@ -69,6 +68,7 @@ export const dateFormatter = (
  */
 export const hasUppercase = (p: string): boolean => {
   const m: RegExpMatchArray | null = /[A-Z]/.exec(p)
+
   return !!m
 }
 
@@ -117,8 +117,7 @@ export const createSiteTitle = (name: string, title?: string): string =>
  */
 export const getFlagEmoji = (countryCode: string): string =>
   countryCode
-    .toUpperCase()
-    //@ts-expect-error for nonsense.
+    .toUpperCase() //@ts-expect-error for nonsense.
     .replace(/./g, char => String.fromCodePoint(127397 + char.charCodeAt()))
 
 /**
@@ -132,6 +131,7 @@ export const getFlagEmoji = (countryCode: string): string =>
  */
 export const getCountryName = (countryCode: string, locale: string): string | undefined => {
   const name = new Intl.DisplayNames([locale], { type: 'region' })
+
   return name.of(countryCode)
 }
 
@@ -326,7 +326,7 @@ export const getMetaTags = (
 
 export function newAPIError(message: string, status: number): Response {
   const res: APIError = { error: message }
-  return json(res, { status })
+  return Response.json(res, { status })
 }
 
 export function sanitizeInput(v: string): string {

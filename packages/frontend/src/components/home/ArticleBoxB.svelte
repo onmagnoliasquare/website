@@ -10,7 +10,7 @@ import ByLine from './ByLine.svelte'
 import DateLine from '$components/article/DateLine.svelte'
 import HoverDim from '$components/general/HoverDim.svelte'
 import P from '$components/defaults/P.svelte'
-import type { SingleArticleQuery } from '$lib/sanity/types'
+import type { SingleArticleQuery } from '#lib/sanity/types.js'
 
 interface Props {
   article: SingleArticleQuery

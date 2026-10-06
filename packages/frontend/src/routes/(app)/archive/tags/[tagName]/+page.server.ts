@@ -1,13 +1,13 @@
-import { error, type ServerLoadEvent } from '@sveltejs/kit'
+import { error } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 import type { MetaTagsProps } from 'svelte-meta-tags'
-import { site } from '$lib/constants'
-import { createSiteTitle, getMetaTags } from '$lib/helpers'
-import type { TagPage, TagPageInitialArticles } from '$lib/sanity/types'
-import { isAPIError, type APIError } from '$lib/types'
-import { dev } from '$app/environment'
+import { site } from '#lib/constants.js'
+import { createSiteTitle, getMetaTags } from '#lib/helpers/index.js'
+import type { TagPage, TagPageInitialArticles } from '#lib/sanity/types.js'
+import { isAPIError, type APIError } from '#lib/types/index.js'
+import { dev } from '$app/env'
 
-export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
+export const load: PageServerLoad = (async event => {
   const { tagName } = event.params
 
   try {
@@ -19,7 +19,6 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 
     const articlesReq = await event.fetch(`/api/tag/${tagName}/articles`)
     const articles: TagPageInitialArticles = await articlesReq.json()
-
     const { title, description } = getMetaTags(
       createSiteTitle(site.title, `#${tagName}`),
       `Browse the #${tagPage.name} archives at ${site.name}.`,

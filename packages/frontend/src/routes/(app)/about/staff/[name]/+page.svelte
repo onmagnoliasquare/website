@@ -4,8 +4,8 @@ import P from '$components/defaults/P.svelte'
 import ContactIcons from '$components/general/ContactIcons.svelte'
 import HoverDim from '$components/general/HoverDim.svelte'
 import Image from '$components/Image.svelte'
-import { dateFormatter, domainFromUrl } from '$lib/helpers'
-import { filler } from '$lib/constants'
+import { dateFormatter, domainFromUrl } from '#lib/helpers/index.js'
+import { filler } from '#lib/constants.js'
 import type { PageProps } from './$types'
 
 let { data }: PageProps = $props()
@@ -151,12 +151,12 @@ let articles = $derived(data.articles)
                           {article.title}
                         </h1>
                         {#if article.subtitle}
-                          <P class=" text-gray-600 mb-1 pb-2 leading-6 tracking-wide">
+                          <P class=" mb-1 pb-2 leading-6 tracking-wide text-gray-600">
                             {article.subtitle}
                           </P>
                         {/if}
                         <footer>
-                          <P class="text-gray-600 font-semibold tracking-wide">
+                          <P class="font-semibold tracking-wide text-gray-600">
                             <time datetime={article.date}>
                               {dateFormatter(article.date, data.userLocale)}
                             </time>

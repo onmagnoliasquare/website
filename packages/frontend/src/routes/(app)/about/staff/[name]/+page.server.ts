@@ -1,16 +1,16 @@
-import { dev } from '$app/environment'
+import { dev } from '$app/env'
 
 export const csr = dev
 
-import { error, type ServerLoadEvent } from '@sveltejs/kit'
+import { error } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 import type { MetaTagsProps } from 'svelte-meta-tags'
-import { filler, site } from '$lib/constants'
-import { createSiteTitle, getMetaTags } from '$lib/helpers'
-import type { MemberPageQuery, SingleMemberAllArticles } from '$lib/sanity/types'
-import { isAPIError, type APIError } from '$lib/types'
+import { filler, site } from '#lib/constants.js'
+import { createSiteTitle, getMetaTags } from '#lib/helpers/index.js'
+import type { MemberPageQuery, SingleMemberAllArticles } from '#lib/sanity/types.js'
+import { isAPIError, type APIError } from '#lib/types/index.js'
 
-export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
+export const load: PageServerLoad = (async event => {
   const { name } = event.params
 
   try {
@@ -22,9 +22,9 @@ export const load: PageServerLoad = (async (event: ServerLoadEvent) => {
 
     // Attempt to retrieve the member's articles.
     const articleReq = await event.fetch(`/api/members/${name}/articles`)
+
     const articlesRes: SingleMemberAllArticles | APIError = await articleReq.json()
     const articles: SingleMemberAllArticles = isAPIError(articlesRes) ? [] : articlesRes
-
     const { title, description } = getMetaTags(
       createSiteTitle(site.name, `About ${member.name}`),
       member.bio ?? `${member.name} ${filler.memberDescription}.`,

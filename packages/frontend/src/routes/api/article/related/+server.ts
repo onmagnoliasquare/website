@@ -1,8 +1,8 @@
-import { dev } from '$app/environment'
-import { newAPIError } from '$lib/helpers'
-import { fetchArticleDataWithoutContent, fetchRelatedArticles } from '$lib/sanity/repository'
-import { json, type RequestHandler } from '@sveltejs/kit'
-import { debugFetch } from '$lib/debug'
+import { dev } from '$app/env'
+import { newAPIError } from '#lib/helpers/index.js'
+import { fetchArticleDataWithoutContent, fetchRelatedArticles } from '#lib/sanity/repository.js'
+import type { RequestHandler } from '@sveltejs/kit'
+import { debugFetch } from '#lib/debug.js'
 
 export const GET: RequestHandler = async ({ url }) => {
   const category = url.searchParams.get('category')
@@ -38,7 +38,7 @@ export const GET: RequestHandler = async ({ url }) => {
         ),
       'api-fetch-related-articles'
     )
-    return json(related)
+    return Response.json(related)
   } catch (err) {
     if (dev) {
       console.error(err)

@@ -1,15 +1,14 @@
-import { dev } from '$app/environment'
+import { dev } from '$app/env'
 
 export const csr = dev
 
-import { site } from '$lib/constants'
+import { site } from '#lib/constants.js'
 import type { MetaTagsProps } from 'svelte-meta-tags'
-import { createSiteTitle } from '$lib/helpers'
+import { createSiteTitle } from '#lib/helpers/index.js'
 import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = (() => {
   const title = 'About'
-
   const ogTitle = createSiteTitle(site.title, title)
   const ogDescription = `Who is ${site.title}?`
 

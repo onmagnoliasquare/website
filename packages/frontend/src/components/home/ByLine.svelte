@@ -1,7 +1,7 @@
 <script lang="ts">
 import P from '$components/defaults/P.svelte'
-import { createAuthorString } from '$lib/helpers'
-import type { MemberQuery } from '$lib/sanity/types'
+import { createAuthorString } from '#lib/helpers/index.js'
+import type { MemberQuery } from '#lib/sanity/types.js'
 
 interface Props {
   authors: MemberQuery[]
