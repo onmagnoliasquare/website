@@ -11,10 +11,21 @@ test.describe.configure({ mode: 'default' })
 
 test.use({ screenshot: 'off', trace: 'off' })
 
-test(`home page loads in under ${loadTimeParameter}ms on average`, async ({ browser }) => {
-  await expectAverageLoadTime(browser, '/', 'domcontentloaded', arithmetic)
-  await expectAverageLoadTime(browser, '/', 'load', arithmetic)
-})
+test(
+  `home page loads in under ${loadTimeParameter}ms on average (domcontent)`,
+  { tag: ['@perforamnce', '@integration'] },
+  async ({ browser }) => {
+    await expectAverageLoadTime(browser, '/', 'domcontentloaded', arithmetic)
+  }
+)
+
+test(
+  `home page loads in under ${loadTimeParameter}ms on average (load)`,
+  { tag: ['@perforamnce', '@integration'] },
+  async ({ browser }) => {
+    await expectAverageLoadTime(browser, '/', 'load', arithmetic)
+  }
+)
 
 test(
   `article page v0.5.x loads in under ${loadTimeParameter}ms on average (domcontent)`,
