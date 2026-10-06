@@ -24,8 +24,6 @@ import ArticleBoxC from '$components/home/ArticleBoxC.svelte'
 import GeneralObserver from '$components/embeds/GeneralObserver.svelte'
 
 import { dev } from '$app/environment'
-import { blocksToText } from '$lib/sanity'
-import { fetchRelatedArticles } from '$lib/sanity/repository'
 import type { ArticleQueryResult, CategoryPageInitialArticles } from '$lib/sanity/types'
 import type { RelatedArticlesTypeAResult } from '$lib/sanity/types.generated'
 import { isAPIError, type APIError } from '$lib/types'
@@ -68,23 +66,14 @@ const getRelatedArticles = async (
 
   let relatedArticles
 
-  const content = blocksToText(article.content)
-  const authors = article.authors.map(val => `"${val._id}"`)
-
   try {
-    relatedArticles = await fetchRelatedArticles(
-      {
-        slug: article.slug,
-        authors,
-      },
-      {
-        title: article.title,
-        date: article.date.slice(0, 4),
-        content,
-        categoryId: article.category._id,
-        authors,
-      }
-    )
+    const params = new URLSearchParams({ category: article.category.slug, slug: article.slug })
+    const req = await fetch(`/api/article/related?${params}`)
+    const articles: RelatedArticlesTypeAResult | APIError = await req.json()
+    if (isAPIError(articles)) {
+      throw new Error(articles.error)
+    }
+    relatedArticles = articles
   } catch (error: unknown) {
     if (dev && error instanceof Error) {
       console.error(error.name, error.message, error.cause)
@@ -203,69 +192,76 @@ const getRelatedArticles = async (
   </footer>
 </article>
 
-<GeneralObserver disable_observer={false}>
-  {@const recentArticles = getRecentArticles(data.article)}
-  <aside>
-    <h2 class="p-4 font-display text-lg font-bold sm:pl-8">Related Articles</h2>
-    <div class="flex grid-cols-6 flex-col sm:grid sm:gap-2">
-      <div class="col-span-3" aria-label="Related Articles">
-        {#await getRelatedArticles(data.article, recentArticles)}
-          <div class="p-4 sm:pl-8">
-            <Loading>
-              <P>Loading related articles...</P>
-            </Loading>
-          </div>
-        {:then ra}
-          {@const relatedArticles = ra.filter(a => a.title !== data.article.title)}
-          <ol class="p-2">
-            {#each relatedArticles as r}
-              <li class="p-2 text-sm sm:p-2 sm:pb-6 sm:text-base">
-                <ArticleBoxC article={r} />
-              </li>
-            {/each}
-          </ol>
-        {:catch error}
-          {@debug error}
-          <P class="m-4 pl-4">Uh oh... something got messed up :(</P>
-          <P class="m-4 pl-4">
-            <a
-              class="font-bold text-nyu-purple-100"
-              href="https://github.com/onmagnoliasquare/website/issues/new?template=05-bug.yml">
-              Let us know by submitting a bug report!
-            </a>
-          </P>
-        {/await}
+<!--
+  This div keeps the observer off the bottom edge of Centered's overflow-y-clip box. WebKit
+  never reports a zero-height target on a clip edge as intersecting, so
+  below sm, where Centered adds no padding, the aside never loaded in Safari.
+-->
+<div class="pb-4 sm:pb-0">
+  <GeneralObserver disable_observer={false} dataTestId="aside-observer">
+    {@const recentArticles = getRecentArticles(data.article)}
+    <aside>
+      <h2 class="p-4 font-display text-lg font-bold sm:pl-8">Related Articles</h2>
+      <div class="flex grid-cols-6 flex-col sm:grid sm:gap-2">
+        <div class="col-span-3" aria-label="Related Articles">
+          {#await getRelatedArticles(data.article, recentArticles)}
+            <div class="p-4 sm:pl-8">
+              <Loading>
+                <P>Loading related articles...</P>
+              </Loading>
+            </div>
+          {:then ra}
+            {@const relatedArticles = ra.filter(a => a.title !== data.article.title)}
+            <ol class="p-2">
+              {#each relatedArticles as r}
+                <li class="p-2 text-sm sm:p-2 sm:pb-6 sm:text-base">
+                  <ArticleBoxC article={r} />
+                </li>
+              {/each}
+            </ol>
+          {:catch error}
+            {@debug error}
+            <P class="m-4 pl-4">Uh oh... something got messed up :(</P>
+            <P class="m-4 pl-4">
+              <a
+                class="font-bold text-nyu-purple-100"
+                href="https://github.com/onmagnoliasquare/website/issues/new?template=05-bug.yml">
+                Let us know by submitting a bug report!
+              </a>
+            </P>
+          {/await}
+        </div>
+        <div class="top-4 col-span-2 h-fit sm:sticky" aria-label="Recent Articles">
+          <h2 class="p-4 font-display text-lg font-bold">Recent {categoryName}</h2>
+          {#await (await recentArticles).slice(0, 5)}
+            <div class="p-4 sm:pl-8">
+              <Loading>
+                <P>Loading recent articles...</P>
+              </Loading>
+            </div>
+          {:then recent}
+            <ol class="p-2">
+              {#each recent as r}
+                <li class="border-t border-dotted p-2 py-6">
+                  <HoverDim>
+                    <a data-sveltekit-reload href="/category/{r.category.slug}/{r.slug}">
+                      <h3 class="pb-2 font-display text-lg leading-tight font-bold hover:underline">
+                        {r.title}
+                      </h3>
+                      <div class="text-sm leading-loose">
+                        <!--							<ByLine authors={r.authors} />-->
+                        <DateLine date={r.date} />
+                      </div>
+                    </a>
+                  </HoverDim>
+                </li>
+              {/each}
+            </ol>
+          {:catch}
+            <P class="m-4 pl-4">Couldn't load recent articles.</P>
+          {/await}
+        </div>
       </div>
-      <div class="top-4 col-span-2 h-fit sm:sticky" aria-label="Recent Articles">
-        <h2 class="p-4 font-display text-lg font-bold">Recent {categoryName}</h2>
-        {#await (await recentArticles).slice(0, 5)}
-          <div class="p-4 sm:pl-8">
-            <Loading>
-              <P>Loading recent articles...</P>
-            </Loading>
-          </div>
-        {:then recent}
-          <ol class="p-2">
-            {#each recent as r}
-              <li class="border-t border-dotted p-2 py-6">
-                <HoverDim>
-                  <a data-sveltekit-reload href="/category/{r.category.slug}/{r.slug}">
-                    <h3 class="pb-2 font-display text-lg leading-tight font-bold hover:underline">
-                      {r.title}
-                    </h3>
-                    <div class="text-sm leading-loose">
-                      <!--							<ByLine authors={r.authors} />-->
-                      <DateLine date={r.date} />
-                    </div>
-                  </a>
-                </HoverDim>
-              </li>
-            {/each}
-          </ol>
-        {:catch}
-          <P class="m-4 pl-4">Couldn't load recent articles.</P>
-        {/await}
-      </div>
-    </div>
-  </aside>
-</GeneralObserver>
+    </aside>
+  </GeneralObserver>
+</div>

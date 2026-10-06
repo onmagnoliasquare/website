@@ -357,12 +357,16 @@ test.describe('v0.6.x Article Features', { tag: '@functional' }, () => {
   })
 
   test('Related article section visible', async ({ page }) => {
+    await page.getByTestId('aside-observer').scrollIntoViewIfNeeded()
     const section = page.getByLabel('Related Articles')
     await expect(section).toBeVisible()
+    await expect(section).toContainText('Fixture Related Article 1')
   })
 
   test('Recent article section visible', async ({ page }) => {
+    await page.getByTestId('aside-observer').scrollIntoViewIfNeeded()
     const section = page.getByLabel('Recent Articles')
     await expect(section).toBeVisible()
+    await expect(section).toContainText('Fixture Recent Article 1')
   })
 })

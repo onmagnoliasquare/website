@@ -9,10 +9,16 @@ import { fade } from 'svelte/transition'
 interface Props {
   threshold?: number
   disable_observer: boolean
+  dataTestId?: string
   children: Snippet
 }
 
-let { threshold = 0.5, disable_observer, children }: Props = $props()
+let {
+  threshold = 0.5,
+  disable_observer,
+  dataTestId = 'general-observer',
+  children,
+}: Props = $props()
 
 let loaded = $state(() => disable_observer)
 let root: HTMLElement
@@ -49,7 +55,7 @@ $effect(() => {
 })
 </script>
 
-<div bind:this={root} data-testid="general-observer">
+<div bind:this={root} data-testid={dataTestId}>
   {#if disable_observer}
     <div transition:fade>
       {@render children()}

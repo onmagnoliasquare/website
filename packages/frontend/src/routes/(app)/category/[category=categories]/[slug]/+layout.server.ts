@@ -25,7 +25,7 @@ export const load: LayoutServerLoad = (async (event: LayoutServerLoadEvent) => {
     }
     if (isHttpError(err)) {
       if (!(err.status >= 500)) {
-        if (err.status == 404) {
+        if (err.status === 404) {
           error(404, 'Article not found 🔍')
         }
       }

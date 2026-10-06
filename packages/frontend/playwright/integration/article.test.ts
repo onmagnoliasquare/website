@@ -368,12 +368,14 @@ test.describe('v0.6.x Article Features', { tag: '@integration' }, () => {
 
   test('Related article section visible', async ({ page }) => {
     await page.goto(v0_6_x_Article.testUrl)
+    await page.getByTestId('aside-observer').scrollIntoViewIfNeeded()
     const section = page.getByLabel('Related Articles')
     await expect(section).toBeVisible()
   })
 
   test('Recent article section visible', async ({ page }) => {
     await page.goto(v0_6_x_Article.testUrl)
+    await page.getByTestId('aside-observer').scrollIntoViewIfNeeded()
     const section = page.getByLabel('Recent Articles')
     await expect(section).toBeVisible()
   })
