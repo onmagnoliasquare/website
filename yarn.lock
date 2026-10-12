@@ -6303,6 +6303,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sanity/ui@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "@sanity/ui@npm:4.4.0"
+  dependencies:
+    "@floating-ui/react-dom": "npm:^2.1.9"
+    "@sanity/color": "npm:^3.0.9"
+    "@sanity/icons": "npm:^5.2.3"
+    "@vanilla-extract/dynamic": "npm:^2.1.5"
+    clsx: "npm:^2.1.1"
+    csstype: "npm:^3.2.3"
+    motion: "npm:^14.0.0"
+    react-is: "npm:^19.3.0"
+    react-refractor: "npm:^4.0.0"
+    use-effect-event: "npm:^2.0.4"
+  peerDependencies:
+    react: ^19.2
+    react-dom: ^19.2
+    styled-components: ^6.1 || ^7.0.0-0
+  checksum: 10c0/dd9f31a620b42d654742a1908e7fb6a1d5213746cb25ec80af8a1818401281ab9528741898025b27233122a32f8c7ab464d48ad4d5616474b92dd9f8da8df24d
+  languageName: node
+  linkType: hard
+
 "@sanity/util@npm:6.18.0":
   version: 6.18.0
   resolution: "@sanity/util@npm:6.18.0"
@@ -8937,7 +8959,7 @@ __metadata:
     react-icons: "npm:5.7.0"
     react-is: "npm:^19.3.0"
     sanity: "npm:6.18.0"
-    sanity-plugin-media: "npm:^6.3.2"
+    sanity-plugin-media: "npm:^6.3.3"
     styled-components: "npm:^6.5.3"
     wrangler: "npm:^4.148.0"
   languageName: unknown
@@ -13062,6 +13084,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nanoid@npm:^6.0.2":
+  version: 6.0.2
+  resolution: "nanoid@npm:6.0.2"
+  bin:
+    nanoid: bin/nanoid.js
+  checksum: 10c0/3c0223d2e658e6bab838af37112731df28eb5146b982e1b89bc1889b7a1476e0a36b4aa37ac6a567e7ebaf22a690d7916a80143a84cef77bd77416d0f1d20b9c
+  languageName: node
+  linkType: hard
+
 "natural-compare@npm:^1.4.0":
   version: 1.4.0
   resolution: "natural-compare@npm:1.4.0"
@@ -14080,7 +14111,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:^7.85.0":
+"react-hook-form@npm:^7.89.0":
   version: 7.89.0
   resolution: "react-hook-form@npm:7.89.0"
   peerDependencies:
@@ -14800,16 +14831,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sanity-plugin-media@npm:^6.3.2":
-  version: 6.3.2
-  resolution: "sanity-plugin-media@npm:6.3.2"
+"sanity-plugin-media@npm:^6.3.3":
+  version: 6.3.3
+  resolution: "sanity-plugin-media@npm:6.3.3"
   dependencies:
     "@hookform/resolvers": "npm:^4.1.3"
     "@reduxjs/toolkit": "npm:^2.12.0"
-    "@sanity/client": "npm:^8.6.1"
+    "@sanity/client": "npm:^8.9.0"
     "@sanity/color": "npm:^3.0.8"
-    "@sanity/icons": "npm:^5.2.2"
-    "@sanity/ui": "npm:^4.2.7"
+    "@sanity/icons": "npm:^5.2.3"
+    "@sanity/ui": "npm:^4.4.0"
     "@sanity/uuid": "npm:^3.0.3"
     "@tanem/react-nprogress": "npm:^5.0.63"
     copy-to-clipboard: "npm:^3.3.3"
@@ -14817,11 +14848,11 @@ __metadata:
     filesize: "npm:^9.0.11"
     groq: "npm:^6.16.0"
     is-hotkey-esm: "npm:^1.0.0"
-    nanoid: "npm:^6.0.1"
+    nanoid: "npm:^6.0.2"
     pluralize: "npm:^8.0.0"
     react-dropzone: "npm:^11.7.1"
     react-file-icon: "npm:^1.6.0"
-    react-hook-form: "npm:^7.85.0"
+    react-hook-form: "npm:^7.89.0"
     react-redux: "npm:^9.3.0"
     react-select: "npm:^5.10.2"
     react-virtuoso: "npm:^4.18.11"
@@ -14834,7 +14865,7 @@ __metadata:
     react-dom: ^19.2
     sanity: ^5 || ^6.0.0-0
     styled-components: ^6.1
-  checksum: 10c0/5129aa797182b9000ec08f7a9a3611cabfca832d39020f129cb2a8e9548f7914a70188d788adc1d8013e0aa83c7132d571decd078861cf9306bfb7805590aaaa
+  checksum: 10c0/4f65c55f7f5fdedf37805f00c3eda08666bacbe7bd70dfec832d0aa63a5288f3ca315ae8e10f8a1f3161d427ab4ee3e7426f09bb793057fc719262df56acfda4
   languageName: node
   linkType: hard
 
