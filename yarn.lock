@@ -6281,7 +6281,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sanity/ui@npm:^4.3.1, @sanity/ui@npm:^4.3.3":
+"@sanity/ui@npm:^4.3.1":
   version: 4.3.3
   resolution: "@sanity/ui@npm:4.3.3"
   dependencies:
@@ -6300,6 +6300,28 @@ __metadata:
     react-dom: ^19.2
     styled-components: ^6.1
   checksum: 10c0/e616e412ee8be255e93086117ea37f53fc4cea660fe947cefdc3f0e9c04a5998ed287d29e5f222fe857ce05d220e12e758348f4ec9a09595f3c033ea48a72d02
+  languageName: node
+  linkType: hard
+
+"@sanity/ui@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "@sanity/ui@npm:4.4.0"
+  dependencies:
+    "@floating-ui/react-dom": "npm:^2.1.9"
+    "@sanity/color": "npm:^3.0.9"
+    "@sanity/icons": "npm:^5.2.3"
+    "@vanilla-extract/dynamic": "npm:^2.1.5"
+    clsx: "npm:^2.1.1"
+    csstype: "npm:^3.2.3"
+    motion: "npm:^14.0.0"
+    react-is: "npm:^19.3.0"
+    react-refractor: "npm:^4.0.0"
+    use-effect-event: "npm:^2.0.4"
+  peerDependencies:
+    react: ^19.2
+    react-dom: ^19.2
+    styled-components: ^6.1 || ^7.0.0-0
+  checksum: 10c0/dd9f31a620b42d654742a1908e7fb6a1d5213746cb25ec80af8a1818401281ab9528741898025b27233122a32f8c7ab464d48ad4d5616474b92dd9f8da8df24d
   languageName: node
   linkType: hard
 
@@ -8922,7 +8944,7 @@ __metadata:
     "@sanity/eslint-config-studio": "npm:^7.0.0"
     "@sanity/icons": "npm:^5.2.3"
     "@sanity/prettier-config": "npm:3.0.0"
-    "@sanity/ui": "npm:^4.3.3"
+    "@sanity/ui": "npm:^4.4.0"
     "@sanity/vision": "npm:^6.18.0"
     "@superside-oss/sanity-plugin-copy-paste": "npm:^1.0.3"
     "@types/node": "npm:26.6.4"
