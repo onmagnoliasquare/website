@@ -258,7 +258,7 @@ jobs:
         if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: yarn workspace frontend ci:test:integration --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
 
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # ratchet:actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # ratchet:actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: blob-report-integration-${{ matrix.shardIndex }}
@@ -297,7 +297,7 @@ jobs:
         if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: yarn workspace frontend ci:test:functional --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
 
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # ratchet:actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # ratchet:actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: blob-report-functional-${{ matrix.shardIndex }}
@@ -336,7 +336,7 @@ jobs:
         if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: yarn workspace frontend ci:test:e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
 
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # ratchet:actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # ratchet:actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: blob-report-e2e-${{ matrix.shardIndex }}
@@ -378,7 +378,7 @@ jobs:
         run: yarn workspace frontend ci:test:performance --reporter=list,html,./playwright/reporters/performance.ts
 
       - name: Upload performance HTML report
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # ratchet:actions/upload-artifact@v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # ratchet:actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: html-report-performance-attempt-${{ github.run_attempt }}
@@ -400,7 +400,7 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Download ${{ matrix.suite }} blob reports
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # ratchet:actions/download-artifact@v8
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # ratchet:actions/download-artifact@v8
         with:
           path: packages/frontend/all-blob-reports
           pattern: blob-report-${{ matrix.suite }}-*
@@ -410,7 +410,7 @@ jobs:
         run: yarn workspace frontend playwright merge-reports --reporter html,github ./all-blob-reports
 
       - name: Upload ${{ matrix.suite }} HTML report
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # ratchet:actions/upload-artifact@v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # ratchet:actions/upload-artifact@v7
         with:
           name: html-report-${{ matrix.suite }}-attempt-${{ github.run_attempt }}
           path: packages/frontend/playwright-report
