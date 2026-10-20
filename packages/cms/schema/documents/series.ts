@@ -4,7 +4,6 @@ import {InfoGroup, ContentGroup, SeoGroup} from '../objects/fieldGroups'
 import requiredFormattedString from '../primitives/requiredFormattedString'
 import requiredFormattedText from '../primitives/requiredFormattedText'
 import metadataInformation from '../objects/metadataInformation'
-import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 import {validateSlug} from '../../lib/validation'
 
 export default defineType({
@@ -59,7 +58,6 @@ export default defineType({
       type: metadataInformation.name,
       group: SeoGroup.name,
     }),
-    defineField(copyPaste),
   ],
   preview: {
     select: {
