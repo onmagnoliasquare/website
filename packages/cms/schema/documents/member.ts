@@ -6,7 +6,6 @@ import formattedText from '../primitives/formattedText'
 import fromLocation from '../objects/fromLocation'
 import requiredFormattedString from '../primitives/requiredFormattedString'
 import formattedString from '../primitives/formattedString'
-import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 import {validateSlug} from '../../lib/validation'
 
 /**
@@ -135,7 +134,6 @@ export default defineType({
       type: metadataInformation.name,
       group: SeoGroup.name,
     }),
-    defineField(copyPaste),
   ],
   preview: {
     select: {

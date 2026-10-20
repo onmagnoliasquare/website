@@ -1,5 +1,4 @@
 import {UsersIcon} from '@sanity/icons/Users'
-import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 import {defineField, defineType} from 'sanity'
 import metadataInformation from '../objects/metadataInformation'
 import requiredFormattedString from '../primitives/requiredFormattedString'
@@ -51,7 +50,6 @@ export default defineType({
       name: 'metaInfo',
       type: metadataInformation.name,
     }),
-    defineField(copyPaste),
   ],
   preview: {
     select: {

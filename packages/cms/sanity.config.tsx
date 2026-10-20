@@ -1,7 +1,6 @@
 import {BookIcon} from '@sanity/icons/Book'
 import {RobotIcon} from '@sanity/icons/Robot'
 import {visionTool} from '@sanity/vision'
-import {copyPastePlugin} from '@superside-oss/sanity-plugin-copy-paste'
 import type {Config, WorkspaceOptions} from 'sanity'
 import {defineConfig, isDev, type NavbarProps, useWorkspace} from 'sanity'
 import {structureTool} from 'sanity/structure'
@@ -57,7 +56,6 @@ const baseWorkspace: Config = {
         enabled: true,
       },
     }),
-    copyPastePlugin(),
     customDocumentActions(),
     ...(isDev ? devOnlyPlugins : []),
   ],
