@@ -1,10 +1,10 @@
 import {UsersIcon} from '@sanity/icons/Users'
 import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 import {defineField, defineType} from 'sanity'
-import slugValidator from '../../lib/slugValidator'
 import metadataInformation from '../objects/metadataInformation'
 import requiredFormattedString from '../primitives/requiredFormattedString'
 import requiredFormattedText from '../primitives/requiredFormattedText'
+import {validateSlug} from '../../lib/validation'
 
 export default defineType({
   name: 'committee',
@@ -25,7 +25,7 @@ export default defineType({
       options: {
         source: 'name',
         maxLength: 200,
-        slugify: (input: string) => slugValidator(input),
+        slugify: (input: string) => validateSlug(input),
       },
       validation: rule => rule.required(),
     }),
