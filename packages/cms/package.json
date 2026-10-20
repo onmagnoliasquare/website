@@ -2,7 +2,7 @@
   "name": "cms",
   "main": "package.json",
   "type": "module",
-  "version": "0.8.4",
+  "version": "0.9.0",
   "scripts": {
     "dev": "sanity dev",
     "start": "sanity start",
