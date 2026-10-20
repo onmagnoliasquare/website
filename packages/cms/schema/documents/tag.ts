@@ -1,11 +1,11 @@
 import {TagIcon} from '@sanity/icons/Tag'
 import {defineField, defineType} from 'sanity'
-import slugValidator from '../../lib/slugValidator'
 import {InfoGroup, ContentGroup, SeoGroup} from '../objects/fieldGroups'
 import requiredFormattedString from '../primitives/requiredFormattedString'
 import requiredFormattedText from '../primitives/requiredFormattedText'
 import metadataInformation from '../objects/metadataInformation'
 import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
+import {validateSlug} from '../../lib/validation'
 
 /**
  * A tag can be attached to an article. It lets us organize content into
@@ -33,7 +33,7 @@ export default defineType({
       options: {
         source: 'name',
         maxLength: 200,
-        slugify: (input: string) => slugValidator(input),
+        slugify: (input: string) => validateSlug(input),
       },
       validation: rule => rule.required(),
       group: InfoGroup.name,

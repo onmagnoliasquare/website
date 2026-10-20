@@ -1,6 +1,5 @@
 import {UserIcon} from '@sanity/icons/User'
 import {defineField, defineType} from 'sanity'
-import slugValidator from '../../lib/slugValidator'
 import {InfoGroup, ContentGroup, SeoGroup} from '../objects/fieldGroups'
 import metadataInformation from '../objects/metadataInformation'
 import formattedText from '../primitives/formattedText'
@@ -8,6 +7,7 @@ import fromLocation from '../objects/fromLocation'
 import requiredFormattedString from '../primitives/requiredFormattedString'
 import formattedString from '../primitives/formattedString'
 import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
+import {validateSlug} from '../../lib/validation'
 
 /**
  * A "member" is someone who produces content for our organization.
@@ -51,7 +51,7 @@ export default defineType({
       options: {
         source: 'name',
         maxLength: 200,
-        slugify: (input: string) => slugValidator(input),
+        slugify: (input: string) => validateSlug(input),
       },
       validation: rule => rule.required(),
       group: InfoGroup.name,
@@ -125,7 +125,7 @@ export default defineType({
     defineField({
       name: 'handles',
       title: 'Social Media',
-      description: 'Optional usernames for social platforms.',
+      description: 'Optional usernames for social platforms. A leading @ symbol is not needed.',
       type: 'handles',
       group: ContentGroup.name,
     }),

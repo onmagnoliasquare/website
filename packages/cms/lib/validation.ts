@@ -1,19 +1,41 @@
-// Modified version of: https://chat.openai.com/share/79be13ea-801d-47ab-b2f5-695be8a58430
+import {CustomValidatorResult} from 'sanity'
+
+/**
+ * validateAtSymbol is checks for an initial `@` symbol at the beginning of a string.
+ * @param value string to validate `@` symbol existence
+ * @returns CustomValidatorResult
+ */
+export function validateAtSymbol(value: string): CustomValidatorResult {
+  if (value.length > 0 && value.at(0) === '@') {
+    return 'Remove @ symbol'
+  }
+  return true
+}
+
+/**
+ * validateWhitespace is a checks for whitespaces at the beginning or end of a string.
+ * @param value string to validate the whitespace of
+ * @returns CustomValidatorResult
+ */
+export default function validateWhitespace(value: string): CustomValidatorResult {
+  if (value.trim().length !== value.length) {
+    return 'Remove spaces before or after string'
+  }
+  return true
+}
 
 // Useful links:
 // https://en.wikipedia.org/wiki/Unicode_equivalence#Normal_forms
 
 /**
- * slugValidator validates a slug from Sanity. It formats
- * it from a title or user input. All of the `.replace`
- * functions can be combined into a single `replace`, but it
- * would have an extremely, extremely long regex string.
- * This is unreadable, and therefore, makes more sense to split
- * them for readability and debugging purposes.
+ * validateSlug validates a slug. It formats it from a title or user input. All of the `.replace`
+ * functions can be combined into a single `replace`, but it would have an extremely,
+ * extremely long regex string. For "sanity's" sake (lol), split them for readability and
+ * debugging purposes.
  * @param slug
  * @returns formatted slug
  */
-export default function slugValidator(slug: string): string {
+export function validateSlug(slug: string): string {
   let newSlug = slug
 
     // Make everything lowercase.

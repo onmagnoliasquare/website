@@ -1,10 +1,10 @@
 import {TiersIcon} from '@sanity/icons/Tiers'
 import {defineField, defineType} from 'sanity'
-import slugValidator from '../../lib/slugValidator'
 import {ContentGroup, InfoGroup, SeoGroup} from '../objects/fieldGroups'
 import requiredFormattedText from '../primitives/requiredFormattedText'
 import requiredFormattedString from '../primitives/requiredFormattedString'
 import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
+import {validateSlug} from '../../lib/validation'
 
 /**
  * A category defines the navbar headings on the website. It also defines their
@@ -32,7 +32,7 @@ export default defineType({
       options: {
         source: 'title',
         maxLength: 200,
-        slugify: (input: string) => slugValidator(input),
+        slugify: (input: string) => validateSlug(input),
       },
       validation: rule => rule.required(),
       group: InfoGroup.name,

@@ -3,12 +3,12 @@ import {TagsIcon} from '@sanity/icons/Tags'
 import type {ReactNode} from 'react'
 import {defineArrayMember, defineField, defineType, type Image} from 'sanity'
 import abbreviateName from '../../lib/abbreviateName'
-import slugValidator from '../../lib/slugValidator'
 import blockContent from '../objects/blockContent'
 import {ContentGroup, InfoGroup, SeoGroup} from '../objects/fieldGroups'
 import metadataInformation from '../objects/metadataInformation'
 import formattedText from '../primitives/formattedText'
 import requiredFormattedString from '../primitives/requiredFormattedString'
+import {validateSlug} from '../../lib/validation'
 
 // Portable text editor configuration on Sanity docs:
 // https://www.sanity.io/docs/portable-text-editor-configuration
@@ -36,7 +36,7 @@ export default defineType({
       options: {
         source: 'title',
         maxLength: 200,
-        slugify: (input: string) => slugValidator(input),
+        slugify: (input: string) => validateSlug(input),
       },
       validation: rule => rule.required(),
       group: InfoGroup.name,

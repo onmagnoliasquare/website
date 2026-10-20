@@ -1,11 +1,11 @@
 import {StackIcon} from '@sanity/icons/Stack'
 import {defineField, defineType} from 'sanity'
-import slugValidator from '../../lib/slugValidator'
 import {InfoGroup, ContentGroup, SeoGroup} from '../objects/fieldGroups'
 import requiredFormattedString from '../primitives/requiredFormattedString'
 import requiredFormattedText from '../primitives/requiredFormattedText'
 import metadataInformation from '../objects/metadataInformation'
 import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
+import {validateSlug} from '../../lib/validation'
 
 export default defineType({
   name: 'series',
@@ -28,7 +28,7 @@ export default defineType({
       options: {
         source: 'name',
         maxLength: 200,
-        slugify: (input: string) => slugValidator(input),
+        slugify: (input: string) => validateSlug(input),
       },
       validation: rule => rule.required(),
       group: InfoGroup.name,
