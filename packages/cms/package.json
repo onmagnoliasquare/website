@@ -37,7 +37,7 @@
     "@sanity/prettier-config": "3.0.0",
     "@types/node": "26.6.5",
     "@types/react": "^19.3.0",
-    "baseline-browser-mapping": "2.11.30",
+    "baseline-browser-mapping": "2.11.31",
     "eslint": "^10.13.0",
     "prettier": "^3.9.10",
     "prettier-plugin-tailwindcss": "^0.8.1",
