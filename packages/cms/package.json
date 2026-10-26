@@ -41,6 +41,6 @@
     "eslint": "^10.13.0",
     "prettier": "^3.9.10",
     "prettier-plugin-tailwindcss": "^0.8.1",
-    "wrangler": "^4.151.3"
+    "wrangler": "^4.152.0"
   }
 }
