@@ -50,7 +50,7 @@
     "@playwright/test": "^1.64.1",
     "@sanity-labs/eslint-plugin": "1.0.2",
     "@sanity-labs/prettier-plugin-groq": "1.0.3",
-    "@sanity/cli": "^8.21.0",
+    "@sanity/cli": "^8.22.1",
     "@sanity/codegen": "8.2.0",
     "@sanity/types": "6.20.0",
     "@sveltejs/adapter-auto": "^8.0.0",
