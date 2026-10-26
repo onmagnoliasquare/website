@@ -5401,9 +5401,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sanity/codegen@npm:8.2.0, @sanity/codegen@npm:^8.2.0":
-  version: 8.2.0
-  resolution: "@sanity/codegen@npm:8.2.0"
+"@sanity/codegen@npm:8.3.0":
+  version: 8.3.0
+  resolution: "@sanity/codegen@npm:8.3.0"
   dependencies:
     "@babel/core": "npm:^7.29.7"
     "@babel/generator": "npm:^7.29.7"
@@ -5431,7 +5431,7 @@ __metadata:
   peerDependenciesMeta:
     oxfmt:
       optional: true
-  checksum: 10c0/0b337fc0978bfdcf363bdfb98c2754aa352304c467129e6e5716683125171d7507e2d05370a57dff753cbad418795fb5538ce366c0c1b436c724eb87eb428e7e
+  checksum: 10c0/dab2d2251899d3a05abaadf37e59ce3f8ff91b23dd50645cb18a5fec8083a24f53ae7c79e62ab865a0dc2cb85c8b6937fe81a6d29f9c7325e275a80470fb3c55
   languageName: node
   linkType: hard
 
@@ -5467,6 +5467,40 @@ __metadata:
   bin:
     sanity-typegen: bin/run.js
   checksum: 10c0/4e29edd11567796ff57fee0b3ae2955051997fb38dad91d3002540d613ca703f06584c04c04c000f09bb140da98613990105d53410bd947ca1077b90e4186e89
+  languageName: node
+  linkType: hard
+
+"@sanity/codegen@npm:^8.2.0":
+  version: 8.2.0
+  resolution: "@sanity/codegen@npm:8.2.0"
+  dependencies:
+    "@babel/core": "npm:^7.29.7"
+    "@babel/generator": "npm:^7.29.7"
+    "@babel/preset-env": "npm:^7.29.7"
+    "@babel/preset-react": "npm:^7.29.7"
+    "@babel/preset-typescript": "npm:^7.29.7"
+    "@babel/register": "npm:^7.29.7"
+    "@babel/traverse": "npm:^7.29.7"
+    "@babel/types": "npm:^7.29.7"
+    "@sanity/telemetry": "npm:^1.1.0"
+    "@sanity/worker-channels": "npm:^2.0.0"
+    chokidar: "npm:^3.6.0"
+    globby: "npm:^11.1.0"
+    groq: "npm:^6.0.0"
+    groq-js: "npm:^2.0.0"
+    json5: "npm:^2.2.3"
+    lodash-es: "npm:^4.18.1"
+    obug: "npm:^3.0.0"
+    prettier: "npm:^3.8.3"
+    reselect: "npm:^5.2.0"
+    tsconfig-paths: "npm:^4.2.0"
+    valibot: "npm:^1.4.2"
+  peerDependencies:
+    oxfmt: "*"
+  peerDependenciesMeta:
+    oxfmt:
+      optional: true
+  checksum: 10c0/0b337fc0978bfdcf363bdfb98c2754aa352304c467129e6e5716683125171d7507e2d05370a57dff753cbad418795fb5538ce366c0c1b436c724eb87eb428e7e
   languageName: node
   linkType: hard
 
@@ -10705,7 +10739,7 @@ __metadata:
     "@sanity-labs/prettier-plugin-groq": "npm:1.0.3"
     "@sanity/cli": "npm:^8.21.0"
     "@sanity/client": "npm:^8.10.0"
-    "@sanity/codegen": "npm:8.2.0"
+    "@sanity/codegen": "npm:8.3.0"
     "@sanity/image-url": "npm:^2.1.1"
     "@sanity/types": "npm:6.20.0"
     "@sveltejs/adapter-auto": "npm:^8.0.0"
