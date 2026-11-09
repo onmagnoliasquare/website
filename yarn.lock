@@ -10571,7 +10571,7 @@ __metadata:
     eslint-config-prettier: "npm:^10.1.8"
     eslint-plugin-svelte: "npm:^3.23.1"
     groq: "npm:^6.21.0"
-    playwright-core: "npm:^1.64.1"
+    playwright-core: "npm:^1.65.0"
     prettier: "npm:^3.9.10"
     prettier-plugin-svelte: "npm:4.1.1"
     super-sitemap: "npm:2.0.6"
@@ -13205,12 +13205,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.64.1, playwright-core@npm:^1.64.1":
+"playwright-core@npm:1.64.1":
   version: 1.64.1
   resolution: "playwright-core@npm:1.64.1"
   bin:
     playwright-core: cli.js
   checksum: 10c0/91c4f5ed1cff4b0e18b6ac62f66770f5f1b6c204d4aebd6a321c07466dca18a70822ac692597c6059705a703f9768097ac551df179fb49294d639509148e04f3
+  languageName: node
+  linkType: hard
+
+"playwright-core@npm:^1.65.0":
+  version: 1.65.0
+  resolution: "playwright-core@npm:1.65.0"
+  bin:
+    playwright-core: cli.js
+  checksum: 10c0/ed905c6fc2457a725c3fdb3ad4500f43c7a1bb2c6e4e8c708e1e314930c7dce446a5756ad073425bf3c6e3ca975e5a35fb0221118e2d51ef7b4b6c6d13d0644c
   languageName: node
   linkType: hard
 
